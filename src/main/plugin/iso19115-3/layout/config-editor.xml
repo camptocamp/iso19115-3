@@ -2,6 +2,7 @@
 <editor xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:noNamespaceSchemaLocation="../../config-editor.xsd"
   xmlns:gn="http://www.fao.org/geonetwork"
+  xmlns:gml="http://www.opengis.net/gml/3.2"
   xmlns:srv="http://standards.iso.org/19115/-3/srv/2.0"
   xmlns:mdb="http://standards.iso.org/19115/-3/mdb/1.0"
   xmlns:mcc="http://standards.iso.org/19115/-3/mcc/1.0"
@@ -79,7 +80,7 @@
     <!-- gmx:FileName/@src attribute -->
     <for name="src" use="data-gn-logo-selector"/>
 
-    <for name="gmd:electronicMailAddress" use="email"/>
+    <for name="cit:electronicMailAddress" use="email"/>
 
     <for name="lan:language" use="data-gn-language-picker"/>
     <for name="lan:languageCode" use="data-gn-language-picker"/>
@@ -110,7 +111,7 @@
               data-filter='{"_root": "cit:CI_Responsibility"}'
               data-variables="cit:role/cit:CI_RoleCode/@codeListValue~{role}"/>
     </for>
-    <for name="gmd:processor" addDirective="data-gn-directory-entry-selector">
+    <for name="mrl:processor" addDirective="data-gn-directory-entry-selector">
       <directiveAttributes
               data-template-add-action="true"
               data-template-type="contact"
@@ -336,6 +337,808 @@
         <for name="cit:CI_Organisation"/>
       </flatModeExceptions>
     </view>
+    <!--
+    MedSea checkpoint view
+    https://forge.ifremer.fr/mantis/view.php?id=21605
+    -->
+    <view name="medsea"
+          upAndDownControlHidden="true"
+          displayIfRecord="contains(mdb:MD_Metadata/mdb:metadataStandard/
+                                        */cit:title/gco:CharacterString, 'MedSea Checkpoint')">
+
+      <thesaurusList>
+        <thesaurus key="local.theme.medsea.environmental.matrix" maxtags="1"/>
+        <thesaurus key="local.theme.medsea.visibility" maxtags="1"/>
+        <thesaurus key="local.theme.medsea.policy.visibility" maxtags="1"/>
+        <thesaurus key="external.theme.inspire-theme" maxtags="1"/>
+        <thesaurus key="local.theme.medsea.level.of.characteristics" maxtags="1"/>
+        <thesaurus key="local.theme.medsea.production.mode" maxtags="1"/>
+        <thesaurus key="local.theme.medsea.readyness" maxtags="1"/>
+        <thesaurus key="local.theme.medsea.data.delivery.mechanism" maxtags="1"/>
+        <thesaurus key="external.parameter.NVS.P03" maxtags="1"/>
+        <thesaurus key="external.parameter.NVS.P01" maxtags="1"/>
+        <thesaurus key="external.parameter.NVS.P02" maxtags="1"/>
+      </thesaurusList>
+      <tab id="characteristics" mode="flat" default="true">
+        <section>
+
+          <field
+                  name="environmental-matrix"
+                  xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/
+                    mri:descriptiveKeywords
+                    [contains(*/mri:thesaurusName/cit:CI_Citation/cit:title/gco:CharacterString,
+                    'Environmental matrix')]"/>
+
+          <field
+                  name="p03"
+                  xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/
+                    mri:descriptiveKeywords
+                    [contains(*/mri:thesaurusName/cit:CI_Citation/cit:identifier/*/mcc:code/*/text(),
+                    'NVS.P03')]"/>
+
+          <field
+                  name="sdn-parameter-discovery"
+                  xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/
+                    mri:descriptiveKeywords
+                    [contains(*/mri:thesaurusName/cit:CI_Citation/cit:identifier/*/mcc:code/*/text(),
+                    'NVS.P02')]"/>
+
+          <field
+                  name="p01"
+                  xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/
+                    mri:descriptiveKeywords
+                    [contains(*/mri:thesaurusName/cit:CI_Citation/cit:identifier/*/mcc:code/*/text(),
+                    'parameter.NVS.P01')]"/>
+          <field
+                  name="otherP01"
+                  xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/
+                    mri:descriptiveKeywords/*
+                    [contains(mri:thesaurusName/cit:CI_Citation/cit:title/gco:CharacterString,
+                    'Parameter Usage Vocabulary (other)')]/mri:keyword"/>
+
+          <field
+                  name="inspireTheme"
+                  xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/
+                    mri:descriptiveKeywords
+                    [contains(*/mri:thesaurusName/cit:CI_Citation/cit:title/gco:CharacterString,
+                    'INSPIRE themes')]"/>
+
+
+          <field
+                  name="level-of-characteristics"
+                  xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/
+                    mri:descriptiveKeywords
+                    [contains(*/mri:thesaurusName/cit:CI_Citation/cit:title/gco:CharacterString,
+                    'Processing level of characteristics')]"/>
+
+          <field
+                  name="production-mode"
+                  xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/
+                    mri:descriptiveKeywords
+                    [contains(*/mri:thesaurusName/cit:CI_Citation/cit:title/gco:CharacterString,
+                    'Production mode')]"/>
+        </section>
+      </tab>
+
+
+
+      <tab id="datasources">
+        <section>
+
+          <!--
+          Ne pas utiliser de référence croisée mais bien utiliser du texte libre
+          pour ‘Program name’ et la liste seadatanet pour ‘Edmerp Identifier’
+          (qui n’est pas encore accessible dans le template). Utiliser la balise
+          XML ‘Reconnaissance’ pour le project /programme name
+          <field
+              name="programName"
+              xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/
+                gmd:aggregationInfo/gmd:MD_AggregateInformation[
+                gmd:initiativeType/gmd:DS_InitiativeTypeCode/@codeListValue = 'program']/
+                gmd:aggregateDataSetName/gmd:CI_Citation/gmd:title"/>
+          <field
+              name="edmerpName"
+              xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/
+                gmd:aggregationInfo/gmd:MD_AggregateInformation[
+                gmd:initiativeType/gmd:DS_InitiativeTypeCode/@codeListValue = 'project']/
+                gmd:aggregateDataSetName/gmd:CI_Citation/gmd:title"/>
+-->
+
+          <!--
+          Do not store EDMERP in keyword anymore. Use a contact with a specific role.
+          <field
+                   name="edmerpName"
+                   xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/
+                 gmd:descriptiveKeywords
+                 [contains(gmd:MD_Keywords/gmd:thesaurusName/gmd:CI_Citation/gmd:title/gco:CharacterString,
+                 'SDN EDMERP Identifier')]"/>-->
+
+
+
+          <field name="edmerpName" templateModeOnly="true" notDisplayedIfMissing="true"
+                 xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:pointOfContact[*/cit:role/*/@codeListValue='edmerp']"
+                 del="."
+                 if="count(mdb:MD_Metadata/mdb:identificationInfo/*) > 0">
+            <template>
+              <values readonlyIf="true()">
+                <key label="projectTitle"
+                     xpath="*/cit:organisationName/gco:CharacterString"/>
+                <key label="acronym"
+                     xpath="*/cit:individualName/gco:CharacterString"/>
+                <key label="edmerpId"
+                     xpath="cit:CI_Responsibility/@id"/>
+              </values>
+              <snippet>
+                <!-- TODO : add gn:copy -->
+                <mri:pointOfContact>
+                  <cit:CI_Responsibility id="{{edmerpId}}">
+                    <gn:copy select="cit:role"/>
+                    <cit:party>
+                      <cit:CI_Organisation>
+                        <cit:name>
+                          <gco:CharacterString>{{projectTitle}}</gco:CharacterString>
+                        </cit:name>
+                        <cit:individual>
+                          <cit:CI_Individual>
+                            <cit:name>
+                              <gco:CharacterString>{{acronym}}</gco:CharacterString>
+                            </cit:name>
+                          </cit:CI_Individual>
+                        </cit:individual>
+                      </cit:CI_Organisation>
+                    </cit:party>
+                  </cit:CI_Responsibility>
+                </mri:pointOfContact>
+              </snippet>
+            </template>
+          </field>
+
+
+          <action type="add"
+                  name="edmerpName"
+                  addDirective="data-gn-directory-entry-selector"
+                  or="pointOfContact"
+                  in="/mdb:MD_Metadata/mdb:identificationInfo/*"
+                  if="count(mdb:MD_Metadata/mdb:identificationInfo/*/mri:pointOfContact[*/cit:role/*/@codeListValue='edmerp']) = 0">
+            <directiveAttributes
+                    data-template-add-action="false"
+                    data-template-type="contact"
+                    data-filter='{"_groupPublished": "CONTACTS_EDMERP"}'
+                    data-variables="gmd:role/gmd:CI_RoleCode/@codeListValue~edmerp"/>
+            <!-- TODO subtemplates in ISO19115-3-->
+          </action>
+
+          <text ref="edmerp-help"/>
+
+          <field
+                  name="programName"
+                  xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:credit"/>
+
+
+          <!--<field
+                  xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/
+                gmd:descriptiveKeywords
+                [contains(gmd:MD_Keywords/gmd:thesaurusName/gmd:CI_Citation/gmd:title/gco:CharacterString,
+                'SDN EDMO Identifier')]"/>-->
+
+          <field name="edmoName" templateModeOnly="true" notDisplayedIfMissing="true"
+                 xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:pointOfContact[*/cit:role/*/@codeListValue='edmo']"
+                 del="."
+                 if="count(mdb:MD_Metadata/mdb:identificationInfo/*/mri:pointOfContact[*/cit:role/*/@codeListValue='edmo']) != 0">
+            <template>
+              <values readonlyIf="true()">
+                <key label="organisationName"
+                     xpath="*/cit:organisationName/gco:CharacterString"/>
+                <key label="edmoId"
+                     xpath="cit:CI_Responsibility/@id"/>
+              </values>
+              <snippet>
+                <!-- TODO : add gn:copy -->
+                <mri:pointOfContact>
+                  <cit:CI_Responsibility id="{{edmoId}}">
+                    <gn:copy select="cit:role"/>
+                    <cit:party>
+                      <cit:CI_Organisation>
+                        <cit:name>
+                          <gco:CharacterString>{{organisationName}}</gco:CharacterString>
+                        </cit:name>
+                        <gn:copy select="individual"/>
+                      </cit:CI_Organisation>
+                    </cit:party>
+                  </cit:CI_Responsibility>
+                </mri:pointOfContact>
+
+                <!--<mri:pointOfContact>
+                  <cit:CI_Responsibility id="{{edmoId}}">
+                    <gn:copy select="cit:individualName"/>
+                    <gmd:organisationName>
+                      <gco:CharacterString>{{organisationName}}</gco:CharacterString>
+                    </gmd:organisationName>
+                    <gn:copy select="gmd:positionName"/>
+                    <gn:copy select="gmd:contactInfo"/>
+                    <gn:copy select="gmd:role"/>
+                  </cit:CI_Responsibility>
+                </mri:pointOfContact>-->
+              </snippet>
+            </template>
+          </field>
+          <action type="add"
+                  name="edmoName"
+                  forceLabel="true"
+                  addDirective="data-gn-directory-entry-selector"
+                  or="pointOfContact"
+                  in="/mdb:MD_Metadata/mdb:identificationInfo/*"
+                  if="count(mdb:MD_Metadata/mdb:identificationInfo/*/mri:pointOfContact[*/cit:role/*/@codeListValue='edmo']) = 0">
+            <directiveAttributes
+                    data-template-add-action="false"
+                    data-template-type="contact"
+                    data-filter='{"_groupPublished": "CONTACTS_EDMO"}'
+                    data-variables="gmd:role/gmd:CI_RoleCode/@codeListValue~edmo"/>
+            <!-- TODO subtemplates in ISO19115-3-->
+          </action>
+
+
+
+          <field name="dataProvider" templateModeOnly="true"
+                 xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:pointOfContact[
+                 */cit:role/*/@codeListValue = 'resourceProvider']">
+            <template>
+              <values readonlyIf="count(@xlink:href) > 0">
+                <key label="organisationName"
+                     xpath="*/cit:organisationName/gco:CharacterString"/>
+              </values>
+              <snippet>
+
+                <!-- TODO : add gn:copy -->
+                <mri:pointOfContact>
+                  <cit:CI_Responsibility>
+                    <gn:copy select="cit:role"/>
+                    <cit:party>
+                      <cit:CI_Organisation>
+                        <cit:name>
+                          <gco:CharacterString>{{organisationName}}</gco:CharacterString>
+                        </cit:name>
+                        <cit:individual>
+                          <cit:CI_Individual>
+                            <cit:name>
+                              <gco:CharacterString>{{acronym}}</gco:CharacterString>
+                            </cit:name>
+                          </cit:CI_Individual>
+                        </cit:individual>
+                      </cit:CI_Organisation>
+                    </cit:party>
+                  </cit:CI_Responsibility>
+                </mri:pointOfContact>
+
+
+                <!--<mri:pointOfContact>
+                  <cit:CI_Responsibility>
+                    <gn:copy select="cit:individualName"/>
+                    <gmd:organisationName>
+                      <gco:CharacterString>{{organisationName}}</gco:CharacterString>
+                    </gmd:organisationName>
+                    <gn:copy select="gmd:positionName"/>
+                    <gmd:contactInfo>
+                      <gmd:CI_Contact>
+                        <gn:copy select="gmd:phone"/>
+                        <gmd:address>
+                          <gmd:CI_Address>
+                            <gn:copy select="gmd:deliveryPoint"/>
+                            <gn:copy select="gmd:city"/>
+                            <gn:copy select="gmd:administrativeArea"/>
+                            <gn:copy select="gmd:postalCode"/>
+                            <gn:copy select="gmd:country"/>
+                            <gn:copy select="gmd:electronicMailAddress"/>
+                          </gmd:CI_Address>
+                        </gmd:address>
+                        <gn:copy select="gmd:onlineResource"/>
+                        <gn:copy select="gmd:hoursOfService"/>
+                        <gn:copy select="gmd:contactInstructions"/>
+                      </gmd:CI_Contact>
+                    </gmd:contactInfo>
+                    <gn:copy select="gmd:role"/>
+                  </cit:CI_Responsibility>
+                </mri:pointOfContact>-->
+              </snippet>
+            </template>
+          </field>
+          <text ref="dataProvider-help"/>
+
+          <!-- edmoProducerName -->
+          <field name="edmoProducerName" templateModeOnly="true"
+                 xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:pointOfContact[
+                                            */cit:role/*/@codeListValue = 'originator']"
+                 del="."
+                 if="count(mdb:MD_Metadata/mdb:identificationInfo/*/mri:pointOfContact[*/cit:role/*/@codeListValue='originator']) != 0">
+            <template>
+              <values readonlyIf="count(@xlink:href) > 0">
+                <key label="organisationName"
+                     xpath="*/cit:organisationName/gco:CharacterString"/>
+              </values>
+              <snippet>
+
+                <!-- TODO : add gn:copy -->
+                <mri:pointOfContact>
+                  <cit:CI_Responsibility>
+                    <gn:copy select="cit:role"/>
+                    <cit:party>
+                      <cit:CI_Organisation>
+                        <cit:name>
+                          <gco:CharacterString>{{organisationName}}</gco:CharacterString>
+                        </cit:name>
+                        <!--<cit:individual>
+                          <cit:CI_Individual>
+                            <cit:name>
+                              <gco:CharacterString>{{acronym}}</gco:CharacterString>
+                            </cit:name>
+                          </cit:CI_Individual>
+                        </cit:individual>-->
+                      </cit:CI_Organisation>
+                    </cit:party>
+                  </cit:CI_Responsibility>
+                </mri:pointOfContact>
+                <!--
+                <mri:pointOfContact>
+                  <cit:CI_Responsibility>
+                    <gn:copy select="cit:individualName"/>
+                    <gmd:organisationName>
+                      <gco:CharacterString>{{organisationName}}</gco:CharacterString>
+                    </gmd:organisationName>
+                    <gn:copy select="gmd:positionName"/>
+                    <gmd:contactInfo>
+                      <gmd:CI_Contact>
+                        <gn:copy select="gmd:phone"/>
+                        <gmd:address>
+                          <gmd:CI_Address>
+                            <gn:copy select="gmd:deliveryPoint"/>
+                            <gn:copy select="gmd:city"/>
+                            <gn:copy select="gmd:administrativeArea"/>
+                            <gn:copy select="gmd:postalCode"/>
+                            <gn:copy select="gmd:country"/>
+                            <gn:copy select="gmd:electronicMailAddress"/>
+                          </gmd:CI_Address>
+                        </gmd:address>
+                        <gn:copy select="gmd:onlineResource"/>
+                        <gn:copy select="gmd:hoursOfService"/>
+                        <gn:copy select="gmd:contactInstructions"/>
+                      </gmd:CI_Contact>
+                    </gmd:contactInfo>
+                    <gn:copy select="gmd:role"/>
+                  </cit:CI_Responsibility>
+                </mri:pointOfContact>-->
+              </snippet>
+            </template>
+          </field>
+          <action type="add"
+                  name="edmoProducerNameSearch"
+                  forceLabel="true"
+                  addDirective="data-gn-directory-entry-selector"
+                  or="pointOfContact"
+                  in="/mdb:MD_Metadata/mdb:identificationInfo/*">
+            <directiveAttributes
+                    data-template-add-action="false"
+                    data-template-type="contact"
+                    data-filter='{"_groupPublished": "CONTACTS_EDMO"}'
+                    data-variables="gmd:role/gmd:CI_RoleCode/@codeListValue~originator"/>
+          </action>
+          <action type="add" name="producerName"
+                  or="pointOfContact"
+                  in="/mdb:MD_Metadata/mdb:identificationInfo/*">
+            <template>
+              <snippet>
+                <mri:pointOfContact>
+                  <cit:CI_Responsibility>
+                    <cit:role>
+                      <cit:CI_RoleCode codeList="codeListLocation#CI_RoleCode"
+                                       codeListValue="originator">originator</cit:CI_RoleCode>
+                    </cit:role>
+                    <cit:party>
+                      <cit:CI_Organisation>
+                        <cit:name>
+                          <gco:CharacterString></gco:CharacterString>
+                        </cit:name>
+                        <cit:contactInfo>
+                          <cit:CI_Contact>
+                            <cit:address>
+                              <cit:CI_Address>
+                                <cit:electronicMailAddress gco:nilReason="missing">
+                                  <gco:CharacterString/>
+                                </cit:electronicMailAddress>
+                              </cit:CI_Address>
+                            </cit:address>
+                          </cit:CI_Contact>
+                        </cit:contactInfo>
+                      </cit:CI_Organisation>
+                    </cit:party>
+                  </cit:CI_Responsibility>
+                </mri:pointOfContact>
+              </snippet>
+            </template>
+          </action>
+
+
+          <field name="medseaHierarchyLevel"
+                 xpath="/mdb:MD_Metadata/mdb:hierarchyLevel"/>
+
+          <text ref="dataCollection-help"/>
+
+          <field
+                  name="datasourceAcronym"
+                  xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:citation/*/mri:otherCitationDetails"/>
+
+          <field
+                  name="medseaTitle"
+                  xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:citation/*/mri:alternateTitle"/>
+
+          <field
+                  name="medseaDataSourceCatalogueName"
+                  xpath="/mdb:MD_Metadata/mdb:distributionInfo/*/
+                            mrd:transferOptions/*/mrd:onLine[1]/*/cit:name"/>
+          <field
+                  name="medseaDataSourceCatalogueURL"
+                  xpath="/mdb:MD_Metadata/mdb:distributionInfo/*/
+                            mrd:transferOptions/*/mrd:onLine[1]/*/cit:linkage"/>
+
+          <field
+                  name="medseaDataSourceIdentifier"
+                  xpath="/mdb:MD_Metadata/mdb:distributionInfo/*/
+                      mrd:transferOptions/*/mrd:onLine[2]/*/cit:name"/>
+          <field
+                  name="medseaDataSourceDOI"
+                  xpath="/mdb:MD_Metadata/mdb:distributionInfo/*/
+                  mrd:transferOptions/*/mrd:onLine[2]/*/cit:linkage"/>
+
+          <text ref="medsea-more-help"/>
+
+        </section>
+      </tab>
+
+
+      <tab id="overview">
+        <section>
+          <field
+                  name="providerSpecification"
+                  xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:purpose"/>
+
+
+          <field
+                  name="processStepReference"
+                  xpath="/mdb:MD_Metadata/mdb:resourceLineage/*/mrl:statement"/>
+
+          <field
+                  name="useOfTheCharacteristics"
+                  xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/
+                          mri:citation/*/cit:identifier/*/
+                          mcc:authority//*/cit:title"/>
+
+
+          <field name="useByChallenges"
+                 xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/
+                mri:descriptiveKeywords
+                [contains(*/mri:thesaurusName/*/cit:title/gco:CharacterString,
+                'Used by challenges')]"/>
+
+          <field
+                  name="intendedUse"
+                  xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/
+                  mri:environmentDescription"/>
+
+        </section>
+      </tab>
+      <tab id="spatialCoverage" mode="flat">
+        <section>
+          <!--<field
+              name="geographicalAreaCode"
+              xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/
+              mri:extent/*/gex:description"/>-->
+          <field
+                  xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/
+              mri:extent/*/gex:geographicElement/gex:EX_GeographicBoundingBox"/>
+
+
+        </section>
+        <section name="horizontalAndVerticalInfo">
+
+          <field
+                  name="horResolution"
+                  xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/
+                mri:spatialResolution/*/mri:distance"/>
+
+          <field
+                  name="minDepth"
+                  xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/
+                            mri:extent/*/
+                            gex:verticalElement/*/gex:minimumValue"/>
+
+          <field
+                  name="maxDepth"
+                  xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/
+                            mri:extent/*/
+                            gex:verticalElement/*/gex:maximumValue"/>
+
+          <field
+                  name="verticalResolution"
+                  xpath="/mdb:MD_Metadata/mdb:spatialRepresentationInfo/
+                            msr:MD_Georectified/msr:numberOfDimensions"/>
+
+
+          <field name="listOfObservationLevel"
+                 xpath="/mdb:MD_Metadata/mdb:contentInfo/
+                            mrc:MD_CoverageDescription/mrc:attributeGroup/*/
+                            mrc:attribute/mrc:MD_RangeDimension/mrc:descriptor"/>
+        </section>
+      </tab>
+      <tab id="timeCoverage">
+        <section>
+
+
+          <field name="temporalExtent" templateModeOnly="true"
+                 xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:extent/*/gex:temporalElement"
+                 if="count(mdb:MD_Metadata/mdb:identificationInfo/*) > 0">
+            <template>
+              <values>
+                <!-- -Need a * for gml:TimePeriodTypeCHOICE_ELEMENT2 added by editor enumerated tree -->
+                <key label="beginPosition"
+                     xpath="gex:EX_TemporalExtent/gex:extent/gml:TimePeriod/*/gml:beginPosition"
+                     use="gn-date-picker"
+                     tooltip="gex:extent|gex:EX_TemporalExtent">
+                  <directiveAttributes data-tag-name="gml:beginPosition"/>
+                </key>
+                <key label="endPosition"
+                     xpath="gex:EX_TemporalExtent/gex:extent/gml:TimePeriod/*/gml:endPosition"
+                     use="gn-date-picker"
+                     tooltip="gex:extent|gex:EX_TemporalExtent"
+                        >
+                  <directiveAttributes
+                          data-tag-name="gml:endPosition"
+                          data-indeterminate-position="eval#gex:EX_TemporalExtent/gex:extent/gml:TimePeriod/*/gml:endPosition/@indeterminatePosition"/>
+                </key>
+              </values>
+              <snippet>
+                <gex:temporalElement>
+                  <gex:EX_TemporalExtent>
+                    <gex:extent>
+                      <gml:TimePeriod gml:id="">
+                        {{beginPosition}}
+                        {{endPosition}}
+                      </gml:TimePeriod>
+                    </gex:extent>
+                  </gex:EX_TemporalExtent>
+                </gex:temporalElement>
+              </snippet>
+            </template>
+          </field>
+
+
+          <field
+                  name="timeResolution"
+                  xpath="/mdb:MD_Metadata/mdb:spatialRepresentationInfo/msr:MD_Georectified/
+                            msr:axisDimensionProperties/msr:MD_Dimension/msr:resolution"/>
+          <field
+                  xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:resourceMaintenance/*/mmi:maintenanceAndUpdateFrequency"/>
+
+        </section>
+      </tab>
+      <tab id="accessibility">
+        <section>
+
+          <field name="visibility"
+                 xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/
+                          mri:descriptiveKeywords
+                          [contains(*/mri:thesaurusName/cit:CI_Citation/cit:identifier/*/mcc:code/*/text(),
+                          'medsea.visibility')]"/>
+
+          <field
+                  name="serviceExtent"
+                  xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/
+                          mri:descriptiveKeywords
+                          [contains(*/mri:thesaurusName/cit:CI_Citation/cit:identifier/*/mcc:code/*/text(),
+                          'theme.medsea.service.extent')]"/>
+
+          <field name="dataDelivery"
+                 xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/
+                          mri:descriptiveKeywords
+                          [contains(*/mri:thesaurusName/cit:CI_Citation/cit:title/gco:CharacterString,
+                          'Data delivery mechanism')]"/>
+
+          <field name="policyVisibility"
+                 xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/
+                          mri:descriptiveKeywords
+                          [contains(*/mri:thesaurusName/cit:CI_Citation/cit:identifier/*/mcc:code/*/text(),
+                          'medsea.policy.visibility')]"/>
+
+          <field
+                  name="dataPolicy"
+                  xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/
+                          mri:resourceConstraints/mco:MD_LegalConstraints/mco:otherConstraints"/>
+
+
+          <field
+                  name="costBasis"
+                  xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/
+                            mri:resourceConstraints/mco:MD_Constraints/mco:useLimitation"/>
+
+
+
+          <field name="dataFormats" templateModeOnly="true" notDisplayedIfMissing="true"
+                 xpath="/mdb:MD_Metadata/mdb:distributionInfo/*/mrd:distributionFormat"
+                 del=".">
+            <template>
+              <values>
+                <key label="format"
+                     xpath="mrd:MD_Format/mrd:formatSpecificationCitation/cit:CI_Citation/cit:title/gco:CharacterString"
+                     tooltip="mrd:formatSpecificationCitation|mrd:MD_Format">
+                  <!--FIXME <helper name="gmd:name" context="gmd:MD_Format"/>-->
+                </key>
+                <key label="format_version" xpath="mrd:MD_Format/mrd:formatSpecificationCitation/cit:CI_Citation/cit:edition/gco:CharacterString"/>
+              </values>
+              <snippet>
+                <mrd:distributionFormat>
+                  <mrd:MD_Format>
+                    <mrd:formatSpecificationCitation>
+                      <cit:CI_Citation>
+                        <cit:title>
+                          <gco:CharacterString>{{format}}</gco:CharacterString>
+                        </cit:title>
+                        <gn:copy select="cit:alternateTitle"/>
+                        <gn:copy select="cit:date"/>
+                        <cit:edition>
+                          <gco:CharacterString>{{format_version}}</gco:CharacterString>
+                        </cit:edition>
+                        <!-- TODO: Add gn copy -->
+                      </cit:CI_Citation>
+                    </mrd:formatSpecificationCitation>
+                  </mrd:MD_Format>
+                </mrd:distributionFormat>
+              </snippet>
+            </template>
+          </field>
+
+          <action type="add" name="dataFormats" or="distributionFormat"
+                  in="/mdb:MD_Metadata/mdb:distributionInfo/*">
+            <template>
+              <snippet>
+                <mrd:distributionFormat>
+                  <mrd:MD_Format>
+                    <mrd:formatSpecificationCitation>
+                      <cit:CI_Citation>
+                        <cit:title>
+                          <gco:CharacterString>GML</gco:CharacterString>
+                        </cit:title>
+                        <cit:edition>
+                          <gco:CharacterString>3.2.1</gco:CharacterString>
+                        </cit:edition>
+                      </cit:CI_Citation>
+                    </mrd:formatSpecificationCitation>
+                  </mrd:MD_Format>
+                </mrd:distributionFormat>
+              </snippet>
+            </template>
+          </action>
+
+
+          <field name="readyness"
+                 xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/
+                          mri:descriptiveKeywords
+                          [contains(*/mri:thesaurusName/cit:CI_Citation/cit:identifier/*/mcc:code/*/text(),
+                          'medsea.readyness')]"/>
+
+          <field name="responsiveness"
+                 xpath="/mdb:MD_Metadata/mdb:dataQualityInfo/*/
+                    mdq:report/mdq:DQ_DomainConsistency[mdq:nameOfMeasure/gco:CharacterString = 'Responsiveness']/
+                    mdq:result/mdq:DQ_QuantitativeResult/mdq:value"/>
+
+          <field name="losi"
+                 xpath="/mdb:MD_Metadata/mdb:dataQualityInfo/*/
+                    mdq:report/mdq:DQ_DomainConsistency[mdq:nameOfMeasure/gco:CharacterString = 'Reliability']/
+                    mdq:result/mdq:DQ_QuantitativeResult/mdq:value"/>
+
+          <field
+                  name="reliability"
+                  xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/
+                          mri:descriptiveKeywords
+                          [contains(*/mri:thesaurusName/cit:CI_Citation/cit:identifier/*/mcc:code/*/text(),
+                          'theme.medsea.reliability')]"/>
+        </section>
+      </tab>
+      <tab id="medsea-metadata" mode="flat">
+        <section>
+
+          <field xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:citation/cit:CI_Citation/cit:title"/>
+
+          <!--<field
+                  name="uniqueIdentifier"
+                  xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/
+                gmd:citation/gmd:CI_Citation/gmd:identifier/gmd:MD_Identifier/gmd:code"/>-->
+
+          <field name="additionalInfo"
+                 xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:abstract"/>
+
+          <field xpath="/mdb:MD_Metadata/mdb:language" or="language" in="/mdb:MD_Metadata"/>
+          <!--<field xpath="/mdb:MD_Metadata/mdb:contact" or="contact" in="/mdb:MD_Metadata"/>-->
+
+
+
+          <action type="add" name="metadataPointOfContact"
+                  addDirective="data-gn-directory-entry-selector" or="contact" in="/mdb:MD_Metadata">
+
+            <directiveAttributes
+                    data-template-add-action="false"
+                    data-template-type="contact"
+                    data-variables="gmd:role/gmd:CI_RoleCode/@codeListValue~{{role}}"/>
+          </action>
+
+          <field name="metadataPointOfContact"
+                 templateModeOnly="true"
+                 notDisplayedIfMissing="true"
+                 xpath="/mdb:MD_Metadata/mdb:contact"
+                 del=".">
+            <template>
+              <values readonlyIf="count(@xlink:href) > 0">
+                <key label="organisationName"
+                     xpath="*/cit:organisationName/gco:CharacterString"/>
+                <key label="electronicMailAddress"
+                     xpath="*/cit:contactInfo/
+                  cit:CI_Contact/cit:address/cit:CI_Address/cit:electronicMailAddress/gco:CharacterString"
+                     use="email"/>
+                <key label="role"
+                     xpath="*/cit:role/*/@codeListValue">
+                  <codelist name="cit:CI_RoleCode"/>
+                </key>
+              </values>
+              <snippet>
+                <mdb:contact>
+                  <cit:CI_Responsibility>
+                    <cit:role>
+                      <cit:CI_RoleCode codeList="codeListLocation#CI_RoleCode"
+                                       codeListValue="{{role}}"></cit:CI_RoleCode>
+                    </cit:role>
+                    <cit:party>
+                      <cit:CI_Organisation>
+                        <cit:name>
+                          <gco:CharacterString>{{organisationName}}</gco:CharacterString>
+                        </cit:name>
+                        <cit:contactInfo>
+                          <cit:CI_Contact>
+                            <cit:address>
+                              <cit:CI_Address>
+                                <cit:electronicMailAddress>
+                                  <gco:CharacterString>{{electronicMailAddress}}</gco:CharacterString>
+                                </cit:electronicMailAddress>
+                              </cit:CI_Address>
+                            </cit:address>
+                          </cit:CI_Contact>
+                        </cit:contactInfo>
+                      </cit:CI_Organisation>
+                    </cit:party>
+                  </cit:CI_Responsibility>
+                </mdb:contact>
+              </snippet>
+            </template>
+          </field>
+
+
+          <!-- MedSea challenges
+          TODO: Can't define to use Anchor mode by default
+          in keyword selector.
+          <field
+                  xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/
+                gmd:descriptiveKeywords
+                [contains(gmd:MD_Keywords/gmd:thesaurusName/gmd:CI_Citation/gmd:title/gco:CharacterString,
+                'Challenges')]"/>
+          -->
+          <field name="challenge" xpath="/mdb:MD_Metadata/mdb:hierarchyLevelName"/>
+          <field xpath="/mdb:MD_Metadata/mdb:dateInfo"/>
+
+          <!--<field name="lineage"
+                 xpath="/mdb:MD_Metadata/mdb:dataQualityInfo/*/
+                    gmd:lineage/gmd:LI_Lineage/gmd:statement"/>-->
+        </section>
+      </tab>
+    </view>
+
+
+
     <view name="advanced">
       <tab id="identificationInfo" default="true">
         <section xpath="/mdb:MD_Metadata/mdb:identificationInfo" or="identificationInfo"
@@ -414,5 +1217,8 @@
     <view name="xml">
       <tab id="xml" default="true"/>
     </view>
+
+
+
   </views>
 </editor>
