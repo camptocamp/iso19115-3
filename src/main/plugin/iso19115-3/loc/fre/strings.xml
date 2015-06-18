@@ -42,6 +42,7 @@
   <!-- Medsea-->
   <medsea>MedSea</medsea>
   <medsea-metadata>Identification</medsea-metadata>
+  <medsea-dq>Quality</medsea-dq>
   <medseaTitle>Data collection name or data set name*</medseaTitle>
   <characteristics>Characteristics</characteristics>
   <medseaHierarchyLevel>Hierarchy data level*</medseaHierarchyLevel>
