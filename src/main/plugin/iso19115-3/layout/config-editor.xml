@@ -770,17 +770,17 @@
 
           <field name="medseaHierarchyLevel"
                  xpath="/mdb:MD_Metadata/mdb:metadataScope/mdb:MD_MetadataScope/
-                          mdb:resourceScope/mcc:MD_ScopeCode/@codeListValue"/>
+                          mdb:resourceScope"/>
 
           <text ref="dataCollection-help"/>
 
           <field
                   name="datasourceAcronym"
-                  xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:citation/*/mri:otherCitationDetails"/>
+                  xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:citation/*/cit:otherCitationDetails"/>
 
           <field
                   name="medseaTitle"
-                  xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:citation/*/mri:alternateTitle"/>
+                  xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:citation/*/cit:alternateTitle"/>
 
           <field
                   name="medseaDataSourceCatalogueName"
@@ -851,10 +851,13 @@
         </section>
         <section name="horizontalAndVerticalInfo">
 
+
+          <!-- Note there is a mri:MD_Resolution_TypeCHOICE_ELEMENT0
+           in the metadocument to take care of in the XPath -->
           <field
                   name="horResolution"
                   xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/
-                mri:spatialResolution/*/mri:distance"/>
+                            mri:spatialResolution/mri:MD_Resolution/*/mri:distance"/>
 
           <field
                   name="minDepth"
@@ -877,7 +880,7 @@
           <field name="listOfObservationLevel"
                  xpath="/mdb:MD_Metadata/mdb:contentInfo/
                             mrc:MD_CoverageDescription/mrc:attributeGroup/*/
-                            mrc:attribute/mrc:MD_RangeDimension/mrc:descriptor"/>
+                            mrc:attribute/mrc:MD_RangeDimension/mrc:description"/>
         </section>
       </tab>
       <tab id="timeCoverage">
@@ -1037,12 +1040,12 @@
 
           <field name="responsiveness"
                  xpath="/mdb:MD_Metadata/mdb:dataQualityInfo/*/
-                    mdq:report/mdq:DQ_DomainConsistency[mdq:nameOfMeasure/gco:CharacterString = 'Responsiveness']/
+                    mdq:report/mdq:DQ_DomainConsistency[mdq:measure/*/mdq:nameOfMeasure/gco:CharacterString = 'Responsiveness']/
                     mdq:result/mdq:DQ_QuantitativeResult/mdq:value"/>
 
           <field name="losi"
                  xpath="/mdb:MD_Metadata/mdb:dataQualityInfo/*/
-                    mdq:report/mdq:DQ_DomainConsistency[mdq:nameOfMeasure/gco:CharacterString = 'Reliability']/
+                    mdq:report/mdq:DQ_DomainConsistency[mdq:measure/*/mdq:nameOfMeasure/gco:CharacterString = 'Reliability']/
                     mdq:result/mdq:DQ_QuantitativeResult/mdq:value"/>
 
           <field
@@ -1066,7 +1069,8 @@
           <field name="additionalInfo"
                  xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:abstract"/>
 
-          <field xpath="/mdb:MD_Metadata/mdb:language" or="language" in="/mdb:MD_Metadata"/>
+          <field xpath="/mdb:MD_Metadata/mdb:defaultLocale/lan:PT_Locale/lan:language"
+                 or="defaultLocale" in="/mdb:MD_Metadata"/>
           <!--<field xpath="/mdb:MD_Metadata/mdb:contact" or="contact" in="/mdb:MD_Metadata"/>-->
 
 

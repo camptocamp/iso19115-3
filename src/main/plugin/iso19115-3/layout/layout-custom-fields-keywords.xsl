@@ -96,9 +96,7 @@
                       then substring-after($thesaurusInternalKey, 'geonetwork.thesaurus.')
                       else $thesaurusInternalKey"/>
 
-        <!-- Single quote are escaped inside keyword. 
-          TODO: support multilingual editing of keywords
-          -->
+        <!-- Single quote are escaped inside keyword. -->
         <xsl:variable name="thesaurusConfig"
                       as="element()?"
                       select="$thesaurusList/thesaurus[@key = $thesaurusKey]"/>
