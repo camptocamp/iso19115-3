@@ -769,7 +769,8 @@
 
 
           <field name="medseaHierarchyLevel"
-                 xpath="/mdb:MD_Metadata/mdb:hierarchyLevel"/>
+                 xpath="/mdb:MD_Metadata/mdb:metadataScope/mdb:MD_MetadataScope/
+                          mdb:resourceScope/mcc:MD_ScopeCode/@codeListValue"/>
 
           <text ref="dataCollection-help"/>
 
@@ -1138,7 +1139,7 @@
                 [contains(gmd:MD_Keywords/gmd:thesaurusName/gmd:CI_Citation/gmd:title/gco:CharacterString,
                 'Challenges')]"/>
           -->
-          <field name="challenge" xpath="/mdb:MD_Metadata/mdb:hierarchyLevelName"/>
+          <field name="challenge" xpath="/mdb:MD_Metadata/mdb:metadataScope/mdb:MD_MetadataScope/mdb:name"/>
           <field xpath="/mdb:MD_Metadata/mdb:dateInfo"/>
 
           <!--<field name="lineage"
