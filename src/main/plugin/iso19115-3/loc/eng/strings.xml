@@ -43,6 +43,8 @@
 
 
   <!-- Medsea-->
+  <beginPosition>Begin</beginPosition>
+  <endPosition>End</endPosition>
   <medsea>MedSea</medsea>
   <medsea-metadata>Identification</medsea-metadata>
   <medsea-dq>Quality</medsea-dq>

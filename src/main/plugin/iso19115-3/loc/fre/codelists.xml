@@ -1730,8 +1730,29 @@
 		<!-- - - - - - - - - - - - - - - - - - - - - - - - - -->
 	</codelist>
 
-	<!-- ==================================================== -->
-	<codelist name="mcc:MD_ScopeCode">
+  <codelist name="mcc:MD_ScopeCode"
+            editorMode="radio"
+            displayIf="ancestor::node()[
+              name()='mdb:MD_Metadata' and
+              contains(mdb:metadataStandard/*/cit:title/*:CharacterString, 'MedSea Checkpoint')]">
+    <entry>
+      <code>dataset</code>
+      <label>Dataset</label>
+      <description>Information applies to the dataset</description>
+    </entry>
+    <entry>
+      <code>series</code>
+      <label>Series</label>
+      <description>Information applies to the series</description>
+    </entry>
+    <entry>
+      <code>nonGeographicDataset</code>
+      <label>Non geographic dataset</label>
+      <description>Information applies to non-geographic data</description>
+    </entry>
+  </codelist>
+
+  <codelist name="mcc:MD_ScopeCode">
 		<entry>
 			<code>attribute</code>
 			<label>Attribut</label>
