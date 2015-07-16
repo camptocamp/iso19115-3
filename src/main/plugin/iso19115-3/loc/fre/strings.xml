@@ -15,6 +15,7 @@
   <default>Simple</default>
   <simple>Simple</simple>
   <inspire>INSPIRE</inspire>
+  <inspireTheme>Thèmes INSPIRE</inspireTheme>
   <resource>Ressource</resource>
   <xml>XML</xml>
   <metadata>Métadonnées</metadata>
