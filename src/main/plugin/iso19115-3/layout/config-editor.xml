@@ -492,20 +492,23 @@
                      xpath="cit:CI_Responsibility/@id"/>
               </values>
               <snippet>
-                <!-- TODO : add gn:copy -->
                 <mri:pointOfContact>
                   <cit:CI_Responsibility id="{{edmerpId}}">
                     <gn:copy select="cit:role"/>
+                    <gn:copy select="cit:extent"/>
                     <cit:party>
                       <cit:CI_Organisation>
                         <cit:name>
                           <gco:CharacterString>{{projectTitle}}</gco:CharacterString>
                         </cit:name>
+                        <gn:copy select="cit:contactInfo"/>
+                        <gn:copy select="cit:logo"/>
                         <cit:individual>
                           <cit:CI_Individual>
                             <cit:name>
                               <gco:CharacterString>{{acronym}}</gco:CharacterString>
                             </cit:name>
+                            <gn:copy select="cit:contactInfo"/>
                           </cit:CI_Individual>
                         </cit:individual>
                       </cit:CI_Organisation>
@@ -556,32 +559,22 @@
                      xpath="*/@id"/>
               </values>
               <snippet>
-                <!-- TODO : add gn:copy -->
                 <mri:pointOfContact>
                   <cit:CI_Responsibility id="{{edmoId}}">
                     <gn:copy select="cit:role"/>
+                    <gn:copy select="cit:extent"/>
                     <cit:party>
                       <cit:CI_Organisation>
                         <cit:name>
                           <gco:CharacterString>{{organisationName}}</gco:CharacterString>
                         </cit:name>
-                        <gn:copy select="individual"/>
+                        <gn:copy select="cit:contactInfo"/>
+                        <gn:copy select="cit:logo"/>
+                        <gn:copy select="cit:individual"/>
                       </cit:CI_Organisation>
                     </cit:party>
                   </cit:CI_Responsibility>
                 </mri:pointOfContact>
-
-                <!--<mri:pointOfContact>
-                  <cit:CI_Responsibility id="{{edmoId}}">
-                    <gn:copy select="cit:individualName"/>
-                    <gmd:organisationName>
-                      <gco:CharacterString>{{organisationName}}</gco:CharacterString>
-                    </gmd:organisationName>
-                    <gn:copy select="gmd:positionName"/>
-                    <gn:copy select="gmd:contactInfo"/>
-                    <gn:copy select="gmd:role"/>
-                  </cit:CI_Responsibility>
-                </mri:pointOfContact>-->
               </snippet>
             </template>
           </field>
@@ -612,56 +605,29 @@
               </values>
               <snippet>
 
-                <!-- TODO : add gn:copy -->
                 <mri:pointOfContact>
                   <cit:CI_Responsibility>
                     <gn:copy select="cit:role"/>
+                    <gn:copy select="cit:extent"/>
                     <cit:party>
                       <cit:CI_Organisation>
                         <cit:name>
                           <gco:CharacterString>{{organisationName}}</gco:CharacterString>
                         </cit:name>
+                        <gn:copy select="cit:contactInfo"/>
+                        <gn:copy select="cit:logo"/>
                         <cit:individual>
                           <cit:CI_Individual>
                             <cit:name>
                               <gco:CharacterString>{{acronym}}</gco:CharacterString>
                             </cit:name>
+                            <gn:copy select="cit:contactInfo"/>
                           </cit:CI_Individual>
                         </cit:individual>
                       </cit:CI_Organisation>
                     </cit:party>
                   </cit:CI_Responsibility>
                 </mri:pointOfContact>
-
-
-                <!--<mri:pointOfContact>
-                  <cit:CI_Responsibility>
-                    <gn:copy select="cit:individualName"/>
-                    <gmd:organisationName>
-                      <gco:CharacterString>{{organisationName}}</gco:CharacterString>
-                    </gmd:organisationName>
-                    <gn:copy select="gmd:positionName"/>
-                    <gmd:contactInfo>
-                      <gmd:CI_Contact>
-                        <gn:copy select="gmd:phone"/>
-                        <gmd:address>
-                          <gmd:CI_Address>
-                            <gn:copy select="gmd:deliveryPoint"/>
-                            <gn:copy select="gmd:city"/>
-                            <gn:copy select="gmd:administrativeArea"/>
-                            <gn:copy select="gmd:postalCode"/>
-                            <gn:copy select="gmd:country"/>
-                            <gn:copy select="gmd:electronicMailAddress"/>
-                          </gmd:CI_Address>
-                        </gmd:address>
-                        <gn:copy select="gmd:onlineResource"/>
-                        <gn:copy select="gmd:hoursOfService"/>
-                        <gn:copy select="gmd:contactInstructions"/>
-                      </gmd:CI_Contact>
-                    </gmd:contactInfo>
-                    <gn:copy select="gmd:role"/>
-                  </cit:CI_Responsibility>
-                </mri:pointOfContact>-->
               </snippet>
             </template>
           </field>
@@ -679,16 +645,18 @@
                      xpath="*/cit:party/*/cit:name/gco:CharacterString"/>
               </values>
               <snippet>
-
-                <!-- TODO : add gn:copy -->
                 <mri:pointOfContact>
                   <cit:CI_Responsibility>
                     <gn:copy select="cit:role"/>
+                    <gn:copy select="cit:extent"/>
                     <cit:party>
                       <cit:CI_Organisation>
                         <cit:name>
                           <gco:CharacterString>{{organisationName}}</gco:CharacterString>
                         </cit:name>
+                        <gn:copy select="cit:contactInfo"/>
+                        <gn:copy select="cit:logo"/>
+                        <gn:copy select="cit:individual"/>
                         <!--<cit:individual>
                           <cit:CI_Individual>
                             <cit:name>
@@ -700,35 +668,6 @@
                     </cit:party>
                   </cit:CI_Responsibility>
                 </mri:pointOfContact>
-                <!--
-                <mri:pointOfContact>
-                  <cit:CI_Responsibility>
-                    <gn:copy select="cit:individualName"/>
-                    <gmd:organisationName>
-                      <gco:CharacterString>{{organisationName}}</gco:CharacterString>
-                    </gmd:organisationName>
-                    <gn:copy select="gmd:positionName"/>
-                    <gmd:contactInfo>
-                      <gmd:CI_Contact>
-                        <gn:copy select="gmd:phone"/>
-                        <gmd:address>
-                          <gmd:CI_Address>
-                            <gn:copy select="gmd:deliveryPoint"/>
-                            <gn:copy select="gmd:city"/>
-                            <gn:copy select="gmd:administrativeArea"/>
-                            <gn:copy select="gmd:postalCode"/>
-                            <gn:copy select="gmd:country"/>
-                            <gn:copy select="gmd:electronicMailAddress"/>
-                          </gmd:CI_Address>
-                        </gmd:address>
-                        <gn:copy select="gmd:onlineResource"/>
-                        <gn:copy select="gmd:hoursOfService"/>
-                        <gn:copy select="gmd:contactInstructions"/>
-                      </gmd:CI_Contact>
-                    </gmd:contactInfo>
-                    <gn:copy select="gmd:role"/>
-                  </cit:CI_Responsibility>
-                </mri:pointOfContact>-->
               </snippet>
             </template>
           </field>
@@ -996,7 +935,7 @@
                 <key label="format"
                      xpath="mrd:MD_Format/mrd:formatSpecificationCitation/cit:CI_Citation/cit:title/gco:CharacterString"
                      tooltip="mrd:formatSpecificationCitation|mrd:MD_Format">
-                  <!--FIXME <helper name="gmd:name" context="gmd:MD_Format"/>-->
+                  <helper name="cit:title" context="/mdb:MD_Metadata/mdb:distributionInfo/mrd:MD_Distribution/mrd:distributionFormat/mrd:MD_Format/mrd:formatSpecificationCitation/cit:CI_Citation/cit:title"/>
                 </key>
                 <key label="format_version" xpath="mrd:MD_Format/mrd:formatSpecificationCitation/cit:CI_Citation/cit:edition/gco:CharacterString"/>
               </values>
@@ -1013,7 +952,17 @@
                         <cit:edition>
                           <gco:CharacterString>{{format_version}}</gco:CharacterString>
                         </cit:edition>
-                        <!-- TODO: Add gn copy -->
+                        <gn:copy select="cit:date"/>
+                        <gn:copy select="cit:editionDate"/>
+                        <gn:copy select="cit:identifier"/>
+                        <gn:copy select="cit:citedResponsibleParty"/>
+                        <gn:copy select="cit:presentationForm"/>
+                        <gn:copy select="cit:series"/>
+                        <gn:copy select="cit:otherCitationDetails"/>
+                        <gn:copy select="cit:ISBN"/>
+                        <gn:copy select="cit:ISSN"/>
+                        <gn:copy select="cit:onlineResource"/>
+                        <gn:copy select="cit:graphic"/>
                       </cit:CI_Citation>
                     </mrd:formatSpecificationCitation>
                   </mrd:MD_Format>
@@ -1123,6 +1072,7 @@
                       <cit:CI_RoleCode codeList="codeListLocation#CI_RoleCode"
                                        codeListValue="{{role}}"></cit:CI_RoleCode>
                     </cit:role>
+                    <gn:copy select="cit:extent"/>
                     <cit:party>
                       <cit:CI_Organisation>
                         <cit:name>
@@ -1130,6 +1080,7 @@
                         </cit:name>
                         <cit:contactInfo>
                           <cit:CI_Contact>
+                            <gn:copy select="cit:phone"/>
                             <cit:address>
                               <cit:CI_Address>
                                 <cit:electronicMailAddress>
@@ -1137,8 +1088,14 @@
                                 </cit:electronicMailAddress>
                               </cit:CI_Address>
                             </cit:address>
+                            <gn:copy select="cit:onlineResource"/>
+                            <gn:copy select="cit:hoursOfService"/>
+                            <gn:copy select="cit:contactInstructions"/>
+                            <gn:copy select="cit:contactType"/>
                           </cit:CI_Contact>
                         </cit:contactInfo>
+                        <gn:copy select="cit:logo"/>
+                        <gn:copy select="cit:individual"/>
                       </cit:CI_Organisation>
                     </cit:party>
                   </cit:CI_Responsibility>
