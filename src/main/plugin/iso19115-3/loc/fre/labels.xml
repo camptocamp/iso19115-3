@@ -4121,11 +4121,10 @@ période de temps couverte par le service.
     
   </element>
   <element name="mco:otherConstraints" id="72.0">
-    <label>Other constraints</label>
-    <description>Other restrictions and legal prerequisites for accessing and using the
-      resource</description>
-    <condition>conditional</condition>
-    <!-- MedSea list of values -->
+    <label>Autres contraintes</label>
+    <description>Autres restrictions et prérequis légaux pour accéder et utiliser les ressources où de métadonnées</description>
+    <help>Autres restrictions et conditions préalables de nature juridique concernant l'accès et l'utilisation de la ressource ou des métadonnées. Ce champ doit être complété dès lors que l'un des deux champs précédents (accessConstraints, useConstraints) porte la mention "Autres restrictions".</help>
+    <condition>Condition</condition>
     <helper displayIf="ancestor::node()[
               name()='mdb:MD_Metadata' and
               contains(mdb:metadataStandard/*/cit:title/*:CharacterString, 'MedSea Checkpoint')]"
@@ -4135,12 +4134,6 @@ période de temps couverte par le service.
       <option value="Unrestricted">Unrestricted</option>
       <option value="Not documented">Not documented</option>
     </helper>
-  </element>
-  <element name="mco:otherConstraints" id="72.0">
-    <label>Autres contraintes</label>
-    <description>Autres restrictions et prérequis légaux pour accéder et utiliser les ressources où de métadonnées</description>
-    <help>Autres restrictions et conditions préalables de nature juridique concernant l'accès et l'utilisation de la ressource ou des métadonnées. Ce champ doit être complété dès lors que l'un des deux champs précédents (accessConstraints, useConstraints) porte la mention "Autres restrictions".</help>
-    <condition>Condition</condition>
     <!--
       Only relevant for France
       <helper editorMode="radio_withdesc">
