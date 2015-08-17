@@ -1076,7 +1076,7 @@
           -->
           <field name="challenge" xpath="/mdb:MD_Metadata/mdb:metadataScope/mdb:MD_MetadataScope/mdb:name"/>
 
-          <field xpath="/mdb:MD_Metadata/mdb:dateInfo"/>
+          <field xpath="/mdb:MD_Metadata/mdb:dateInfo[*/cit:dateType/*/@codeListValue = 'revision']"/>
 
           <!--<field name="lineage"
                  xpath="/mdb:MD_Metadata/mdb:dataQualityInfo/*/

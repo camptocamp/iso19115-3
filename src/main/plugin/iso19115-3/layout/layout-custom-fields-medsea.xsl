@@ -18,22 +18,15 @@
 
   <!-- MEDSEA / Use thesaurus local.theme.medsea.challenges
   to populate the field gmd:hierarchyLevelName.
-
-
-                            $metadata/mdb:metadataScope/mdb:MD_MetadataScope/mdb:name/gn:element/@ref = gn:element/@ref and
-mdb:metadataScope/mdb:MD_MetadataScope/mdb:name[
-                            contains($metadata/mdb:metadataStandard/*/cit:title/gco:CharacterString,
-                                     'MedSea Checkpoint')]
                             -->
   <xsl:template mode="mode-iso19115-3" priority="20000"
-                match="mdb:name[
+                match="mdb:metadataScope/mdb:MD_MetadataScope/mdb:name[
                             contains($metadata/mdb:metadataStandard/*/cit:title/gco:CharacterString,
                                      'MedSea Checkpoint')]">
-<xsl:message>MMMM<xsl:copy-of select="../."/> </xsl:message>
     <div class="form-group gn-field"
          id="gn-el-11">
       <label for="gn-field-11" class="col-sm-2 control-label">
-        <xsl:value-of select="$strings/challenge"/>AAA
+        <xsl:value-of select="$strings/challenge"/>
       </label>
       <div class="col-sm-9 gn-value">
         <input class="form-control" value="{gco:CharacterString}"
