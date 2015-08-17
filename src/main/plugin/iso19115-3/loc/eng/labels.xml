@@ -499,6 +499,14 @@
     <label>Resolution</label>
     <description iso="true">Degree of detail in the grid dataset</description>
     <condition>optional</condition>
+    <helper relAtt="uom">
+      <option value="1" title="second">seconds</option>
+      <option value="1" title="minute">minutes</option>
+      <option value="1" title="hour">hours</option>
+      <option value="1" title="day">days</option>
+      <option value="1" title="month">months</option>
+      <option value="1" title="year">years</option>
+    </helper>
   </element> 
   <element name="msr:dimensionTitle" id="174.0">
     <label>Dimension title</label>
@@ -2121,6 +2129,12 @@
     <label>Distance</label>
     <description>Ground sample distance</description>
     <condition>Provide a distance if no equivalent Scale is documented</condition>
+    <helper relAtt="uom" displayIf="ancestor::node()[
+              name()='mdb:MD_Metadata' and
+              contains(mdb:metadataStandard/*/cit:title/*:CharacterString, 'MedSea Checkpoint')]">
+      <option value="1" title="Arc seconds (North)">Arc seconds (North)</option>
+      <option value="1" title="meter">meters</option>
+    </helper>
     <helper relAtt="uom">
       <option value="0.10" title="cm">10 cm</option>
       <option value="0.25" title="cm">25 cm</option>
@@ -2640,24 +2654,6 @@
     <description>Name of the data transfer format(s)</description>
     <help>name of the data transfer format(s)</help>
     <condition>mandatory</condition>
-    <helper rel="mri:version">
-      <option value="Text">Text</option>
-      <option value="ESRI Shapefile" title="1.0">ESRI Shapefile</option>
-      <option value="Mapinfo MIF/MID" title="4.5">Mapinfo MIF/MID</option>
-      <option value="Mapinfo TAB">Mapinfo TAB</option>
-      <option value="KML">KML</option>
-      <option value="GML" title="3.2.1">GML</option>
-      <option value="GeoTIFF" title="1.0">GeoTIFF</option>
-      <option value="TIFF">TIFF</option>
-      <option value="ECW">ECW</option>
-      <option value="JPEG2000">JPEG2000</option>
-      <option value="ZIP">ZIP</option>
-      <option value="PDF">PDF</option>
-      <option value="PNG">PNG</option>
-      <option value="JPEG">JPEG</option>
-      <option value="OGC:WMC">OGC:WMC</option>
-      <option value="OGC:OWS Context">OGC:OWS Context</option>
-    </helper>
   </element>
   <element name="mri:name" context="mri:MD_ExtendedElementInformation"
     id="307.0">
@@ -3473,22 +3469,24 @@
     <label>Format name</label>
     <description>Name of the data transfer format(s)</description>
     <help>File or link format name</help>
-    <helper rel="gmd:version">
+    <helper>
+      <option value="Text">Text</option>
       <option value="ESRI Shapefile">ESRI Shapefile</option>
       <option value="Mapinfo MIF/MID">Mapinfo MIF/MID</option>
       <option value="Mapinfo TAB">Mapinfo TAB</option>
-      <option value="CSV">CSV</option>
       <option value="KML">KML</option>
-      <option value="JSON">JSON</option>
       <option value="GML">GML</option>
+      <option value="Ascii">Ascii</option>
+      <option value="NetCDF">NetCDF</option>
       <option value="GeoTIFF">GeoTIFF</option>
       <option value="TIFF">TIFF</option>
       <option value="ECW">ECW</option>
-      <option value="JPEG">JPEG</option>
       <option value="JPEG2000">JPEG2000</option>
       <option value="ZIP">ZIP</option>
       <option value="PDF">PDF</option>
       <option value="PNG">PNG</option>
+      <option value="JPEG">JPEG</option>
+      <option value="OGC:WMC">OGC:WMC</option>
       <option value="OGC:OWS-C">OGC OWS Context</option>
     </helper>
   </element>
@@ -3653,6 +3651,16 @@
     <label>Value</label>
     <description>Quantitative value or values, content determined by the evaluation procedure
             used</description>
+    <helper displayIf="ancestor::node()[
+              name()='mdq:DQ_DomainConsistency' and
+              contains(mdq:measure/mdq:DQ_MeasureReference/mdq:nameOfMeasure/gco:CharacterString, 'Responsiveness')]">
+      <option value="&lt;15mn (on-line download)">&lt;15mn (on-line download)</option>
+      <option value="Less than 3 hours">Less than 3 hours</option>
+      <option value="Less than 24 hours">Less than 24 hours</option>
+      <option value="Less than 1 week">Less than 1 week</option>
+      <option value="More than 1 week">More than 1 week</option>
+      <option value="Not documented">Not documented</option>
+    </helper>
   </element>
   <element name="mdq:value">
     <label>Value</label>
