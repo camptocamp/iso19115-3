@@ -3646,7 +3646,7 @@
     <description>Explanation of the application of the legal constraints or other restrictions
             and legal prerequisites for obtaining and using the resource or metadata</description>
   </element>
-  <element name="mdq:value" id="137.0" context="mdq:DQ_QuantitativeResult">
+  <element name="mdq:value" id="137.0" context="/mdb:MD_Metadata/mdb:dataQualityInfo/mdq:DQ_DataQuality/mdq:report/mdq:DQ_DomainConsistency/mdq:result/mdq:DQ_QuantitativeResult/mdq:value">
     <condition>mandatory</condition>
     <label>Value</label>
     <description>Quantitative value or values, content determined by the evaluation procedure

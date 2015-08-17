@@ -927,49 +927,12 @@
 
 
 
-          <field name="dataFormats" templateModeOnly="true" notDisplayedIfMissing="true"
-                 xpath="/mdb:MD_Metadata/mdb:distributionInfo/*/mrd:distributionFormat"
-                 del=".">
-            <template>
-              <values>
-                <key label="format"
-                     xpath="mrd:MD_Format/mrd:formatSpecificationCitation/cit:CI_Citation/cit:title/gco:CharacterString"
-                     tooltip="mrd:formatSpecificationCitation|mrd:MD_Format">
-                  <helper name="cit:title" context="/mdb:MD_Metadata/mdb:distributionInfo/mrd:MD_Distribution/mrd:distributionFormat/mrd:MD_Format/mrd:formatSpecificationCitation/cit:CI_Citation/cit:title"/>
-                </key>
-                <key label="format_version" xpath="mrd:MD_Format/mrd:formatSpecificationCitation/cit:CI_Citation/cit:edition/gco:CharacterString"/>
-              </values>
-              <snippet>
-                <mrd:distributionFormat>
-                  <mrd:MD_Format>
-                    <mrd:formatSpecificationCitation>
-                      <cit:CI_Citation>
-                        <cit:title>
-                          <gco:CharacterString>{{format}}</gco:CharacterString>
-                        </cit:title>
-                        <gn:copy select="cit:alternateTitle"/>
-                        <gn:copy select="cit:date"/>
-                        <cit:edition>
-                          <gco:CharacterString>{{format_version}}</gco:CharacterString>
-                        </cit:edition>
-                        <gn:copy select="cit:date"/>
-                        <gn:copy select="cit:editionDate"/>
-                        <gn:copy select="cit:identifier"/>
-                        <gn:copy select="cit:citedResponsibleParty"/>
-                        <gn:copy select="cit:presentationForm"/>
-                        <gn:copy select="cit:series"/>
-                        <gn:copy select="cit:otherCitationDetails"/>
-                        <gn:copy select="cit:ISBN"/>
-                        <gn:copy select="cit:ISSN"/>
-                        <gn:copy select="cit:onlineResource"/>
-                        <gn:copy select="cit:graphic"/>
-                      </cit:CI_Citation>
-                    </mrd:formatSpecificationCitation>
-                  </mrd:MD_Format>
-                </mrd:distributionFormat>
-              </snippet>
-            </template>
-          </field>
+          <field
+                  name="dataFormats"
+                  xpath="/mdb:MD_Metadata/mdb:distributionInfo/*/mrd:distributionFormat/
+                            mrd:MD_Format/mrd:formatSpecificationCitation/
+                              cit:CI_Citation/cit:title"/>
+
 
           <action type="add" name="dataFormats" or="distributionFormat"
                   in="/mdb:MD_Metadata/mdb:distributionInfo/*">
@@ -982,9 +945,6 @@
                         <cit:title>
                           <gco:CharacterString>GML</gco:CharacterString>
                         </cit:title>
-                        <cit:edition>
-                          <gco:CharacterString>3.2.1</gco:CharacterString>
-                        </cit:edition>
                       </cit:CI_Citation>
                     </mrd:formatSpecificationCitation>
                   </mrd:MD_Format>
@@ -1115,6 +1075,7 @@
                 'Challenges')]"/>
           -->
           <field name="challenge" xpath="/mdb:MD_Metadata/mdb:metadataScope/mdb:MD_MetadataScope/mdb:name"/>
+
           <field xpath="/mdb:MD_Metadata/mdb:dateInfo"/>
 
           <!--<field name="lineage"
