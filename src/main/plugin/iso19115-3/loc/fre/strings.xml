@@ -44,13 +44,16 @@
   <beginPosition>Begin</beginPosition>
   <endPosition>End</endPosition>
   <medsea>MedSea</medsea>
+  <medsea-targeted-product>MedSea targeted product</medsea-targeted-product>
   <medsea-metadata>Identification</medsea-metadata>
+  <medsea-metadata-tp>Identification</medsea-metadata-tp>
   <medsea-dq>Quality</medsea-dq>
   <medseaTitle>Data collection name or data set name*</medseaTitle>
   <characteristics>Characteristics</characteristics>
   <medseaHierarchyLevel>Hierarchy data level*</medseaHierarchyLevel>
   <datasources>Data sources</datasources>
   <overview>Overview</overview>
+  <validation>Validation</validation>
   <spatialCoverage>Spatial coverage</spatialCoverage>
   <timeCoverage>Time coverage</timeCoverage>
   <accessibility>Accessibility</accessibility>
@@ -154,5 +157,10 @@
   <format>Format</format>
   <indeterminatePosition>Position indéterminée</indeterminatePosition>
   <format_version>Version</format_version>
+  <medsea-what>What</medsea-what>
+  <medsea-when>When</medsea-when>
+  <medsea-where>Where</medsea-where>
+  <medsea-who>Who</medsea-who>
+  <medsea-access>How to access</medsea-access>
 
 </strings>
