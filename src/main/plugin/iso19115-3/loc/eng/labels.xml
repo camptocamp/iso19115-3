@@ -3900,8 +3900,8 @@
 
 
   <element name="srv:SV_ServiceIdentification">
-    <label>Service Identification (19119)</label>
-    <description>ISO 19119-2005 Service Identification</description>
+    <label>Service Identification</label>
+    <description>Service identification section</description>
   </element>
   <element name="srv:SV_ParameterDirection">
     <label>Parameter direction</label>
