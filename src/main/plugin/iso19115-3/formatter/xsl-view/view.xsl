@@ -17,6 +17,7 @@
                 xmlns:mex="http://standards.iso.org/iso/19115/-3/mex/1.0"
                 xmlns:msr="http://standards.iso.org/iso/19115/-3/msr/1.0"
                 xmlns:mrd="http://standards.iso.org/iso/19115/-3/mrd/1.0"
+                xmlns:mdq="http://standards.iso.org/iso/19157/-2/mdq/1.0"
                 xmlns:gml="http://www.opengis.net/gml/3.2"
                 xmlns:srv="http://standards.iso.org/iso/19115/-3/srv/2.0"
                 xmlns:gcx="http://standards.iso.org/iso/19115/-3/gcx/1.0"
@@ -75,17 +76,37 @@
   </xsl:template>
 
 
+  <xsl:template mode="getMetadataHeader" match="mdb:MD_Metadata">
+    <xsl:variable name="value"
+                  select="mdb:identificationInfo/*/mri:citation/*/cit:title"/>
+
+    <link rel="stylesheet" type="text/css"
+          href="{$baseUrl}../../apps/sextant/css/schema/default.css"/>
+
+    <div class="ui-layout-content mdshow-tabpanel">
+      <a class="file-link"
+         title="Export HTML"
+         style="display: block;float: right;"
+         href="{$baseUrl}md.format.html?id={$metadataId}&amp;xsl=xsl-view&amp;view=medsea">&#160;</a>
+      <a class="file-xml"
+         title="Export XML"
+         style="display: block;float: right;"
+         href="{$baseUrl}xml.metadata.get?id={$metadataId}">&#160;</a>
+    </div>
+  </xsl:template>
 
 
 
   <!-- Most of the elements are ... -->
   <xsl:template mode="render-field"
-                match="*[gco:CharacterString|gco:Integer|gco:Decimal|
-       gco:Boolean|gco:Real|gco:Measure|gco:Length|gco:Distance|
-       gco:Angle|
-       gco:Scale|gco:Record|gco:RecordType|
-       gco:LocalName|lan:PT_FreeText|gml:beginPosition|gml:endPosition|
-       gco:Date|gco:DateTime|*/@codeListValue]"
+                match="*[gco:CharacterString != '']|*[gco:Integer != '']|
+                       *[gco:Decimal != '']|*[gco:Boolean != '']|
+                       *[gco:Real != '']|*[gco:Measure != '']|*[gco:Length != '']|
+                       *[gco:Distance != '']|*[gco:Angle != '']|*[gco:Scale != '']|
+                       *[gco:Record != '']|*[gco:RecordType != '']|
+                       *[gco:LocalName != '']|*[lan:PT_FreeText != '']|
+                       *[gml:beginPosition != '']|*[gml:endPosition != '']|
+                       *[gco:Date != '']|*[gco:DateTime != '']|*[*/@codeListValue]"
                 priority="50">
     <xsl:param name="fieldName" select="''" as="xs:string"/>
 
@@ -318,7 +339,9 @@
 
   <!-- Display thesaurus name and the list of keywords -->
   <xsl:template mode="render-field"
-                match="mri:descriptiveKeywords[*/mri:thesaurusName/cit:CI_Citation/cit:title]"
+                match="mri:descriptiveKeywords[
+                        */mri:thesaurusName/cit:CI_Citation/cit:title and
+                        count(*/mri:keyword/* != '') > 0]"
                 priority="100">
     <dl class="gn-keyword">
       <dt>
@@ -345,7 +368,8 @@
 
 
   <xsl:template mode="render-field"
-                match="mri:descriptiveKeywords[not(*/mri:thesaurusName/cit:CI_Citation/cit:title)]"
+                match="mri:descriptiveKeywords[not(*/mri:thesaurusName/cit:CI_Citation/cit:title) and
+                        count(*/mri:keyword/* != '') > 0]"
                 priority="100">
     <dl class="gn-keyword">
       <dt>
@@ -643,5 +667,10 @@
   </xsl:template>
   <xsl:template mode="render-value"
                 match="@*"/>
+
+
+  <!-- MedSea specific -->
+  <!--<xsl:template mode="render-field" match="mdq:report"/>-->
+  <xsl:template mode="render-view" match="tab[@id='medsea-dq']" priority="2"/>
 
 </xsl:stylesheet>
