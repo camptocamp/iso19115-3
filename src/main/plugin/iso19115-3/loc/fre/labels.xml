@@ -4109,7 +4109,7 @@ période de temps couverte par le service.
     <condition>Condition</condition>
     <helper displayIf="ancestor::node()[
               name()='mdb:MD_Metadata' and
-              contains(mdb:metadataStandard/*/cit:title/*:CharacterString, 'MedSea Checkpoint')]"
+              contains(mdb:metadataStandard/*/cit:title/*:CharacterString, 'MedSea')]"
             editorMode="radio">
       <option value="Restricted">Restricted</option>
       <option value="Accessible under moratorium">Accessible under moratorium</option>
@@ -5246,7 +5246,7 @@ l’IGN (WPS)
     <condition/>
     <helper displayIf="ancestor::node()[
               name()='mdb:MD_Metadata' and
-              contains(mdb:metadataStandard/*/cit:title/*:CharacterString, 'MedSea Checkpoint')]"
+              contains(mdb:metadataStandard/*/cit:title/*:CharacterString, 'MedSea')]"
             editorMode="radio">
       <option value="No charge">No charge</option>
       <option value="Distribution cost charge">Distribution cost charge</option>

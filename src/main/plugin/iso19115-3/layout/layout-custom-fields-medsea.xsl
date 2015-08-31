@@ -22,7 +22,9 @@
   <xsl:template mode="mode-iso19115-3" priority="20000"
                 match="mdb:metadataScope/mdb:MD_MetadataScope/mdb:name[
                             contains($metadata/mdb:metadataStandard/*/cit:title/gco:CharacterString,
-                                     'MedSea Checkpoint')]">
+                                     'MedSea Checkpoint') or
+                            contains($metadata/mdb:metadataStandard/*/cit:title/gco:CharacterString,
+                                     'MedSea Targeted Product')]">
     <div class="form-group gn-field"
          id="gn-el-11">
       <label for="gn-field-11" class="col-sm-2 control-label">
