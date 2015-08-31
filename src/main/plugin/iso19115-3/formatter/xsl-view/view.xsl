@@ -558,7 +558,24 @@
        gco:Boolean|gco:Real|gco:Measure|gco:Length|gco:Distance|gco:Angle|
        gco:Scale|gco:Record|gco:RecordType|
        gco:LocalName|gml:beginPosition|gml:endPosition">
-    <xsl:value-of select="normalize-space(.)"/>
+    <xsl:choose>
+      <xsl:when test="contains(., 'http')">
+        <!-- Replace hyperlink in text by an hyperlink -->
+        <xsl:variable name="textWithLinks"
+                      select="replace(., '([a-z][\w-]+:/{1,3}[^\s()&gt;&lt;]+[^\s`!()\[\]{};:'&apos;&quot;.,&gt;&lt;?«»“”‘’])',
+                                    '&lt;a href=''$1''&gt;$1&lt;/a&gt;')"/>
+
+        <xsl:if test="$textWithLinks != ''">
+          <xsl:copy-of select="saxon:parse(
+                          concat('&lt;p&gt;',
+                          replace($textWithLinks, '&amp;', '&amp;amp;'),
+                          '&lt;/p&gt;'))"/>
+        </xsl:if>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:value-of select="normalize-space(.)"/>
+      </xsl:otherwise>
+    </xsl:choose>
   </xsl:template>
 
   <xsl:template mode="render-value"
@@ -566,13 +583,6 @@
     <xsl:apply-templates mode="localised" select="../node()">
       <xsl:with-param name="langId" select="$language"/>
     </xsl:apply-templates>
-  </xsl:template>
-
-  <!-- ... URL -->
-  <xsl:template mode="render-value"
-                match="cit:linkage">
-    <!-- TODO: Multilingual URL -->
-    <a href="{gco:CharacterString}"><xsl:value-of select="gco:CharacterString"/></a>
   </xsl:template>
 
   <!-- ... Dates - formatting is made on the client side by the directive  -->
