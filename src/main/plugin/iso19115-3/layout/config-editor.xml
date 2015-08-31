@@ -1095,12 +1095,12 @@
                     gmd:lineage/gmd:LI_Lineage/gmd:statement"/>-->
         </section>
       </tab>
-      <!-- <tab id="medsea-dq" mode="flat">
+      <tab id="medsea-dq" mode="flat">
          <section>
            <field xpath="/mdb:MD_Metadata/mdb:dataQualityInfo/mdq:DQ_DataQuality/
                      mdq:report" or="report" in="/mdb:MD_Metadata/mdb:dataQualityInfo/mdq:DQ_DataQuality"/>
 
-           <field name="conformity" templateModeOnly="true"
+           <!--<field name="conformity" templateModeOnly="true"
                   xpath="/mdb:MD_Metadata/mdb:dataQualityInfo/mdq:DQ_DataQuality/
                      mdq:report/mdq:DQ_DomainConsistency/mdq:result"
                   del="../..">
@@ -1168,9 +1168,9 @@
                  </gmd:result>
                </snippet>
              </template>
-           </field>
+           </field>-->
         </section>
-      </tab>-->
+      </tab>
     </view>
 
 
