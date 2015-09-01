@@ -788,10 +788,17 @@
       </mri:descriptiveKeywords>
       <mri:resourceConstraints>
         <mco:MD_LegalConstraints>
+          <mco:useLimitation gco:nilReason="missing">
+            <gco:CharacterString/>
+          </mco:useLimitation>
           <mco:accessConstraints>
             <mco:MD_RestrictionCode codeListValue="otherRestrictions"
                                     codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#MD_RestrictionCode"/>
           </mco:accessConstraints>
+          <mco:useConstraints>
+            <mco:MD_RestrictionCode codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#MD_RestrictionCode"
+                                    codeListValue=""/>
+          </mco:useConstraints>
           <mco:otherConstraints gco:nilReason="missing">
             <gco:CharacterString/>
           </mco:otherConstraints>

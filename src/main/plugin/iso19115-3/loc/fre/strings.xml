@@ -163,4 +163,21 @@
   <medsea-who>Who</medsea-who>
   <medsea-access>How to access</medsea-access>
 
+  <medsea-upstream-data>Upstream data</medsea-upstream-data>
+  <medsea-upstream-data-help>
+    <div class="row">
+      <div class="col-xs-offset-2 col-xs-8">
+        <p class="help-block">Link this product to upstream data.</p>
+        <p class="help-block">To link upstream data,
+          <ul>
+            <li>use the related resources panel on the right and
+              choose "link to source dataset"</li>
+            <li>search for the upstream data</li>
+            <li>click "link to source dataset".</li>
+          </ul>
+        </p>
+      </div>
+    </div>
+  </medsea-upstream-data-help>
+
 </strings>

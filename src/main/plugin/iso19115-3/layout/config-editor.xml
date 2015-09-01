@@ -971,7 +971,7 @@
                  xpath="/mdb:MD_Metadata/mdb:dataQualityInfo/*/
                     mdq:report/mdq:DQ_DomainConsistency[mdq:measure/*/mdq:nameOfMeasure/gco:CharacterString = 'Reliability']/
                     mdq:result/mdq:DQ_QuantitativeResult/mdq:value"/>
-          
+
           <field
                   name="reliability"
                   xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/
@@ -1158,7 +1158,7 @@
           + Purpose of production
           + Challenge
           + Product specification reference
-          + = Lineage (cf. associated panel for sources ?) TODO: in view mode ?
+          + = Lineage (cf. associated panel for sources)
           -->
 
           <field name="medseaHierarchyLevel"
@@ -1176,10 +1176,16 @@
                   name="processStepReference"
                   xpath="/mdb:MD_Metadata/mdb:resourceLineage/*/mrl:statement"/>
 
+
         </section>
       </tab>
 
 
+      <tab id="medsea-upstream-data">
+        <section>
+          <text ref="medsea-upstream-data-help"/>
+        </section>
+      </tab>
 
       <tab id="medsea-who">
         <section>
@@ -1430,14 +1436,6 @@
                   name="medseaTitle"
                   xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:citation/*/cit:alternateTitle"/>
 
-
-          <!--
-          With which input data referenced in checkpoint catalogue
-            TODO: UPSTREAM DATA
-            Title of upstream data
-            URL of upstream data
-          -->
-
         </section>
       </tab>
       <tab id="medsea-where" mode="flat">
@@ -1581,8 +1579,11 @@
           + Citation (format)
           -->
 
+          <field xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/
+                            mri:resourceConstraints/mco:MD_LegalConstraints/mco:useLimitation"/>
 
-
+          <field xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/
+                            mri:resourceConstraints/mco:MD_LegalConstraints/mco:accessConstraints"/>
         </section>
       </tab>
       <tab id="medsea-metadata-tp" mode="flat">
