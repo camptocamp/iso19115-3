@@ -961,6 +961,17 @@
                           [contains(*/mri:thesaurusName/cit:CI_Citation/cit:identifier/*/mcc:code/*/text(),
                           'medsea.readyness')]"/>
 
+
+          <field name="responsiveness"
+                 xpath="/mdb:MD_Metadata/mdb:dataQualityInfo/*/
+                    mdq:report/mdq:DQ_DomainConsistency[mdq:measure/*/mdq:nameOfMeasure/gco:CharacterString = 'Responsiveness']/
+                    mdq:result/mdq:DQ_QuantitativeResult/mdq:value"/>
+
+          <field name="losi"
+                 xpath="/mdb:MD_Metadata/mdb:dataQualityInfo/*/
+                    mdq:report/mdq:DQ_DomainConsistency[mdq:measure/*/mdq:nameOfMeasure/gco:CharacterString = 'Reliability']/
+                    mdq:result/mdq:DQ_QuantitativeResult/mdq:value"/>
+          
           <field
                   name="reliability"
                   xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/
@@ -1571,7 +1582,7 @@
           -->
 
 
-          
+
         </section>
       </tab>
       <tab id="medsea-metadata-tp" mode="flat">
