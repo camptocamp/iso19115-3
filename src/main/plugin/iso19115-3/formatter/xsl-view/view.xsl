@@ -86,11 +86,11 @@
     <div class="ui-layout-content mdshow-tabpanel">
       <a class="file-link"
          title="Export HTML"
-         style="display: block;float: right;"
+         style="display: block;float: right; text-decoration: none;"
          href="{$baseUrl}md.format.html?id={$metadataId}&amp;xsl=xsl-view&amp;view=medsea">&#160;</a>
       <a class="file-xml"
          title="Export XML"
-         style="display: block;float: right;"
+         style="display: block;float: right; text-decoration: none;"
          href="{$baseUrl}xml.metadata.get?id={$metadataId}">&#160;</a>
     </div>
   </xsl:template>
@@ -203,7 +203,7 @@
 
     <div class="gn-contact">
       <h3>
-        <i class="fa fa-envelope"></i>
+        <i class="fa fa-envelope">&#160;</i>
         <xsl:apply-templates mode="render-value"
                              select="*/cit:role/*/@codeListValue"/>
       </h3>
