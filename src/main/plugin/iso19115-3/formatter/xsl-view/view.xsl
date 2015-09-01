@@ -87,7 +87,7 @@
       <a class="file-link"
          title="Export HTML"
          style="display: block;float: right; text-decoration: none;"
-         href="{$baseUrl}md.format.html?id={$metadataId}&amp;xsl=xsl-view&amp;view=medsea">&#160;</a>
+         href="{$baseUrl}md.format.html?id={$metadataId}&amp;xsl=xsl-view&amp;view=medsea&amp;css=sextant">&#160;</a>
       <a class="file-xml"
          title="Export XML"
          style="display: block;float: right; text-decoration: none;"
