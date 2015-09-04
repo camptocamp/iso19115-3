@@ -143,11 +143,11 @@
       *[$isFlatMode = false() and not(gco:CharacterString)]">
 
     <div class="entry name">
-      <h3>
+      <h4>
         <xsl:value-of select="tr:node-label(tr:create($schema), name(), null)"/>
         <xsl:apply-templates mode="render-value"
                              select="@*"/>
-      </h3>
+      </h4>
       <div class="target">
         <xsl:apply-templates mode="render-field" select="*"/>
       </div>
@@ -202,11 +202,11 @@
     </xsl:variable>
 
     <div class="gn-contact">
-      <h3>
+      <h4>
         <i class="fa fa-envelope">&#160;</i>
         <xsl:apply-templates mode="render-value"
                              select="*/cit:role/*/@codeListValue"/>
-      </h3>
+      </h4>
       <div class="row">
         <div class="col-md-6">
           <!-- Needs improvements as contact/org are more flexible in ISO19115-3 -->
@@ -348,10 +348,10 @@
         <xsl:apply-templates mode="render-value"
                              select="*/mri:thesaurusName/cit:CI_Citation/cit:title/*"/>
 
-        <xsl:if test="*/mri:type/*[@codeListValue != '']">
+        <!--<xsl:if test="*/mri:type/*[@codeListValue != '']">
           (<xsl:apply-templates mode="render-value"
                                 select="*/mri:type/*/@codeListValue"/>)
-        </xsl:if>
+        </xsl:if>-->
       </dt>
       <dd>
         <div>
