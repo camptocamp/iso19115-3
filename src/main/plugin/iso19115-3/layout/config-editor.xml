@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <editor xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:noNamespaceSchemaLocation="../../config-editor.xsd"
-  xmlns:gn="http://www.fao.org/geonetwork"
-  xmlns:gml="http://www.opengis.net/gml/3.2"
-  xmlns:srv="http://standards.iso.org/iso/19115/-3/srv/2.0"
-  xmlns:mdb="http://standards.iso.org/iso/19115/-3/mdb/1.0"
-  xmlns:mcc="http://standards.iso.org/iso/19115/-3/mcc/1.0"
-  xmlns:mri="http://standards.iso.org/iso/19115/-3/mri/1.0"
-  xmlns:mmi="http://standards.iso.org/iso/19115/-3/mmi/1.0"
-  xmlns:mrs="http://standards.iso.org/iso/19115/-3/mrs/1.0"
-  xmlns:mrd="http://standards.iso.org/iso/19115/-3/mrd/1.0"
-  xmlns:mco="http://standards.iso.org/iso/19115/-3/mco/1.0"
-  xmlns:msr="http://standards.iso.org/iso/19115/-3/msr/1.0"
-  xmlns:lan="http://standards.iso.org/iso/19115/-3/lan/1.0"
-  xmlns:mrl="http://standards.iso.org/iso/19115/-3/mrl/1.0"
-  xmlns:gex="http://standards.iso.org/iso/19115/-3/gex/1.0"
-  xmlns:mdq="http://standards.iso.org/iso/19157/-2/mdq/1.0"
-  xmlns:cit="http://standards.iso.org/iso/19115/-3/cit/1.0"
-  xmlns:gco="http://standards.iso.org/iso/19115/-3/gco/1.0">
+        xsi:noNamespaceSchemaLocation="../../config-editor.xsd"
+        xmlns:gn="http://www.fao.org/geonetwork"
+        xmlns:gml="http://www.opengis.net/gml/3.2"
+        xmlns:srv="http://standards.iso.org/iso/19115/-3/srv/2.0"
+        xmlns:mdb="http://standards.iso.org/iso/19115/-3/mdb/1.0"
+        xmlns:mcc="http://standards.iso.org/iso/19115/-3/mcc/1.0"
+        xmlns:mri="http://standards.iso.org/iso/19115/-3/mri/1.0"
+        xmlns:mmi="http://standards.iso.org/iso/19115/-3/mmi/1.0"
+        xmlns:mrs="http://standards.iso.org/iso/19115/-3/mrs/1.0"
+        xmlns:mrd="http://standards.iso.org/iso/19115/-3/mrd/1.0"
+        xmlns:mco="http://standards.iso.org/iso/19115/-3/mco/1.0"
+        xmlns:msr="http://standards.iso.org/iso/19115/-3/msr/1.0"
+        xmlns:lan="http://standards.iso.org/iso/19115/-3/lan/1.0"
+        xmlns:mrl="http://standards.iso.org/iso/19115/-3/mrl/1.0"
+        xmlns:gex="http://standards.iso.org/iso/19115/-3/gex/1.0"
+        xmlns:mdq="http://standards.iso.org/iso/19157/-2/mdq/1.0"
+        xmlns:cit="http://standards.iso.org/iso/19115/-3/cit/1.0"
+        xmlns:gco="http://standards.iso.org/iso/19115/-3/gco/1.0">
 
   <!-- Form field type configuration. Default is text. -->
   <fields>
@@ -260,8 +260,8 @@
       <name>mri:distance</name>
       <name>mri:vertical</name>
       <name>mri:angularDistance</name>
-      <name>msr:controlPointAvailability</name> 
-      <name>msr:orientationParameterAvailability</name>  
+      <name>msr:controlPointAvailability</name>
+      <name>msr:orientationParameterAvailability</name>
       <name>mac:averageAirTemperature</name>
       <name>mac:maxRelativeHumidity</name>
       <name>mac:maxAltitude</name>
@@ -1019,8 +1019,7 @@
                 <key label="organisationName"
                      xpath="*/cit:party/*/cit:name/gco:CharacterString"/>
                 <key label="electronicMailAddress"
-                     xpath="*/cit:contactInfo/
-                  cit:CI_Contact/cit:address/cit:CI_Address/cit:electronicMailAddress/gco:CharacterString"
+                     xpath="*/cit:party/*/cit:contactInfo/*/cit:address/*/cit:electronicMailAddress/gco:CharacterString"
                      use="email"/>
                 <key label="role"
                      xpath="*/cit:role/*/@codeListValue">
@@ -1094,8 +1093,8 @@
         </section>
       </tab>
       <tab id="medsea-dq" mode="flat">
-         <section>
-           <field xpath="/mdb:MD_Metadata/mdb:dataQualityInfo/mdq:DQ_DataQuality/
+        <section>
+          <field xpath="/mdb:MD_Metadata/mdb:dataQualityInfo/mdq:DQ_DataQuality/
                      mdq:report" or="report" in="/mdb:MD_Metadata/mdb:dataQualityInfo/mdq:DQ_DataQuality"/>
 
         </section>
@@ -1625,8 +1624,7 @@
                 <key label="organisationName"
                      xpath="*/cit:party/*/cit:name/gco:CharacterString"/>
                 <key label="electronicMailAddress"
-                     xpath="*/cit:contactInfo/
-                  cit:CI_Contact/cit:address/cit:CI_Address/cit:electronicMailAddress/gco:CharacterString"
+                     xpath="*/cit:party/*/cit:contactInfo/*/cit:address/*/cit:electronicMailAddress/gco:CharacterString"
                      use="email"/>
                 <key label="role"
                      xpath="*/cit:role/*/@codeListValue">
