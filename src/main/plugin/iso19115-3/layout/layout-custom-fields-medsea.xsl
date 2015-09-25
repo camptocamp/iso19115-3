@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet version="2.0"
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-                xmlns:mdb="http://standards.iso.org/19115/-3/mdb/1.0"
-                xmlns:mcc="http://standards.iso.org/19115/-3/mcc/1.0"
-                xmlns:mri="http://standards.iso.org/19115/-3/mri/1.0"
-                xmlns:lan="http://standards.iso.org/19115/-3/lan/1.0"
-                xmlns:cit="http://standards.iso.org/19115/-3/cit/1.0"
-                xmlns:gex="http://standards.iso.org/19115/-3/gex/1.0"
-                xmlns:gco="http://standards.iso.org/19115/-3/gco/1.0"
+                xmlns:mdb="http://standards.iso.org/iso/19115/-3/mdb/1.0"
+                xmlns:mcc="http://standards.iso.org/iso/19115/-3/mcc/1.0"
+                xmlns:mri="http://standards.iso.org/iso/19115/-3/mri/1.0"
+                xmlns:lan="http://standards.iso.org/iso/19115/-3/lan/1.0"
+                xmlns:cit="http://standards.iso.org/iso/19115/-3/cit/1.0"
+                xmlns:gex="http://standards.iso.org/iso/19115/-3/gex/1.0"
+                xmlns:gco="http://standards.iso.org/iso/19115/-3/gco/1.0"
                 xmlns:gmx="http://www.isotc211.org/2005/gmx"
                 xmlns:gml="http://www.opengis.net/gml/3.2"
                 xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -17,13 +17,14 @@
                 exclude-result-prefixes="#all">
 
   <!-- MEDSEA / Use thesaurus local.theme.medsea.challenges
-  to populate the field gmd:hierarchyLevelName. -->
-  <xsl:template mode="mode-iso19115-3" priority="2000"
-                match="mdb:name[
-                            $metadata/mdb:metadataScope/mdb:MD_MetadataScope/mdb:name/gn:element/@ref = gn:element/@ref and
+  to populate the field gmd:hierarchyLevelName.
+                            -->
+  <xsl:template mode="mode-iso19115-3" priority="20000"
+                match="mdb:metadataScope/mdb:MD_MetadataScope/mdb:name[
                             contains($metadata/mdb:metadataStandard/*/cit:title/gco:CharacterString,
-                                     'MedSea Checkpoint')]">
-
+                                     'MedSea Checkpoint') or
+                            contains($metadata/mdb:metadataStandard/*/cit:title/gco:CharacterString,
+                                     'MedSea Targeted Product')]">
     <div class="form-group gn-field"
          id="gn-el-11">
       <label for="gn-field-11" class="col-sm-2 control-label">
@@ -39,5 +40,4 @@
       </div>
     </div>
   </xsl:template>
-
 </xsl:stylesheet>

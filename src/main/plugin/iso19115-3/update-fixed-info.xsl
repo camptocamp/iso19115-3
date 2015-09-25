@@ -9,6 +9,7 @@
   xmlns:mrc="http://standards.iso.org/iso/19115/-3/mrc/1.0"
   xmlns:lan="http://standards.iso.org/iso/19115/-3/lan/1.0"
   xmlns:cit="http://standards.iso.org/iso/19115/-3/cit/1.0"
+  xmlns:mri="http://standards.iso.org/iso/19115/-3/mri/1.0"
   xmlns:dqm="http://standards.iso.org/iso/19157/-2/dqm/1.0"
   xmlns:gfc="http://standards.iso.org/iso/19110/gfc/1.1"
   xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -511,5 +512,41 @@
       <xsl:apply-templates select="@*|node()"/>
     </xsl:copy>
   </xsl:template>
-  
+
+
+  <!-- Compute title and identifier as "P02 - P01 - Dataprovider - Datasetname" -->
+  <xsl:template
+          match="mdb:MD_Metadata[
+                    contains(mdb:metadataStandard/
+                                        */cit:title/gco:CharacterString, 'MedSea Checkpoint')]/
+                      mdb:identificationInfo/*/mri:citation/cit:CI_Citation/
+                        cit:title/gco:CharacterString|
+                  mdb:MD_Metadata[
+                    contains(mdb:metadataStandard/
+                                        */cit:title/gco:CharacterString, 'MedSea Checkpoint')]/
+                      mdb:identificationInfo/*/mri:citation/cit:CI_Citation/
+                        cit:identifier/mcc:MD_Identifier/
+                          mcc:code/gco:CharacterString"
+          priority="200">
+    <!-- String join in case of multiple but this should not happen -->
+    <xsl:variable name="p02" select="string-join(ancestor::mdb:MD_Metadata/mdb:identificationInfo/*/
+                    mri:descriptiveKeywords
+                    [contains(*/mri:thesaurusName/cit:CI_Citation/cit:identifier/*/mcc:code/*/text(),
+                    'NVS.P02')]/*/mri:keyword/*, ' | ')"/>
+
+    <xsl:variable name="otherP01" select="string-join(ancestor::mdb:MD_Metadata/mdb:identificationInfo/*/
+                    mri:descriptiveKeywords
+                    [contains(*/mri:thesaurusName/cit:CI_Citation/cit:identifier/*/mcc:code/*/text(),
+                    'parameter.NVS.P01')]/*/mri:keyword/*, ' | ')"/>
+
+
+    <xsl:variable name="edmoProvider" select="ancestor::mdb:MD_Metadata/mdb:identificationInfo/*/mri:pointOfContact[*/cit:role/*/@codeListValue='edmo']/*/cit:party/*/cit:name/gco:CharacterString"/>
+
+
+    <xsl:variable name="dataSetName" select="ancestor::mdb:MD_Metadata/mdb:identificationInfo/*/mri:citation/*/cit:alternateTitle[1]/gco:CharacterString"/>
+
+    <xsl:copy>
+      <xsl:value-of select="concat($p02, ' | ', $otherP01, ' | ', $edmoProvider, ' | ', $dataSetName)"/>
+    </xsl:copy>
+  </xsl:template>
 </xsl:stylesheet>

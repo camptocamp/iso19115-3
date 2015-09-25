@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<mdb:MD_Metadata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<mdb:MD_Metadata xmlns:mdb="http://standards.iso.org/iso/19115/-3/mdb/1.0"
+                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                  xmlns:cat="http://standards.iso.org/iso/19115/-3/cat/1.0"
                  xmlns:cit="http://standards.iso.org/iso/19115/-3/cit/1.0"
                  xmlns:gcx="http://standards.iso.org/iso/19115/-3/gcx/1.0"
@@ -10,7 +10,6 @@
                  xmlns:mcc="http://standards.iso.org/iso/19115/-3/mcc/1.0"
                  xmlns:mco="http://standards.iso.org/iso/19115/-3/mco/1.0"
                  xmlns:mda="http://standards.iso.org/iso/19115/-3/mda/1.0"
-                 xmlns:mdb="http://standards.iso.org/iso/19115/-3/mdb/1.0"
                  xmlns:mds="http://standards.iso.org/iso/19115/-3/mds/1.0"
                  xmlns:mdt="http://standards.iso.org/iso/19115/-3/mdt/1.0"
                  xmlns:mex="http://standards.iso.org/iso/19115/-3/mex/1.0"
@@ -26,30 +25,36 @@
                  xmlns:mac="http://standards.iso.org/iso/19115/-3/mac/1.0"
                  xmlns:gco="http://standards.iso.org/iso/19115/-3/gco/1.0"
                  xmlns:gml="http://www.opengis.net/gml/3.2"
-                 xmlns:xlink="http://www.w3.org/1999/xlink">
+                 xmlns:xlink="http://www.w3.org/1999/xlink"
+                 xmlns:geonet="http://www.fao.org/geonetwork">
   <mdb:metadataIdentifier>
     <mcc:MD_Identifier>
       <mcc:code>
-        <gco:CharacterString>a3e7b692-907b-4a3c-9f92-62bd177ab8de</gco:CharacterString>
+        <gco:CharacterString>526bd766-8971-462b-a17d-817b7684bbe2</gco:CharacterString>
       </mcc:code>
+      <mcc:codeSpace>
+        <gco:CharacterString>urn:uuid</gco:CharacterString>
+      </mcc:codeSpace>
     </mcc:MD_Identifier>
   </mdb:metadataIdentifier>
   <mdb:defaultLocale>
-    <lan:PT_Locale>
+    <lan:PT_Locale id="EN">
       <lan:language>
-        <lan:LanguageCode codeList="codeListLocation#LanguageCode" codeListValue="eng">eng</lan:LanguageCode>
+        <lan:LanguageCode codeList="http://www.loc.gov/standards/iso639-2/" codeListValue="eng"/>
       </lan:language>
       <lan:characterEncoding>
-        <lan:MD_CharacterSetCode codeList="codeListLocation#MD_CharacterSetCode" codeListValue="utf8">utf8</lan:MD_CharacterSetCode>
+        <lan:MD_CharacterSetCode codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#MD_CharacterSetCode"
+                                 codeListValue="utf8"/>
       </lan:characterEncoding>
     </lan:PT_Locale>
   </mdb:defaultLocale>
   <mdb:metadataScope>
     <mdb:MD_MetadataScope>
       <mdb:resourceScope>
-        <mcc:MD_ScopeCode codeList="codeListLocation#MD_ScopeCode" codeListValue="dataset">dataset</mcc:MD_ScopeCode>
+        <mcc:MD_ScopeCode codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#MD_ScopeCode"
+                          codeListValue="dataset"/>
       </mdb:resourceScope>
-      <mdb:name>
+      <mdb:name gco:nilReason="missing">
         <gco:CharacterString/>
       </mdb:name>
     </mdb:MD_MetadataScope>
@@ -57,12 +62,13 @@
   <mdb:contact>
     <cit:CI_Responsibility>
       <cit:role>
-        <cit:CI_RoleCode codeList="codeListLocation#CI_RoleCode" codeListValue=""/>
+        <cit:CI_RoleCode codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#CI_RoleCode"
+                         codeListValue=""/>
       </cit:role>
       <cit:party>
         <cit:CI_Organisation>
-          <cit:name xmlns:gco="http://www.isotc211.org/2005/gco" gco:nilReason="missing">
-            <gco:CharacterString xmlns:gco="http://standards.iso.org/iso/19115/-3/gco/1.0"/>
+          <cit:name gco:nilReason="missing">
+            <gco:CharacterString/>
           </cit:name>
           <cit:contactInfo>
             <cit:CI_Contact>
@@ -82,6 +88,17 @@
   <mdb:dateInfo>
     <cit:CI_Date>
       <cit:date>
+        <gco:DateTime>2015-08-31T17:00:05</gco:DateTime>
+      </cit:date>
+      <cit:dateType>
+        <cit:CI_DateTypeCode codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#CI_DateTypeCode"
+                             codeListValue="revision"/>
+      </cit:dateType>
+    </cit:CI_Date>
+  </mdb:dateInfo>
+  <mdb:dateInfo>
+    <cit:CI_Date>
+      <cit:date>
         <gco:DateTime>2014-10-08T14:35:32</gco:DateTime>
       </cit:date>
       <cit:dateType>
@@ -92,13 +109,24 @@
   <mdb:metadataStandard>
     <cit:CI_Citation>
       <cit:title>
-        <gco:CharacterString>ISO 19115-3 - MedSea Checkpoint</gco:CharacterString>
+        <gco:CharacterString>ISO 19115-3 - MedSea Targeted Product</gco:CharacterString>
       </cit:title>
       <cit:edition>
         <gco:CharacterString>1.0</gco:CharacterString>
       </cit:edition>
     </cit:CI_Citation>
   </mdb:metadataStandard>
+  <mdb:metadataLinkage>
+    <cit:CI_OnlineResource>
+      <cit:linkage>
+        <gco:CharacterString>http://sextant.ifremer.fr/geonetwork/srv/eng//metadata/526bd766-8971-462b-a17d-817b7684bbe2</gco:CharacterString>
+      </cit:linkage>
+      <cit:function>
+        <cit:CI_OnLineFunctionCode codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#CI_OnLineFunctionCode"
+                                   codeListValue="completeMetadata"/>
+      </cit:function>
+    </cit:CI_OnlineResource>
+  </mdb:metadataLinkage>
   <mdb:spatialRepresentationInfo>
     <msr:MD_Georectified>
       <msr:numberOfDimensions>
@@ -152,12 +180,33 @@
       <mri:citation>
         <cit:CI_Citation>
           <cit:title>
-            <gco:CharacterString>Medsea template</gco:CharacterString>
+            <gco:CharacterString>MedSea Targeted Product template</gco:CharacterString>
           </cit:title>
-          <cit:alternateTitle>
+          <cit:alternateTitle gco:nilReason="missing">
             <gco:CharacterString/>
           </cit:alternateTitle>
-          <cit:date/>
+          <cit:date>
+            <cit:CI_Date>
+              <cit:date>
+                <gco:Date/>
+              </cit:date>
+              <cit:dateType>
+                <cit:CI_DateTypeCode codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#CI_DateTypeCode"
+                                     codeListValue="creation"/>
+              </cit:dateType>
+            </cit:CI_Date>
+          </cit:date>
+          <cit:date>
+            <cit:CI_Date>
+              <cit:date>
+                <gco:Date/>
+              </cit:date>
+              <cit:dateType>
+                <cit:CI_DateTypeCode codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#CI_DateTypeCode"
+                                     codeListValue="revision"/>
+              </cit:dateType>
+            </cit:CI_Date>
+          </cit:date>
           <cit:identifier>
             <mcc:MD_Identifier>
               <mcc:code>
@@ -165,33 +214,34 @@
               </mcc:code>
             </mcc:MD_Identifier>
           </cit:identifier>
-          <cit:otherCitationDetails>
+          <cit:otherCitationDetails gco:nilReason="missing">
             <gco:CharacterString/>
           </cit:otherCitationDetails>
         </cit:CI_Citation>
       </mri:citation>
-      <mri:abstract>
+      <mri:abstract gco:nilReason="missing">
         <gco:CharacterString/>
       </mri:abstract>
-      <mri:purpose xmlns:gco="http://www.isotc211.org/2005/gco" gco:nilReason="missing">
-        <gco:CharacterString xmlns:gco="http://standards.iso.org/iso/19115/-3/gco/1.0"/>
+      <mri:purpose gco:nilReason="missing">
+        <gco:CharacterString/>
       </mri:purpose>
-      <mri:credit xmlns:gco="http://www.isotc211.org/2005/gco" gco:nilReason="missing">
-        <gco:CharacterString xmlns:gco="http://standards.iso.org/iso/19115/-3/gco/1.0"/>
+      <mri:credit>
+        <gco:CharacterString>EMODnet MedSea Checkpoint</gco:CharacterString>
       </mri:credit>
       <mri:status>
-        <mcc:MD_ProgressCode codeList="codeListLocation#MD_ProgressCode" codeListValue="onGoing">onGoing</mcc:MD_ProgressCode>
+        <mcc:MD_ProgressCode codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#MD_ProgressCode"
+                             codeListValue="onGoing"/>
       </mri:status>
       <mri:pointOfContact>
         <cit:CI_Responsibility>
           <cit:role>
-            <cit:CI_RoleCode codeList="codeListLocation#CI_RoleCode"
-                             codeListValue="resourceProvider">resourceProvider</cit:CI_RoleCode>
+            <cit:CI_RoleCode codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#CI_RoleCode"
+                             codeListValue="resourceProvider"/>
           </cit:role>
           <cit:party>
             <cit:CI_Organisation>
-              <cit:name xmlns:gco="http://www.isotc211.org/2005/gco" gco:nilReason="missing">
-                <gco:CharacterString xmlns:gco="http://standards.iso.org/iso/19115/-3/gco/1.0"/>
+              <cit:name>
+                <gco:CharacterString>INGV</gco:CharacterString>
               </cit:name>
               <cit:contactInfo>
                 <cit:CI_Contact>
@@ -204,13 +254,97 @@
                   </cit:address>
                 </cit:CI_Contact>
               </cit:contactInfo>
+              <cit:contactInfo>
+                <cit:CI_Contact>
+                  <cit:address>
+                    <cit:CI_Address>
+                      <cit:electronicMailAddress gco:nilReason="missing">
+                        <gco:CharacterString/>
+                      </cit:electronicMailAddress>
+                    </cit:CI_Address>
+                  </cit:address>
+                </cit:CI_Contact>
+              </cit:contactInfo>
+              <cit:contactInfo>
+                <cit:CI_Contact>
+                  <cit:address>
+                    <cit:CI_Address>
+                      <cit:electronicMailAddress gco:nilReason="missing">
+                        <gco:CharacterString/>
+                      </cit:electronicMailAddress>
+                    </cit:CI_Address>
+                  </cit:address>
+                </cit:CI_Contact>
+              </cit:contactInfo>
+              <cit:contactInfo>
+                <cit:CI_Contact>
+                  <cit:address>
+                    <cit:CI_Address>
+                      <cit:electronicMailAddress gco:nilReason="missing">
+                        <gco:CharacterString/>
+                      </cit:electronicMailAddress>
+                    </cit:CI_Address>
+                  </cit:address>
+                </cit:CI_Contact>
+              </cit:contactInfo>
+              <cit:individual>
+                <cit:CI_Individual>
+                  <cit:name gco:nilReason="missing">
+                    <gco:CharacterString/>
+                  </cit:name>
+                  <cit:contactInfo>
+                    <cit:CI_Contact>
+                      <cit:address>
+                        <cit:CI_Address>
+                          <cit:electronicMailAddress gco:nilReason="missing">
+                            <gco:CharacterString/>
+                          </cit:electronicMailAddress>
+                        </cit:CI_Address>
+                      </cit:address>
+                    </cit:CI_Contact>
+                  </cit:contactInfo>
+                  <cit:contactInfo>
+                    <cit:CI_Contact>
+                      <cit:address>
+                        <cit:CI_Address>
+                          <cit:electronicMailAddress gco:nilReason="missing">
+                            <gco:CharacterString/>
+                          </cit:electronicMailAddress>
+                        </cit:CI_Address>
+                      </cit:address>
+                    </cit:CI_Contact>
+                  </cit:contactInfo>
+                  <cit:contactInfo>
+                    <cit:CI_Contact>
+                      <cit:address>
+                        <cit:CI_Address>
+                          <cit:electronicMailAddress gco:nilReason="missing">
+                            <gco:CharacterString/>
+                          </cit:electronicMailAddress>
+                        </cit:CI_Address>
+                      </cit:address>
+                    </cit:CI_Contact>
+                  </cit:contactInfo>
+                  <cit:contactInfo>
+                    <cit:CI_Contact>
+                      <cit:address>
+                        <cit:CI_Address>
+                          <cit:electronicMailAddress gco:nilReason="missing">
+                            <gco:CharacterString/>
+                          </cit:electronicMailAddress>
+                        </cit:CI_Address>
+                      </cit:address>
+                    </cit:CI_Contact>
+                  </cit:contactInfo>
+                </cit:CI_Individual>
+              </cit:individual>
             </cit:CI_Organisation>
           </cit:party>
         </cit:CI_Responsibility>
       </mri:pointOfContact>
       <mri:spatialRepresentationType>
-        <mcc:MD_SpatialRepresentationTypeCode codeList="codeListLocation#MD_SpatialRepresentationTypeCode"
-                                              codeListValue="vector">vector</mcc:MD_SpatialRepresentationTypeCode>
+        <mcc:MD_SpatialRepresentationTypeCode codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#MD_SpatialRepresentationTypeCode"
+                                              codeListValue="vector"/>
       </mri:spatialRepresentationType>
       <mri:spatialResolution>
         <mri:MD_Resolution>
@@ -243,7 +377,7 @@
           <gex:temporalElement>
             <gex:EX_TemporalExtent>
               <gex:extent>
-                <TimePeriod xmlns="http://www.opengis.net/gml/3.2" gml:id="d165268e509a1053982"/>
+                <gml:TimePeriod gml:id="d165268e509a1053982"/>
               </gex:extent>
             </gex:EX_TemporalExtent>
           </gex:temporalElement>
@@ -281,10 +415,11 @@
               <cit:date>
                 <cit:CI_Date>
                   <cit:date>
-                    <gco:DateTime>2014-08-11T00:00:00</gco:DateTime>
+                    <gco:DateTime>2014-08-11</gco:DateTime>
                   </cit:date>
                   <cit:dateType>
-                    <cit:CI_DateTypeCode codeList="codeListLocation#CI_DateTypeCode" codeListValue=""/>
+                    <cit:CI_DateTypeCode codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#CI_DateTypeCode"
+                                         codeListValue="publication"/>
                   </cit:dateType>
                 </cit:CI_Date>
               </cit:date>
@@ -313,10 +448,11 @@
               <cit:date>
                 <cit:CI_Date>
                   <cit:date>
-                    <gco:DateTime>2014-08-11T00:00:00</gco:DateTime>
+                    <gco:DateTime>2014-08-11</gco:DateTime>
                   </cit:date>
                   <cit:dateType>
-                    <cit:CI_DateTypeCode codeList="codeListLocation#CI_DateTypeCode" codeListValue=""/>
+                    <cit:CI_DateTypeCode codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#CI_DateTypeCode"
+                                         codeListValue="publication"/>
                   </cit:dateType>
                 </cit:CI_Date>
               </cit:date>
@@ -345,17 +481,18 @@
               <cit:date>
                 <cit:CI_Date>
                   <cit:date>
-                    <gco:DateTime>2014-08-11T00:00:00</gco:DateTime>
+                    <gco:DateTime>2014-08-11</gco:DateTime>
                   </cit:date>
                   <cit:dateType>
-                    <cit:CI_DateTypeCode codeList="codeListLocation#CI_DateTypeCode" codeListValue=""/>
+                    <cit:CI_DateTypeCode codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#CI_DateTypeCode"
+                                         codeListValue="publication"/>
                   </cit:dateType>
                 </cit:CI_Date>
               </cit:date>
               <cit:identifier>
                 <mcc:MD_Identifier>
                   <mcc:code>
-                    <gcx:Anchor xlink:href="http://sextant.ifremer.fr/geonetwork/srv/eng/thesaurus.download?ref=local.theme.medsea.environmental.matrix">geonetwork.thesaurus.local.theme.medsea.production.mode</gcx:Anchor>
+                    <gcx:Anchor xlink:href="http://sextant.ifremer.fr/geonetwork/srv/eng/thesaurus.download?ref=local.theme.medsea.production.mode">geonetwork.thesaurus.local.theme.medsea.production.mode</gcx:Anchor>
                   </mcc:code>
                 </mcc:MD_Identifier>
               </cit:identifier>
@@ -377,10 +514,11 @@
               <cit:date>
                 <cit:CI_Date>
                   <cit:date>
-                    <gco:DateTime>2015-03-20T00:00:00</gco:DateTime>
+                    <gco:DateTime>2015-03-20</gco:DateTime>
                   </cit:date>
                   <cit:dateType>
-                    <cit:CI_DateTypeCode codeList="codeListLocation#CI_DateTypeCode" codeListValue=""/>
+                    <cit:CI_DateTypeCode codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#CI_DateTypeCode"
+                                         codeListValue="publication"/>
                   </cit:dateType>
                 </cit:CI_Date>
               </cit:date>
@@ -409,10 +547,11 @@
               <cit:date>
                 <cit:CI_Date>
                   <cit:date>
-                    <gco:DateTime>2015-03-20T00:00:00</gco:DateTime>
+                    <gco:DateTime>2015-03-20</gco:DateTime>
                   </cit:date>
                   <cit:dateType>
-                    <cit:CI_DateTypeCode codeList="codeListLocation#CI_DateTypeCode" codeListValue=""/>
+                    <cit:CI_DateTypeCode codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#CI_DateTypeCode"
+                                         codeListValue="publication"/>
                   </cit:dateType>
                 </cit:CI_Date>
               </cit:date>
@@ -441,10 +580,11 @@
               <cit:date>
                 <cit:CI_Date>
                   <cit:date>
-                    <gco:DateTime>2015-03-20T00:00:00</gco:DateTime>
+                    <gco:DateTime>2015-03-20</gco:DateTime>
                   </cit:date>
                   <cit:dateType>
-                    <cit:CI_DateTypeCode codeList="codeListLocation#CI_DateTypeCode" codeListValue=""/>
+                    <cit:CI_DateTypeCode codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#CI_DateTypeCode"
+                                         codeListValue="publication"/>
                   </cit:dateType>
                 </cit:CI_Date>
               </cit:date>
@@ -463,41 +603,6 @@
         <mri:MD_Keywords>
           <mri:type>
             <mri:MD_KeywordTypeCode codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#MD_KeywordTypeCode"
-                                    codeListValue="parameter"/>
-          </mri:type>
-          <mri:thesaurusName>
-            <cit:CI_Citation>
-              <cit:title>
-                <gco:CharacterString>Parameter Discovery Vocabulary (P02)</gco:CharacterString>
-              </cit:title>
-              <cit:date>
-                <cit:CI_Date>
-                  <cit:date>
-                    <gco:DateTime>2014-10-08T14:01:28</gco:DateTime>
-                  </cit:date>
-                  <cit:dateType>
-                    <cit:CI_DateTypeCode codeList="codeListLocation#CI_DateTypeCode" codeListValue=""/>
-                  </cit:dateType>
-                </cit:CI_Date>
-              </cit:date>
-              <cit:identifier>
-                <mcc:MD_Identifier>
-                  <mcc:code>
-                    <gcx:Anchor xlink:href="http://sextant.ifremer.fr/geonetwork/srv/eng/thesaurus.download?ref=external.parameter.NVS.P02">geonetwork.thesaurus.external.parameter.NVS.P02</gcx:Anchor>
-                  </mcc:code>
-                </mcc:MD_Identifier>
-              </cit:identifier>
-            </cit:CI_Citation>
-          </mri:thesaurusName>
-        </mri:MD_Keywords>
-      </mri:descriptiveKeywords>
-      <mri:descriptiveKeywords>
-        <mri:MD_Keywords>
-          <mri:keyword>
-            <gco:CharacterString/>
-          </mri:keyword>
-          <mri:type>
-            <mri:MD_KeywordTypeCode codeList="http://www.isotc211.org/2005/resources/codeList.xml#MD_KeywordTypeCode"
                                     codeListValue="theme"/>
           </mri:type>
           <mri:thesaurusName>
@@ -508,10 +613,11 @@
               <cit:date>
                 <cit:CI_Date>
                   <cit:date>
-                    <gco:DateTime>2009-09-22T00:00:00</gco:DateTime>
+                    <gco:DateTime>2009-09-22</gco:DateTime>
                   </cit:date>
                   <cit:dateType>
-                    <cit:CI_DateTypeCode codeList="codeListLocation#CI_DateTypeCode" codeListValue=""/>
+                    <cit:CI_DateTypeCode codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#CI_DateTypeCode"
+                                         codeListValue="publication"/>
                   </cit:dateType>
                 </cit:CI_Date>
               </cit:date>
@@ -540,10 +646,11 @@
               <cit:date>
                 <cit:CI_Date>
                   <cit:date>
-                    <gco:DateTime>2014-08-11T00:00:00</gco:DateTime>
+                    <gco:DateTime>2014-08-11</gco:DateTime>
                   </cit:date>
                   <cit:dateType>
-                    <cit:CI_DateTypeCode codeList="codeListLocation#CI_DateTypeCode" codeListValue=""/>
+                    <cit:CI_DateTypeCode codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#CI_DateTypeCode"
+                                         codeListValue="publication"/>
                   </cit:dateType>
                 </cit:CI_Date>
               </cit:date>
@@ -572,10 +679,11 @@
               <cit:date>
                 <cit:CI_Date>
                   <cit:date>
-                    <gco:DateTime>2014-08-11T00:00:00</gco:DateTime>
+                    <gco:DateTime>2014-08-11</gco:DateTime>
                   </cit:date>
                   <cit:dateType>
-                    <cit:CI_DateTypeCode codeList="codeListLocation#CI_DateTypeCode" codeListValue=""/>
+                    <cit:CI_DateTypeCode codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#CI_DateTypeCode"
+                                         codeListValue="publication"/>
                   </cit:dateType>
                 </cit:CI_Date>
               </cit:date>
@@ -599,114 +707,23 @@
           <mri:thesaurusName>
             <cit:CI_Citation>
               <cit:title>
-                <gco:CharacterString>Parameter Usage Vocabulary (P01)</gco:CharacterString>
-              </cit:title>
-              <cit:date>
-                <cit:CI_Date>
-                  <cit:date>
-                    <gco:DateTime>2014-11-25T09:05:00</gco:DateTime>
-                  </cit:date>
-                  <cit:dateType>
-                    <cit:CI_DateTypeCode codeList="codeListLocation#CI_DateTypeCode" codeListValue=""/>
-                  </cit:dateType>
-                </cit:CI_Date>
-              </cit:date>
-              <cit:identifier>
-                <mcc:MD_Identifier>
-                  <mcc:code>
-                    <gcx:Anchor xlink:href="http://localhost:8080/geonetwork/srv/eng/thesaurus.download?ref=external.parameter.NVS.P01">geonetwork.thesaurus.external.parameter.NVS.P01</gcx:Anchor>
-                  </mcc:code>
-                </mcc:MD_Identifier>
-              </cit:identifier>
-            </cit:CI_Citation>
-          </mri:thesaurusName>
-        </mri:MD_Keywords>
-      </mri:descriptiveKeywords>
-      <mri:descriptiveKeywords>
-        <mri:MD_Keywords>
-          <mri:keyword>
-            <gco:CharacterString/>
-          </mri:keyword>
-          <mri:type>
-            <mri:MD_KeywordTypeCode codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#MD_KeywordTypeCode"
-                                    codeListValue="theme"/>
-          </mri:type>
-          <mri:thesaurusName>
-            <cit:CI_Citation>
-              <cit:title>
-                <gco:CharacterString>Parameter Usage Vocabulary (other)</gco:CharacterString>
-              </cit:title>
-              <cit:date>
-                <cit:CI_Date>
-                  <cit:date>
-                    <gco:DateTime>2014-11-25T09:05:00</gco:DateTime>
-                  </cit:date>
-                  <cit:dateType>
-                    <cit:CI_DateTypeCode codeList="codeListLocation#CI_DateTypeCode" codeListValue=""/>
-                  </cit:dateType>
-                </cit:CI_Date>
-              </cit:date>
-            </cit:CI_Citation>
-          </mri:thesaurusName>
-        </mri:MD_Keywords>
-      </mri:descriptiveKeywords>
-      <mri:descriptiveKeywords>
-        <mri:MD_Keywords>
-          <mri:type>
-            <mri:MD_KeywordTypeCode codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#MD_KeywordTypeCode"
-                                    codeListValue="theme"/>
-          </mri:type>
-          <mri:thesaurusName>
-            <cit:CI_Citation>
-              <cit:title>
-                <gco:CharacterString>Agreed Parameter Groups (P03)</gco:CharacterString>
-              </cit:title>
-              <cit:date>
-                <cit:CI_Date>
-                  <cit:date>
-                    <gco:DateTime>2014-10-29T19:05:26</gco:DateTime>
-                  </cit:date>
-                  <cit:dateType>
-                    <cit:CI_DateTypeCode codeList="codeListLocation#CI_DateTypeCode" codeListValue=""/>
-                  </cit:dateType>
-                </cit:CI_Date>
-              </cit:date>
-              <cit:identifier>
-                <mcc:MD_Identifier>
-                  <mcc:code>
-                    <gcx:Anchor xlink:href="http://sextant.ifremer.fr/geonetwork/srv/eng/thesaurus.download?ref=external.parameter.NVS.P03">geonetwork.thesaurus.external.parameter.NVS.P03</gcx:Anchor>
-                  </mcc:code>
-                </mcc:MD_Identifier>
-              </cit:identifier>
-            </cit:CI_Citation>
-          </mri:thesaurusName>
-        </mri:MD_Keywords>
-      </mri:descriptiveKeywords>
-      <mri:descriptiveKeywords>
-        <mri:MD_Keywords>
-          <mri:type>
-            <mri:MD_KeywordTypeCode codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#MD_KeywordTypeCode"
-                                    codeListValue="theme"/>
-          </mri:type>
-          <mri:thesaurusName>
-            <cit:CI_Citation>
-              <cit:title>
                 <gco:CharacterString>Service extent</gco:CharacterString>
               </cit:title>
               <cit:date>
                 <cit:CI_Date>
                   <cit:date>
-                    <gco:DateTime>2015-01-29T00:00:00</gco:DateTime>
+                    <gco:DateTime>2015-01-29</gco:DateTime>
                   </cit:date>
                   <cit:dateType>
-                    <cit:CI_DateTypeCode codeList="codeListLocation#CI_DateTypeCode" codeListValue=""/>
+                    <cit:CI_DateTypeCode codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#CI_DateTypeCode"
+                                         codeListValue="publication"/>
                   </cit:dateType>
                 </cit:CI_Date>
               </cit:date>
               <cit:identifier>
                 <mcc:MD_Identifier>
                   <mcc:code>
-                    <gcx:Anchor xlink:href="http://localhost:8080/geonetwork/srv/eng/thesaurus.download?ref=local.theme.medsea.service.extent">geonetwork.thesaurus.local.theme.medsea.service.extent</gcx:Anchor>
+                    <gcx:Anchor xlink:href="http://sextant.ifremer.fr/geonetwork/srv/eng/thesaurus.download?ref=local.theme.medsea.service.extent">geonetwork.thesaurus.local.theme.medsea.service.extent</gcx:Anchor>
                   </mcc:code>
                 </mcc:MD_Identifier>
               </cit:identifier>
@@ -728,38 +745,6 @@
               <cit:date>
                 <cit:CI_Date>
                   <cit:date>
-                    <gco:DateTime>2015-01-29T00:00:00</gco:DateTime>
-                  </cit:date>
-                  <cit:dateType>
-                    <cit:CI_DateTypeCode codeList="codeListLocation#CI_DateTypeCode" codeListValue=""/>
-                  </cit:dateType>
-                </cit:CI_Date>
-              </cit:date>
-              <cit:identifier>
-                <mcc:MD_Identifier>
-                  <mcc:code>
-                    <gcx:Anchor xlink:href="http://localhost:8080/geonetwork/srv/eng/thesaurus.download?ref=local.theme.medsea.reliability">geonetwork.thesaurus.local.theme.medsea.reliability</gcx:Anchor>
-                  </mcc:code>
-                </mcc:MD_Identifier>
-              </cit:identifier>
-            </cit:CI_Citation>
-          </mri:thesaurusName>
-        </mri:MD_Keywords>
-      </mri:descriptiveKeywords>
-      <mri:descriptiveKeywords>
-        <mri:MD_Keywords>
-          <mri:type>
-            <mri:MD_KeywordTypeCode codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#MD_KeywordTypeCode"
-                                    codeListValue="theme"/>
-          </mri:type>
-          <mri:thesaurusName>
-            <cit:CI_Citation>
-              <cit:title>
-                <gco:CharacterString>Validation</gco:CharacterString>
-              </cit:title>
-              <cit:date>
-                <cit:CI_Date>
-                  <cit:date>
                     <gco:DateTime>2015-01-29</gco:DateTime>
                   </cit:date>
                   <cit:dateType>
@@ -771,7 +756,29 @@
               <cit:identifier>
                 <mcc:MD_Identifier>
                   <mcc:code>
-                    <gcx:Anchor xlink:href="http://sextant.ifremer.fr/geonetwork/srv/eng/thesaurus.download?ref=external.theme.medsea.status">geonetwork.thesaurus.local.theme.medsea.status</gcx:Anchor>
+                    <gcx:Anchor xlink:href="http://sextant.ifremer.fr/geonetwork/srv/eng/thesaurus.download?ref=local.theme.medsea.reliability">geonetwork.thesaurus.local.theme.medsea.reliability</gcx:Anchor>
+                  </mcc:code>
+                </mcc:MD_Identifier>
+              </cit:identifier>
+            </cit:CI_Citation>
+          </mri:thesaurusName>
+        </mri:MD_Keywords>
+      </mri:descriptiveKeywords>
+      <mri:descriptiveKeywords>
+        <mri:MD_Keywords>
+          <mri:type>
+            <mri:MD_KeywordTypeCode codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#MD_KeywordTypeCode"
+                                    codeListValue=""/>
+          </mri:type>
+          <mri:thesaurusName>
+            <cit:CI_Citation>
+              <cit:title gco:nilReason="missing">
+                <gco:CharacterString/>
+              </cit:title>
+              <cit:identifier>
+                <mcc:MD_Identifier>
+                  <mcc:code>
+                    <gcx:Anchor xlink:href="">geonetwork.thesaurus.local.theme.medsea.status</gcx:Anchor>
                   </mcc:code>
                 </mcc:MD_Identifier>
               </cit:identifier>
@@ -781,10 +788,17 @@
       </mri:descriptiveKeywords>
       <mri:resourceConstraints>
         <mco:MD_LegalConstraints>
+          <mco:useLimitation gco:nilReason="missing">
+            <gco:CharacterString/>
+          </mco:useLimitation>
           <mco:accessConstraints>
             <mco:MD_RestrictionCode codeListValue="otherRestrictions"
                                     codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#MD_RestrictionCode"/>
           </mco:accessConstraints>
+          <mco:useConstraints>
+            <mco:MD_RestrictionCode codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#MD_RestrictionCode"
+                                    codeListValue=""/>
+          </mco:useConstraints>
           <mco:otherConstraints gco:nilReason="missing">
             <gco:CharacterString/>
           </mco:otherConstraints>
@@ -798,20 +812,21 @@
         </mco:MD_Constraints>
       </mri:resourceConstraints>
       <mri:defaultLocale>
-        <lan:PT_Locale>
+        <lan:PT_Locale id="FR">
           <lan:language>
-            <lan:LanguageCode codeList="codeListLocation#LanguageCode" codeListValue="fre">fre</lan:LanguageCode>
+            <lan:LanguageCode codeList="http://www.loc.gov/standards/iso639-2/" codeListValue="fre"/>
           </lan:language>
           <lan:characterEncoding>
-            <lan:MD_CharacterSetCode codeList="codeListLocation#MD_CharacterSetCode" codeListValue="utf8">utf8</lan:MD_CharacterSetCode>
+            <lan:MD_CharacterSetCode codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#MD_CharacterSetCode"
+                                     codeListValue="utf8"/>
           </lan:characterEncoding>
         </lan:PT_Locale>
       </mri:defaultLocale>
-      <mri:environmentDescription xmlns:gco="http://www.isotc211.org/2005/gco" gco:nilReason="missing">
-        <gco:CharacterString xmlns:gco="http://standards.iso.org/iso/19115/-3/gco/1.0"/>
+      <mri:environmentDescription gco:nilReason="missing">
+        <gco:CharacterString/>
       </mri:environmentDescription>
-      <mri:supplementalInformation xmlns:gco="http://www.isotc211.org/2005/gco" gco:nilReason="missing">
-        <gco:CharacterString xmlns:gco="http://standards.iso.org/iso/19115/-3/gco/1.0"/>
+      <mri:supplementalInformation gco:nilReason="missing">
+        <gco:CharacterString/>
       </mri:supplementalInformation>
     </mri:MD_DataIdentification>
   </mdb:identificationInfo>
@@ -823,12 +838,12 @@
       <mrc:attributeGroup>
         <mrc:MD_AttributeGroup>
           <mrc:contentType>
-            <mrc:MD_CoverageContentTypeCode codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/Codelist/ML_gmxCodelists.xml#MD_CoverageContentTypeCode"
+            <mrc:MD_CoverageContentTypeCode codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#MD_CoverageContentTypeCode"
                                             codeListValue="physicalMeasurement"/>
           </mrc:contentType>
           <mrc:attribute>
             <mrc:MD_RangeDimension>
-              <mrc:description>
+              <mrc:description gco:nilReason="missing">
                 <gco:CharacterString/>
               </mrc:description>
             </mrc:MD_RangeDimension>
@@ -924,10 +939,10 @@
                 <gco:Record/>
               </mdq:value>
               <mdq:valueUnit>
-                <BaseUnit xmlns="http://www.opengis.net/gml/3.2" gml:id="time">
-                  <identifier codeSpace="">time</identifier>
-                  <unitsSystem/>
-                </BaseUnit>
+                <gml:BaseUnit gml:id="time">
+                  <gml:identifier codeSpace="">time</gml:identifier>
+                  <gml:unitsSystem/>
+                </gml:BaseUnit>
               </mdq:valueUnit>
             </mdq:DQ_QuantitativeResult>
           </mdq:result>
@@ -953,10 +968,10 @@
                 <gco:Record/>
               </mdq:value>
               <mdq:valueUnit>
-                <BaseUnit xmlns="http://www.opengis.net/gml/3.2" gml:id="unknown">
-                  <identifier codeSpace="">unknown</identifier>
-                  <unitsSystem/>
-                </BaseUnit>
+                <gml:BaseUnit gml:id="unknown">
+                  <gml:identifier codeSpace="">unknown</gml:identifier>
+                  <gml:unitsSystem/>
+                </gml:BaseUnit>
               </mdq:valueUnit>
             </mdq:DQ_QuantitativeResult>
           </mdq:result>
@@ -966,13 +981,14 @@
   </mdb:dataQualityInfo>
   <mdb:resourceLineage>
     <mrl:LI_Lineage>
-      <mrl:statement xmlns:gco="http://www.isotc211.org/2005/gco" gco:nilReason="missing">
-        <gco:CharacterString xmlns:gco="http://standards.iso.org/iso/19115/-3/gco/1.0"/>
+      <mrl:statement gco:nilReason="missing">
+        <gco:CharacterString/>
       </mrl:statement>
       <mrl:scope>
         <mcc:MD_Scope>
           <mcc:level>
-            <mcc:MD_ScopeCode codeList="codeListLocation#MD_ScopeCode" codeListValue="dataset">dataset</mcc:MD_ScopeCode>
+            <mcc:MD_ScopeCode codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#MD_ScopeCode"
+                              codeListValue="dataset"/>
           </mcc:level>
         </mcc:MD_Scope>
       </mrl:scope>

@@ -519,58 +519,77 @@
 
 
       <!-- TODO: Need a rework -->
-      <xsl:for-each select="mrd:transferOptions/mrd:MD_DigitalTransferOptions/mrd:onLine/cit:CI_OnlineResource[cit:linkage/*!='']">
-        <xsl:variable name="download_check"><xsl:text>&amp;fname=&amp;access</xsl:text></xsl:variable>
-        <xsl:variable name="linkage" select="cit:linkage/*" />
-        <xsl:variable name="title" select="normalize-space(cit:name/gco:CharacterString|cit:name/gcx:MimeFileType)"/>
-        <xsl:variable name="desc" select="normalize-space(cit:description/gco:CharacterString)"/>
-        <xsl:variable name="protocol" select="normalize-space(cit:protocol/gco:CharacterString)"/>
-        <xsl:variable name="mimetype" select="''"/>
-        <!--<xsl:variable name="mimetype" select="geonet:protocolMimeType($linkage, $protocol, cit:name/gcx:MimeFileType/@type)"/>-->
+      <xsl:for-each select="mrd:transferOptions/mrd:MD_DigitalTransferOptions">
+        <xsl:variable name="tPosition"
+                      select="position()"/>
+        <xsl:for-each select="mrd:onLine/cit:CI_OnlineResource[cit:linkage/*!='']">
+          <xsl:variable name="download_check"><xsl:text>&amp;fname=&amp;access</xsl:text></xsl:variable>
+          <xsl:variable name="linkage"
+                        select="cit:linkage/*" />
+          <xsl:variable name="title"
+                        select="normalize-space(cit:name/gco:CharacterString|cit:name/gcx:MimeFileType)"/>
+          <xsl:variable name="desc"
+                        select="normalize-space(cit:description/gco:CharacterString)"/>
+          <xsl:variable name="protocol"
+                        select="normalize-space(cit:protocol/gco:CharacterString)"/>
+          <xsl:variable name="mimetype"
+                        select="''"/>
+          <!--<xsl:variable name="mimetype" select="geonet:protocolMimeType($linkage, $protocol, cit:name/gcx:MimeFileType/@type)"/>-->
 
-        <!-- If the linkage points to WMS service and no protocol specified, manage as protocol OGC:WMS -->
-        <xsl:variable name="wmsLinkNoProtocol" select="contains(lower-case($linkage), 'service=wms') and not(string($protocol))" />
+          <!-- If the linkage points to WMS service and no protocol specified, manage as protocol OGC:WMS -->
+          <xsl:variable name="wmsLinkNoProtocol"
+                        select="contains(lower-case($linkage), 'service=wms') and not(string($protocol))" />
 
-        <!-- ignore empty downloads -->
-        <xsl:if test="string($linkage)!='' and not(contains($linkage,$download_check))">
-          <Field name="protocol" string="{string($protocol)}" store="true" index="true"/>
-        </xsl:if>
+          <!-- ignore empty downloads -->
+          <xsl:if test="string($linkage)!='' and not(contains($linkage,$download_check))">
+            <Field name="protocol"
+                   string="{string($protocol)}"
+                   store="true" index="true"/>
+          </xsl:if>
 
-        <xsl:if test="normalize-space($mimetype)!=''">
-          <Field name="mimetype" string="{$mimetype}" store="true" index="true"/>
-        </xsl:if>
+          <xsl:if test="normalize-space($mimetype)!=''">
+            <Field name="mimetype"
+                   string="{$mimetype}"
+                   store="true" index="true"/>
+          </xsl:if>
 
-        <xsl:if test="contains($protocol, 'WWW:DOWNLOAD')">
-          <Field name="download" string="true" store="false" index="true"/>
-        </xsl:if>
+          <xsl:if test="contains($protocol, 'WWW:DOWNLOAD')">
+            <Field name="download" string="true"
+                   store="false" index="true"/>
+          </xsl:if>
 
-        <xsl:if test="contains($protocol, 'OGC:WMS') or $wmsLinkNoProtocol">
-          <Field name="dynamic" string="true" store="false" index="true"/>
-        </xsl:if>
+          <xsl:if test="contains($protocol, 'OGC:WMS') or $wmsLinkNoProtocol">
+            <Field name="dynamic" string="true"
+                   store="false" index="true"/>
+          </xsl:if>
 
-        <!-- ignore WMS links without protocol (are indexed below with mimetype application/vnd.ogc.wms_xml) -->
-        <xsl:if test="not($wmsLinkNoProtocol)">
-          <Field name="link" string="{concat($title, '|', $desc, '|', $linkage, '|', $protocol, '|', $mimetype)}" store="true" index="false"/>
-        </xsl:if>
+          <!-- ignore WMS links without protocol (are indexed below with mimetype application/vnd.ogc.wms_xml) -->
+          <xsl:if test="not($wmsLinkNoProtocol)">
+            <Field name="link" string="{concat($title, '|', $desc, '|', $linkage, '|', $protocol, '|', $mimetype, '|', $tPosition)}" store="true" index="false"/>
+          </xsl:if>
 
-        <!-- Add KML link if WMS -->
-        <xsl:if test="starts-with($protocol,'OGC:WMS-') and contains($protocol,'-get-map') and string($linkage)!='' and string($title)!=''">
-          <!-- FIXME : relative path -->
-          <Field name="link" string="{concat($title, '|', $desc, '|',
-              '../../srv/en/google.kml?uuid=', $fileIdentifier, '&amp;layers=', $title,
-              '|application/vnd.google-earth.kml+xml|application/vnd.google-earth.kml+xml')}" store="true" index="false"/>
-        </xsl:if>
+          <!-- Add KML link if WMS -->
+          <xsl:if test="starts-with($protocol,'OGC:WMS-') and contains($protocol,'-get-map') and string($linkage)!='' and string($title)!=''">
+            <!-- FIXME : relative path -->
+            <Field name="link" string="{concat($title, '|', $desc, '|',
+                '../../srv/en/google.kml?uuid=', $fileIdentifier, '&amp;layers=', $title,
+                '|application/vnd.google-earth.kml+xml|application/vnd.google-earth.kml+xml', '|', $tPosition)}"
+                   store="true" index="false"/>
+          </xsl:if>
 
-        <!-- Try to detect Web Map Context by checking protocol or file extension -->
-        <xsl:if test="starts-with($protocol,'OGC:WMC') or contains($linkage,'.wmc')">
-          <Field name="link" string="{concat($title, '|', $desc, '|',
-              $linkage, '|application/vnd.ogc.wmc|application/vnd.ogc.wmc')}" store="true" index="false"/>
-        </xsl:if>
+          <!-- Try to detect Web Map Context by checking protocol or file extension -->
+          <xsl:if test="starts-with($protocol,'OGC:WMC') or contains($linkage,'.wmc')">
+            <Field name="link" string="{concat($title, '|', $desc, '|',
+                $linkage, '|application/vnd.ogc.wmc|application/vnd.ogc.wmc', '|', $tPosition)}"
+                   store="true" index="false"/>
+          </xsl:if>
 
-        <xsl:if test="$wmsLinkNoProtocol">
-          <Field name="link" string="{concat($title, '|', $desc, '|',
-      $linkage, '|OGC:WMS|application/vnd.ogc.wms_xml')}" store="true" index="false"/>
-        </xsl:if>
+          <xsl:if test="$wmsLinkNoProtocol">
+            <Field name="link" string="{concat($title, '|', $desc, '|',
+        $linkage, '|OGC:WMS|application/vnd.ogc.wms_xml', '|', $tPosition)}"
+                   store="true" index="false"/>
+          </xsl:if>
+        </xsl:for-each>
       </xsl:for-each>
     </xsl:for-each>
 
@@ -733,8 +752,10 @@
       </xsl:otherwise>
     </xsl:choose>
 
+    <!-- Set type as service if scope code not defined. -->
     <xsl:choose>
-      <xsl:when test="$metadata/mdb:identificationInfo/srv:SV_ServiceIdentification">
+      <xsl:when test="$metadata[not(mdb:metadataScope/mdb:MD_MetadataScope/mdb:resourceScope/mcc:MD_ScopeCode/@codeListValue)]/
+          mdb:identificationInfo/srv:SV_ServiceIdentification">
         <Field name="type" string="service" store="false" index="true"/>
       </xsl:when>
     </xsl:choose>
@@ -777,18 +798,17 @@
     </xsl:for-each>
 
 
-    <!-- TODO: Need a check -->
     <xsl:for-each select="$metadata/mdb:referenceSystemInfo/mrs:MD_ReferenceSystem">
       <xsl:for-each select="mrs:referenceSystemIdentifier/mcc:MD_Identifier">
-        <xsl:variable name="crs" select="concat(string(mcc:codeSpace/gco:CharacterString),'::',string(mcc:code/gco:CharacterString))"/>
+        <xsl:variable name="crs"
+                      select="if (normalize-space(mcc:description/gco:CharacterString) != '')
+                              then mcc:description/gco:CharacterString
+                              else mcc:code/gco:CharacterString"/>
 
-        <xsl:if test="$crs != '::'">
-          <Field name="crs" string="{$crs}" store="false" index="true"/>
+        <xsl:if test="$crs != ''">
+          <Field name="crs" string="{$crs}" store="true" index="true"/>
+          <Field name="crsCode" string="{mcc:code/gco:CharacterString}" store="true" index="true"/>
         </xsl:if>
-
-        <Field name="authority" string="{string(mcc:codeSpace/gco:CharacterString)}" store="false" index="true"/>
-        <Field name="crsCode" string="{string(mcc:code/gco:CharacterString)}" store="false" index="true"/>
-        <Field name="crsVersion" string="{string(mcc:version/gco:CharacterString)}" store="false" index="true"/>
       </xsl:for-each>
     </xsl:for-each>
 

@@ -1838,8 +1838,8 @@ responsable du service.</li>
     <condition/>
     
   </element>
-  <element name="cit:MD_ServiceIdentification" id="47.0">
-    <label>Identification des services</label>
+  <element name="srv:SV_ServiceIdentification" id="47.0">
+    <label>Identification du service</label>
     <description>Classe pour l'identification des prestations, disponibles auprès un fournisseur de services, via un ensemble d'interfaces définissant un comportement (cf. ISO 19119 pour obtenir plus d'information).</description>
     <help>Classe destinée à l'identification des services qu''un prestataire propose à l'utilisateur et dont le contenu et l'étendue sont définis par un ensemble d'informations. Dans cette classe, les domaines dans lesquels le prestataire met ses services à la disposition de l'utilisateur peuvent être saisis. l'attribut de type de service (serviceType) définit le nom du service géomatique proposé et l'attribut des propriétés du type de service (ServiceTypProperty) permet la description des caractéristiques qui lui sont associées. Ces deux attributs font appel à l'un des types de données définis dans la norme 19118. On suppose que les services géomatiques concernés sont standardisés et répertoriés au sein d'une liste.</help>
     <condition/>
@@ -1944,7 +1944,7 @@ appliquant les mêmes pratiques,</li>
     ]]></help>
     <condition/>
   </element>
-  <element name="cit:abstract" id="25.0" context="cit:MD_Metadata/cit:identificationInfo/srv:SV_ServiceIdentification/cit:abstract">
+  <element name="cit:abstract" id="25.0" context="/mdb:MD_Metadata/mdb:identificationInfo/srv:SV_ServiceIdentification/cit:abstract">
     <label>Résumé de la ressource</label>
     <description>Court résumé explicatif du contenu des ressources</description>
     <help>Court résumé descriptif du contenu du jeu de données. Cet attribut est du type PT_FreeText et est géré dans la classe du même nom.</help>
@@ -2546,7 +2546,7 @@ de métadonnées de données « BD Carthage métropole »
     
   </element>
   
-  <element name="cit:date" id="362.0" context="cit:MD_Metadata/cit:identificationInfo/srv:SV_ServiceIdentification/cit:citation/cit:CI_Citation/cit:date/cit:CI_Date/cit:date">
+  <element name="cit:date" id="362.0" context="/mdb:MD_Metadata/mdb:identificationInfo/srv:SV_ServiceIdentification/cit:citation/cit:CI_Citation/cit:date/cit:CI_Date/cit:date">
     <label>Date de référence</label>
     <description>Date de référence pour la ressource en question</description>
     <help>Date de référence indiquée sous forme de date (jj.mm.aaaa) et de type de date (création, publication, traitement). Ces informations sont du type CI_Date et sont gérées dans la classe du même nom.</help>
@@ -2596,7 +2596,7 @@ date de mise en ligne du service, en tant que date de publication.
       ]]>
     </help>
   </element>
-  <element name="cit:date" id="362.0" context="cit:MD_Metadata/cit:identificationInfo/cit:MD_DataIdentification/cit:citation/cit:CI_Citation/cit:date/cit:CI_Date/cit:date">
+  <element name="cit:date" id="362.0" context="/mdb:MD_Metadata/mdb:identificationInfo/cit:MD_DataIdentification/cit:citation/cit:CI_Citation/cit:date/cit:CI_Date/cit:date">
     <label>Date de référence</label>
     <description>Date de référence pour la ressource en question</description>
     <help>Date de référence indiquée sous forme de date (jj.mm.aaaa) et de type de date (création, publication, traitement). Ces informations sont du type CI_Date et sont gérées dans la classe du même nom.</help>
@@ -3875,24 +3875,6 @@ période de temps couverte par le service.
     <description>Nom des formats de transfert des données</description>
     <help>Nom du format de transfert de données, par exemple TIFF, ZIP, etc.</help>
     <condition>Obligatoire</condition>
-    <helper rel="cit:version">
-      <option value="Texte">Texte</option>
-      <option value="ESRI Shapefile" title="1.0">ESRI Shapefile</option>
-      <option value="Mapinfo MIF/MID" title="4.5">Mapinfo MIF/MID</option>
-      <option value="Mapinfo TAB">Mapinfo TAB</option>
-      <option value="KML">KML</option>
-      <option value="GML" title="3.2.1">GML</option>
-      <option value="GeoTIFF" title="1.0">GeoTIFF</option>
-      <option value="TIFF">TIFF</option>
-      <option value="ECW">ECW</option>
-      <option value="JPEG2000">JPEG2000</option>
-      <option value="ZIP">ZIP</option>
-      <option value="PDF">PDF</option>
-      <option value="PNG">PNG</option>
-      <option value="JPEG">JPEG</option>
-      <option value="OGC:WMC">OGC:WMC</option>
-      <option value="OGC:OWS Context">OGC:OWS Context</option>
-    </helper>
   </element>
   <element name="cit:name" id="307.0" context="cit:MD_ExtendedElementInformation">
     <label>Nom</label>
@@ -4121,26 +4103,19 @@ période de temps couverte par le service.
     
   </element>
   <element name="mco:otherConstraints" id="72.0">
-    <label>Other constraints</label>
-    <description>Other restrictions and legal prerequisites for accessing and using the
-      resource</description>
-    <condition>conditional</condition>
-    <!-- MedSea list of values -->
+    <label>Autres contraintes</label>
+    <description>Autres restrictions et prérequis légaux pour accéder et utiliser les ressources où de métadonnées</description>
+    <help>Autres restrictions et conditions préalables de nature juridique concernant l'accès et l'utilisation de la ressource ou des métadonnées. Ce champ doit être complété dès lors que l'un des deux champs précédents (accessConstraints, useConstraints) porte la mention "Autres restrictions".</help>
+    <condition>Condition</condition>
     <helper displayIf="ancestor::node()[
               name()='mdb:MD_Metadata' and
-              contains(mdb:metadataStandard/*/cit:title/*:CharacterString, 'MedSea Checkpoint')]"
+              contains(mdb:metadataStandard/*/cit:title/*:CharacterString, 'MedSea')]"
             editorMode="radio">
       <option value="Restricted">Restricted</option>
       <option value="Accessible under moratorium">Accessible under moratorium</option>
       <option value="Unrestricted">Unrestricted</option>
       <option value="Not documented">Not documented</option>
     </helper>
-  </element>
-  <element name="mco:otherConstraints" id="72.0">
-    <label>Autres contraintes</label>
-    <description>Autres restrictions et prérequis légaux pour accéder et utiliser les ressources où de métadonnées</description>
-    <help>Autres restrictions et conditions préalables de nature juridique concernant l'accès et l'utilisation de la ressource ou des métadonnées. Ce champ doit être complété dès lors que l'un des deux champs précédents (accessConstraints, useConstraints) porte la mention "Autres restrictions".</help>
-    <condition>Condition</condition>
     <!--
       Only relevant for France
       <helper editorMode="radio_withdesc">
@@ -4469,6 +4444,14 @@ la non-évaluation</b>, dans le cadre de métadonnées INSPIRE
     <description>Degré de détail dans le jeu de données de type raster</description>
     <help>Degré de spécification de la trame, c.-à-d. description d'une extension, d'une dimension ou d'un nombre de cellules.</help>
     <condition/>
+    <helper relAtt="uom">
+      <option value="1" title="second">seconds</option>
+      <option value="1" title="minute">minutes</option>
+      <option value="1" title="hour">hours</option>
+      <option value="1" title="day">days</option>
+      <option value="1" title="month">months</option>
+      <option value="1" title="year">years</option>
+    </helper>
   </element>
   <element name="mri:MD_Resolution_Type">
     <label>Type de résolution</label>
@@ -4844,18 +4827,39 @@ diffusion restreinte.
     <condition/>
     
   </element>
-  <element name="cit:title" id="360.0" context="cit:MD_Metadata/cit:dataQualityInfo/cit:DQ_DataQuality/cit:report/cit:DQ_DomainConsistency/cit:result/cit:DQ_ConformanceResult/cit:specification/cit:CI_Citation/cit:title">
+  <element name="cit:title" id="285.0" context="/mdb:MD_Metadata/mdb:distributionInfo/mrd:MD_Distribution/mrd:distributionFormat/mrd:MD_Format/mrd:formatSpecificationCitation/cit:CI_Citation/cit:title">
+    <label>Nom du format</label>
+    <description>Nom des formats de transfert des données</description>
+    <help>Nom du format de transfert de données, par exemple TIFF, ZIP, etc.</help>
+    <condition>Obligatoire</condition>
+    <helper>
+      <option value="Text">Text</option>
+      <option value="ESRI Shapefile">ESRI Shapefile</option>
+      <option value="Mapinfo MIF/MID">Mapinfo MIF/MID</option>
+      <option value="Mapinfo TAB">Mapinfo TAB</option>
+      <option value="KML">KML</option>
+      <option value="GML">GML</option>
+      <option value="Ascii">Ascii</option>
+      <option value="NetCDF">NetCDF</option>
+      <option value="GeoTIFF">GeoTIFF</option>
+      <option value="TIFF">TIFF</option>
+      <option value="ECW">ECW</option>
+      <option value="JPEG2000">JPEG2000</option>
+      <option value="ZIP">ZIP</option>
+      <option value="PDF">PDF</option>
+      <option value="PNG">PNG</option>
+      <option value="JPEG">JPEG</option>
+      <option value="OGC:WMC">OGC:WMC</option>
+      <option value="OGC:OWS-C">OGC OWS Context</option>
+    </helper>
+  </element>
+  <element name="cit:title" id="360.0" context="/mdb:MD_Metadata/mdb:dataQualityInfo/mdq:DQ_DataQuality/mdq:report/mdq:DQ_DomainConsistency/mdq:result/mdq:DQ_ConformanceResult/mdq:specification/cit:CI_Citation/cit:title">
     <label>Spécification</label>
-    <description>Nom avec lequel la ressource en question est connue</description>
-    <help>
-      <!-- [2] -->
-      Nom caractéristique et souvent unique sous lequel la ressource est connue.
-      
-      Titre/nom. Ces informations sont du type PT_FreeText et sont gérées dans la classe du même nom.</help>
+    <description>Titre de la spécification</description>
+    <help></help>
     <helper editorMode="radio_linebreak"
-        displayIf="$p1/ancestor::node()[name()='cit:MD_Metadata']/cit:identificationInfo/cit:MD_DataIdentification or 
-        $p1/ancestor::node()[name()='cit:MD_Metadata']/cit:identificationInfo/*[@gco:isoType='cit:MD_DataIdentification']">
-      <option value="COMMISSION REGULATION (EU) No 1089/2010 of 23 November 2010 implementing Directive 2007/2/EC of the European Parliament and of the Council as regards interoperability of spatial data sets and services">COMMISSION REGULATION (EU) No 1089/2010 of 23 November 2010 implementing Directive 2007/2/EC of the European Parliament and of the Council as regards interoperability of spatial data sets and services</option>
+        displayIf="ancestor::node()[name()='mdb:MD_Metadata']/mdb:identificationInfo/mri:MD_DataIdentification">
+      <option value="RÈGLEMENT (UE) N o 1089/2010 DE LA COMMISSION du 23 novembre 2010 portant modalités d'application de la directive 2007/2/CE du Parlement européen et du Conseil en ce qui concerne l'interopérabilité des séries et des services de données géographiques">RÈGLEMENT (UE) N o 1089/2010 DE LA COMMISSION du 23 novembre 2010 portant modalités d'application de la directive 2007/2/CE du Parlement européen et du Conseil en ce qui concerne l'interopérabilité des séries et des services de données géographiques</option>
       <option value="INSPIRE Data Specification on Administrative Units - Guidelines v3.0.1">Guide INSPIRE sur les unités administratives</option>
       <option value="INSPIRE Data Specification on Cadastral Parcels - Guidelines v 3.0.1">Guide INSPIRE sur les parcelles cadastrales</option>
       <option value="INSPIRE Data Specification on Geographical Names - Guidelines v 3.0.1">Guide INSPIRE sur les dénominations géographiques</option>
@@ -4866,7 +4870,7 @@ diffusion restreinte.
       <option value="INSPIRE Specification on Coordinate Reference Systems - Guidelines v 3.1">Guide INSPIRE sur les référentiels de coordonnées</option>
       <option value="INSPIRE Specification on Geographical Grid Systems - Guidelines v 3.0.1">Guide INSPIRE sur les systèmes de maillage géographique</option>
     </helper>
-    <helper editorMode="radio_linebreak" displayIf="$p1/ancestor::node()[name()='cit:MD_Metadata']/cit:identificationInfo/srv:SV_ServiceIdentification">
+    <helper editorMode="radio_linebreak" displayIf="ancestor::node()[name()='mdb:MD_Metadata']/mdb:identificationInfo/srv:SV_ServiceIdentification">
       <option value="RÈGLEMENT (UE) N° 976/2009">Règlement service en réseau INSPIRE (service de recherche et de consultation) - RÈGLEMENT (UE) N° 976/2009</option>
       <option value="RÈGLEMENT (UE) N° 1088/2010">Règlement service en réseau INSPIRE (service de téléchargement et de transformation) - RÈGLEMENT (UE) N° 1088/2010</option>
       <option value="Technical Guidance for the implementation of INSPIRE Discovery Services – v.3.1">Guide INSPIRE sur les services de recherche</option>
@@ -4957,7 +4961,7 @@ celles des scénarios d’échange du Sandre est possible en complément.
     ]]></help>
     <condition>Obligatoire</condition>
   </element>
-  <element name="cit:title" id="360.0" context="cit:MD_Metadata/cit:identificationInfo/srv:SV_ServiceIdentification/cit:citation/cit:CI_Citation/cit:title">
+  <element name="cit:title" id="360.0" context="/mdb:MD_Metadata/mdb:identificationInfo/srv:SV_ServiceIdentification/cit:citation/cit:CI_Citation/cit:title">
     <label>Intitulé de la ressource</label>
     <description>L’intitulé (ou le titre) de la ressource doit être un nom caractéristique et souvent unique
       sous lequel la ressource est connue.</description>
@@ -5236,7 +5240,7 @@ l’IGN (WPS)
     <condition/>
     <helper displayIf="ancestor::node()[
               name()='mdb:MD_Metadata' and
-              contains(mdb:metadataStandard/*/cit:title/*:CharacterString, 'MedSea Checkpoint')]"
+              contains(mdb:metadataStandard/*/cit:title/*:CharacterString, 'MedSea')]"
             editorMode="radio">
       <option value="No charge">No charge</option>
       <option value="Distribution cost charge">Distribution cost charge</option>
@@ -5290,7 +5294,16 @@ l’IGN (WPS)
     <description>Valeurs quantitatives, déterminées par la procédure d'évaluation utilisée.</description>
     <help>Valeurs quantitatives définies par le processus d'exploitation.</help>
     <condition/>
-    
+    <helper displayIf="ancestor::node()[
+              name()='mdq:DQ_DomainConsistency' and
+              contains(mdq:measure/mdq:DQ_MeasureReference/mdq:nameOfMeasure/gco:CharacterString, 'Responsiveness')]">
+      <option value="&lt;15mn (on-line download)">&lt;15mn (on-line download)</option>
+      <option value="Less than 3 hours">Less than 3 hours</option>
+      <option value="Less than 24 hours">Less than 24 hours</option>
+      <option value="Less than 1 week">Less than 1 week</option>
+      <option value="More than 1 week">More than 1 week</option>
+      <option value="Not documented">Not documented</option>
+    </helper>
   </element>
   <element name="cit:value">
     <label>Valeur</label>
@@ -5562,11 +5575,7 @@ l’IGN (WPS)
     <condition/>
     
   </element>
-  
-  <element name="srv:SV_ServiceIdentification">
-    <label>Identification du service (ISO 19119)</label>
-    <description>Identification du service (ISO 19119)</description>
-  </element>
+
   <element name="srv:serviceType">
     <label>Type de service</label>
     <description>
@@ -6204,9 +6213,6 @@ http://www.sandre.eaufrance.fr/?urn=urn:sandre:ensembledonnees:BDCarthage:FXX:::
     <element name="gml:axis">
       <label>Axe</label>
     </element>
-    <element name="gml:remarks">
-        <label>Remarque</label>
-    </element>
     <element name="gml:domainOfValidity">
         <label>Domaine de validité</label>
     </element>
@@ -6305,6 +6311,12 @@ http://www.sandre.eaufrance.fr/?urn=urn:sandre:ensembledonnees:BDCarthage:FXX:::
   <element name="gfc:cardinality">
     <label>Cardinalités</label>
     <description>Cardinalités</description>
+    <helper>
+      <option value="0..1">0..1</option>
+      <option value="1..n">0..n</option>
+      <option value="1..1">1..1</option>
+      <option value="1..n">1..n</option>
+    </helper>
   </element>
   <element name="gfc:label">
     <label>Libellé</label>

@@ -17,6 +17,7 @@
                 xmlns:mex="http://standards.iso.org/iso/19115/-3/mex/1.0"
                 xmlns:msr="http://standards.iso.org/iso/19115/-3/msr/1.0"
                 xmlns:mrd="http://standards.iso.org/iso/19115/-3/mrd/1.0"
+                xmlns:mdq="http://standards.iso.org/iso/19157/-2/mdq/1.0"
                 xmlns:gml="http://www.opengis.net/gml/3.2"
                 xmlns:srv="http://standards.iso.org/iso/19115/-3/srv/2.0"
                 xmlns:gcx="http://standards.iso.org/iso/19115/-3/gcx/1.0"
@@ -75,17 +76,37 @@
   </xsl:template>
 
 
+  <xsl:template mode="getMetadataHeader" match="mdb:MD_Metadata">
+    <xsl:variable name="value"
+                  select="mdb:identificationInfo/*/mri:citation/*/cit:title"/>
+
+    <link rel="stylesheet" type="text/css"
+          href="{$baseUrl}../../apps/sextant/css/schema/default.css"/>
+
+    <div class="ui-layout-content mdshow-tabpanel">
+      <a class="file-link"
+         title="Export HTML"
+         style="display: block;float: right; text-decoration: none;"
+         href="{$baseUrl}md.format.html?id={$metadataId}&amp;xsl=xsl-view&amp;view=medsea&amp;css=sextant">&#160;</a>
+      <a class="file-xml"
+         title="Export XML"
+         style="display: block;float: right; text-decoration: none;"
+         href="{$baseUrl}xml.metadata.get?id={$metadataId}">&#160;</a>
+    </div>
+  </xsl:template>
 
 
 
   <!-- Most of the elements are ... -->
   <xsl:template mode="render-field"
-                match="*[gco:CharacterString|gco:Integer|gco:Decimal|
-       gco:Boolean|gco:Real|gco:Measure|gco:Length|gco:Distance|
-       gco:Angle|
-       gco:Scale|gco:Record|gco:RecordType|
-       gco:LocalName|lan:PT_FreeText|gml:beginPosition|gml:endPosition|
-       gco:Date|gco:DateTime|*/@codeListValue]"
+                match="*[gco:CharacterString != '']|*[gco:Integer != '']|
+                       *[gco:Decimal != '']|*[gco:Boolean != '']|
+                       *[gco:Real != '']|*[gco:Measure != '']|*[gco:Length != '']|
+                       *[gco:Distance != '']|*[gco:Angle != '']|*[gco:Scale != '']|
+                       *[gco:Record != '']|*[gco:RecordType != '']|
+                       *[gco:LocalName != '']|*[lan:PT_FreeText != '']|
+                       *[gml:beginPosition != '']|*[gml:endPosition != '']|
+                       *[gco:Date != '']|*[gco:DateTime != '']|*[*/@codeListValue]"
                 priority="50">
     <xsl:param name="fieldName" select="''" as="xs:string"/>
 
@@ -122,11 +143,11 @@
       *[$isFlatMode = false() and not(gco:CharacterString)]">
 
     <div class="entry name">
-      <h3>
+      <h4>
         <xsl:value-of select="tr:node-label(tr:create($schema), name(), null)"/>
         <xsl:apply-templates mode="render-value"
                              select="@*"/>
-      </h3>
+      </h4>
       <div class="target">
         <xsl:apply-templates mode="render-field" select="*"/>
       </div>
@@ -181,20 +202,21 @@
     </xsl:variable>
 
     <div class="gn-contact">
-      <h3>
-        <i class="fa fa-envelope"></i>
+      <h4>
+        <i class="fa fa-envelope">&#160;</i>
         <xsl:apply-templates mode="render-value"
                              select="*/cit:role/*/@codeListValue"/>
-      </h3>
+      </h4>
       <div class="row">
         <div class="col-md-6">
           <!-- Needs improvements as contact/org are more flexible in ISO19115-3 -->
           <address>
             <strong>
               <xsl:choose>
-                <xsl:when test="$email">
+                <xsl:when test="normalize-space($email) != ''">
                   <a href="mailto:{normalize-space($email)}">
-                    <xsl:value-of select="$displayName"/></a>
+                    <xsl:value-of select="$displayName"/>
+                  </a>
                 </xsl:when>
                 <xsl:otherwise>
                   <xsl:value-of select="$displayName"/>
@@ -317,17 +339,19 @@
 
   <!-- Display thesaurus name and the list of keywords -->
   <xsl:template mode="render-field"
-                match="mri:descriptiveKeywords[*/mri:thesaurusName/cit:CI_Citation/cit:title]"
+                match="mri:descriptiveKeywords[
+                        */mri:thesaurusName/cit:CI_Citation/cit:title and
+                        count(*/mri:keyword/* != '') > 0]"
                 priority="100">
     <dl class="gn-keyword">
       <dt>
         <xsl:apply-templates mode="render-value"
                              select="*/mri:thesaurusName/cit:CI_Citation/cit:title/*"/>
 
-        <xsl:if test="*/mri:type/*[@codeListValue != '']">
+        <!--<xsl:if test="*/mri:type/*[@codeListValue != '']">
           (<xsl:apply-templates mode="render-value"
                                 select="*/mri:type/*/@codeListValue"/>)
-        </xsl:if>
+        </xsl:if>-->
       </dt>
       <dd>
         <div>
@@ -344,7 +368,8 @@
 
 
   <xsl:template mode="render-field"
-                match="mri:descriptiveKeywords[not(*/mri:thesaurusName/cit:CI_Citation/cit:title)]"
+                match="mri:descriptiveKeywords[not(*/mri:thesaurusName/cit:CI_Citation/cit:title) and
+                        count(*/mri:keyword/* != '') > 0]"
                 priority="100">
     <dl class="gn-keyword">
       <dt>
@@ -533,7 +558,24 @@
        gco:Boolean|gco:Real|gco:Measure|gco:Length|gco:Distance|gco:Angle|
        gco:Scale|gco:Record|gco:RecordType|
        gco:LocalName|gml:beginPosition|gml:endPosition">
-    <xsl:value-of select="normalize-space(.)"/>
+    <xsl:choose>
+      <xsl:when test="contains(., 'http')">
+        <!-- Replace hyperlink in text by an hyperlink -->
+        <xsl:variable name="textWithLinks"
+                      select="replace(., '([a-z][\w-]+:/{1,3}[^\s()&gt;&lt;]+[^\s`!()\[\]{};:'&apos;&quot;.,&gt;&lt;?«»“”‘’])',
+                                    '&lt;a href=''$1''&gt;$1&lt;/a&gt;')"/>
+
+        <xsl:if test="$textWithLinks != ''">
+          <xsl:copy-of select="saxon:parse(
+                          concat('&lt;p&gt;',
+                          replace($textWithLinks, '&amp;', '&amp;amp;'),
+                          '&lt;/p&gt;'))"/>
+        </xsl:if>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:value-of select="normalize-space(.)"/>
+      </xsl:otherwise>
+    </xsl:choose>
   </xsl:template>
 
   <xsl:template mode="render-value"
@@ -541,13 +583,6 @@
     <xsl:apply-templates mode="localised" select="../node()">
       <xsl:with-param name="langId" select="$language"/>
     </xsl:apply-templates>
-  </xsl:template>
-
-  <!-- ... URL -->
-  <xsl:template mode="render-value"
-                match="cit:linkage">
-    <!-- TODO: Multilingual URL -->
-    <a href="{gco:CharacterString}"><xsl:value-of select="gco:CharacterString"/></a>
   </xsl:template>
 
   <!-- ... Dates - formatting is made on the client side by the directive  -->
@@ -642,5 +677,10 @@
   </xsl:template>
   <xsl:template mode="render-value"
                 match="@*"/>
+
+
+  <!-- MedSea specific -->
+  <!--<xsl:template mode="render-field" match="mdq:report"/>-->
+  <xsl:template mode="render-view" match="tab[@id='medsea-dq']" priority="2"/>
 
 </xsl:stylesheet>
