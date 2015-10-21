@@ -536,6 +536,7 @@
                         select="normalize-space(cit:protocol/gco:CharacterString)"/>
           <xsl:variable name="mimetype" select="gn-fn-core:protocolMimeType($linkage, $protocol, cit:name/gcx:MimeFileType/@type)"/>
 
+
           <!-- If the linkage points to WMS service and no protocol specified, manage as protocol OGC:WMS -->
           <xsl:variable name="wmsLinkNoProtocol"
                         select="contains(lower-case($linkage), 'service=wms') and not(string($protocol))" />
