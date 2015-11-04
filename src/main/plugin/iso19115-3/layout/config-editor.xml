@@ -393,32 +393,35 @@
                     [contains(*/mri:thesaurusName/cit:CI_Citation/cit:title/gco:CharacterString,
                     'Environmental matrix')]"/>
 
-          <field
-                  name="p03"
-                  xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/
-                    mri:descriptiveKeywords
-                    [contains(*/mri:thesaurusName/cit:CI_Citation/cit:identifier/*/mcc:code/*/text(),
-                    'NVS.P03')]"/>
+          <section name="medsea-what">
 
-          <field
-                  name="sdn-parameter-discovery"
-                  xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/
-                    mri:descriptiveKeywords
-                    [contains(*/mri:thesaurusName/cit:CI_Citation/cit:identifier/*/mcc:code/*/text(),
-                    'NVS.P02')]"/>
+            <field
+                    name="p03"
+                    xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/
+                      mri:descriptiveKeywords
+                      [contains(*/mri:thesaurusName/cit:CI_Citation/cit:identifier/*/mcc:code/*/text(),
+                      'NVS.P03')]"/>
 
-          <field
-                  name="p01"
-                  xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/
-                    mri:descriptiveKeywords
-                    [contains(*/mri:thesaurusName/cit:CI_Citation/cit:identifier/*/mcc:code/*/text(),
-                    'parameter.NVS.P01')]"/>
-          <field
-                  name="otherP01"
-                  xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/
-                    mri:descriptiveKeywords/*
-                    [contains(mri:thesaurusName/cit:CI_Citation/cit:title/gco:CharacterString,
-                    'Parameter Usage Vocabulary (other)')]/mri:keyword"/>
+            <field
+                    name="sdn-parameter-discovery"
+                    xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/
+                      mri:descriptiveKeywords
+                      [contains(*/mri:thesaurusName/cit:CI_Citation/cit:identifier/*/mcc:code/*/text(),
+                      'NVS.P02')]"/>
+
+            <field
+                    name="p01"
+                    xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/
+                      mri:descriptiveKeywords
+                      [contains(*/mri:thesaurusName/cit:CI_Citation/cit:identifier/*/mcc:code/*/text(),
+                      'parameter.NVS.P01')]"/>
+            <field
+                    name="otherP01"
+                    xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/
+                      mri:descriptiveKeywords/*
+                      [contains(mri:thesaurusName/cit:CI_Citation/cit:title/gco:CharacterString,
+                      'Parameter Usage Vocabulary (other)')]/mri:keyword"/>
+          </section>
 
           <field
                   name="inspireTheme"
@@ -791,7 +794,7 @@
         </section>
       </tab>
       <tab id="spatialCoverage" mode="flat">
-        <section>
+        <section name="selectRegion">
           <!--<field
               name="geographicalAreaCode"
               xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/
@@ -834,6 +837,8 @@
                  xpath="/mdb:MD_Metadata/mdb:contentInfo/
                             mrc:MD_CoverageDescription/mrc:attributeGroup/*/
                             mrc:attribute/mrc:MD_RangeDimension/mrc:description"/>
+
+          <text ref="listOfOL-help"/>
         </section>
       </tab>
       <tab id="timeCoverage">
@@ -877,6 +882,7 @@
             </template>
           </field>
 
+          <text ref="temporalExtent-help"/>
 
           <field
                   name="timeResolution"
@@ -888,7 +894,7 @@
         </section>
       </tab>
       <tab id="accessibility">
-        <section>
+        <section name="datasetVisibility">
 
           <field name="visibility"
                  xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/
@@ -902,18 +908,19 @@
                           mri:descriptiveKeywords
                           [contains(*/mri:thesaurusName/cit:CI_Citation/cit:identifier/*/mcc:code/*/text(),
                           'theme.medsea.service.extent')]"/>
+        </section>
+        <section name="datasetAccessibility">
+          <field name="policyVisibility"
+                 xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/
+                          mri:descriptiveKeywords
+                          [contains(*/mri:thesaurusName/cit:CI_Citation/cit:identifier/*/mcc:code/*/text(),
+                          'medsea.policy.visibility')]"/>
 
           <field name="dataDelivery"
                  xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/
                           mri:descriptiveKeywords
                           [contains(*/mri:thesaurusName/cit:CI_Citation/cit:title/gco:CharacterString,
                           'Data delivery mechanism')]"/>
-
-          <field name="policyVisibility"
-                 xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/
-                          mri:descriptiveKeywords
-                          [contains(*/mri:thesaurusName/cit:CI_Citation/cit:identifier/*/mcc:code/*/text(),
-                          'medsea.policy.visibility')]"/>
 
           <field
                   name="dataPolicy"
@@ -928,15 +935,23 @@
 
 
 
+          <field name="readyness"
+                 xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/
+                          mri:descriptiveKeywords
+                          [contains(*/mri:thesaurusName/cit:CI_Citation/cit:identifier/*/mcc:code/*/text(),
+                          'medsea.readyness')]"/>
+
+
           <field
                   name="dataFormats"
                   xpath="/mdb:MD_Metadata/mdb:distributionInfo/*/mrd:distributionFormat/
                             mrd:MD_Format/mrd:formatSpecificationCitation/
-                              cit:CI_Citation/cit:title"/>
+                              cit:CI_Citation"/>
 
+          <text ref="dataFormats-help"/>
 
           <action type="add" name="dataFormats" or="distributionFormat"
-                  in="/mdb:MD_Metadata/mdb:distributionInfo/*">
+                  in="/mdb:MD_Metadata/mdb:distributionInfo/mrd:MD_Distribution">
             <template>
               <snippet>
                 <mrd:distributionFormat>
@@ -955,29 +970,24 @@
           </action>
 
 
-          <field name="readyness"
-                 xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/
-                          mri:descriptiveKeywords
-                          [contains(*/mri:thesaurusName/cit:CI_Citation/cit:identifier/*/mcc:code/*/text(),
-                          'medsea.readyness')]"/>
+          <section name="datasetPerf">
+            <field name="responsiveness"
+                   xpath="/mdb:MD_Metadata/mdb:dataQualityInfo/*/
+                      mdq:report/mdq:DQ_DomainConsistency[mdq:measure/*/mdq:nameOfMeasure/gco:CharacterString = 'Responsiveness']/
+                      mdq:result/mdq:DQ_QuantitativeResult/mdq:value"/>
 
+            <field name="losi"
+                   xpath="/mdb:MD_Metadata/mdb:dataQualityInfo/*/
+                      mdq:report/mdq:DQ_DomainConsistency[mdq:measure/*/mdq:nameOfMeasure/gco:CharacterString = 'Reliability']/
+                      mdq:result/mdq:DQ_QuantitativeResult/mdq:value"/>
 
-          <field name="responsiveness"
-                 xpath="/mdb:MD_Metadata/mdb:dataQualityInfo/*/
-                    mdq:report/mdq:DQ_DomainConsistency[mdq:measure/*/mdq:nameOfMeasure/gco:CharacterString = 'Responsiveness']/
-                    mdq:result/mdq:DQ_QuantitativeResult/mdq:value"/>
-
-          <field name="losi"
-                 xpath="/mdb:MD_Metadata/mdb:dataQualityInfo/*/
-                    mdq:report/mdq:DQ_DomainConsistency[mdq:measure/*/mdq:nameOfMeasure/gco:CharacterString = 'Reliability']/
-                    mdq:result/mdq:DQ_QuantitativeResult/mdq:value"/>
-
-          <field
-                  name="reliability"
-                  xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/
-                          mri:descriptiveKeywords
-                          [contains(*/mri:thesaurusName/cit:CI_Citation/cit:identifier/*/mcc:code/*/text(),
-                          'theme.medsea.reliability')]"/>
+            <field
+                    name="reliability"
+                    xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/
+                            mri:descriptiveKeywords
+                            [contains(*/mri:thesaurusName/cit:CI_Citation/cit:identifier/*/mcc:code/*/text(),
+                            'theme.medsea.reliability')]"/>
+          </section>
         </section>
       </tab>
       <tab id="medsea-metadata" mode="flat">
@@ -1106,13 +1116,13 @@
                     gmd:lineage/gmd:LI_Lineage/gmd:statement"/>-->
         </section>
       </tab>
-      <tab id="medsea-dq" mode="flat">
+      <!--<tab id="medsea-dq" mode="flat">
         <section>
           <field xpath="/mdb:MD_Metadata/mdb:dataQualityInfo/mdq:DQ_DataQuality/
                      mdq:report" or="report" in="/mdb:MD_Metadata/mdb:dataQualityInfo/mdq:DQ_DataQuality"/>
 
         </section>
-      </tab>
+      </tab>-->
     </view>
 
 

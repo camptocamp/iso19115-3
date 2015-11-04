@@ -57,13 +57,16 @@
   <validation>Validation</validation>
   <spatialCoverage>Spatial coverage</spatialCoverage>
   <timeCoverage>Time coverage</timeCoverage>
-  <accessibility>Accessibility</accessibility>
+  <accessibility>Availability</accessibility>
+  <datasetVisibility>Visibility of dataset</datasetVisibility>
+  <datasetAccessibility>Accessibility of dataset</datasetAccessibility>
   <programName>Program name</programName>
-  <edmerpName>Program identification in EDMERP</edmerpName>
-  <edmoName>Data provider identification in EDMO*</edmoName>
+  <datasetPerf>Performance of dataset</datasetPerf>
+  <edmerpName>Program name/project name (EDMERP)</edmerpName>
+  <edmoName>Data provider (EDMO)*</edmoName>
   <edmoProducerName>Data producer identification</edmoProducerName>
-  <edmoProducerNameSearch>Search data producer in EDMO</edmoProducerNameSearch>
-  <producerName>or add a data producer</producerName>
+  <edmoProducerNameSearch>Data originator (EDMO)</edmoProducerNameSearch>
+  <producerName>Data originator (free text)</producerName>
   <datasourceAcronym>Data source acronym</datasourceAcronym>
   <dataProvider>Data provider*</dataProvider>
   <uniqueIdentifier>Unique identifier*</uniqueIdentifier>
@@ -75,8 +78,9 @@
   <p01>Parameter Usage Vocabulary (P01)</p01>
   <production-mode>Production mode</production-mode>
   <level-of-characteristics>Processing level of characteristics</level-of-characteristics>
-  <providerSpecification>Purpose of production*</providerSpecification>
-  <processStepReference>Production specifications reference</processStepReference>
+  <providerSpecification>Purpose of characteristics production*</providerSpecification>
+  <processStepReference>Production and quality assessment specifications reference</processStepReference>
+  <selectRegion>Select predefined regions</selectRegion>
   <useOfTheCharacteristics>Title of the intended  use of the characteristic by the challenge*</useOfTheCharacteristics>
   <intendedUse>Intended use description*</intendedUse>
   <geographicalAreaCode>Geographical area code</geographicalAreaCode>
@@ -95,11 +99,20 @@
   <visibility>Visibility</visibility>
   <readyness>Readyness</readyness>
   <losi>Level of service information</losi>
-  <dataFormats>Data formats*</dataFormats>
+  <dataFormats>Data formats and conventions</dataFormats>
+  <dataFormats-help>
+    <div class="row">
+      <div class="col-xs-offset-2 col-xs-8">
+        <p class="help-block">
+          Insert as many format as needed
+        </p>
+      </div>
+    </div>
+  </dataFormats-help>
   <temporalExtent>Temporal extent*</temporalExtent>
   <responsiveness>Responsiveness*</responsiveness>
   <reliability>Reliability</reliability>
-  <medseaDataSourceCatalogueName>Catalog name*</medseaDataSourceCatalogueName>
+  <medseaDataSourceCatalogueName>Catalogue name from provider*</medseaDataSourceCatalogueName>
   <medseaDataSourceCatalogueURL>Catalog URL</medseaDataSourceCatalogueURL>
   <medseaDataSourceIdentifier>Dataset identifier in the catalog</medseaDataSourceIdentifier>
   <medseaDataSourceDOI>Dataset URL</medseaDataSourceDOI>
@@ -110,6 +123,24 @@
   <edmoId>EDMO id</edmoId>
   <associatedResources>Associated resources</associatedResources>
   <additionalInfo>Additional information</additionalInfo>
+  <listOfOL-help>
+    <div class="row">
+      <div class="col-xs-offset-2 col-xs-8">
+        <p class="help-block">
+          Enter as free text like "-10, -20, -50"
+        </p>
+      </div>
+    </div>
+  </listOfOL-help>
+  <temporalExtent-help>
+    <div class="row">
+      <div class="col-xs-offset-2 col-xs-8">
+        <p class="help-block">
+          For ongoing collection of data, select "now"
+        </p>
+      </div>
+    </div>
+  </temporalExtent-help>
   <edmerp-help>
     <div class="row">
       <div class="col-xs-offset-2 col-xs-8">
