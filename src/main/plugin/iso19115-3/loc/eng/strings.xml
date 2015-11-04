@@ -48,7 +48,7 @@
   <endPosition>End</endPosition>
   <medsea>MedSea</medsea>
   <medsea-targeted-product>MedSea targeted product</medsea-targeted-product>
-  <medsea-metadata>Identification</medsea-metadata>
+  <medsea-metadata>Metadata information</medsea-metadata>
   <medsea-metadata-tp>Identification</medsea-metadata-tp>
   <medsea-dq>Quality</medsea-dq>
   <medseaTitle>Data collection name or data set name*</medseaTitle>
