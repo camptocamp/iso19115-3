@@ -990,9 +990,9 @@
                   xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/
                 gmd:citation/gmd:CI_Citation/gmd:identifier/gmd:MD_Identifier/gmd:code"/>-->
 
-          <field name="additionalInfo"
+          <!--<field name="additionalInfo"
                  xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:abstract"/>
-
+-->
           <field xpath="/mdb:MD_Metadata/mdb:defaultLocale/lan:PT_Locale/lan:language"
                  or="defaultLocale" in="/mdb:MD_Metadata"/>
           <!--<field xpath="/mdb:MD_Metadata/mdb:contact" or="contact" in="/mdb:MD_Metadata"/>-->
