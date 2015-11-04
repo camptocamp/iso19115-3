@@ -57,6 +57,7 @@
   <datasources>Data sources</datasources>
   <validation>Validation</validation>
   <overview>Overview</overview>
+  <phone>Phone</phone>
   <spatialCoverage>Spatial coverage</spatialCoverage>
   <timeCoverage>Time coverage</timeCoverage>
   <accessibility>Accessibility</accessibility>

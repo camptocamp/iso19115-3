@@ -1021,6 +1021,9 @@
                 <key label="electronicMailAddress"
                      xpath="*/cit:party/*/cit:contactInfo/*/cit:address/*/cit:electronicMailAddress/gco:CharacterString"
                      use="email"/>
+                <key label="phone"
+                     xpath="*/cit:party/*/cit:contactInfo/*/cit:phone/*[cit:numberType/*/@codeListValue = 'voice']/cit:number/gco:CharacterString"
+                     use="text"/>
                 <key label="role"
                      xpath="*/cit:role/*/@codeListValue">
                   <codelist name="cit:CI_RoleCode"/>
@@ -1041,7 +1044,18 @@
                         </cit:name>
                         <cit:contactInfo>
                           <cit:CI_Contact>
-                            <gn:copy select="cit:phone"/>
+                            <cit:phone>
+                              <cit:CI_Telephone>
+                                <cit:number>
+                                  <gco:CharacterString>{{phone}}</gco:CharacterString>
+                                </cit:number>
+                                <cit:numberType>
+                                  <cit:CI_TelephoneTypeCode codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#CI_TelephoneTypeCode"
+                                                            codeListValue="voice"/>
+                                </cit:numberType>
+                              </cit:CI_Telephone>
+                            </cit:phone>
+                            <!--<gn:copy select="cit:phone"/>-->
                             <cit:address>
                               <cit:CI_Address>
                                 <cit:electronicMailAddress>

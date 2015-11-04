@@ -53,6 +53,7 @@
   <medseaHierarchyLevel>Hierarchy data level*</medseaHierarchyLevel>
   <datasources>Data sources</datasources>
   <overview>Overview</overview>
+  <phone>Phone</phone>
   <validation>Validation</validation>
   <spatialCoverage>Spatial coverage</spatialCoverage>
   <timeCoverage>Time coverage</timeCoverage>
