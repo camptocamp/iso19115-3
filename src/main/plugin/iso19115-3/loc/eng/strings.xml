@@ -52,10 +52,19 @@
   <medsea-metadata-tp>Identification</medsea-metadata-tp>
   <medsea-dq>Quality</medsea-dq>
   <medseaTitle>Data collection name or data set name*</medseaTitle>
+  <medseaTitle-help>
+    <div class="row">
+      <div class="col-xs-offset-2 col-xs-8">
+        <p class="help-block">
+          If the provider has given a name, please use the same name.
+        </p>
+      </div>
+    </div>
+  </medseaTitle-help>
   <characteristics>Characteristics</characteristics>
   <medseaHierarchyLevel>Hierarchy data level*</medseaHierarchyLevel>
   <datasources>Data sources</datasources>
-  <validation>Validation</validation>
+  <validation>Publication status</validation>
   <overview>Overview</overview>
   <phone>Phone</phone>
   <spatialCoverage>Spatial coverage</spatialCoverage>
@@ -64,12 +73,30 @@
   <datasetVisibility>Visibility of dataset</datasetVisibility>
   <datasetAccessibility>Accessibility of dataset</datasetAccessibility>
   <programName>Program name</programName>
+  <programName-help>
+    <div class="row">
+      <div class="col-xs-offset-2 col-xs-8">
+        <p class="help-block">
+          If the programme name is registered in EDMERP, please use the same name.
+        </p>
+      </div>
+    </div>
+  </programName-help>
   <edmerpName>Program name/project name (EDMERP)</edmerpName>
   <edmoName>Data provider (EDMO)*</edmoName>
   <edmoProducerName>Data producer identification</edmoProducerName>
   <edmoProducerNameSearch>Data originator (EDMO)</edmoProducerNameSearch>
-  <producerName>Data originator (free text)</producerName>
-  <datasourceAcronym>Data source acronym</datasourceAcronym>
+  <producerName>Data originator</producerName>
+  <producerName-help>
+    <div class="row">
+      <div class="col-xs-offset-2 col-xs-8">
+        <p class="help-block">
+          If the organisation name is available in EDMO, please use the same name.
+        </p>
+      </div>
+    </div>
+  </producerName-help>
+  <datasourceAcronym>Data collection name or data set name given by the provider</datasourceAcronym>
   <dataProvider>Data provider*</dataProvider>
   <uniqueIdentifier>Unique identifier*</uniqueIdentifier>
   <serviceExtent>Service extent</serviceExtent>
@@ -77,8 +104,9 @@
   <datasetPerf>Performance of dataset</datasetPerf>
   <environmental-matrix>Environmental matrix</environmental-matrix>
   <sdn-parameter-discovery>Parameter Discovery Vocabulary (P02)</sdn-parameter-discovery>
-  <p03>Agreed Parameter Groups (P03)</p03>
-  <p01>Parameter Usage Vocabulary (P01)</p01>
+  <p03>Group of Category of characteristics (P03)</p03>
+  <p02>Category of characteristics (P02)</p02>
+  <p01>Characteristic name (P01)</p01>
   <production-mode>Production mode</production-mode>
   <level-of-characteristics>Processing level of characteristics</level-of-characteristics>
   <providerSpecification>Purpose of characteristics production*</providerSpecification>
@@ -97,7 +125,16 @@
   <dataDelivery>Data delivery mechanisms</dataDelivery>
   <dataPolicy>Data policy*</dataPolicy>
   <policyVisibility>Policy visibility</policyVisibility>
-  <otherP01>Other parameter Usage Vocabulary</otherP01>
+  <otherP01>Characteristic name</otherP01>
+  <otherP01-help>
+    <div class="row">
+      <div class="col-xs-offset-2 col-xs-8">
+        <p class="help-block">
+          If the characteristics P01 is available, please use the same name.
+        </p>
+      </div>
+    </div>
+  </otherP01-help>
   <costBasis>Cost basis*</costBasis>
   <visibility>Visibility</visibility>
   <readyness>Readyness</readyness>
@@ -155,7 +192,8 @@
   <dataProvider-help>
     <div class="row">
       <div class="col-xs-offset-2 col-xs-8">
-        <p class="help-block">Give the name of the organization of the centre or division or laboratory which provides data.
+        <p class="help-block">
+          Give the name of the organization of the centre or division or laboratory which provides data.
           <ul>
             <li class="help-block">In the case of network infrastructures, it is recommended to mention the coordinating organisation in charge of the distribution of the dataset collection. For example, in the case of MyOcean, it would be one of the 5 Thematic Assembly Centers (Sea level, Color, SST, Ice &amp; Wind, In Situ) or of the 7 Monitoring and Forecasting Centers ( 1 global + 6 regional).
             </li>

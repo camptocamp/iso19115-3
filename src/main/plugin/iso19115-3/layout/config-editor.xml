@@ -393,7 +393,7 @@
                     [contains(*/mri:thesaurusName/cit:CI_Citation/cit:title/gco:CharacterString,
                     'Environmental matrix')]"/>
 
-          <section name="medsea-what">
+          <section name="characteristics">
 
             <field
                     name="p03"
@@ -403,7 +403,7 @@
                       'NVS.P03')]"/>
 
             <field
-                    name="sdn-parameter-discovery"
+                    name="p02"
                     xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/
                       mri:descriptiveKeywords
                       [contains(*/mri:thesaurusName/cit:CI_Citation/cit:identifier/*/mcc:code/*/text(),
@@ -421,6 +421,8 @@
                       mri:descriptiveKeywords/*
                       [contains(mri:thesaurusName/cit:CI_Citation/cit:title/gco:CharacterString,
                       'Parameter Usage Vocabulary (other)')]/mri:keyword"/>
+
+            <text ref="otherP01-help"/>
           </section>
 
           <field
@@ -544,6 +546,8 @@
                   name="programName"
                   xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:credit"/>
 
+
+          <text ref="programName-help"/>
 
           <!--<field
                   xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/
@@ -675,6 +679,9 @@
               </snippet>
             </template>
           </field>
+
+          <text ref="producerName-help"/>
+
           <action type="add"
                   name="edmoProducerNameSearch"
                   forceLabel="true"
@@ -731,6 +738,16 @@
           <text ref="dataCollection-help"/>
 
           <field
+                  name="medseaDataSourceCatalogueName"
+                  xpath="/mdb:MD_Metadata/mdb:distributionInfo/*/
+                            mrd:transferOptions/*/mrd:onLine[1]/*/cit:name"/>
+
+          <field
+                  name="medseaDataSourceCatalogueURL"
+                  xpath="/mdb:MD_Metadata/mdb:distributionInfo/*/
+                            mrd:transferOptions/*/mrd:onLine[1]/*/cit:linkage"/>
+
+          <field
                   name="datasourceAcronym"
                   xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:citation/*/cit:otherCitationDetails"/>
 
@@ -738,14 +755,7 @@
                   name="medseaTitle"
                   xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:citation/*/cit:alternateTitle"/>
 
-          <field
-                  name="medseaDataSourceCatalogueName"
-                  xpath="/mdb:MD_Metadata/mdb:distributionInfo/*/
-                            mrd:transferOptions/*/mrd:onLine[1]/*/cit:name"/>
-          <field
-                  name="medseaDataSourceCatalogueURL"
-                  xpath="/mdb:MD_Metadata/mdb:distributionInfo/*/
-                            mrd:transferOptions/*/mrd:onLine[1]/*/cit:linkage"/>
+          <text ref="medseaTitle-help"/>
 
           <field
                   name="medseaDataSourceIdentifier"
@@ -1003,13 +1013,13 @@
           <!--<field name="additionalInfo"
                  xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:abstract"/>
 -->
-          <field xpath="/mdb:MD_Metadata/mdb:defaultLocale/lan:PT_Locale/lan:language"
-                 or="defaultLocale" in="/mdb:MD_Metadata"/>
+          <!--<field xpath="/mdb:MD_Metadata/mdb:defaultLocale/lan:PT_Locale/lan:language"-->
+                 <!--or="defaultLocale" in="/mdb:MD_Metadata"/>-->
           <!--<field xpath="/mdb:MD_Metadata/mdb:contact" or="contact" in="/mdb:MD_Metadata"/>-->
 
 
 
-          <action type="add" name="metadataPointOfContact"
+          <!--<action type="add" name="metadataPointOfContact"
                   addDirective="data-gn-directory-entry-selector" or="contact" in="/mdb:MD_Metadata">
 
             <directiveAttributes
@@ -1017,7 +1027,7 @@
                     data-template-type="contact"
                     data-variables="gmd:role/gmd:CI_RoleCode/@codeListValue~{{role}}"
                     data-transformation="contact-from-iso19139-to-iso19115-3"/>
-          </action>
+          </action>-->
 
           <field name="metadataPointOfContact"
                  templateModeOnly="true"
@@ -1034,18 +1044,11 @@
                 <key label="phone"
                      xpath="*/cit:party/*/cit:contactInfo/*/cit:phone/*[cit:numberType/*/@codeListValue = 'voice']/cit:number/gco:CharacterString"
                      use="text"/>
-                <key label="role"
-                     xpath="*/cit:role/*/@codeListValue">
-                  <codelist name="cit:CI_RoleCode"/>
-                </key>
               </values>
               <snippet>
                 <mdb:contact>
                   <cit:CI_Responsibility>
-                    <cit:role>
-                      <cit:CI_RoleCode codeList="codeListLocation#CI_RoleCode"
-                                       codeListValue="{{role}}"></cit:CI_RoleCode>
-                    </cit:role>
+                    <gn:copy select="cit:role"/>
                     <gn:copy select="cit:extent"/>
                     <cit:party>
                       <cit:CI_Organisation>
@@ -1406,6 +1409,7 @@
               </snippet>
             </template>
           </field>
+
           <action type="add"
                   name="edmoProducerNameSearch"
                   forceLabel="true"
