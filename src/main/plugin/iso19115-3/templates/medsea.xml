@@ -66,6 +66,17 @@
           </cit:name>
           <cit:contactInfo>
             <cit:CI_Contact>
+              <cit:phone>
+                <cit:CI_Telephone>
+                  <cit:number>
+                    <gco:CharacterString></gco:CharacterString>
+                  </cit:number>
+                  <cit:numberType>
+                    <cit:CI_TelephoneTypeCode codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#CI_TelephoneTypeCode"
+                                              codeListValue="voice"/>
+                  </cit:numberType>
+                </cit:CI_Telephone>
+              </cit:phone>
               <cit:address>
                 <cit:CI_Address>
                   <cit:electronicMailAddress gco:nilReason="missing">
@@ -846,18 +857,7 @@
               <cit:title>
                 <gco:CharacterString>GML</gco:CharacterString>
               </cit:title>
-              <cit:alternateTitle/>
               <cit:date gco:nilReason="unknown"/>
-              <cit:edition>
-                <gco:CharacterString>3.2.1</gco:CharacterString>
-              </cit:edition>
-              <cit:identifier>
-                <mcc:MD_Identifier>
-                  <mcc:code>
-                    <gco:CharacterString>GML</gco:CharacterString>
-                  </mcc:code>
-                </mcc:MD_Identifier>
-              </cit:identifier>
             </cit:CI_Citation>
           </mrd:formatSpecificationCitation>
         </mrd:MD_Format>
