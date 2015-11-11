@@ -99,7 +99,7 @@
   <datasourceAcronym>Data collection name or data set name given by the provider</datasourceAcronym>
   <dataProvider>Data provider*</dataProvider>
   <uniqueIdentifier>Unique identifier*</uniqueIdentifier>
-  <serviceExtent>Service extent</serviceExtent>
+  <serviceExtent>EU catalogue service</serviceExtent>
   <useByChallenges>Used by challenges</useByChallenges>
   <datasetPerf>Performance of dataset</datasetPerf>
   <environmental-matrix>Environmental matrix</environmental-matrix>
@@ -113,7 +113,7 @@
   <selectRegion>Select predefined regions</selectRegion>
   <processStepReference>Production and quality assessment specifications reference</processStepReference>
   <useOfTheCharacteristics>Title of the intended  use of the characteristic by the challenge*</useOfTheCharacteristics>
-  <intendedUse>Intended use description*</intendedUse>
+  <intendedUse>Intended use description: objective, process description, output data*</intendedUse>
   <geographicalAreaCode>Geographical area code</geographicalAreaCode>
   <horizontalAndVerticalInfo>Horizontal and vertical information</horizontalAndVerticalInfo>
   <horResolution>Hor. resolution</horResolution>
@@ -124,7 +124,7 @@
   <timeResolution>Time resolution</timeResolution>
   <dataDelivery>Data delivery mechanisms</dataDelivery>
   <dataPolicy>Data policy*</dataPolicy>
-  <policyVisibility>Policy visibility</policyVisibility>
+  <policyVisibility>Visibility of data policy</policyVisibility>
   <otherP01>Characteristic name</otherP01>
   <otherP01-help>
     <div class="row">
@@ -135,8 +135,8 @@
       </div>
     </div>
   </otherP01-help>
-  <costBasis>Cost basis*</costBasis>
-  <visibility>Visibility</visibility>
+  <costBasis>Pricing*</costBasis>
+  <visibility>Easily found</visibility>
   <readyness>Readyness</readyness>
   <losi>Level of service information</losi>
   <dataFormats>Data formats and conventions</dataFormats>

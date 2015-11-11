@@ -903,7 +903,7 @@
 
         </section>
       </tab>
-      <tab id="accessibility">
+      <tab id="accessibility" mode="flat">
         <section name="datasetVisibility">
 
           <field name="visibility"
@@ -978,26 +978,26 @@
               </snippet>
             </template>
           </action>
+        </section>
 
 
-          <section name="datasetPerf">
-            <field name="responsiveness"
-                   xpath="/mdb:MD_Metadata/mdb:dataQualityInfo/*/
+        <section name="datasetPerf">
+          <field name="responsiveness"
+                 xpath="/mdb:MD_Metadata/mdb:dataQualityInfo/*/
                       mdq:report/mdq:DQ_DomainConsistency[mdq:measure/*/mdq:nameOfMeasure/gco:CharacterString = 'Responsiveness']/
                       mdq:result/mdq:DQ_QuantitativeResult/mdq:value"/>
 
-            <field name="losi"
-                   xpath="/mdb:MD_Metadata/mdb:dataQualityInfo/*/
+          <!--<field name="losi"
+                 xpath="/mdb:MD_Metadata/mdb:dataQualityInfo/*/
                       mdq:report/mdq:DQ_DomainConsistency[mdq:measure/*/mdq:nameOfMeasure/gco:CharacterString = 'Reliability']/
                       mdq:result/mdq:DQ_QuantitativeResult/mdq:value"/>
 
-            <field
-                    name="reliability"
-                    xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/
+          <field
+                  name="reliability"
+                  xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/
                             mri:descriptiveKeywords
                             [contains(*/mri:thesaurusName/cit:CI_Citation/cit:identifier/*/mcc:code/*/text(),
-                            'theme.medsea.reliability')]"/>
-          </section>
+                            'theme.medsea.reliability')]"/>-->
         </section>
       </tab>
       <tab id="medsea-metadata" mode="flat">
