@@ -73,6 +73,7 @@
   <datasetVisibility>Visibility of dataset</datasetVisibility>
   <datasetAccessibility>Accessibility of dataset</datasetAccessibility>
   <programName>Program name</programName>
+  <programNameWebsite>Programme/project web site URL</programNameWebsite>
   <programName-help>
     <div class="row">
       <div class="col-xs-offset-2 col-xs-8">
@@ -84,9 +85,11 @@
   </programName-help>
   <edmerpName>Program name/project name (EDMERP)</edmerpName>
   <edmoName>Data provider (EDMO)*</edmoName>
+  <edmoNameWebsite>Data provider website</edmoNameWebsite>
   <edmoProducerName>Data producer identification</edmoProducerName>
   <edmoProducerNameSearch>Data originator (EDMO)</edmoProducerNameSearch>
   <producerName>Data originator</producerName>
+  <producerNameWebsite>Data producer website</producerNameWebsite>
   <producerName-help>
     <div class="row">
       <div class="col-xs-offset-2 col-xs-8">

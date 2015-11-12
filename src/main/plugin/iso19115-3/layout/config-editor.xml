@@ -494,6 +494,8 @@
                      xpath="*/cit:party/*/cit:name/gco:CharacterString"/>
                 <key label="acronym"
                      xpath="*/cit:party/*/cit:individual/*/cit:name/gco:CharacterString"/>
+                <key label="programNameWebsite"
+                     xpath="*/cit:party/*/cit:contactInfo/*/cit:onlineResource/*/cit:linkage/gco:CharacterString"/>
                 <key label="edmerpId"
                      xpath="cit:CI_Responsibility/@id"/>
               </values>
@@ -507,7 +509,28 @@
                         <cit:name>
                           <gco:CharacterString>{{projectTitle}}</gco:CharacterString>
                         </cit:name>
-                        <gn:copy select="cit:contactInfo"/>
+                        <cit:contactInfo>
+                          <cit:CI_Contact>
+                            <gn:copy select="cit:phone"/>
+                            <gn:copy select="cit:address"/>
+                            <cit:onlineResource>
+                              <cit:CI_OnlineResource>
+                                <cit:linkage>
+                                  <gco:CharacterString>{{website}}</gco:CharacterString>
+                                </cit:linkage>
+                                <gn:copy select="cit:protocol"/>
+                                <gn:copy select="cit:applicationProfile"/>
+                                <gn:copy select="cit:name"/>
+                                <gn:copy select="cit:description"/>
+                                <gn:copy select="cit:function"/>
+                                <gn:copy select="cit:protocolRequest"/>
+                              </cit:CI_OnlineResource>
+                            </cit:onlineResource>
+                            <gn:copy select="cit:hoursOfService"/>
+                            <gn:copy select="cit:contactInstructions"/>
+                            <gn:copy select="cit:contactType"/>
+                          </cit:CI_Contact>
+                        </cit:contactInfo>
                         <gn:copy select="cit:logo"/>
                         <cit:individual>
                           <cit:CI_Individual>
@@ -563,6 +586,8 @@
               <values readonlyIf="true()">
                 <key label="organisationName"
                      xpath="*/cit:party/*/cit:name/gco:CharacterString"/>
+                <key label="edmoNameWebsite"
+                     xpath="*/cit:party/*/cit:contactInfo/*/cit:onlineResource/*/cit:linkage/gco:CharacterString"/>
                 <key label="edmoId"
                      xpath="*/@id"/>
               </values>
@@ -576,7 +601,28 @@
                         <cit:name>
                           <gco:CharacterString>{{organisationName}}</gco:CharacterString>
                         </cit:name>
-                        <gn:copy select="cit:contactInfo"/>
+                        <cit:contactInfo>
+                          <cit:CI_Contact>
+                            <gn:copy select="cit:phone"/>
+                            <gn:copy select="cit:address"/>
+                            <cit:onlineResource>
+                              <cit:CI_OnlineResource>
+                                <cit:linkage>
+                                  <gco:CharacterString>{{website}}</gco:CharacterString>
+                                </cit:linkage>
+                                <gn:copy select="cit:protocol"/>
+                                <gn:copy select="cit:applicationProfile"/>
+                                <gn:copy select="cit:name"/>
+                                <gn:copy select="cit:description"/>
+                                <gn:copy select="cit:function"/>
+                                <gn:copy select="cit:protocolRequest"/>
+                              </cit:CI_OnlineResource>
+                            </cit:onlineResource>
+                            <gn:copy select="cit:hoursOfService"/>
+                            <gn:copy select="cit:contactInstructions"/>
+                            <gn:copy select="cit:contactType"/>
+                          </cit:CI_Contact>
+                        </cit:contactInfo>
                         <gn:copy select="cit:logo"/>
                         <gn:copy select="cit:individual"/>
                       </cit:CI_Organisation>
@@ -610,6 +656,8 @@
               <values readonlyIf="count(@xlink:href) > 0">
                 <key label="organisationName"
                      xpath="*/cit:party/*/cit:name/gco:CharacterString"/>
+                <key label="producerNameWebsite"
+                     xpath="*/cit:party/*/cit:contactInfo/*/cit:onlineResource/*/cit:linkage/gco:CharacterString"/>
               </values>
               <snippet>
 
@@ -622,7 +670,28 @@
                         <cit:name>
                           <gco:CharacterString>{{organisationName}}</gco:CharacterString>
                         </cit:name>
-                        <gn:copy select="cit:contactInfo"/>
+                        <cit:contactInfo>
+                          <cit:CI_Contact>
+                            <gn:copy select="cit:phone"/>
+                            <gn:copy select="cit:address"/>
+                            <cit:onlineResource>
+                              <cit:CI_OnlineResource>
+                                <cit:linkage>
+                                  <gco:CharacterString>{{website}}</gco:CharacterString>
+                                </cit:linkage>
+                                <gn:copy select="cit:protocol"/>
+                                <gn:copy select="cit:applicationProfile"/>
+                                <gn:copy select="cit:name"/>
+                                <gn:copy select="cit:description"/>
+                                <gn:copy select="cit:function"/>
+                                <gn:copy select="cit:protocolRequest"/>
+                              </cit:CI_OnlineResource>
+                            </cit:onlineResource>
+                            <gn:copy select="cit:hoursOfService"/>
+                            <gn:copy select="cit:contactInstructions"/>
+                            <gn:copy select="cit:contactType"/>
+                          </cit:CI_Contact>
+                        </cit:contactInfo>
                         <gn:copy select="cit:logo"/>
                         <cit:individual>
                           <cit:CI_Individual>
@@ -651,6 +720,8 @@
               <values readonlyIf="count(@xlink:href) > 0">
                 <key label="organisationName"
                      xpath="*/cit:party/*/cit:name/gco:CharacterString"/>
+                <key label="producerNameWebsite"
+                     xpath="*/cit:party/*/cit:contactInfo/*/cit:onlineResource/*/cit:linkage/gco:CharacterString"/>
               </values>
               <snippet>
                 <mri:pointOfContact>
@@ -662,7 +733,28 @@
                         <cit:name>
                           <gco:CharacterString>{{organisationName}}</gco:CharacterString>
                         </cit:name>
-                        <gn:copy select="cit:contactInfo"/>
+                        <cit:contactInfo>
+                          <cit:CI_Contact>
+                            <gn:copy select="cit:phone"/>
+                            <gn:copy select="cit:address"/>
+                            <cit:onlineResource>
+                              <cit:CI_OnlineResource>
+                                <cit:linkage>
+                                  <gco:CharacterString>{{website}}</gco:CharacterString>
+                                </cit:linkage>
+                                <gn:copy select="cit:protocol"/>
+                                <gn:copy select="cit:applicationProfile"/>
+                                <gn:copy select="cit:name"/>
+                                <gn:copy select="cit:description"/>
+                                <gn:copy select="cit:function"/>
+                                <gn:copy select="cit:protocolRequest"/>
+                              </cit:CI_OnlineResource>
+                            </cit:onlineResource>
+                            <gn:copy select="cit:hoursOfService"/>
+                            <gn:copy select="cit:contactInstructions"/>
+                            <gn:copy select="cit:contactType"/>
+                          </cit:CI_Contact>
+                        </cit:contactInfo>
                         <gn:copy select="cit:logo"/>
                         <gn:copy select="cit:individual"/>
                         <!--<cit:individual>
@@ -711,6 +803,17 @@
                         <cit:name>
                           <gco:CharacterString></gco:CharacterString>
                         </cit:name>
+                        <cit:contactInfo>
+                          <cit:CI_Contact>
+                            <cit:onlineResource>
+                              <cit:CI_OnlineResource>
+                                <cit:linkage>
+                                  <gco:CharacterString></gco:CharacterString>
+                                </cit:linkage>
+                              </cit:CI_OnlineResource>
+                            </cit:onlineResource>
+                          </cit:CI_Contact>
+                        </cit:contactInfo>
                         <cit:contactInfo>
                           <cit:CI_Contact>
                             <cit:address>
@@ -1227,6 +1330,8 @@
                      xpath="*/cit:party/*/cit:individual/*/cit:name/gco:CharacterString"/>
                 <key label="edmerpId"
                      xpath="cit:CI_Responsibility/@id"/>
+                <key label="programNameWebsite"
+                     xpath="*/cit:party/*/cit:individual/*/cit:name/gco:CharacterString"/>
               </values>
               <snippet>
                 <mri:pointOfContact>
@@ -1238,7 +1343,28 @@
                         <cit:name>
                           <gco:CharacterString>{{projectTitle}}</gco:CharacterString>
                         </cit:name>
-                        <gn:copy select="cit:contactInfo"/>
+                        <cit:contactInfo>
+                          <cit:CI_Contact>
+                            <gn:copy select="cit:phone"/>
+                            <gn:copy select="cit:address"/>
+                            <cit:onlineResource>
+                              <cit:CI_OnlineResource>
+                                <cit:linkage>
+                                  <gco:CharacterString>{{website}}</gco:CharacterString>
+                                </cit:linkage>
+                                <gn:copy select="cit:protocol"/>
+                                <gn:copy select="cit:applicationProfile"/>
+                                <gn:copy select="cit:name"/>
+                                <gn:copy select="cit:description"/>
+                                <gn:copy select="cit:function"/>
+                                <gn:copy select="cit:protocolRequest"/>
+                              </cit:CI_OnlineResource>
+                            </cit:onlineResource>
+                            <gn:copy select="cit:hoursOfService"/>
+                            <gn:copy select="cit:contactInstructions"/>
+                            <gn:copy select="cit:contactType"/>
+                          </cit:CI_Contact>
+                        </cit:contactInfo>
                         <gn:copy select="cit:logo"/>
                         <cit:individual>
                           <cit:CI_Individual>
