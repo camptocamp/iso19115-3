@@ -61,14 +61,15 @@
   <characteristics>Characteristics</characteristics>
   <medseaHierarchyLevel>Hierarchy data level*</medseaHierarchyLevel>
   <datasources>Data sources</datasources>
+  <validation>Publication status</validation>
   <overview>Overview</overview>
   <phone>Phone</phone>
-  <validation>Publication status</validation>
   <spatialCoverage>Spatial coverage</spatialCoverage>
   <timeCoverage>Time coverage</timeCoverage>
   <accessibility>Availability</accessibility>
   <datasetVisibility>Visibility of dataset</datasetVisibility>
   <datasetAccessibility>Accessibility of dataset</datasetAccessibility>
+  <programName>Program name</programName>
   <programNameWebsite>Programme/project web site URL</programNameWebsite>
   <programName-help>
     <div class="row">
@@ -100,6 +101,7 @@
   <uniqueIdentifier>Unique identifier*</uniqueIdentifier>
   <serviceExtent>EU catalogue service</serviceExtent>
   <useByChallenges>Used by challenges</useByChallenges>
+  <datasetPerf>Performance of dataset</datasetPerf>
   <environmental-matrix>Environmental matrix</environmental-matrix>
   <sdn-parameter-discovery>Parameter Discovery Vocabulary (P02)</sdn-parameter-discovery>
   <p03>Group of Category of characteristics (P03)</p03>
@@ -108,8 +110,8 @@
   <production-mode>Production mode</production-mode>
   <level-of-characteristics>Processing level of characteristics</level-of-characteristics>
   <providerSpecification>Purpose of characteristics production*</providerSpecification>
-  <processStepReference>Production and quality assessment specifications reference</processStepReference>
   <selectRegion>Select predefined regions</selectRegion>
+  <processStepReference>Production and quality assessment specifications reference</processStepReference>
   <useOfTheCharacteristics>Title of the intended  use of the characteristic by the challenge*</useOfTheCharacteristics>
   <intendedUse>Intended use description: objective, process description, output data*</intendedUse>
   <geographicalAreaCode>Geographical area code</geographicalAreaCode>
@@ -219,21 +221,19 @@
     </div>
   </medsea-more-help>
 
-
-  <pointOfContact>Organisation responsable de la ressource</pointOfContact>
-  <metadataPointOfContact>Point de contact des métadonnées</metadataPointOfContact>
-  <organisationName>Nom de l'organisation</organisationName>
-  <electronicMailAddress>Email de l'organisation</electronicMailAddress>
-  <role>Rôle</role>
+  <indeterminatePosition>Indeterminate position</indeterminatePosition>
+  <pointOfContact>Contact for the resource</pointOfContact>
+  <metadataPointOfContact>Contact for the metadata</metadataPointOfContact>
+  <organisationName>Organisation name</organisationName>
+  <electronicMailAddress>Email</electronicMailAddress>
+  <role>Role</role>
   <format>Format</format>
-  <indeterminatePosition>Position indéterminée</indeterminatePosition>
   <format_version>Version</format_version>
   <medsea-what>What</medsea-what>
   <medsea-when>When</medsea-when>
   <medsea-where>Where</medsea-where>
   <medsea-who>Who</medsea-who>
   <medsea-access>How to access</medsea-access>
-
   <medsea-upstream-data>Upstream data</medsea-upstream-data>
   <medsea-upstream-data-help>
     <div class="row">
@@ -250,5 +250,6 @@
       </div>
     </div>
   </medsea-upstream-data-help>
+
 
 </strings>

@@ -343,10 +343,17 @@
                         */mri:thesaurusName/cit:CI_Citation/cit:title and
                         count(*/mri:keyword/* != '') > 0]"
                 priority="100">
+    <xsl:param name="fieldName"/>
+
     <dl class="gn-keyword">
       <dt>
-        <xsl:apply-templates mode="render-value"
-                             select="*/mri:thesaurusName/cit:CI_Citation/cit:title/*"/>
+        <xsl:choose>
+          <xsl:when test="$fieldName != ''"><xsl:value-of select="$fieldName"/></xsl:when>
+          <xsl:otherwise>
+            <xsl:apply-templates mode="render-value"
+                                 select="*/mri:thesaurusName/cit:CI_Citation/cit:title/*"/>
+          </xsl:otherwise>
+        </xsl:choose>
 
         <!--<xsl:if test="*/mri:type/*[@codeListValue != '']">
           (<xsl:apply-templates mode="render-value"
@@ -457,7 +464,7 @@
 
   <!-- Date -->
   <xsl:template mode="render-field"
-                match="cit:date"
+                match="cit:date|mdb:dateInfo"
                 priority="100">
     <dl class="gn-date">
       <dt>
@@ -555,7 +562,7 @@
   <!-- Render values for text ... -->
   <xsl:template mode="render-value"
                 match="gco:CharacterString|gco:Integer|gco:Decimal|
-       gco:Boolean|gco:Real|gco:Measure|gco:Length|gco:Distance|gco:Angle|
+       gco:Boolean|gco:Real|gco:Measure|gco:Length|gco:Angle|
        gco:Scale|gco:Record|gco:RecordType|
        gco:LocalName|gml:beginPosition|gml:endPosition">
     <xsl:choose>
@@ -585,6 +592,11 @@
     </xsl:apply-templates>
   </xsl:template>
 
+  <xsl:template mode="render-value"
+                match="gco:Distance">
+    <span><xsl:value-of select="."/>&#10;<xsl:value-of select="@uom"/></span>
+  </xsl:template>
+
   <!-- ... Dates - formatting is made on the client side by the directive  -->
   <xsl:template mode="render-value"
                 match="gco:Date[matches(., '[0-9]{4}')]">
@@ -603,12 +615,12 @@
 
   <xsl:template mode="render-value"
                 match="gco:DateTime[matches(., '[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}')]">
-    <span data-gn-humanize-time="{.}"></span>
+    <span data-gn-humanize-time="{.}"><xsl:value-of select="."/></span>
   </xsl:template>
 
   <xsl:template mode="render-value"
                 match="gco:Date|gco:DateTime">
-    <span data-gn-humanize-time="{.}"></span>
+    <span data-gn-humanize-time="{.}"><xsl:value-of select="."/></span>
   </xsl:template>
 
   <!-- TODO -->

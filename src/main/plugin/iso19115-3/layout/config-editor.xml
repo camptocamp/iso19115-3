@@ -926,7 +926,7 @@
           <field
                   name="horResolution"
                   xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/
-                            mri:spatialResolution/mri:MD_Resolution/*/mri:distance"/>
+                            mri:spatialResolution/mri:MD_Resolution/mri:distance"/>
 
           <field
                   name="minDepth"
