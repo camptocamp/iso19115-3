@@ -370,15 +370,15 @@
                                         */cit:title/gco:CharacterString, 'MedSea Checkpoint')">
 
       <thesaurusList>
-        <thesaurus key="local.theme.medsea.environmental.matrix" maxtags="1"/>
-        <thesaurus key="local.theme.medsea.status" maxtags="1"/>
-        <thesaurus key="local.theme.medsea.visibility" maxtags="1"/>
-        <thesaurus key="local.theme.medsea.policy.visibility" maxtags="1"/>
+        <thesaurus key="local.theme.emodnet-checkpoint.environmental.matrix" maxtags="1"/>
+        <thesaurus key="local.theme.emodnet-checkpoint.status" maxtags="1"/>
+        <thesaurus key="local.theme.emodnet-checkpoint.visibility" maxtags="1"/>
+        <thesaurus key="local.theme.emodnet-checkpoint.policy.visibility" maxtags="1"/>
         <thesaurus key="external.theme.inspire-theme" maxtags="1"/>
-        <thesaurus key="local.theme.medsea.level.of.characteristics" maxtags="1"/>
-        <thesaurus key="local.theme.medsea.production.mode" maxtags="1"/>
-        <thesaurus key="local.theme.medsea.readyness" maxtags="1"/>
-        <thesaurus key="local.theme.medsea.data.delivery.mechanism" maxtags="1"/>
+        <thesaurus key="local.theme.emodnet-checkpoint.level.of.characteristics" maxtags="1"/>
+        <thesaurus key="local.theme.emodnet-checkpoint.production.mode" maxtags="1"/>
+        <thesaurus key="local.theme.emodnet-checkpoint.readyness" maxtags="1"/>
+        <thesaurus key="local.theme.emodnet-checkpoint.data.delivery.mechanism" maxtags="1"/>
         <thesaurus key="external.parameter.NVS.P03" maxtags="1"/>
         <thesaurus key="external.parameter.NVS.P01" maxtags="1"/>
         <thesaurus key="external.parameter.NVS.P02" maxtags="1"/>
@@ -1012,21 +1012,21 @@
                  xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/
                           mri:descriptiveKeywords
                           [contains(*/mri:thesaurusName/cit:CI_Citation/cit:identifier/*/mcc:code/*/text(),
-                          'medsea.visibility')]"/>
+                          'emodnet-checkpoint.visibility')]"/>
 
           <field
                   name="serviceExtent"
                   xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/
                           mri:descriptiveKeywords
                           [contains(*/mri:thesaurusName/cit:CI_Citation/cit:identifier/*/mcc:code/*/text(),
-                          'theme.medsea.service.extent')]"/>
+                          'theme.emodnet-checkpoint.service.extent')]"/>
         </section>
         <section name="datasetAccessibility">
           <field name="policyVisibility"
                  xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/
                           mri:descriptiveKeywords
                           [contains(*/mri:thesaurusName/cit:CI_Citation/cit:identifier/*/mcc:code/*/text(),
-                          'medsea.policy.visibility')]"/>
+                          'emodnet-checkpoint.policy.visibility')]"/>
 
           <field name="dataDelivery"
                  xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/
@@ -1051,7 +1051,7 @@
                  xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/
                           mri:descriptiveKeywords
                           [contains(*/mri:thesaurusName/cit:CI_Citation/cit:identifier/*/mcc:code/*/text(),
-                          'medsea.readyness')]"/>
+                          'emodnet-checkpoint.readyness')]"/>
 
 
           <field
@@ -1098,7 +1098,7 @@
                   xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/
                             mri:descriptiveKeywords
                             [contains(*/mri:thesaurusName/cit:CI_Citation/cit:identifier/*/mcc:code/*/text(),
-                            'theme.medsea.reliability')]"/>-->
+                            'theme.emodnet-checkpoint.reliability')]"/>-->
         </section>
       </tab>
       <tab id="medsea-metadata" mode="flat">
@@ -1213,7 +1213,7 @@
                   xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/
                     mri:descriptiveKeywords
                     [contains(*/mri:thesaurusName/cit:CI_Citation/cit:identifier/*/mcc:code/*/text(),
-                    'medsea.status')]"/>
+                    'emodnet-checkpoint.status')]"/>
 
           <!--<field name="lineage"
                  xpath="/mdb:MD_Metadata/mdb:dataQualityInfo/*/
@@ -1237,15 +1237,15 @@
                                         */cit:title/gco:CharacterString, 'MedSea Targeted Product')">
 
       <thesaurusList>
-        <thesaurus key="local.theme.medsea.environmental.matrix" maxtags="1"/>
-        <thesaurus key="local.theme.medsea.status" maxtags="1"/>
-        <thesaurus key="local.theme.medsea.visibility" maxtags="1"/>
-        <thesaurus key="local.theme.medsea.policy.visibility" maxtags="1"/>
+        <thesaurus key="local.theme.emodnet-checkpoint.environmental.matrix" maxtags="1"/>
+        <thesaurus key="local.theme.emodnet-checkpoint.status" maxtags="1"/>
+        <thesaurus key="local.theme.emodnet-checkpoint.visibility" maxtags="1"/>
+        <thesaurus key="local.theme.emodnet-checkpoint.policy.visibility" maxtags="1"/>
         <thesaurus key="external.theme.inspire-theme" maxtags="1"/>
-        <thesaurus key="local.theme.medsea.level.of.characteristics" maxtags="1"/>
-        <thesaurus key="local.theme.medsea.production.mode" maxtags="1"/>
-        <thesaurus key="local.theme.medsea.readyness" maxtags="1"/>
-        <thesaurus key="local.theme.medsea.data.delivery.mechanism" maxtags="1"/>
+        <thesaurus key="local.theme.emodnet-checkpoint.level.of.characteristics" maxtags="1"/>
+        <thesaurus key="local.theme.emodnet-checkpoint.production.mode" maxtags="1"/>
+        <thesaurus key="local.theme.emodnet-checkpoint.readyness" maxtags="1"/>
+        <thesaurus key="local.theme.emodnet-checkpoint.data.delivery.mechanism" maxtags="1"/>
       </thesaurusList>
       <tab id="medsea-what" mode="flat" default="true">
         <section>
@@ -1831,7 +1831,7 @@
                   xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/
                     mri:descriptiveKeywords
                     [contains(*/mri:thesaurusName/cit:CI_Citation/cit:identifier/*/mcc:code/*/text(),
-                    'medsea.status')]"/>
+                    'emodnet-checkpoint.status')]"/>
         </section>
       </tab>
     </view>

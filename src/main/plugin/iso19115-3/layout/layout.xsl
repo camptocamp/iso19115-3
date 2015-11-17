@@ -33,7 +33,7 @@
   <xsl:include href="layout-custom-fields-date.xsl"/>
   <xsl:include href="layout-custom-fields-contact.xsl"/>
   <xsl:include href="layout-custom-fields-keywords.xsl"/>
-  <xsl:include href="layout-custom-fields-medsea.xsl"/>
+  <xsl:include href="layout-custom-fields-emodnet-checkpoint.xsl"/>
 
   <!-- Visit all XML tree recursively -->
   <xsl:template mode="mode-iso19115-3"

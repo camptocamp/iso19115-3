@@ -309,7 +309,6 @@
   </xsl:template>
 
 
-
   <!-- Responsiveness
   /mdb:MD_Metadata/mdb:dataQualityInfo/*/
                       mdq:report/mdq:DQ_DomainConsistency[mdq:measure/*/mdq:nameOfMeasure/gco:CharacterString = 'Responsiveness']/
@@ -420,6 +419,17 @@
                           mri:descriptiveKeywords[
                             contains(*/mri:thesaurusName/cit:CI_Citation/cit:identifier/*/mcc:code/*/text(),
                               'theme.medsea.reliability')]"/>
+
+
+  <xsl:template match="mri:thesaurusName/cit:CI_Citation/cit:identifier/*/mcc:code/*[contains(@xlink:href, 'medsea.')]">
+    <xsl:copy>
+      <xsl:attribute name="xlink:href">
+        <xsl:value-of select="replace(@xlink:href, 'medsea.', 'emodnet-checkpoint.')"/>
+      </xsl:attribute>
+      <xsl:value-of select="replace(., 'medsea.', 'emodnet-checkpoint.')"/>
+    </xsl:copy>
+  </xsl:template>
+
 
   <!-- Do a copy of every nodes and attributes -->
   <xsl:template match="@*|node()|comment()">

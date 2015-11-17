@@ -16,7 +16,7 @@
                 xmlns:gn-fn-metadata="http://geonetwork-opensource.org/xsl/functions/metadata"
                 exclude-result-prefixes="#all">
 
-  <!-- MEDSEA / Use thesaurus local.theme.medsea.challenges
+  <!-- MEDSEA / Use thesaurus local.theme.emodnet-checkpoint.challenges
   to populate the field gmd:hierarchyLevelName.
                             -->
   <xsl:template mode="mode-iso19115-3" priority="20000"
@@ -34,7 +34,7 @@
         <input class="form-control" value="{gco:CharacterString}"
                name="_{gco:CharacterString/gn:element/@ref}"
                data-gn-keyword-picker=""
-               data-thesaurus-key="local.theme.medsea.challenges"
+               data-thesaurus-key="local.theme.emodnet-checkpoint.challenges"
                data-gn-field-tooltip="iso19115-3|mdb:metadataScope||/mdb:MD_Metadata/mdb:metadataScope"
                type="text"/>
       </div>
