@@ -74,31 +74,16 @@
   <datasetAccessibility>Accessibility of dataset</datasetAccessibility>
   <programName>Program name*</programName>
   <programNameWebsite>Program/project web site URL</programNameWebsite>
-  <programName-help>
-    <div class="row">
-      <div class="col-xs-offset-2 col-xs-8">
-        <p class="help-block">
-          If the program name is registered in EDMERP, please use the same name.
-        </p>
-      </div>
-    </div>
-  </programName-help>
   <edmerpName>Program name/project name (EDMERP)</edmerpName>
+  <orAddEdmerpName>or add a program name if none found in EDMERP</orAddEdmerpName>
   <edmoName>Data provider (EDMO)*</edmoName>
+  <orAddEdmoName>or add a data provider if none found in EDMO</orAddEdmoName>
   <edmoNameWebsite>Data provider website</edmoNameWebsite>
   <edmoProducerName>Data producer identification</edmoProducerName>
-  <edmoProducerNameSearch>Data originator (EDMO)</edmoProducerNameSearch>
-  <producerName>Data originator*</producerName>
-  <producerNameWebsite>Data provider website</producerNameWebsite>
-  <producerName-help>
-    <div class="row">
-      <div class="col-xs-offset-2 col-xs-8">
-        <p class="help-block">
-          If the organisation name is available in EDMO, please use the same name.
-        </p>
-      </div>
-    </div>
-  </producerName-help>
+  <edmoProducerNameSearch>Data producer (EDMO)</edmoProducerNameSearch>
+  <producerName>Data producer*</producerName>
+  <orAddProducerName>or add a data producer if none found in EDMO</orAddProducerName>
+  <producerNameWebsite>Data producer website</producerNameWebsite>
   <datasourceAcronym>Data collection name or data set name given by the provider</datasourceAcronym>
   <dataProvider>Data provider*</dataProvider>
   <uniqueIdentifier>Unique identifier*</uniqueIdentifier>

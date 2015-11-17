@@ -488,7 +488,7 @@
                  del="."
                  if="count(mdb:MD_Metadata/mdb:identificationInfo/*) > 0">
             <template>
-              <values readonlyIf="true()">
+              <values readonlyIf="count(@xlink:href) > 0">
                 <key label="projectTitle"
                      xpath="*/cit:party/*/cit:name/gco:CharacterString"/>
                 <key label="acronym"
@@ -562,18 +562,48 @@
                     data-transformation="contact-from-iso19139-to-iso19115-3"/>
           </action>
 
-          <text ref="edmerp-help"/>
 
-          <field
-                  name="programName"
-                  xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:credit"/>
           <!--<field
-                  name="programNameWebSite"
-                  xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:credit"/>
-                  -->
+                  name="programName"
+                  xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:credit"/>-->
 
 
-          <text ref="programName-help"/>
+          <action type="add" name="orAddEdmerpName"
+                  or="pointOfContact"
+                  in="/mdb:MD_Metadata/mdb:identificationInfo/*"
+                  if="count(mdb:MD_Metadata/mdb:identificationInfo/*/mri:pointOfContact[*/cit:role/*/@codeListValue='edmerp']) = 0">
+            <template>
+              <snippet>
+                <mri:pointOfContact>
+                  <cit:CI_Responsibility>
+                    <cit:role>
+                      <cit:CI_RoleCode codeList="codeListLocation#CI_RoleCode"
+                                       codeListValue="edmerp">edmerp</cit:CI_RoleCode>
+                    </cit:role>
+                    <cit:party>
+                      <cit:CI_Organisation>
+                        <cit:name>
+                          <gco:CharacterString></gco:CharacterString>
+                        </cit:name>
+                        <cit:contactInfo>
+                          <cit:CI_Contact>
+                            <cit:onlineResource>
+                              <cit:CI_OnlineResource>
+                                <cit:linkage>
+                                  <gco:CharacterString></gco:CharacterString>
+                                </cit:linkage>
+                              </cit:CI_OnlineResource>
+                            </cit:onlineResource>
+                          </cit:CI_Contact>
+                        </cit:contactInfo>
+                      </cit:CI_Organisation>
+                    </cit:party>
+                  </cit:CI_Responsibility>
+                </mri:pointOfContact>
+              </snippet>
+            </template>
+          </action>
+
 
           <!--<field
                   xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/
@@ -586,7 +616,7 @@
                  del="."
                  if="count(mdb:MD_Metadata/mdb:identificationInfo/*/mri:pointOfContact[*/cit:role/*/@codeListValue='edmo']) != 0">
             <template>
-              <values readonlyIf="true()">
+              <values readonlyIf="count(@xlink:href) > 0">
                 <key label="organisationName"
                      xpath="*/cit:party/*/cit:name/gco:CharacterString"/>
                 <key label="edmoNameWebsite"
@@ -635,6 +665,7 @@
               </snippet>
             </template>
           </field>
+
           <action type="add"
                   name="edmoName"
                   forceLabel="true"
@@ -650,9 +681,44 @@
                     data-transformation="contact-from-iso19139-to-iso19115-3"/>
           </action>
 
-          <!-- TODO Add action -->
+          <action type="add" name="orAddEdmoName"
+                  or="pointOfContact"
+                  in="/mdb:MD_Metadata/mdb:identificationInfo/*"
+                  if="count(mdb:MD_Metadata/mdb:identificationInfo/*/mri:pointOfContact[*/cit:role/*/@codeListValue='edmo']) = 0">
+            <template>
+              <snippet>
+                <mri:pointOfContact>
+                  <cit:CI_Responsibility>
+                    <cit:role>
+                      <cit:CI_RoleCode codeList="codeListLocation#CI_RoleCode"
+                                       codeListValue="edmo">edmo</cit:CI_RoleCode>
+                    </cit:role>
+                    <cit:party>
+                      <cit:CI_Organisation>
+                        <cit:name>
+                          <gco:CharacterString></gco:CharacterString>
+                        </cit:name>
+                        <cit:contactInfo>
+                          <cit:CI_Contact>
+                            <cit:onlineResource>
+                              <cit:CI_OnlineResource>
+                                <cit:linkage>
+                                  <gco:CharacterString></gco:CharacterString>
+                                </cit:linkage>
+                              </cit:CI_OnlineResource>
+                            </cit:onlineResource>
+                          </cit:CI_Contact>
+                        </cit:contactInfo>
+                      </cit:CI_Organisation>
+                    </cit:party>
+                  </cit:CI_Responsibility>
+                </mri:pointOfContact>
+              </snippet>
+            </template>
+          </action>
 
-          <!-- TODO check if needed -->
+
+          <!-- TODO check if needed
           <field name="dataProvider" templateModeOnly="true"
                  xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:pointOfContact[
                  */cit:role/*/@codeListValue = 'resourceProvider']">
@@ -711,7 +777,7 @@
                 </mri:pointOfContact>
               </snippet>
             </template>
-          </field>
+          </field> -->
 
           <!-- edmoProducerName -->
           <field name="edmoProducerName" templateModeOnly="true"
@@ -775,7 +841,6 @@
             </template>
           </field>
 
-          <text ref="producerName-help"/>
 
           <action type="add"
                   name="edmoProducerNameSearch"
@@ -790,7 +855,7 @@
                     data-variables="gmd:role/gmd:CI_RoleCode/@codeListValue~originator"
                     data-transformation="contact-from-iso19139-to-iso19115-3"/>
           </action>
-          <action type="add" name="producerName"
+          <action type="add" name="orAddProducerName"
                   or="pointOfContact"
                   in="/mdb:MD_Metadata/mdb:identificationInfo/*">
             <template>
@@ -815,17 +880,6 @@
                                 </cit:linkage>
                               </cit:CI_OnlineResource>
                             </cit:onlineResource>
-                          </cit:CI_Contact>
-                        </cit:contactInfo>
-                        <cit:contactInfo>
-                          <cit:CI_Contact>
-                            <cit:address>
-                              <cit:CI_Address>
-                                <cit:electronicMailAddress gco:nilReason="missing">
-                                  <gco:CharacterString/>
-                                </cit:electronicMailAddress>
-                              </cit:CI_Address>
-                            </cit:address>
                           </cit:CI_Contact>
                         </cit:contactInfo>
                       </cit:CI_Organisation>
