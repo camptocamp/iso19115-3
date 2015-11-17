@@ -79,7 +79,7 @@
     <xsl:copy>
       <xsl:apply-templates select="@*"/>
       <xsl:apply-templates
-              select="mri:descriptiveKeywords/preceding-sibling::node()"/>
+              select="mri:descriptiveKeywords[1]/preceding-sibling::node()"/>
       <xsl:apply-templates
               select="mri:descriptiveKeywords"/>
       <mri:descriptiveKeywords>
@@ -116,7 +116,7 @@
         </mri:MD_Keywords>
       </mri:descriptiveKeywords>
       <xsl:apply-templates
-              select="mri:descriptiveKeywords/following-sibling::node()"/>
+              select="mri:descriptiveKeywords[last()]/following-sibling::node()"/>
     </xsl:copy>
   </xsl:template>
 
