@@ -38,6 +38,21 @@
   See https://docs.google.com/spreadsheets/d/1F1H1zzg04IgVnvUSVtY9_bkj8hWHhiv_Lj0YjBgXndo/edit#gid=1611821433 for details
   -->
 
+  <!-- Rename the standard name
+  <mdb:metadataStandard>
+    <cit:CI_Citation>
+      <cit:title>
+        <gco:CharacterString>ISO 19115-3 - Emodnet Checkpoint</gco:CharacterString>
+      </cit:title>
+  -->
+  <xsl:template match="mdb:metadataStandard/cit:CI_Citation/cit:title/gco:CharacterString[. = 'ISO 19115-3 - MedSea Checkpoint']">
+    <xsl:copy>ISO 19115-3 - Emodnet Checkpoint</xsl:copy>
+  </xsl:template>
+  <xsl:template match="mdb:metadataStandard/cit:CI_Citation/cit:title/gco:CharacterString[. = 'ISO 19115-3 - MedSea Targeted Product']">
+    <xsl:copy>ISO 19115-3 - Emodnet Targeted Product</xsl:copy>
+  </xsl:template>
+
+
   <!-- # Metadata information -->
   <!-- mdb:MD_Metadata/mdb:contact / force role to pointOfContact -->
   <xsl:template match="mdb:MD_Metadata/mdb:contact/cit:CI_Responsibility/
@@ -70,53 +85,265 @@
   </xsl:template>
 
 
+  <!--
+  Replace /mdb:MD_Metadata/mdb:identificationInfo/*/mri:credit"/> by
+            <mri:pointOfContact>
+  -->
+  <xsl:template match="mri:credit"/>
+
+
   <!-- Validation / Add a /mdb:MD_Metadata/mdb:identificationInfo/*/
                     mri:descriptiveKeywords
                     [contains(*/mri:thesaurusName/cit:CI_Citation/cit:identifier/*/mcc:code/*/text(),
-                    'medsea.status')] ? -->
-  <xsl:template match="mdb:MD_Metadata/mdb:identificationInfo/mri:MD_DataIdentification[count(mri:descriptiveKeywords[contains(*/mri:thesaurusName/cit:CI_Citation/cit:identifier/*/mcc:code/*/text(),
-                    'medsea.status')]) = 0]">
+                    'medsea.status')] ?
+
+
+                           /mdb:MD_Metadata/mdb:identificationInfo/*/
+                          mri:descriptiveKeywords
+                          [contains(*/mri:thesaurusName/cit:CI_Citation/cit:identifier/*/mcc:code/*/text(),
+                          'emodnet-checkpoint.visibility')]
+
+         xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/
+                  mri:descriptiveKeywords
+                  [contains(*/mri:thesaurusName/cit:CI_Citation/cit:identifier/*/mcc:code/*/text(),
+                  'emodnet-checkpoint.policy.visibility')]"/>
+
+                  /mdb:MD_Metadata/mdb:identificationInfo/*/
+                  mri:descriptiveKeywords
+                  [contains(*/mri:thesaurusName/cit:CI_Citation/cit:identifier/*/mcc:code/*/text(),
+                  'emodnet-checkpoint.readyness')]
+                    -->
+  <xsl:template match="mdb:MD_Metadata/mdb:identificationInfo/mri:MD_DataIdentification">
     <xsl:copy>
       <xsl:apply-templates select="@*"/>
+
       <xsl:apply-templates
+              select="mri:citation|
+                mri:abstract|
+                mri:purpose|
+                mri:credit|
+                mri:status|
+                mri:pointOfContact"/>
+
+      <!--
+      Replace /mdb:MD_Metadata/mdb:identificationInfo/*/mri:credit"/> by
+      -->
+      <mri:pointOfContact>
+        <cit:CI_Responsibility>
+          <cit:role>
+            <cit:CI_RoleCode codeList="codeListLocation#CI_RoleCode"
+                             codeListValue="edmerp">edmerp</cit:CI_RoleCode>
+          </cit:role>
+          <cit:party>
+            <cit:CI_Organisation>
+              <cit:name>
+                <gco:CharacterString>
+                  <xsl:value-of select="mri:credit/gco:CharacterString"/>
+                </gco:CharacterString>
+              </cit:name>
+              <cit:contactInfo>
+                <cit:CI_Contact>
+                  <cit:onlineResource>
+                    <cit:CI_OnlineResource>
+                      <cit:linkage>
+                        <gco:CharacterString></gco:CharacterString>
+                      </cit:linkage>
+                    </cit:CI_OnlineResource>
+                  </cit:onlineResource>
+                </cit:CI_Contact>
+              </cit:contactInfo>
+            </cit:CI_Organisation>
+          </cit:party>
+        </cit:CI_Responsibility>
+      </mri:pointOfContact>
+
+      <xsl:apply-templates
+              select="
+                mri:spatialRepresentationType|
+                mri:spatialResolution|
+                mri:temporalResolution|
+                mri:topicCategory|
+                mri:extent|
+                mri:additionalDocumentation|
+                mri:processingLevel|
+                mri:resourceMaintenance|
+                mri:graphicOverview|
+                mri:resourceFormat|
+                mri:descriptiveKeywords"/>
+
+
+     <!-- <xsl:apply-templates
               select="mri:descriptiveKeywords[1]/preceding-sibling::node()"/>
       <xsl:apply-templates
-              select="mri:descriptiveKeywords"/>
-      <mri:descriptiveKeywords>
-        <mri:MD_Keywords>
-          <mri:type>
-            <mri:MD_KeywordTypeCode codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#MD_KeywordTypeCode"
-                                    codeListValue="theme"/>
-          </mri:type>
-          <mri:thesaurusName>
-            <cit:CI_Citation>
-              <cit:title>
-                <gco:CharacterString>Validation</gco:CharacterString>
-              </cit:title>
-              <cit:date>
-                <cit:CI_Date>
-                  <cit:date>
-                    <gco:DateTime>2015-01-29</gco:DateTime>
-                  </cit:date>
-                  <cit:dateType>
-                    <cit:CI_DateTypeCode codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#CI_DateTypeCode"
-                                         codeListValue="publication"/>
-                  </cit:dateType>
-                </cit:CI_Date>
-              </cit:date>
-              <cit:identifier>
-                <mcc:MD_Identifier>
-                  <mcc:code>
-                    <gcx:Anchor xlink:href="http://sextant.ifremer.fr/geonetwork/srv/eng/thesaurus.download?ref=external.theme.medsea.status">geonetwork.thesaurus.local.theme.medsea.status</gcx:Anchor>
-                  </mcc:code>
-                </mcc:MD_Identifier>
-              </cit:identifier>
-            </cit:CI_Citation>
-          </mri:thesaurusName>
-        </mri:MD_Keywords>
-      </mri:descriptiveKeywords>
+              select="mri:descriptiveKeywords"/>-->
+
+
+      <xsl:if test="count(mri:descriptiveKeywords[contains(*/mri:thesaurusName/cit:CI_Citation/cit:identifier/*/mcc:code/*/text(), 'medsea.policy.visibility')]) = 0">
+
+        <mri:descriptiveKeywords>
+          <mri:MD_Keywords>
+            <mri:type>
+              <mri:MD_KeywordTypeCode codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#MD_KeywordTypeCode"
+                                      codeListValue="theme"/>
+            </mri:type>
+            <mri:thesaurusName>
+              <cit:CI_Citation>
+                <cit:title>
+                  <gco:CharacterString>Policy visibility</gco:CharacterString>
+                </cit:title>
+                <cit:date>
+                  <cit:CI_Date>
+                    <cit:date>
+                      <gco:DateTime>2015-03-20T00:00:00</gco:DateTime>
+                    </cit:date>
+                    <cit:dateType>
+                      <cit:CI_DateTypeCode codeList="codeListLocation#CI_DateTypeCode" codeListValue=""/>
+                    </cit:dateType>
+                  </cit:CI_Date>
+                </cit:date>
+                <cit:identifier>
+                  <mcc:MD_Identifier>
+                    <mcc:code>
+                      <gcx:Anchor xlink:href="http://sextant.ifremer.fr/geonetwork/srv/eng/thesaurus.download?ref=local.theme.emodnet-checkpoint.policy.visibility">geonetwork.thesaurus.local.theme.emodnet-checkpoint.policy.visibility</gcx:Anchor>
+                    </mcc:code>
+                  </mcc:MD_Identifier>
+                </cit:identifier>
+              </cit:CI_Citation>
+            </mri:thesaurusName>
+          </mri:MD_Keywords>
+        </mri:descriptiveKeywords>
+      </xsl:if>
+      <xsl:if test="count(mri:descriptiveKeywords[contains(*/mri:thesaurusName/cit:CI_Citation/cit:identifier/*/mcc:code/*/text(), 'medsea.readyness')]) = 0">
+        <mri:descriptiveKeywords>
+          <mri:MD_Keywords>
+            <mri:type>
+              <mri:MD_KeywordTypeCode codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#MD_KeywordTypeCode"
+                                      codeListValue="theme"/>
+            </mri:type>
+            <mri:thesaurusName>
+              <cit:CI_Citation>
+                <cit:title>
+                  <gco:CharacterString>Readyness</gco:CharacterString>
+                </cit:title>
+                <cit:date>
+                  <cit:CI_Date>
+                    <cit:date>
+                      <gco:DateTime>2015-03-20T00:00:00</gco:DateTime>
+                    </cit:date>
+                    <cit:dateType>
+                      <cit:CI_DateTypeCode codeList="codeListLocation#CI_DateTypeCode" codeListValue=""/>
+                    </cit:dateType>
+                  </cit:CI_Date>
+                </cit:date>
+                <cit:identifier>
+                  <mcc:MD_Identifier>
+                    <mcc:code>
+                      <gcx:Anchor xlink:href="http://sextant.ifremer.fr/geonetwork/srv/eng/thesaurus.download?ref=local.theme.emodnet-checkpoint.readyness">geonetwork.thesaurus.local.theme.emodnet-checkpoint.readyness</gcx:Anchor>
+                    </mcc:code>
+                  </mcc:MD_Identifier>
+                </cit:identifier>
+              </cit:CI_Citation>
+            </mri:thesaurusName>
+          </mri:MD_Keywords>
+        </mri:descriptiveKeywords>
+      </xsl:if>
+
+      <xsl:if test="count(mri:descriptiveKeywords[contains(*/mri:thesaurusName/cit:CI_Citation/cit:identifier/*/mcc:code/*/text(), 'medsea.visibility')]) = 0">
+        <mri:descriptiveKeywords>
+          <mri:MD_Keywords>
+            <mri:type>
+              <mri:MD_KeywordTypeCode codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#MD_KeywordTypeCode"
+                                      codeListValue="theme"/>
+            </mri:type>
+            <mri:thesaurusName>
+              <cit:CI_Citation>
+                <cit:title>
+                  <gco:CharacterString>Visibility</gco:CharacterString>
+                </cit:title>
+                <cit:date>
+                  <cit:CI_Date>
+                    <cit:date>
+                      <gco:DateTime>2015-03-20T00:00:00</gco:DateTime>
+                    </cit:date>
+                    <cit:dateType>
+                      <cit:CI_DateTypeCode codeList="codeListLocation#CI_DateTypeCode" codeListValue=""/>
+                    </cit:dateType>
+                  </cit:CI_Date>
+                </cit:date>
+                <cit:identifier>
+                  <mcc:MD_Identifier>
+                    <mcc:code>
+                      <gcx:Anchor xlink:href="http://sextant.ifremer.fr/geonetwork/srv/eng/thesaurus.download?ref=local.theme.emodnet-checkpoint.visibility">geonetwork.thesaurus.local.theme.emodnet-checkpoint.visibility</gcx:Anchor>
+                    </mcc:code>
+                  </mcc:MD_Identifier>
+                </cit:identifier>
+              </cit:CI_Citation>
+            </mri:thesaurusName>
+          </mri:MD_Keywords>
+        </mri:descriptiveKeywords>
+      </xsl:if>
+      <xsl:if test="count(mri:descriptiveKeywords[contains(*/mri:thesaurusName/cit:CI_Citation/cit:identifier/*/mcc:code/*/text(), 'medsea.status')]) = 0">
+        <mri:descriptiveKeywords>
+          <mri:MD_Keywords>
+            <mri:type>
+              <mri:MD_KeywordTypeCode codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#MD_KeywordTypeCode"
+                                      codeListValue="theme"/>
+            </mri:type>
+            <mri:thesaurusName>
+              <cit:CI_Citation>
+                <cit:title>
+                  <gco:CharacterString>Validation</gco:CharacterString>
+                </cit:title>
+                <cit:date>
+                  <cit:CI_Date>
+                    <cit:date>
+                      <gco:DateTime>2015-01-29</gco:DateTime>
+                    </cit:date>
+                    <cit:dateType>
+                      <cit:CI_DateTypeCode codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#CI_DateTypeCode"
+                                           codeListValue="publication"/>
+                    </cit:dateType>
+                  </cit:CI_Date>
+                </cit:date>
+                <cit:identifier>
+                  <mcc:MD_Identifier>
+                    <mcc:code>
+                      <gcx:Anchor xlink:href="http://sextant.ifremer.fr/geonetwork/srv/eng/thesaurus.download?ref=external.theme.emodnet-checkpoint.status">geonetwork.thesaurus.local.theme.emodnet-checkpoint.status</gcx:Anchor>
+                    </mcc:code>
+                  </mcc:MD_Identifier>
+                </cit:identifier>
+              </cit:CI_Citation>
+            </mri:thesaurusName>
+          </mri:MD_Keywords>
+        </mri:descriptiveKeywords>
+      </xsl:if>
+
       <xsl:apply-templates
               select="mri:descriptiveKeywords[last()]/following-sibling::node()"/>
+      <!--
+
+      <xsl:apply-templates
+              select="
+                mri:spatialRepresentationType|
+                mri:spatialResolution|
+                mri:temporalResolution|
+                mri:topicCategory|
+                mri:extent|
+                mri:additionalDocumentation|
+                mri:processingLevel|
+                mri:resourceMaintenance|
+                mri:graphicOverview|
+                mri:resourceFormat|
+                mri:descriptiveKeywords|
+                mri:resourceSpecificUsage|
+                mri:resourceConstraints|
+                mri:associatedResource|
+                mri:defaultLocale|
+                mri:otherLocale|
+                mri:environmentDescription|
+                mri:supplementalInformation
+                "/>
+      -->
     </xsl:copy>
   </xsl:template>
 
@@ -299,6 +526,74 @@
   </xsl:template>
 
 
+  <!--
+    Add 'Vertical observation levels (meters > 0 above sea level)'
+
+  <mdb:contentInfo>
+    <mrc:MD_CoverageDescription>
+      <mrc:attributeDescription>
+        <gco:RecordType>observation</gco:RecordType>
+      </mrc:attributeDescription>
+      <mrc:attributeGroup>
+        <mrc:MD_AttributeGroup>
+          <mrc:contentType>
+            <mrc:MD_CoverageContentTypeCode codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/Codelist/ML_gmxCodelists.xml#MD_CoverageContentTypeCode"
+                                            codeListValue="physicalMeasurement"/>
+          </mrc:contentType>
+          <mrc:attribute>
+            <mrc:MD_RangeDimension>
+              <mrc:description>
+                <gco:CharacterString/>
+              </mrc:description>
+            </mrc:MD_RangeDimension>
+          </mrc:attribute>
+        </mrc:MD_AttributeGroup>
+      </mrc:attributeGroup>
+    </mrc:MD_CoverageDescription>
+  </mdb:contentInfo>
+  -->
+  <xsl:template match="mdb:MD_Metadata[not(mdb:contentInfo)]">
+    <xsl:copy>
+      <xsl:apply-templates select="@*"/>
+      <xsl:apply-templates select="mdb:identificationInfo[1]/preceding-sibling::node()"/>
+      <xsl:apply-templates select="mdb:identificationInfo"/>
+      <mdb:contentInfo>
+        <mrc:MD_CoverageDescription>
+          <mrc:attributeDescription>
+            <gco:RecordType>observation</gco:RecordType>
+          </mrc:attributeDescription>
+          <mrc:attributeGroup>
+            <mrc:MD_AttributeGroup>
+              <mrc:contentType>
+                <mrc:MD_CoverageContentTypeCode codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/Codelist/ML_gmxCodelists.xml#MD_CoverageContentTypeCode"
+                                                codeListValue="physicalMeasurement"/>
+              </mrc:contentType>
+              <mrc:attribute>
+                <mrc:MD_RangeDimension>
+                  <mrc:description>
+                    <gco:CharacterString/>
+                  </mrc:description>
+                </mrc:MD_RangeDimension>
+              </mrc:attribute>
+            </mrc:MD_AttributeGroup>
+          </mrc:attributeGroup>
+        </mrc:MD_CoverageDescription>
+      </mdb:contentInfo>
+      <xsl:apply-templates select="mdb:identificationInfo[last()]/following-sibling::node()"/>
+    </xsl:copy>
+  </xsl:template>
+
+
+  <!--
+  remove format edition / code added by ISO19115-3 migration
+  -->
+  <xsl:template match="mrd:formatSpecificationCitation/cit:CI_Citation">
+    <xsl:copy>
+      <xsl:copy-of select="cit:title"/>
+    </xsl:copy>
+  </xsl:template>
+
+
   <!-- More strict match because Not documented is available in different thesaurus. -->
   <xsl:template match="mdb:MD_Metadata/mdb:identificationInfo/*/
                             mri:descriptiveKeywords
@@ -430,6 +725,19 @@
     </xsl:copy>
   </xsl:template>
 
+
+  <!-- Add /mdb:MD_Metadata/mdb:identificationInfo/*/mri:citation/*/cit:alternateTitle
+  use to store medseaTitle
+  -->
+  <xsl:template match="mdb:identificationInfo/mri:MD_DataIdentification/mri:citation/cit:CI_Citation[not(cit:alternateTitle)]">
+    <xsl:copy>
+      <xsl:apply-templates select="cit:title"/>
+      <cit:alternateTitle>
+        <gco:CharacterString></gco:CharacterString>
+      </cit:alternateTitle>
+      <xsl:apply-templates select="cit:title/following-sibling::node()"/>
+    </xsl:copy>
+  </xsl:template>
 
   <!-- Do a copy of every nodes and attributes -->
   <xsl:template match="@*|node()|comment()">
