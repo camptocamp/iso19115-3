@@ -108,15 +108,16 @@
                        *[gco:Record != '']|*[gco:RecordType != '']|
                        *[gco:LocalName != '']|*[lan:PT_FreeText != '']|
                        *[gml:beginPosition != '']|*[gml:endPosition != '']|
-                       *[gco:Date != '']|*[gco:DateTime != '']|*[*/@codeListValue]"
+                       *[gco:Date != '']|*[gco:DateTime != '']|*[*/@codeListValue]|*[@codeListValue]"
                 priority="50">
     <xsl:param name="fieldName" select="''" as="xs:string"/>
 
+    <xsl:variable name="elementName" select="if (@codeListValue) then name(..) else name(.)"/>
     <dl>
       <dt>
         <xsl:value-of select="if ($fieldName)
                                 then $fieldName
-                                else tr:node-label(tr:create($schema), name(), null)"/>
+                                else tr:node-label(tr:create($schema), $elementName, null)"/>
       </dt>
       <dd>
         <xsl:apply-templates mode="render-value" select="*|*/@codeListValue"/>
@@ -129,10 +130,9 @@
 
   <!-- Some elements are only containers so bypass them -->
   <xsl:template mode="render-field"
-                match="*[count(mri:*|mcc:*|dqm:*|mco:*|mrc:*|
+                match="*[count(mdb:*|mri:*|mcc:*|dqm:*|mco:*|mrc:*|
                         mrs:*|mrl:*|mrd:*|gml:*|gex:*|gfc:*) = 1]"
                 priority="50">
-
     <xsl:apply-templates mode="render-value" select="@*"/>
     <xsl:apply-templates mode="render-field" select="*"/>
   </xsl:template>
@@ -341,9 +341,10 @@
 
   <!-- Display thesaurus name and the list of keywords -->
   <xsl:template mode="render-field"
+                match="mri:descriptiveKeywords[count(*/mri:keyword) = 0]" priority="200"/>
+  <xsl:template mode="render-field"
                 match="mri:descriptiveKeywords[
-                        */mri:thesaurusName/cit:CI_Citation/cit:title and
-                        count(*/mri:keyword/* != '') > 0]"
+                        */mri:thesaurusName/cit:CI_Citation/cit:title]"
                 priority="100">
     <xsl:param name="fieldName"/>
 
@@ -377,8 +378,7 @@
 
 
   <xsl:template mode="render-field"
-                match="mri:descriptiveKeywords[not(*/mri:thesaurusName/cit:CI_Citation/cit:title) and
-                        count(*/mri:keyword/* != '') > 0]"
+                match="mri:descriptiveKeywords[not(*/mri:thesaurusName/cit:CI_Citation/cit:title)]"
                 priority="100">
     <dl class="gn-keyword">
       <dt>
