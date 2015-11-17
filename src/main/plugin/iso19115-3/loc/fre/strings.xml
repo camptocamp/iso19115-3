@@ -69,13 +69,13 @@
   <accessibility>Availability</accessibility>
   <datasetVisibility>Visibility of dataset</datasetVisibility>
   <datasetAccessibility>Accessibility of dataset</datasetAccessibility>
-  <programName>Program name</programName>
-  <programNameWebsite>Programme/project web site URL</programNameWebsite>
+  <programName>Program name*</programName>
+  <programNameWebsite>Program/project web site URL</programNameWebsite>
   <programName-help>
     <div class="row">
       <div class="col-xs-offset-2 col-xs-8">
         <p class="help-block">
-          If the programme name is registered in EDMERP, please use the same name.
+          If the program name is registered in EDMERP, please use the same name.
         </p>
       </div>
     </div>
@@ -85,8 +85,8 @@
   <edmoNameWebsite>Data provider website</edmoNameWebsite>
   <edmoProducerName>Data producer identification</edmoProducerName>
   <edmoProducerNameSearch>Data originator (EDMO)</edmoProducerNameSearch>
-  <producerName>Data originator</producerName>
-  <producerNameWebsite>Data producer website</producerNameWebsite>
+  <producerName>Data originator*</producerName>
+  <producerNameWebsite>Data provider website</producerNameWebsite>
   <producerName-help>
     <div class="row">
       <div class="col-xs-offset-2 col-xs-8">
@@ -99,7 +99,7 @@
   <datasourceAcronym>Data collection name or data set name given by the provider</datasourceAcronym>
   <dataProvider>Data provider*</dataProvider>
   <uniqueIdentifier>Unique identifier*</uniqueIdentifier>
-  <serviceExtent>EU catalogue service</serviceExtent>
+  <serviceExtent>EU catalogue service*</serviceExtent>
   <useByChallenges>Used by challenges</useByChallenges>
   <datasetPerf>Performance of dataset</datasetPerf>
   <environmental-matrix>Environmental matrix</environmental-matrix>
@@ -108,7 +108,7 @@
   <p02>Category of characteristics (P02)</p02>
   <p01>Characteristic name (P01)</p01>
   <production-mode>Production mode</production-mode>
-  <level-of-characteristics>Processing level of characteristics</level-of-characteristics>
+  <level-of-characteristics>Processing level of characteristics*</level-of-characteristics>
   <providerSpecification>Purpose of characteristics production*</providerSpecification>
   <selectRegion>Select predefined regions</selectRegion>
   <processStepReference>Production and quality assessment specifications reference</processStepReference>
@@ -122,9 +122,9 @@
   <verticalResolution>Vertical resolution (meters)</verticalResolution>
   <listOfObservationLevel>Vertical observation levels (meters > 0 above sea level)</listOfObservationLevel>
   <timeResolution>Time resolution</timeResolution>
-  <dataDelivery>Data delivery mechanisms</dataDelivery>
+  <dataDelivery>Data delivery mechanisms*</dataDelivery>
   <dataPolicy>Data policy*</dataPolicy>
-  <policyVisibility>Visibility of data policy</policyVisibility>
+  <policyVisibility>Visibility of data policy*</policyVisibility>
   <otherP01>Characteristic name</otherP01>
   <otherP01-help>
     <div class="row">
@@ -136,7 +136,7 @@
     </div>
   </otherP01-help>
   <costBasis>Pricing*</costBasis>
-  <visibility>Easily found</visibility>
+  <visibility>Easily found*</visibility>
   <readyness>Readyness</readyness>
   <losi>Level of service information</losi>
   <dataFormats>Data formats and conventions</dataFormats>
@@ -152,7 +152,7 @@
   <temporalExtent>Temporal extent*</temporalExtent>
   <responsiveness>Responsiveness*</responsiveness>
   <reliability>Reliability</reliability>
-  <medseaDataSourceCatalogueName>Catalogue name from provider*</medseaDataSourceCatalogueName>
+  <medseaDataSourceCatalogueName>Catalogue name from provider</medseaDataSourceCatalogueName>
   <medseaDataSourceCatalogueURL>Catalog URL</medseaDataSourceCatalogueURL>
   <medseaDataSourceIdentifier>Dataset identifier in the catalog</medseaDataSourceIdentifier>
   <medseaDataSourceDOI>Dataset URL</medseaDataSourceDOI>
@@ -188,21 +188,6 @@
       </div>
     </div>
   </edmerp-help>
-
-  <dataProvider-help>
-    <div class="row">
-      <div class="col-xs-offset-2 col-xs-8">
-        <p class="help-block">
-          Give the name of the organization of the centre or division or laboratory which provides data.
-          <ul>
-            <li class="help-block">In the case of network infrastructures, it is recommended to mention the coordinating organisation in charge of the distribution of the dataset collection. For example, in the case of MyOcean, it would be one of the 5 Thematic Assembly Centers (Sea level, Color, SST, Ice &amp; Wind, In Situ) or of the 7 Monitoring and Forecasting Centers ( 1 global + 6 regional).
-            </li>
-            <li class="help-block">In the case of SeaDataNet, it is the coordinating organization of the project : Ifremer.</li>
-          </ul>
-        </p>
-      </div>
-    </div>
-  </dataProvider-help>
 
   <dataCollection-help>
     <div class="row">
@@ -250,6 +235,4 @@
       </div>
     </div>
   </medsea-upstream-data-help>
-
-
 </strings>

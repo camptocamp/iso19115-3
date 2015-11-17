@@ -708,7 +708,6 @@
               </snippet>
             </template>
           </field>
-          <text ref="dataProvider-help"/>
 
           <!-- edmoProducerName -->
           <field name="edmoProducerName" templateModeOnly="true"
@@ -1058,8 +1057,7 @@
           <field
                   name="dataFormats"
                   xpath="/mdb:MD_Metadata/mdb:distributionInfo/*/mrd:distributionFormat/
-                            mrd:MD_Format/mrd:formatSpecificationCitation/
-                              cit:CI_Citation"/>
+                            mrd:MD_Format/mrd:formatSpecificationCitation"/>
 
           <text ref="dataFormats-help"/>
 
@@ -1072,7 +1070,7 @@
                     <mrd:formatSpecificationCitation>
                       <cit:CI_Citation>
                         <cit:title>
-                          <gco:CharacterString>GML</gco:CharacterString>
+                          <gco:CharacterString></gco:CharacterString>
                         </cit:title>
                       </cit:CI_Citation>
                     </mrd:formatSpecificationCitation>
@@ -1495,7 +1493,6 @@
               </snippet>
             </template>
           </field>
-          <text ref="dataProvider-help"/>
 
           <!-- edmoProducerName -->
           <field name="edmoProducerName" templateModeOnly="true"

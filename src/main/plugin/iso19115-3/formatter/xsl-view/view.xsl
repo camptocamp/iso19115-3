@@ -86,10 +86,12 @@
     <div class="ui-layout-content mdshow-tabpanel">
       <a class="file-link"
          title="Export HTML"
+         target="_blank"
          style="display: block;float: right; text-decoration: none;"
          href="{$baseUrl}md.format.html?id={$metadataId}&amp;xsl=xsl-view&amp;view=medsea&amp;css=sextant">&#160;</a>
       <a class="file-xml"
          title="Export XML"
+         target="_blank"
          style="display: block;float: right; text-decoration: none;"
          href="{$baseUrl}xml.metadata.get?id={$metadataId}">&#160;</a>
     </div>

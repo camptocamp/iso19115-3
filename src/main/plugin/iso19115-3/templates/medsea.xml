@@ -886,7 +886,7 @@
                 <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
               </cit:protocol>
               <cit:name>
-                <gco:CharacterString>Identifier of the dataset in the catalogue</gco:CharacterString>
+                <gco:CharacterString></gco:CharacterString>
               </cit:name>
             </cit:CI_OnlineResource>
           </mrd:onLine>

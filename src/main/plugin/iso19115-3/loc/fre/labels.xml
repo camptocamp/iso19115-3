@@ -5297,12 +5297,10 @@ l’IGN (WPS)
     <helper displayIf="ancestor::node()[
               name()='mdq:DQ_DomainConsistency' and
               contains(mdq:measure/mdq:DQ_MeasureReference/mdq:nameOfMeasure/gco:CharacterString, 'Responsiveness')]">
-      <option value="&lt;15mn (on-line download)">&lt;15mn (on-line download)</option>
-      <option value="Less than 3 hours">Less than 3 hours</option>
-      <option value="Less than 24 hours">Less than 24 hours</option>
-      <option value="Less than 1 week">Less than 1 week</option>
-      <option value="More than 1 week">More than 1 week</option>
-      <option value="Not documented">Not documented</option>
+      <option value="No information is found on response time">No information is found on response time</option>
+      <option value="More than 1 week for release">More than 1 week for release</option>
+      <option value="Less or equal to 1 week for release">Less or equal to 1 week for release</option>
+      <option value="Online downloading (i.e. a few hours or less) for release">Online downloading (i.e. a few hours or less) for release</option>
     </helper>
   </element>
   <element name="cit:value">
