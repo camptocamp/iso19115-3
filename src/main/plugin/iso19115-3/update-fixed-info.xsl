@@ -518,12 +518,12 @@
   <xsl:template
           match="mdb:MD_Metadata[
                     contains(mdb:metadataStandard/
-                                        */cit:title/gco:CharacterString, 'MedSea Checkpoint')]/
+                                        */cit:title/gco:CharacterString, 'Emodnet Checkpoint')]/
                       mdb:identificationInfo/*/mri:citation/cit:CI_Citation/
                         cit:title/gco:CharacterString|
                   mdb:MD_Metadata[
                     contains(mdb:metadataStandard/
-                                        */cit:title/gco:CharacterString, 'MedSea Checkpoint')]/
+                                        */cit:title/gco:CharacterString, 'Emodnet Checkpoint')]/
                       mdb:identificationInfo/*/mri:citation/cit:CI_Citation/
                         cit:identifier/mcc:MD_Identifier/
                           mcc:code/gco:CharacterString"
@@ -534,12 +534,20 @@
                     [contains(*/mri:thesaurusName/cit:CI_Citation/cit:identifier/*/mcc:code/*/text(),
                     'NVS.P02')]/*/mri:keyword/*, ' | ')"/>
 
+    <!-- TODO
+    P01 if not null
+    else characteristic name
+    -->
     <xsl:variable name="otherP01" select="string-join(ancestor::mdb:MD_Metadata/mdb:identificationInfo/*/
                     mri:descriptiveKeywords
                     [contains(*/mri:thesaurusName/cit:CI_Citation/cit:identifier/*/mcc:code/*/text(),
                     'parameter.NVS.P01')]/*/mri:keyword/*, ' | ')"/>
 
-
+    <!--
+    TODO
+    edmoProvider If not null,
+    else Data provider.
+    -->
     <xsl:variable name="edmoProvider" select="ancestor::mdb:MD_Metadata/mdb:identificationInfo/*/mri:pointOfContact[*/cit:role/*/@codeListValue='edmo']/*/cit:party/*/cit:name/gco:CharacterString"/>
 
 

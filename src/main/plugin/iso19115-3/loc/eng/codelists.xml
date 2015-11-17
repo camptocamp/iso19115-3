@@ -1767,7 +1767,7 @@
             editorMode="radio"
             displayIf="ancestor::node()[
               name()='mdb:MD_Metadata' and
-              contains(mdb:metadataStandard/*/cit:title/*:CharacterString, 'MedSea Checkpoint')]">
+              contains(mdb:metadataStandard/*/cit:title/*:CharacterString, 'Emodnet Checkpoint')]">
     <entry>
       <code>dataset</code>
       <label>Dataset</label>

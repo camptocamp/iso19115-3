@@ -110,6 +110,13 @@
   <production-mode>Production mode</production-mode>
   <level-of-characteristics>Processing level of characteristics*</level-of-characteristics>
   <providerSpecification>Purpose of characteristics production*</providerSpecification>
+  <providerSpecification-help>
+    <div class="row">
+      <div class="col-xs-offset-2 col-xs-8">
+        <p class="help-block">Provider specification</p>
+      </div>
+    </div>
+  </providerSpecification-help>
   <selectRegion>Select predefined regions</selectRegion>
   <processStepReference>Production and quality assessment specifications reference</processStepReference>
   <useOfTheCharacteristics>Title of the intended  use of the characteristic by the challenge*</useOfTheCharacteristics>
@@ -126,15 +133,6 @@
   <dataPolicy>Data policy*</dataPolicy>
   <policyVisibility>Visibility of data policy*</policyVisibility>
   <otherP01>Characteristic name</otherP01>
-  <otherP01-help>
-    <div class="row">
-      <div class="col-xs-offset-2 col-xs-8">
-        <p class="help-block">
-          If the characteristics P01 is available, please use the same name.
-        </p>
-      </div>
-    </div>
-  </otherP01-help>
   <costBasis>Pricing*</costBasis>
   <visibility>Easily found*</visibility>
   <readyness>Readyness</readyness>

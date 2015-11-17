@@ -367,7 +367,7 @@
     <view name="medsea"
           upAndDownControlHidden="true"
           displayIfRecord="contains(mdb:MD_Metadata/mdb:metadataStandard/
-                                        */cit:title/gco:CharacterString, 'MedSea Checkpoint')">
+                                        */cit:title/gco:CharacterString, 'Emodnet Checkpoint')">
 
       <thesaurusList>
         <thesaurus key="local.theme.emodnet-checkpoint.environmental.matrix" maxtags="1"/>
@@ -422,7 +422,6 @@
                       [contains(mri:thesaurusName/cit:CI_Citation/cit:title/gco:CharacterString,
                       'Parameter Usage Vocabulary (other)')]/mri:keyword"/>
 
-            <text ref="otherP01-help"/>
           </section>
 
           <field
@@ -568,6 +567,10 @@
           <field
                   name="programName"
                   xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:credit"/>
+          <!--<field
+                  name="programNameWebSite"
+                  xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:credit"/>
+                  -->
 
 
           <text ref="programName-help"/>
@@ -647,8 +650,9 @@
                     data-transformation="contact-from-iso19139-to-iso19115-3"/>
           </action>
 
+          <!-- TODO Add action -->
 
-
+          <!-- TODO check if needed -->
           <field name="dataProvider" templateModeOnly="true"
                  xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:pointOfContact[
                  */cit:role/*/@codeListValue = 'resourceProvider']">
@@ -849,6 +853,7 @@
                   xpath="/mdb:MD_Metadata/mdb:distributionInfo/*/
                             mrd:transferOptions/*/mrd:onLine[1]/*/cit:linkage"/>
 
+
           <field
                   name="datasourceAcronym"
                   xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:citation/*/cit:otherCitationDetails"/>
@@ -879,7 +884,7 @@
           <field
                   name="providerSpecification"
                   xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:purpose"/>
-
+          <text ref="providerSpecification-help"/>
 
           <field
                   name="processStepReference"

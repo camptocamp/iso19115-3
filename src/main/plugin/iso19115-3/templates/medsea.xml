@@ -103,7 +103,7 @@
   <mdb:metadataStandard>
     <cit:CI_Citation>
       <cit:title>
-        <gco:CharacterString>ISO 19115-3 - MedSea Checkpoint</gco:CharacterString>
+        <gco:CharacterString>ISO 19115-3 - Emodnet Checkpoint</gco:CharacterString>
       </cit:title>
       <cit:edition>
         <gco:CharacterString>1.0</gco:CharacterString>
