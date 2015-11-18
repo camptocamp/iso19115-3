@@ -718,67 +718,6 @@
           </action>
 
 
-          <!-- TODO check if needed
-          <field name="dataProvider" templateModeOnly="true"
-                 xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:pointOfContact[
-                 */cit:role/*/@codeListValue = 'resourceProvider']">
-            <template>
-              <values readonlyIf="count(@xlink:href) > 0">
-                <key label="organisationName"
-                     xpath="*/cit:party/*/cit:name/gco:CharacterString"/>
-                <key label="producerNameWebsite"
-                     xpath="*/cit:party/*/cit:contactInfo/*/cit:onlineResource/*/cit:linkage/gco:CharacterString"/>
-              </values>
-              <snippet>
-
-                <mri:pointOfContact>
-                  <cit:CI_Responsibility>
-                    <gn:copy select="cit:role"/>
-                    <gn:copy select="cit:extent"/>
-                    <cit:party>
-                      <cit:CI_Organisation>
-                        <cit:name>
-                          <gco:CharacterString>{{organisationName}}</gco:CharacterString>
-                        </cit:name>
-                        <cit:contactInfo>
-                          <cit:CI_Contact>
-                            <gn:copy select="cit:phone"/>
-                            <gn:copy select="cit:address"/>
-                            <cit:onlineResource>
-                              <cit:CI_OnlineResource>
-                                <cit:linkage>
-                                  <gco:CharacterString>{{website}}</gco:CharacterString>
-                                </cit:linkage>
-                                <gn:copy select="cit:protocol"/>
-                                <gn:copy select="cit:applicationProfile"/>
-                                <gn:copy select="cit:name"/>
-                                <gn:copy select="cit:description"/>
-                                <gn:copy select="cit:function"/>
-                                <gn:copy select="cit:protocolRequest"/>
-                              </cit:CI_OnlineResource>
-                            </cit:onlineResource>
-                            <gn:copy select="cit:hoursOfService"/>
-                            <gn:copy select="cit:contactInstructions"/>
-                            <gn:copy select="cit:contactType"/>
-                          </cit:CI_Contact>
-                        </cit:contactInfo>
-                        <gn:copy select="cit:logo"/>
-                        <cit:individual>
-                          <cit:CI_Individual>
-                            <cit:name>
-                              <gco:CharacterString>{{acronym}}</gco:CharacterString>
-                            </cit:name>
-                            <gn:copy select="cit:contactInfo"/>
-                          </cit:CI_Individual>
-                        </cit:individual>
-                      </cit:CI_Organisation>
-                    </cit:party>
-                  </cit:CI_Responsibility>
-                </mri:pointOfContact>
-              </snippet>
-            </template>
-          </field> -->
-
           <!-- edmoProducerName -->
           <field name="edmoProducerName" templateModeOnly="true"
                  xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:pointOfContact[
