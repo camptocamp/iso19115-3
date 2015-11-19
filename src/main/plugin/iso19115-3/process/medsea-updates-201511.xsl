@@ -49,7 +49,7 @@
     <xsl:copy>ISO 19115-3 - Emodnet Checkpoint</xsl:copy>
   </xsl:template>
   <xsl:template match="mdb:metadataStandard/cit:CI_Citation/cit:title/gco:CharacterString[. = 'ISO 19115-3 - MedSea Targeted Product']">
-    <xsl:copy>ISO 19115-3 - Emodnet Targeted Product</xsl:copy>
+    <xsl:copy>ISO 19115-3 - Emodnet Checkpoint - Targeted Product</xsl:copy>
   </xsl:template>
 
 
