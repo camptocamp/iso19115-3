@@ -128,34 +128,36 @@
       <!--
       Replace /mdb:MD_Metadata/mdb:identificationInfo/*/mri:credit"/> by
       -->
-      <mri:pointOfContact>
-        <cit:CI_Responsibility>
-          <cit:role>
-            <cit:CI_RoleCode codeList="codeListLocation#CI_RoleCode"
-                             codeListValue="edmerp">edmerp</cit:CI_RoleCode>
-          </cit:role>
-          <cit:party>
-            <cit:CI_Organisation>
-              <cit:name>
-                <gco:CharacterString>
-                  <xsl:value-of select="mri:credit/gco:CharacterString"/>
-                </gco:CharacterString>
-              </cit:name>
-              <cit:contactInfo>
-                <cit:CI_Contact>
-                  <cit:onlineResource>
-                    <cit:CI_OnlineResource>
-                      <cit:linkage>
-                        <gco:CharacterString></gco:CharacterString>
-                      </cit:linkage>
-                    </cit:CI_OnlineResource>
-                  </cit:onlineResource>
-                </cit:CI_Contact>
-              </cit:contactInfo>
-            </cit:CI_Organisation>
-          </cit:party>
-        </cit:CI_Responsibility>
-      </mri:pointOfContact>
+      <xsl:if test="mri:credit/gco:CharacterString != ''">
+        <mri:pointOfContact>
+          <cit:CI_Responsibility>
+            <cit:role>
+              <cit:CI_RoleCode codeList="codeListLocation#CI_RoleCode"
+                               codeListValue="edmerp">edmerp</cit:CI_RoleCode>
+            </cit:role>
+            <cit:party>
+              <cit:CI_Organisation>
+                <cit:name>
+                  <gco:CharacterString>
+                    <xsl:value-of select="mri:credit/gco:CharacterString"/>
+                  </gco:CharacterString>
+                </cit:name>
+                <cit:contactInfo>
+                  <cit:CI_Contact>
+                    <cit:onlineResource>
+                      <cit:CI_OnlineResource>
+                        <cit:linkage>
+                          <gco:CharacterString></gco:CharacterString>
+                        </cit:linkage>
+                      </cit:CI_OnlineResource>
+                    </cit:onlineResource>
+                  </cit:CI_Contact>
+                </cit:contactInfo>
+              </cit:CI_Organisation>
+            </cit:party>
+          </cit:CI_Responsibility>
+        </mri:pointOfContact>
+      </xsl:if>
 
       <xsl:apply-templates
               select="
@@ -458,6 +460,7 @@
     3 => 4
     4 => 5
     -->
+    <value key="Order form/envoice">Manual process: Order form/invoice is requested</value>
     <value key="Order form/invoice">Manual process: Order form/invoice is requested</value>
     <value key="On-line downloading services">Online downloading services</value>
     <value key="On-line discovery+viewing + downloading services">Online discovery and downloading services</value>

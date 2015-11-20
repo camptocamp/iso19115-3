@@ -3058,7 +3058,7 @@
     <!-- MedSea list of values -->
     <helper displayIf="ancestor::node()[
               name()='mdb:MD_Metadata' and
-              contains(mdb:metadataStandard/*/cit:title/*:CharacterString, 'MedSea')]"
+              contains(mdb:metadataStandard/*/cit:title/*:CharacterString, 'Emodnet Checkpoint')]"
             editorMode="radio">
       <option value="Restricted">Restricted</option>
       <option value="Accessible under moratorium">Accessible under moratorium</option>
@@ -3640,7 +3640,7 @@
             used for navigation_</description>
     <helper displayIf="ancestor::node()[
               name()='mdb:MD_Metadata' and
-              contains(mdb:metadataStandard/*/cit:title/*:CharacterString, 'MedSea')]"
+              contains(mdb:metadataStandard/*/cit:title/*:CharacterString, 'Emodnet Checkpoint')]"
             editorMode="radio">
       <option value="Not or not well documented">Not or not well documented</option>
       <option value="Commercial charge">Commercial charge</option>
