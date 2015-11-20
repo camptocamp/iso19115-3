@@ -594,7 +594,7 @@
     </xsl:apply-templates>
   </xsl:template>
 
-  <xsl:template mode="render-value"
+/bin/bash: q: command not found
                 match="gco:Distance">
     <span><xsl:value-of select="."/>&#10;<xsl:value-of select="@uom"/></span>
   </xsl:template>
@@ -692,9 +692,12 @@
   <xsl:template mode="render-value"
                 match="@*"/>
 
+<<<<<<< HEAD
 
   <!-- MedSea specific -->
   <!--<xsl:template mode="render-field" match="mdq:report"/>-->
   <xsl:template mode="render-view" match="tab[@id='medsea-dq']" priority="2"/>
 
+=======
+>>>>>>> upstream/develop
 </xsl:stylesheet>
