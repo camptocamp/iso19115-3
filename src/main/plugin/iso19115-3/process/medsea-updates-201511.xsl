@@ -529,6 +529,13 @@
   </xsl:template>
 
 
+  <xsl:template match="mdb:metadataScope/mdb:MD_MetadataScope/mdb:name/gco:CharacterString[normalize-space(.) = $map/value/@key]">
+    <xsl:variable name="keyword" select="normalize-space(text())"/>
+    <xsl:copy>
+      <xsl:value-of select="$map/value[@key = $keyword]/text()"/>
+    </xsl:copy>
+  </xsl:template>
+
   <!--
     Add 'Vertical observation levels (meters > 0 above sea level)'
 
