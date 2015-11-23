@@ -44,8 +44,8 @@
   <!-- Medsea-->
   <beginPosition>Begin</beginPosition>
   <endPosition>End</endPosition>
-  <medsea>MedSea</medsea>
-  <medsea-targeted-product>MedSea targeted product</medsea-targeted-product>
+  <medsea>Emodnet Checkpoint</medsea>
+  <medsea-targeted-product>Emodnet Checkpoint targeted product</medsea-targeted-product>
   <medsea-metadata>Metadata information</medsea-metadata>
   <medsea-metadata-tp>Identification</medsea-metadata-tp>
   <medsea-dq>Quality</medsea-dq>
@@ -79,8 +79,8 @@
   <edmoName>Data provider (EDMO)*</edmoName>
   <orAddEdmoName>or add a data provider if none found in EDMO</orAddEdmoName>
   <edmoNameWebsite>Data provider website</edmoNameWebsite>
-  <edmoProducerName>Data producer identification</edmoProducerName>
-  <edmoProducerNameSearch>Data producer (EDMO)*</edmoProducerNameSearch>
+  <edmoProducerName>Data originator</edmoProducerName>
+  <edmoProducerNameSearch>Data originator (EDMO)*</edmoProducerNameSearch>
   <producerName>Data originator*</producerName>
   <orAddProducerName>or add a data originator if none found in EDMO</orAddProducerName>
   <producerNameWebsite>Data originator website</producerNameWebsite>

@@ -366,7 +366,7 @@
     -->
     <view name="medsea"
           upAndDownControlHidden="true"
-          displayIfRecord="contains(mdb:MD_Metadata/mdb:metadataStandard/
+          displayIfRecord="ends-with(mdb:MD_Metadata/mdb:metadataStandard/
                                         */cit:title/gco:CharacterString, 'Emodnet Checkpoint')">
       <thesaurusList>
         <thesaurus key="local.theme.emodnet-checkpoint.environmental.matrix" maxtags="1"/>
@@ -729,10 +729,12 @@
                      xpath="*/cit:party/*/cit:name/gco:CharacterString"/>
                 <key label="producerNameWebsite"
                      xpath="*/cit:party/*/cit:contactInfo/*/cit:onlineResource/*/cit:linkage/gco:CharacterString"/>
+                <key label="edmoId"
+                     xpath="*/@id"/>
               </values>
               <snippet>
                 <mri:pointOfContact>
-                  <cit:CI_Responsibility>
+                  <cit:CI_Responsibility id="{{edmoId}}">
                     <gn:copy select="cit:role"/>
                     <gn:copy select="cit:extent"/>
                     <cit:party>
@@ -1257,7 +1259,7 @@
     <view name="medsea-targeted-product"
           upAndDownControlHidden="true"
           displayIfRecord="contains(mdb:MD_Metadata/mdb:metadataStandard/
-                                        */cit:title/gco:CharacterString, 'MedSea Targeted Product')">
+                                        */cit:title/gco:CharacterString, 'Emodnet Checkpoint - Targeted Product')">
 
       <thesaurusList>
         <thesaurus key="local.theme.emodnet-checkpoint.environmental.matrix" maxtags="1"/>
