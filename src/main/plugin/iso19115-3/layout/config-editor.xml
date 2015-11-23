@@ -366,9 +366,8 @@
     -->
     <view name="medsea"
           upAndDownControlHidden="true"
-          displayIfRecord="contains(mdb:MD_Metadata/mdb:metadataStandard/
+          displayIfRecord="ends-with(mdb:MD_Metadata/mdb:metadataStandard/
                                         */cit:title/gco:CharacterString, 'Emodnet Checkpoint')">
-
       <thesaurusList>
         <thesaurus key="local.theme.emodnet-checkpoint.environmental.matrix" maxtags="1"/>
         <thesaurus key="local.theme.emodnet-checkpoint.status" maxtags="1"/>
@@ -483,7 +482,7 @@
 
 
 
-          <field name="edmerpName" templateModeOnly="true" notDisplayedIfMissing="true"
+          <field name="edmerpNameGlobal" templateModeOnly="true" notDisplayedIfMissing="true"
                  xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:pointOfContact[*/cit:role/*/@codeListValue='edmerp']"
                  del="."
                  if="count(mdb:MD_Metadata/mdb:identificationInfo/*) > 0">
@@ -515,7 +514,7 @@
                             <cit:onlineResource>
                               <cit:CI_OnlineResource>
                                 <cit:linkage>
-                                  <gco:CharacterString>{{website}}</gco:CharacterString>
+                                  <gco:CharacterString>{{programNameWebsite}}</gco:CharacterString>
                                 </cit:linkage>
                                 <gn:copy select="cit:protocol"/>
                                 <gn:copy select="cit:applicationProfile"/>
@@ -611,7 +610,7 @@
                 [contains(gmd:MD_Keywords/gmd:thesaurusName/gmd:CI_Citation/gmd:title/gco:CharacterString,
                 'SDN EDMO Identifier')]"/>-->
 
-          <field name="edmoName" templateModeOnly="true" notDisplayedIfMissing="true"
+          <field name="edmoNameGlobal" templateModeOnly="true" notDisplayedIfMissing="true"
                  xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:pointOfContact[*/cit:role/*/@codeListValue='edmo']"
                  del="."
                  if="count(mdb:MD_Metadata/mdb:identificationInfo/*/mri:pointOfContact[*/cit:role/*/@codeListValue='edmo']) != 0">
@@ -641,7 +640,7 @@
                             <cit:onlineResource>
                               <cit:CI_OnlineResource>
                                 <cit:linkage>
-                                  <gco:CharacterString>{{website}}</gco:CharacterString>
+                                  <gco:CharacterString>{{edmoNameWebsite}}</gco:CharacterString>
                                 </cit:linkage>
                                 <gn:copy select="cit:protocol"/>
                                 <gn:copy select="cit:applicationProfile"/>
@@ -730,10 +729,12 @@
                      xpath="*/cit:party/*/cit:name/gco:CharacterString"/>
                 <key label="producerNameWebsite"
                      xpath="*/cit:party/*/cit:contactInfo/*/cit:onlineResource/*/cit:linkage/gco:CharacterString"/>
+                <key label="edmoId"
+                     xpath="*/@id"/>
               </values>
               <snippet>
                 <mri:pointOfContact>
-                  <cit:CI_Responsibility>
+                  <cit:CI_Responsibility id="{{edmoId}}">
                     <gn:copy select="cit:role"/>
                     <gn:copy select="cit:extent"/>
                     <cit:party>
@@ -748,7 +749,7 @@
                             <cit:onlineResource>
                               <cit:CI_OnlineResource>
                                 <cit:linkage>
-                                  <gco:CharacterString>{{website}}</gco:CharacterString>
+                                  <gco:CharacterString>{{producerNameWebsite}}</gco:CharacterString>
                                 </cit:linkage>
                                 <gn:copy select="cit:protocol"/>
                                 <gn:copy select="cit:applicationProfile"/>
@@ -786,7 +787,8 @@
                   forceLabel="true"
                   addDirective="data-gn-directory-entry-selector"
                   or="pointOfContact"
-                  in="/mdb:MD_Metadata/mdb:identificationInfo/*">
+                  in="/mdb:MD_Metadata/mdb:identificationInfo/*"
+                  if="count(mdb:MD_Metadata/mdb:identificationInfo/*/mri:pointOfContact[*/cit:role/*/@codeListValue='originator']) = 0">
             <directiveAttributes
                     data-template-add-action="false"
                     data-template-type="contact"
@@ -796,7 +798,8 @@
           </action>
           <action type="add" name="orAddProducerName"
                   or="pointOfContact"
-                  in="/mdb:MD_Metadata/mdb:identificationInfo/*">
+                  in="/mdb:MD_Metadata/mdb:identificationInfo/*"
+                  if="count(mdb:MD_Metadata/mdb:identificationInfo/*/mri:pointOfContact[*/cit:role/*/@codeListValue='originator']) = 0">
             <template>
               <snippet>
                 <mri:pointOfContact>
@@ -1054,8 +1057,32 @@
 
           <field
                   name="dataFormats"
+                  templateModeOnly="true"
                   xpath="/mdb:MD_Metadata/mdb:distributionInfo/*/mrd:distributionFormat/
-                            mrd:MD_Format/mrd:formatSpecificationCitation"/>
+                            mrd:MD_Format/mrd:formatSpecificationCitation"
+                  del="../..">
+            <template>
+              <values>
+                <key label="format"
+                     xpath="cit:CI_Citation/cit:title/gco:CharacterString"
+                     tooltip="cit:title">
+                  <helper name="cit:title" context="/mdb:MD_Metadata/mdb:distributionInfo/mrd:MD_Distribution/mrd:distributionFormat/mrd:MD_Format/mrd:formatSpecificationCitation/cit:CI_Citation/cit:title"/>
+                </key>
+              </values>
+              <snippet>
+                <mrd:formatSpecificationCitation>
+                  <cit:CI_Citation>
+                    <cit:title>
+                      <gco:CharacterString>{{format}}</gco:CharacterString>
+                    </cit:title>
+                  </cit:CI_Citation>
+                </mrd:formatSpecificationCitation>
+              </snippet>
+            </template>
+          </field>
+         <!-- <field
+                  name="dataFormats"
+                  xpath="/mdb:MD_Metadata/mdb:distributionInfo/*/mrd:distributionFormat"/>-->
 
           <text ref="dataFormats-help"/>
 
@@ -1232,7 +1259,7 @@
     <view name="medsea-targeted-product"
           upAndDownControlHidden="true"
           displayIfRecord="contains(mdb:MD_Metadata/mdb:metadataStandard/
-                                        */cit:title/gco:CharacterString, 'MedSea Targeted Product')">
+                                        */cit:title/gco:CharacterString, 'Emodnet Checkpoint - Targeted Product')">
 
       <thesaurusList>
         <thesaurus key="local.theme.emodnet-checkpoint.environmental.matrix" maxtags="1"/>
@@ -1396,10 +1423,10 @@
 
           <text ref="edmerp-help"/>
 
-          <field
+          <!--<field
                   name="programName"
                   xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:credit"/>
-
+-->
 
           <!--<field
                   xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/
@@ -1698,8 +1725,7 @@
           <field
                   name="dataFormats"
                   xpath="/mdb:MD_Metadata/mdb:distributionInfo/*/mrd:distributionFormat/
-                            mrd:MD_Format/mrd:formatSpecificationCitation/
-                              cit:CI_Citation/cit:title"/>
+                            mrd:MD_Format/mrd:formatSpecificationCitation"/>
 
 
           <action type="add" name="dataFormats" or="distributionFormat"

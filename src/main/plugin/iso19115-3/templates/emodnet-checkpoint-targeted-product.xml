@@ -109,7 +109,7 @@
   <mdb:metadataStandard>
     <cit:CI_Citation>
       <cit:title>
-        <gco:CharacterString>ISO 19115-3 - Emodnet Targeted Product</gco:CharacterString>
+        <gco:CharacterString>ISO 19115-3 - Emodnet Checkpoint - Targeted Product</gco:CharacterString>
       </cit:title>
       <cit:edition>
         <gco:CharacterString>1.0</gco:CharacterString>
@@ -180,7 +180,7 @@
       <mri:citation>
         <cit:CI_Citation>
           <cit:title>
-            <gco:CharacterString>MedSea Targeted Product template</gco:CharacterString>
+            <gco:CharacterString>Emodnet Checkpoint template for targeted product</gco:CharacterString>
           </cit:title>
           <cit:alternateTitle gco:nilReason="missing">
             <gco:CharacterString/>
@@ -210,7 +210,7 @@
           <cit:identifier>
             <mcc:MD_Identifier>
               <mcc:code>
-                <gco:CharacterString>MEDSEA_</gco:CharacterString>
+                <gco:CharacterString></gco:CharacterString>
               </mcc:code>
             </mcc:MD_Identifier>
           </cit:identifier>
@@ -226,7 +226,7 @@
         <gco:CharacterString/>
       </mri:purpose>
       <mri:credit>
-        <gco:CharacterString>EMODnet MedSea Checkpoint</gco:CharacterString>
+        <gco:CharacterString></gco:CharacterString>
       </mri:credit>
       <mri:status>
         <mcc:MD_ProgressCode codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#MD_ProgressCode"

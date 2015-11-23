@@ -163,7 +163,7 @@
       <mri:citation>
         <cit:CI_Citation>
           <cit:title>
-            <gco:CharacterString>Medsea template</gco:CharacterString>
+            <gco:CharacterString>Emodnet Checkpoint template for upstream data</gco:CharacterString>
           </cit:title>
           <cit:alternateTitle>
             <gco:CharacterString/>
@@ -172,7 +172,7 @@
           <cit:identifier>
             <mcc:MD_Identifier>
               <mcc:code>
-                <gco:CharacterString>MEDSEA_</gco:CharacterString>
+                <gco:CharacterString></gco:CharacterString>
               </mcc:code>
             </mcc:MD_Identifier>
           </cit:identifier>

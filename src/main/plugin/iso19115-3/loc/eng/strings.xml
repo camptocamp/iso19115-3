@@ -46,8 +46,8 @@
   <!-- Medsea-->
   <beginPosition>Begin</beginPosition>
   <endPosition>End</endPosition>
-  <medsea>MedSea</medsea>
-  <medsea-targeted-product>MedSea targeted product</medsea-targeted-product>
+  <medsea>Emodnet Checkpoint</medsea>
+  <medsea-targeted-product>Emodnet Checkpoint targeted product</medsea-targeted-product>
   <medsea-metadata>Metadata information</medsea-metadata>
   <medsea-metadata-tp>Identification</medsea-metadata-tp>
   <medsea-dq>Quality</medsea-dq>
@@ -74,16 +74,18 @@
   <datasetAccessibility>Accessibility of dataset</datasetAccessibility>
   <programName>Program name*</programName>
   <programNameWebsite>Program/project web site URL</programNameWebsite>
-  <edmerpName>Program name/project name (EDMERP)</edmerpName>
+  <edmerpNameGlobal>Program name/project name*</edmerpNameGlobal>
+  <edmerpName>Program name/project name (EDMERP)*</edmerpName>
   <orAddEdmerpName>or add a program name if none found in EDMERP</orAddEdmerpName>
+  <edmoNameGlobal>Data provider*</edmoNameGlobal>
   <edmoName>Data provider (EDMO)*</edmoName>
   <orAddEdmoName>or add a data provider if none found in EDMO</orAddEdmoName>
   <edmoNameWebsite>Data provider website</edmoNameWebsite>
-  <edmoProducerName>Data producer identification</edmoProducerName>
-  <edmoProducerNameSearch>Data producer (EDMO)</edmoProducerNameSearch>
-  <producerName>Data producer*</producerName>
-  <orAddProducerName>or add a data producer if none found in EDMO</orAddProducerName>
-  <producerNameWebsite>Data producer website</producerNameWebsite>
+  <edmoProducerName>Data producer</edmoProducerName>
+  <edmoProducerNameSearch>Data originator (EDMO)*</edmoProducerNameSearch>
+  <producerName>Data originator*</producerName>
+  <orAddProducerName>or add a data originator if none found in EDMO</orAddProducerName>
+  <producerNameWebsite>Data originator website</producerNameWebsite>
   <datasourceAcronym>Data collection name or data set name given by the provider</datasourceAcronym>
   <dataProvider>Data provider*</dataProvider>
   <uniqueIdentifier>Unique identifier*</uniqueIdentifier>
@@ -145,8 +147,8 @@
   <challenge>Challenge*</challenge>
   <acronym>Program acronym</acronym>
   <projectTitle>Program title</projectTitle>
-  <edmerpId>EDMERP id</edmerpId>
-  <edmoId>EDMO id</edmoId>
+  <edmerpId>If from EDMERP, identifier</edmerpId>
+  <edmoId>If from EDMO, identifier</edmoId>
   <associatedResources>Associated resources</associatedResources>
   <additionalInfo>Additional information</additionalInfo>
   <listOfOL-help>

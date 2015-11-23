@@ -24,7 +24,7 @@
                             contains($metadata/mdb:metadataStandard/*/cit:title/gco:CharacterString,
                                      'Emodnet Checkpoint') or
                             contains($metadata/mdb:metadataStandard/*/cit:title/gco:CharacterString,
-                                     'Emodnet Targeted Product')]">
+                                     'Emodnet Checkpoint - Targeted Product')]">
     <div class="form-group gn-field"
          id="gn-el-11">
       <label for="gn-field-11" class="col-sm-2 control-label">
