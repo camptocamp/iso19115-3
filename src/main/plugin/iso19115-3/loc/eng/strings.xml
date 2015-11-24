@@ -81,7 +81,7 @@
   <edmoName>Data provider (EDMO)*</edmoName>
   <orAddEdmoName>or add a data provider if none found in EDMO</orAddEdmoName>
   <edmoNameWebsite>Data provider website</edmoNameWebsite>
-  <edmoProducerName>Data producer</edmoProducerName>
+  <edmoProducerName>Data originator</edmoProducerName>
   <edmoProducerNameSearch>Data originator (EDMO)*</edmoProducerNameSearch>
   <producerName>Data originator*</producerName>
   <orAddProducerName>or add a data originator if none found in EDMO</orAddProducerName>
