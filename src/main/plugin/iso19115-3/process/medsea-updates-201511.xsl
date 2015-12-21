@@ -410,6 +410,7 @@
     <value key="Private">Data sets are not referenced in a catalogue or are referenced in a non public catalogue</value>
     <value key="Public international">The datasets are referenced in a public national catalogue, in an international catalogue service</value>
     <value key="Public national but not EU service">The datasets are referenced in a public national catalogue, in an international catalogue service</value>
+    <value key="Public national or international (non EU) services">The datasets are referenced in a public national catalogue, in an international catalogue service</value>
     <value key="EU service or DS name if available">The datasets are provided through an EU Inspire catalogue service (OGC)</value>
 
 

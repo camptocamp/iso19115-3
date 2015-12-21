@@ -604,6 +604,7 @@
             </template>
           </action>
 
+          <text ref="separator"/>
 
           <!--<field
                   xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/
@@ -717,6 +718,7 @@
             </template>
           </action>
 
+          <text ref="separator"/>
 
           <!-- edmoProducerName -->
           <field name="edmoProducerName" templateModeOnly="true"
@@ -838,8 +840,6 @@
                  xpath="/mdb:MD_Metadata/mdb:metadataScope/mdb:MD_MetadataScope/
                           mdb:resourceScope"/>
 
-          <text ref="dataCollection-help"/>
-
           <field
                   name="medseaDataSourceCatalogueName"
                   xpath="/mdb:MD_Metadata/mdb:distributionInfo/*/
@@ -850,7 +850,6 @@
                   xpath="/mdb:MD_Metadata/mdb:distributionInfo/*/
                             mrd:transferOptions/*/mrd:onLine[1]/*/cit:linkage"/>
 
-
           <field
                   name="datasourceAcronym"
                   xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:citation/*/cit:otherCitationDetails"/>
@@ -858,6 +857,8 @@
           <field
                   name="medseaTitle"
                   xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:citation/*/cit:alternateTitle"/>
+
+          <text ref="dataCollection-help"/>
 
           <text ref="medseaTitle-help"/>
 
@@ -927,7 +928,7 @@
           <field
                   name="horResolution"
                   xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/
-                            mri:spatialResolution/mri:MD_Resolution/mri:distance"/>
+                            mri:spatialResolution/mri:MD_Resolution"/>
 
           <field
                   name="minDepth"
@@ -1424,6 +1425,7 @@
 
           <text ref="edmerp-help"/>
 
+          <text ref="separator"/>
           <!--<field
                   name="programName"
                   xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:credit"/>
@@ -1481,7 +1483,7 @@
                     data-transformation="contact-from-iso19139-to-iso19115-3"/>
           </action>
 
-
+          <text ref="separator"/>
 
           <field name="dataProvider" templateModeOnly="true"
                  xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:pointOfContact[

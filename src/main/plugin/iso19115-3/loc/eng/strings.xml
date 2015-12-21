@@ -44,6 +44,8 @@
 
 
   <!-- Medsea-->
+  <edmo>EDMO</edmo>
+  <edmerp>EDMERP</edmerp>
   <beginPosition>Begin</beginPosition>
   <endPosition>End</endPosition>
   <medsea>Emodnet Checkpoint</medsea>
@@ -56,7 +58,7 @@
     <div class="row">
       <div class="col-xs-offset-2 col-xs-8">
         <p class="help-block">
-          If the provider has given a name, please use the same name.
+          Copy data set name given by the provider or give an internal name if none has been given by the provider.
         </p>
       </div>
     </div>
@@ -81,7 +83,7 @@
   <edmoName>Data provider (EDMO)*</edmoName>
   <orAddEdmoName>or add a data provider if none found in EDMO</orAddEdmoName>
   <edmoNameWebsite>Data provider website</edmoNameWebsite>
-  <edmoProducerName>Data producer</edmoProducerName>
+  <edmoProducerName>Data originator</edmoProducerName>
   <edmoProducerNameSearch>Data originator (EDMO)*</edmoProducerNameSearch>
   <producerName>Data originator*</producerName>
   <orAddProducerName>or add a data originator if none found in EDMO</orAddProducerName>
@@ -125,7 +127,7 @@
   <otherP01>Characteristic name</otherP01>
   <costBasis>Pricing*</costBasis>
   <visibility>Easily found*</visibility>
-  <readyness>Readyness</readyness>
+  <readyness>Readiness</readyness>
   <losi>Level of service information</losi>
   <dataFormats>Data formats and conventions</dataFormats>
   <dataFormats-help>
@@ -176,7 +178,13 @@
       </div>
     </div>
   </edmerp-help>
-
+  <separator>
+    <div class="row">
+      <div class="col-md-12">
+        <hr/>
+      </div>
+    </div>
+  </separator>
   <dataCollection-help>
     <div class="row">
       <div class="col-xs-offset-2 col-xs-8">
