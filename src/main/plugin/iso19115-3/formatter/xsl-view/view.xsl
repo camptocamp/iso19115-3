@@ -81,7 +81,11 @@
                   select="mdb:identificationInfo/*/mri:citation/*/cit:title"/>
 
     <link rel="stylesheet" type="text/css"
-          href="{$baseUrl}../../apps/sextant/css/schema/default.css"/>
+          href="{$baseUrl}../../apps/sextant/css/schema/default.css"></link>
+
+    <table class="related">
+      <tr></tr>
+    </table>
 
     <div class="ui-layout-content mdshow-tabpanel">
       <a class="file-link"
@@ -116,7 +120,7 @@
     <dl>
       <dt>
         <xsl:value-of select="if ($fieldName)
-                                then $fieldName
+                                then replace($fieldName, '\*', '')
                                 else tr:node-label(tr:create($schema), $elementName, null)"/>
       </dt>
       <dd>
@@ -133,8 +137,12 @@
                 match="*[count(mdb:*|mri:*|mcc:*|dqm:*|mco:*|mrc:*|
                         mrs:*|mrl:*|mrd:*|gml:*|gex:*|gfc:*) = 1]"
                 priority="50">
+    <xsl:param name="fieldName" select="''" as="xs:string"/>
+
     <xsl:apply-templates mode="render-value" select="@*"/>
-    <xsl:apply-templates mode="render-field" select="*"/>
+    <xsl:apply-templates mode="render-field" select="*">
+      <xsl:with-param name="fieldName" select="$fieldName"/>
+    </xsl:apply-templates>
   </xsl:template>
 
 
@@ -225,18 +233,20 @@
                 </xsl:otherwise>
               </xsl:choose>
             </strong><br/>
-            <xsl:for-each select="*/cit:contactInfo/*">
+            <xsl:for-each select="*//cit:contactInfo/*">
               <xsl:for-each select="cit:address/*/(
                                           cit:deliveryPoint|cit:city|
                                           cit:administrativeArea|cit:postalCode|cit:country)">
-                <xsl:apply-templates mode="render-value" select="."/><br/>
+                <xsl:if test="normalize-space(.) != ''">
+                  <xsl:apply-templates mode="render-value" select="."/><br/>
+                </xsl:if>
               </xsl:for-each>
             </xsl:for-each>
           </address>
         </div>
         <div class="col-md-6">
-          <address>
-            <xsl:for-each select="*/cit:contactInfo/*">
+          <xsl:for-each select="*//cit:contactInfo/*">
+            <address>
               <xsl:for-each select="cit:phone/*/cit:voice[normalize-space(.) != '']">
                 <xsl:variable name="phoneNumber">
                   <xsl:apply-templates mode="render-value" select="."/>
@@ -255,14 +265,21 @@
                   <xsl:value-of select="normalize-space($phoneNumber)"/>
                 </a>
               </xsl:for-each>
-
+              <xsl:for-each select="cit:onlineResource/*/cit:linkage[normalize-space(.) != '']">
+                <xsl:variable name="linkage">
+                  <xsl:apply-templates mode="render-value" select="."/>
+                </xsl:variable>
+                <i class="fa fa-link"></i>
+                <a href="{normalize-space($linkage)}">
+                  <xsl:value-of select="if (../cit:name)
+                                        then ../cit:name/* else
+                                        normalize-space(linkage)"/>
+                </a>
+              </xsl:for-each>
               <xsl:apply-templates mode="render-field"
                                    select="cit:hoursOfService|cit:contactInstructions"/>
-              <xsl:apply-templates mode="render-field"
-                                   select="cit:onlineResource"/>
-
-            </xsl:for-each>
-          </address>
+            </address>
+          </xsl:for-each>
         </div>
       </div>
     </div>
@@ -351,7 +368,7 @@
     <dl class="gn-keyword">
       <dt>
         <xsl:choose>
-          <xsl:when test="$fieldName != ''"><xsl:value-of select="$fieldName"/></xsl:when>
+          <xsl:when test="$fieldName != ''"><xsl:value-of select="replace($fieldName, '\*', '')"/></xsl:when>
           <xsl:otherwise>
             <xsl:apply-templates mode="render-value"
                                  select="*/mri:thesaurusName/cit:CI_Citation/cit:title/*"/>
@@ -551,7 +568,11 @@
   <!-- Traverse the tree -->
   <xsl:template mode="render-field"
                 match="*">
-    <xsl:apply-templates mode="render-field"/>
+    <xsl:param name="fieldName" select="''" as="xs:string"/>
+
+    <xsl:apply-templates mode="render-field">
+      <xsl:with-param name="fieldName" select="$fieldName"/>
+    </xsl:apply-templates>
   </xsl:template>
 
 
@@ -593,6 +614,7 @@
       <xsl:with-param name="langId" select="$language"/>
     </xsl:apply-templates>
   </xsl:template>
+
 
   <xsl:template mode="render-value"
                 match="gco:Distance">
@@ -691,7 +713,6 @@
   </xsl:template>
   <xsl:template mode="render-value"
                 match="@*"/>
-
 
   <!-- MedSea specific -->
   <!--<xsl:template mode="render-field" match="mdq:report"/>-->

@@ -853,11 +853,12 @@
                   name="datasourceAcronym"
                   xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:citation/*/cit:otherCitationDetails"/>
 
+          <text ref="dataCollection-help"/>
+
           <field
                   name="medseaTitle"
                   xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:citation/*/cit:alternateTitle"/>
 
-          <text ref="dataCollection-help"/>
 
           <text ref="medseaTitle-help"/>
 
