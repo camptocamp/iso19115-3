@@ -513,6 +513,16 @@
 			<label>Stakeholder</label>
 			<description>Party who has an interest in the resource or the use of the resource</description>
 		</entry>
+    <entry>
+      <code>edmerp</code>
+      <label>Program name/project name (EDMERP)</label>
+      <description></description>
+    </entry>
+    <entry>
+      <code>edmo</code>
+      <label>Data provider (EDMO)</label>
+      <description></description>
+    </entry>
 		<!-- - - - - - - - - - - - - - - - - - - - - - - - - -->
 	</codelist>
 	<!-- ==================================================== -->

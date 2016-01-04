@@ -2125,7 +2125,7 @@
     <description>Number of elements along the axis</description>
     <condition>mandatory</condition>
   </element>
-  <element name="mri:distance" id="61.0" context="mri:MD_Resolution">
+  <element name="mri:distance" id="61.0">
     <label>Distance</label>
     <description>Ground sample distance</description>
     <condition>Provide a distance if no equivalent Scale is documented</condition>
