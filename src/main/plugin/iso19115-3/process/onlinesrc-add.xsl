@@ -9,19 +9,22 @@
   xmlns:gco="http://standards.iso.org/iso/19115/-3/gco/1.0"
   xmlns:gn="http://www.fao.org/geonetwork"
   xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  xmlns:gn-fn-iso19115-3="http://geonetwork-opensource.org/xsl/functions/profiles/iso19115-3"
   exclude-result-prefixes="#all">
-  
+
+  <xsl:import href="../layout/utility-fn.xsl"/>
   <!-- TODO: could be nice to define the target distributor -->
   
   <xsl:param name="uuidref"/>
   <xsl:param name="extra_metadata_uuid"/>
-  <xsl:param name="protocol" select="'OGC:WMS-1.1.1-http-get-map'"/>
+  <xsl:param name="protocol" select="'OGC:WMS'"/>
   <xsl:param name="url"/>
   <xsl:param name="name"/>
   <xsl:param name="desc"/>
+  <xsl:param name="function"/>
+  <xsl:param name="applicationProfile"/>
   <xsl:param name="catalogUrl"/>
 
-  <xsl:variable name="separator" select="'\|'"/>
 
   <xsl:variable name="mainLang"
                 select="/mdb:MD_Metadata/mdb:defaultLocale/*/lan:language/*/@codeListValue"
@@ -35,7 +38,6 @@
                 select="/mdb:MD_Metadata/mdb:metadataIdentifier[position() = 1]/mcc:MD_Identifier/mcc:code/gco:CharacterString"/>
 
   <xsl:template match="/mdb:MD_Metadata|*[contains(@gco:isoType, 'mdb:MD_Metadata')]">
-<xsl:message>### <xsl:value-of select="$desc"/> </xsl:message>
     <xsl:copy>
       <xsl:copy-of select="@*"/>
       <xsl:apply-templates select="mdb:metadataIdentifier"/>
@@ -146,24 +148,12 @@
 
       <!-- If a name is provided loop on all languages -->
       <xsl:choose>
-        <xsl:when test="normalize-space($name) != ''">
+        <xsl:when test="contains($name, ',')">
           <xsl:for-each select="tokenize($name, ',')">
             <mrd:onLine>
               <cit:CI_OnlineResource>
                 <cit:linkage>
-                  <gco:CharacterString>
-                    <xsl:choose>
-                      <xsl:when test="$url = 'filename'">
-                        <xsl:value-of select="concat(
-                                  $catalogUrl, '/resources.get?',
-                                  'uuid=', $metadataIdentifier,
-                                  '&amp;fname=', $name)"/>
-                      </xsl:when>
-                      <xsl:otherwise>
-                        <xsl:value-of select="$url"/>
-                      </xsl:otherwise>
-                    </xsl:choose>
-                  </gco:CharacterString>
+                  <xsl:copy-of select="gn-fn-iso19115-3:fillTextElement($url, $mainLang, $useOnlyPTFreeText)"/>
                 </cit:linkage>
 
                 <xsl:if test="$protocol != ''">
@@ -174,20 +164,32 @@
                   </cit:protocol>
                 </xsl:if>
 
-                <xsl:if test="normalize-space($name) != ''">
-                  <cit:name>
-                    <xsl:call-template name="fillTextElement">
-                      <xsl:with-param name="formattedText" select="$name"/>
-                    </xsl:call-template>
-                  </cit:name>
+                <xsl:if test="$applicationProfile != ''">
+                  <cit:applicationProfile>
+                    <gco:CharacterString>
+                      <xsl:value-of select="$applicationProfile"/>
+                    </gco:CharacterString>
+                  </cit:applicationProfile>
                 </xsl:if>
 
-                <xsl:if test="$desc != ''">
+                <xsl:if test="normalize-space(.) != ''">
+                  <cit:name>
+                    <xsl:copy-of select="gn-fn-iso19115-3:fillTextElement(., $mainLang, $useOnlyPTFreeText)"/>
+                  </cit:name>
+                </xsl:if>
+                <xsl:variable name="pos" select="position()"/>
+                <xsl:variable name="description" select="tokenize($desc, ',')[position() = $pos]"/>
+                <xsl:if test="$description != ''">
                   <cit:description>
-                    <xsl:call-template name="fillTextElement">
-                      <xsl:with-param name="formattedText" select="$desc"/>
-                    </xsl:call-template>
+                    <xsl:copy-of select="gn-fn-iso19115-3:fillTextElement($description, $mainLang, $useOnlyPTFreeText)"/>
                   </cit:description>
+                </xsl:if>
+
+                <xsl:if test="$function != ''">
+                  <cit:function>
+                    <cit:CI_OnLineFunctionCode codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#CI_OnLineFunctionCode"
+                                               codeListValue="{$function}"/>
+                  </cit:function>
                 </xsl:if>
               </cit:CI_OnlineResource>
             </mrd:onLine>
@@ -197,19 +199,7 @@
           <mrd:onLine>
             <cit:CI_OnlineResource>
               <cit:linkage>
-                <gco:CharacterString>
-                  <xsl:choose>
-                    <xsl:when test="$url = 'filename'">
-                      <xsl:value-of select="concat(
-                                  $catalogUrl, '/resources.get?',
-                                  'uuid=', $metadataIdentifier,
-                                  '&amp;fname=', $name)"/>
-                    </xsl:when>
-                    <xsl:otherwise>
-                      <xsl:value-of select="$url"/>
-                    </xsl:otherwise>
-                  </xsl:choose>
-                </gco:CharacterString>
+                <xsl:copy-of select="gn-fn-iso19115-3:fillTextElement($url, $mainLang, $useOnlyPTFreeText)"/>
               </cit:linkage>
 
               <xsl:if test="$protocol != ''">
@@ -220,12 +210,31 @@
                 </cit:protocol>
               </xsl:if>
 
+              <xsl:if test="$applicationProfile != ''">
+                <cit:applicationProfile>
+                  <gco:CharacterString>
+                    <xsl:value-of select="$applicationProfile"/>
+                  </gco:CharacterString>
+                </cit:applicationProfile>
+              </xsl:if>
+
+              <xsl:if test="normalize-space($name) != ''">
+                <cit:name>
+                  <xsl:copy-of select="gn-fn-iso19115-3:fillTextElement($name, $mainLang, $useOnlyPTFreeText)"/>
+                </cit:name>
+              </xsl:if>
+
               <xsl:if test="$desc != ''">
                 <cit:description>
-                  <xsl:call-template name="fillTextElement">
-                    <xsl:with-param name="formattedText" select="$desc"/>
-                  </xsl:call-template>
+                  <xsl:copy-of select="gn-fn-iso19115-3:fillTextElement($desc, $mainLang, $useOnlyPTFreeText)"/>
                 </cit:description>
+              </xsl:if>
+
+              <xsl:if test="$function != ''">
+                <cit:function>
+                  <cit:CI_OnLineFunctionCode codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#CI_OnLineFunctionCode"
+                                             codeListValue="{$function}"/>
+                </cit:function>
               </xsl:if>
             </cit:CI_OnlineResource>
           </mrd:onLine>
@@ -233,51 +242,5 @@
       </xsl:choose>
 
     </xsl:if>
-  </xsl:template>
-
-
-  <xsl:template name="fillTextElement">
-    <xsl:param name="formattedText"/>
-
-    <xsl:message>## <xsl:value-of select="$formattedText"/> </xsl:message>
-    <xsl:choose>
-      <xsl:when test="contains($formattedText, '|')">
-        <lan:PT_FreeText>
-          <xsl:for-each select="tokenize($formattedText, $separator)">
-            <xsl:variable name="descLang"
-                          select="substring-before(., '#')"/>
-            <xsl:variable name="descValue"
-                          select="substring-after(., '#')"/>
-            <xsl:if test="$useOnlyPTFreeText = false() and $descLang = $mainLang">
-              <gco:CharacterString>
-                <xsl:value-of select="$descValue"/>
-              </gco:CharacterString>
-            </xsl:if>
-          </xsl:for-each>
-
-          <xsl:for-each select="tokenize($formattedText, $separator)">
-            <xsl:variable name="descLang"
-                          select="substring-before(., '#')"/>
-            <xsl:variable name="descValue"
-                          select="substring-after(., '#')"/>
-            <xsl:if test="$useOnlyPTFreeText or $descLang != $mainLang">
-              <lan:textGroup>
-                <lan:LocalisedCharacterString locale="{concat('#', $descLang)}">
-                  <xsl:value-of select="$descValue" />
-                </lan:LocalisedCharacterString>
-              </lan:textGroup>
-            </xsl:if>
-          </xsl:for-each>
-        </lan:PT_FreeText>
-      </xsl:when>
-      <xsl:otherwise>
-        <gco:CharacterString>
-          <xsl:value-of select="if (contains($formattedText, '#'))
-                                then substring-after($formattedText, '#')
-                                else $formattedText"/>
-        </gco:CharacterString>
-      </xsl:otherwise>
-    </xsl:choose>
-
   </xsl:template>
 </xsl:stylesheet>

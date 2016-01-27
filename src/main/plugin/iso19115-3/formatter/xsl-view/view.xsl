@@ -569,7 +569,6 @@
   <xsl:template mode="render-field"
                 match="*">
     <xsl:param name="fieldName" select="''" as="xs:string"/>
-
     <xsl:apply-templates mode="render-field">
       <xsl:with-param name="fieldName" select="$fieldName"/>
     </xsl:apply-templates>
