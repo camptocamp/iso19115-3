@@ -270,7 +270,7 @@
                   <xsl:apply-templates mode="render-value" select="."/>
                 </xsl:variable>
                 <i class="fa fa-link"></i>
-                <a href="{normalize-space($linkage)}">
+                <a href="{normalize-space($linkage)}" target="_blank">
                   <xsl:value-of select="if (../cit:name)
                                         then ../cit:name/* else
                                         normalize-space(linkage)"/>
@@ -297,7 +297,7 @@
         <xsl:apply-templates mode="render-value" select="*"/>
         <xsl:apply-templates mode="render-value" select="@*"/>
 
-        <a class="btn btn-link" href="xml.metadata.get?id={$metadataId}">
+        <a class="btn btn-link" href="xml.metadata.get?id={$metadataId}" target="_blank">
           <i class="fa fa-file-code-o fa-2x"></i>
           <span data-translate="">metadataInXML</span>
         </a>
@@ -318,7 +318,7 @@
           <xsl:apply-templates mode="render-value"
                                select="*/cit:description"/>
         </xsl:variable>
-        <a href="{*/cit:linkage/*}">
+        <a href="{*/cit:linkage/*}" target="_blank">
           <xsl:apply-templates mode="render-value"
                                select="*/cit:name"/>
         </a>
@@ -554,7 +554,7 @@
         <dd>
           <ul>
             <xsl:for-each select="parent::node()/*[name() = $nodeName]">
-              <li><a href="#uuid={@uuidref}">
+              <li><a href="#uuid={@uuidref}" target="_blank">
                 <i class="fa fa-link"></i>
                 <xsl:value-of select="gn-fn-render:getMetadataTitle(@uuidref, $language)"/>
               </a></li>

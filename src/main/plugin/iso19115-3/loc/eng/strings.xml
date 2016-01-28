@@ -114,7 +114,7 @@
   <intendedUse>Intended use description: objective, process description, output data*</intendedUse>
   <geographicalAreaCode>Geographical area code</geographicalAreaCode>
   <horizontalAndVerticalInfo>Horizontal and vertical information</horizontalAndVerticalInfo>
-  <horResolution>Hor. resolution</horResolution>
+  <horResolution>Horizontal resolution (meters)</horResolution>
   <minDepth>Min depth (meters)</minDepth>
   <maxDepth>Max depth (meters)</maxDepth>
   <verticalResolution>Vertical resolution (meters)</verticalResolution>
