@@ -592,7 +592,7 @@
         <!-- Replace hyperlink in text by an hyperlink -->
         <xsl:variable name="textWithLinks"
                       select="replace(., '([a-z][\w-]+:/{1,3}[^\s()&gt;&lt;]+[^\s`!()\[\]{};:'&apos;&quot;.,&gt;&lt;?«»“”‘’])',
-                                    '&lt;a href=''$1''&gt;$1&lt;/a&gt;')"/>
+                                    '&lt;a target=''_blank'' href=''$1''&gt;$1&lt;/a&gt;')"/>
 
         <xsl:if test="$textWithLinks != ''">
           <xsl:copy-of select="saxon:parse(
