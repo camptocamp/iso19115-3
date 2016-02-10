@@ -146,8 +146,8 @@
   <challenge>Challenge*</challenge>
   <acronym>Program acronym</acronym>
   <projectTitle>Program title</projectTitle>
-  <edmerpId>If from EDMERP, identifier</edmerpId>
-  <edmoId>If from EDMO, identifier</edmoId>
+  <edmerpId>Identifier (automatically given if program registred in EDMERP)</edmerpId>
+  <edmoId>Identifier (automatically given if organisation registred in EDMO)</edmoId>
   <associatedResources>Associated resources</associatedResources>
   <additionalInfo>Additional information</additionalInfo>
   <listOfOL-help>
