@@ -568,10 +568,9 @@
                   name="edmerpName"
                   addDirective="data-gn-directory-entry-selector"
                   or="pointOfContact"
-                  in="/mdb:MD_Metadata/mdb:identificationInfo/*"
-                  if="count(mdb:MD_Metadata/mdb:identificationInfo/*/mri:pointOfContact[*/cit:role/*/@codeListValue='edmerp']) = 0">
+                  in="/mdb:MD_Metadata/mdb:identificationInfo/*">
             <directiveAttributes
-                    data-template-add-action="true"
+                    data-template-add-action="false"
                     data-search-action="false"
                     data-popup-action="true"
                     data-template-type="contact"
@@ -588,8 +587,7 @@
 
           <action type="add" name="orAddEdmerpName"
                   or="pointOfContact"
-                  in="/mdb:MD_Metadata/mdb:identificationInfo/*"
-                  if="count(mdb:MD_Metadata/mdb:identificationInfo/*/mri:pointOfContact[*/cit:role/*/@codeListValue='edmerp']) = 0">
+                  in="/mdb:MD_Metadata/mdb:identificationInfo/*">
             <template>
               <snippet>
                 <mri:pointOfContact>
@@ -690,10 +688,9 @@
                   forceLabel="true"
                   addDirective="data-gn-directory-entry-selector"
                   or="pointOfContact"
-                  in="/mdb:MD_Metadata/mdb:identificationInfo/*"
-                  if="count(mdb:MD_Metadata/mdb:identificationInfo/*/mri:pointOfContact[*/cit:role/*/@codeListValue='edmo']) = 0">
+                  in="/mdb:MD_Metadata/mdb:identificationInfo/*">
             <directiveAttributes
-                    data-template-add-action="true"
+                    data-template-add-action="false"
                     data-search-action="false"
                     data-popup-action="true"
                     data-template-type="contact"
@@ -704,8 +701,7 @@
 
           <action type="add" name="orAddEdmoName"
                   or="pointOfContact"
-                  in="/mdb:MD_Metadata/mdb:identificationInfo/*"
-                  if="count(mdb:MD_Metadata/mdb:identificationInfo/*/mri:pointOfContact[*/cit:role/*/@codeListValue='edmo']) = 0">
+                  in="/mdb:MD_Metadata/mdb:identificationInfo/*">
             <template>
               <snippet>
                 <mri:pointOfContact>
@@ -810,10 +806,9 @@
                   forceLabel="true"
                   addDirective="data-gn-directory-entry-selector"
                   or="pointOfContact"
-                  in="/mdb:MD_Metadata/mdb:identificationInfo/*"
-                  if="count(mdb:MD_Metadata/mdb:identificationInfo/*/mri:pointOfContact[*/cit:role/*/@codeListValue='originator']) = 0">
+                  in="/mdb:MD_Metadata/mdb:identificationInfo/*">
             <directiveAttributes
-                    data-template-add-action="true"
+                    data-template-add-action="false"
                     data-search-action="false"
                     data-popup-action="true"
                     data-template-type="contact"
@@ -823,8 +818,7 @@
           </action>
           <action type="add" name="orAddProducerName"
                   or="pointOfContact"
-                  in="/mdb:MD_Metadata/mdb:identificationInfo/*"
-                  if="count(mdb:MD_Metadata/mdb:identificationInfo/*/mri:pointOfContact[*/cit:role/*/@codeListValue='originator']) = 0">
+                  in="/mdb:MD_Metadata/mdb:identificationInfo/*">
             <template>
               <snippet>
                 <mri:pointOfContact>
