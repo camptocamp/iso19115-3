@@ -885,7 +885,7 @@
                 <gco:CharacterString/>
               </cit:linkage>
               <cit:protocol>
-                <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
+                <gco:CharacterString>WWW:LINK</gco:CharacterString>
               </cit:protocol>
               <cit:name gco:nilReason="missing">
                 <gco:CharacterString/>
@@ -898,7 +898,7 @@
                 <gco:CharacterString>DOI</gco:CharacterString>
               </cit:linkage>
               <cit:protocol>
-                <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
+                <gco:CharacterString>WWW:LINK</gco:CharacterString>
               </cit:protocol>
               <cit:name>
                 <gco:CharacterString>Identifier of the dataset in the catalogue</gco:CharacterString>
