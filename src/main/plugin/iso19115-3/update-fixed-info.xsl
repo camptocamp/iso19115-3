@@ -480,7 +480,7 @@
     <xsl:variable name="dataSetName" select="ancestor::mdb:MD_Metadata/mdb:identificationInfo/*/mri:citation/*/cit:alternateTitle[1]/gco:CharacterString"/>
 
     <xsl:copy>
-      <xsl:value-of select="concat($p02, ' | ', $tokenP01, ' | ', $edmoProvider, ' | ', $dataSetName)"/>
+      <xsl:value-of select="concat($p02, ' | ', $tokenP01, ' | ', $edmoProvider[1], ' | ', $dataSetName)"/>
     </xsl:copy>
   </xsl:template>
 </xsl:stylesheet>
