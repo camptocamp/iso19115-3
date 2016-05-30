@@ -83,6 +83,9 @@
     <link rel="stylesheet" type="text/css"
           href="{$baseUrl}../../apps/sextant/css/schema/default.css"></link>
 
+    <link rel="stylesheet" type="text/css"
+          href="{$baseUrl}../../apps/sextant/css/metadata-view.css"></link>
+
     <table class="related">
       <tr></tr>
     </table>
