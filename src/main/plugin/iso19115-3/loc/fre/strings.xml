@@ -46,6 +46,7 @@
   <beginPosition>Begin</beginPosition>
   <endPosition>End</endPosition>
   <medsea>Emodnet Checkpoint</medsea>
+  <medsea-data-specification>Emodnet Checkpoint data product specification</medsea-data-specification>
   <medsea-targeted-product>Emodnet Checkpoint targeted product</medsea-targeted-product>
   <medsea-metadata>Metadata information</medsea-metadata>
   <medsea-metadata-tp>Identification</medsea-metadata-tp>

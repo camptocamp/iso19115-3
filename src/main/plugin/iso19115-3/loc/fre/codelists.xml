@@ -594,6 +594,23 @@
       </description>
     </entry>
   </codelist>
+  <codelist name="mri:DS_InitiativeTypeCode"
+            alias="initiativeType"
+            editorMode="radio"
+            displayIf="ancestor::node()[
+              name()='mdb:MD_Metadata' and
+              contains(mdb:metadataStandard/*/cit:title/*:CharacterString, 'Emodnet Checkpoint')]">
+    <entry>
+      <code>specification</code>
+      <label>Specification</label>
+      <description>Data product specification</description>
+    </entry>
+    <entry>
+      <code>targetDataProduct</code>
+      <label>Targeted data product</label>
+      <description>Targeted data product</description>
+    </entry>
+  </codelist>
   <codelist name="mri:DS_InitiativeTypeCode" alias="initiativeType">
     <entry>
       <code>campaign</code>
@@ -1575,6 +1592,11 @@
       <code>nonGeographicDataset</code>
       <label>Non geographic dataset</label>
       <description>Information applies to non-geographic data</description>
+    </entry>
+    <entry>
+      <code>datasetComponent</code>
+      <label>Dataset component</label>
+      <description>Information applies to a dataset component</description>
     </entry>
   </codelist>
   <codelist name="mcc:MD_ScopeCode">
