@@ -33,7 +33,7 @@
   <metadataMaintenance>Md. maintenance</metadataMaintenance>
   <applicationSchemaInfo>Schema info</applicationSchemaInfo>
   <acquisitionInformation>Acquisition info</acquisitionInformation>
-
+  <qualityMeasures>Q. measures</qualityMeasures>
 
   <add-resource-id>Compute resource identifier</add-resource-id>
   <add-resource-idHelp>Compose the resource identifier using the catalog URL and the metadata identifier (eg. http://www.organization.org/catalogue/5391bf69-44bc-4ea0-8cc0-6cf6c3bc81ae).</add-resource-idHelp>
@@ -50,6 +50,8 @@
   <medsea>Emodnet Checkpoint</medsea>
   <medsea-data-specification>Emodnet Checkpoint data product specification</medsea-data-specification>
   <medsea-targeted-product>Emodnet Checkpoint targeted product</medsea-targeted-product>
+  <medsea-dps-characteristics>Characteristics</medsea-dps-characteristics>
+  <medsea-dq-dps>Quality measures</medsea-dq-dps>
   <medsea-metadata>Metadata information</medsea-metadata>
   <medsea-metadata-tp>Identification</medsea-metadata-tp>
   <medsea-dq>Quality</medsea-dq>

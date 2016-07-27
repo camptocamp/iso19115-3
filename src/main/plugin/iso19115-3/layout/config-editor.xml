@@ -238,7 +238,7 @@
       <name>cit:abstract</name>
     </expanded>
     <!-- All fields in ISO could be multilingual.
-    Define element to exlcude.
+    Define element to exclude.
     TODO: it may be relevant to have parent defined
     to restrict the list.
     -->
@@ -1266,9 +1266,9 @@
       </tab>
       <tab id="medsea-dq" mode="flat">
         <section>
-          <field xpath="/mdb:MD_Metadata/mdb:dataQualityInfo/mdq:DQ_DataQuality/
-                     mdq:report" or="report" in="/mdb:MD_Metadata/mdb:dataQualityInfo/mdq:DQ_DataQuality"/>
-
+          <xsl xpath="/mdb:MD_Metadata/mdb:dataQualityInfo"
+               or="report"
+               mode="iso19115-3-qm"/>
         </section>
       </tab>
     </view>
@@ -1419,6 +1419,14 @@
               </snippet>
             </template>
           </action>
+        </section>
+      </tab>
+
+      <tab id="medsea-dq-dps" mode="flat">
+        <section>
+          <xsl xpath="/mdb:MD_Metadata/mdb:dataQualityInfo"
+               or="report"
+               mode="iso19115-3-qm"/>
         </section>
       </tab>
     </view>
@@ -2034,21 +2042,14 @@
                     'emodnet-checkpoint.status')]"/>
         </section>
       </tab>
+      <tab id="medsea-dq-tp" mode="flat">
+        <section>
+          <xsl xpath="/mdb:MD_Metadata/mdb:dataQualityInfo"
+               or="report"
+               mode="iso19115-3-qm"/>
+        </section>
+      </tab>
     </view>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -2074,6 +2075,15 @@
         <section xpath="/mdb:MD_Metadata/mdb:dataQualityInfo" or="dataQualityInfo"
                  in="/mdb:MD_Metadata"/>
       </tab>
+      <!--
+      Example to display a table view of quality measures.
+      <tab id="qualityMeasures">
+        <section>
+          <xsl xpath="/mdb:MD_Metadata/mdb:dataQualityInfo"
+               or="report"
+               mode="iso19115-3-qm"/>
+        </section>
+      </tab>-->
       <tab id="resourceLineage">
         <section xpath="/mdb:MD_Metadata/mdb:resourceLineage" or="resourceLineage"
                  in="/mdb:MD_Metadata"/>
