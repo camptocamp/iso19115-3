@@ -1,0 +1,41 @@
+<mdq:DQ_ThematicClassificationCorrectness
+        xmlns:mdq="http://standards.iso.org/iso/19157/-2/mdq/1.0"
+        xmlns:mcc="http://standards.iso.org/iso/19115/-3/mcc/1.0"
+        xmlns:gco="http://standards.iso.org/iso/19115/-3/gco/1.0"
+        xmlns:gml="http://www.opengis.net/gml/3.2">
+  <mdq:measure>
+    <mdq:DQ_MeasureReference>
+      <mdq:measureIdentification>
+        <mcc:MD_Identifier>
+          <mcc:code>
+            <gco:CharacterString>AP.3.3</gco:CharacterString>
+          </mcc:code>
+        </mcc:MD_Identifier>
+      </mdq:measureIdentification>
+      <mdq:nameOfMeasure>
+        <gco:CharacterString>Temporal resolution</gco:CharacterString>
+      </mdq:nameOfMeasure>
+      <mdq:measureDescription>
+        <gco:CharacterString>Temporal sampling interval of product</gco:CharacterString>
+      </mdq:measureDescription>
+    </mdq:DQ_MeasureReference>
+  </mdq:measure>
+  <mdq:result>
+    <mdq:DQ_QuantitativeResult>
+      <mdq:dateTime>
+        <gco:Date/>
+      </mdq:dateTime>
+      <mdq:value>
+        <gco:Record/>
+      </mdq:value>
+      <mdq:valueUnit>
+        <gml:UnitDefinition gml:id="d">
+          <gml:identifier codeSpace="">days</gml:identifier>
+        </gml:UnitDefinition>
+      </mdq:valueUnit>
+      <mdq:valueRecordType>
+        <gco:RecordType>Real</gco:RecordType>
+      </mdq:valueRecordType>
+    </mdq:DQ_QuantitativeResult>
+  </mdq:result>
+</mdq:DQ_ThematicClassificationCorrectness>
