@@ -29,7 +29,7 @@
         <gco:Record></gco:Record>
       </mdq:value>
       <mdq:valueUnit>
-        <gml:UnitDefinition gml:id="km2">
+        <gml:UnitDefinition gml:id="">
           <gml:identifier codeSpace="">km**2</gml:identifier>
         </gml:UnitDefinition>
       </mdq:valueUnit>

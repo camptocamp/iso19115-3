@@ -46,7 +46,16 @@
   <beginPosition>Begin</beginPosition>
   <endPosition>End</endPosition>
   <medsea>Emodnet Checkpoint</medsea>
-  <medsea-data-specification>Emodnet Checkpoint data product specification</medsea-data-specification>
+  <checkpoint-dps>Emodnet Checkpoint data product specification</checkpoint-dps>
+  <checkpoint-dps-characteristics>Characteristics</checkpoint-dps-characteristics>
+  <checkpoint-dps-add-component>Add component</checkpoint-dps-add-component>
+  <checkpoint-dps-component-name>Name</checkpoint-dps-component-name>
+  <checkpoint-dps-component-description>Description</checkpoint-dps-component-description>
+  <checkpoint-dps-component-details>Details</checkpoint-dps-component-details>
+  <checkpoint-dps-main>Identification</checkpoint-dps-main>
+  <checkpoint-dps-spatial>Spatial info. and format</checkpoint-dps-spatial>
+  <checkpoint-deliverable>Deliverable identifier</checkpoint-deliverable>
+  <checkpoint-dq>Components &amp; quality measures</checkpoint-dq>
   <medsea-targeted-product>Emodnet Checkpoint targeted product</medsea-targeted-product>
   <medsea-metadata>Metadata information</medsea-metadata>
   <medsea-metadata-tp>Identification</medsea-metadata-tp>

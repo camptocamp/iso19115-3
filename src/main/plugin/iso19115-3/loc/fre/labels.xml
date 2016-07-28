@@ -5041,7 +5041,13 @@ période de temps couverte par le service.
       série.
     </help>
     <condition/>
-
+    <helper displayIf="ancestor::node()[
+              name()='mdb:MD_Metadata' and
+              contains(mdb:metadataStandard/*/cit:title/*:CharacterString, 'Emodnet Checkpoint')]">
+      <option value="D1">D1</option>
+      <option value="D2">D2</option>
+      <!-- TODO -->
+    </helper>
   </element>
   <element name="mri:keyword" id="53.0">
     <label>Mot Clé</label>

@@ -26,7 +26,7 @@
         <gco:Record/>
       </mdq:value>
       <mdq:valueUnit>
-        <gml:UnitDefinition gml:id="d">
+        <gml:UnitDefinition gml:id="">
           <gml:identifier codeSpace="">days</gml:identifier>
         </gml:UnitDefinition>
       </mdq:valueUnit>

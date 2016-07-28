@@ -228,7 +228,10 @@
           <gex:temporalElement>
             <gex:EX_TemporalExtent>
               <gex:extent>
-                <TimePeriod xmlns="http://www.opengis.net/gml/3.2" gml:id="d165268e509a1053982"/>
+                <gml:TimePeriod gml:id="">
+                  <gml:beginPosition/>
+                  <gml:endPosition/>
+                </gml:TimePeriod>
               </gex:extent>
             </gex:EX_TemporalExtent>
           </gex:temporalElement>

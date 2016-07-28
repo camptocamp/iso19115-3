@@ -48,10 +48,19 @@
   <beginPosition>Begin</beginPosition>
   <endPosition>End</endPosition>
   <medsea>Emodnet Checkpoint</medsea>
-  <medsea-data-specification>Emodnet Checkpoint data product specification</medsea-data-specification>
+  <checkpoint-dps>Emodnet Checkpoint data product specification</checkpoint-dps>
   <medsea-targeted-product>Emodnet Checkpoint targeted product</medsea-targeted-product>
-  <medsea-dps-characteristics>Characteristics</medsea-dps-characteristics>
-  <medsea-dq-dps>Quality measures</medsea-dq-dps>
+  <checkpoint-dps-characteristics>DPS Characteristics</checkpoint-dps-characteristics>
+  <checkpoint-dps-add-component>Add component</checkpoint-dps-add-component>
+  <checkpoint-dps-component>Component</checkpoint-dps-component>
+  <checkpoint-dps-component-name>Name</checkpoint-dps-component-name>
+  <checkpoint-dps-component-description>Description</checkpoint-dps-component-description>
+  <checkpoint-dps-component-details>Details</checkpoint-dps-component-details>
+  <checkpoint-tdp-characteristics>TDP Characteristics</checkpoint-tdp-characteristics>
+  <checkpoint-dps-main>Identification</checkpoint-dps-main>
+  <checkpoint-dps-spatial>Spatial info. and format</checkpoint-dps-spatial>
+  <checkpoint-deliverable>Deliverable identifier</checkpoint-deliverable>
+  <checkpoint-dq>Components &amp; quality measures</checkpoint-dq>
   <medsea-metadata>Metadata information</medsea-metadata>
   <medsea-metadata-tp>Identification</medsea-metadata-tp>
   <medsea-dq>Quality</medsea-dq>

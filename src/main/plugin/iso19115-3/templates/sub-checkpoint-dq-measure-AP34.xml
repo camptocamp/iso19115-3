@@ -29,7 +29,7 @@
         <gco:Record/>
       </mdq:value>
       <mdq:valueUnit>
-        <gml:UnitDefinition gml:id="%">
+        <gml:UnitDefinition gml:id="">
           <gml:identifier codeSpace="">%</gml:identifier>
         </gml:UnitDefinition>
       </mdq:valueUnit>

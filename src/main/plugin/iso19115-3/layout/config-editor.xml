@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <editor xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:noNamespaceSchemaLocation="../../config-editor.xsd"
+        xsi:noNamespaceSchemaLocation="../../../../../../config-editor.xsd"
         xmlns:gn="http://www.fao.org/geonetwork"
         xmlns:gml="http://www.opengis.net/gml/3.2"
         xmlns:srv="http://standards.iso.org/iso/19115/-3/srv/2.0"
@@ -220,6 +220,7 @@
     <name>mdb:extent</name>
     <name>cit:extent</name>
     <name>gex:geographicBox</name>
+    <name>gex:verticalElement</name>
     <name>gex:EX_TemporalExtent</name>
     <name>mrd:MD_Distributor</name>
     <name>srv:containsOperations</name>
@@ -1274,7 +1275,7 @@
     </view>
 
 
-    <view name="medsea-data-specification"
+    <view name="checkpoint-dps"
           upAndDownControlHidden="true"
           displayIfRecord="contains(mdb:MD_Metadata/mdb:metadataStandard/
                                         */cit:title/gco:CharacterString,
@@ -1291,14 +1292,23 @@
         <thesaurus key="local.theme.emodnet-checkpoint.readyness" maxtags="1"/>
         <thesaurus key="local.theme.emodnet-checkpoint.data.delivery.mechanism" maxtags="1"/>
       </thesaurusList>
-      <tab id="medsea-dps-characteristics" mode="flat" default="true">
-        <section>
+      <tab id="checkpoint-dps-characteristics" default="true">
+        <section name="checkpoint-dps-main">
+          <!-- DPS - Challenge number + name  -->
           <field name="useByChallenges"
                  xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/
                   mri:descriptiveKeywords
                   [contains(*/mri:thesaurusName/*/cit:title/gco:CharacterString,
                   'Used by challenges')]"/>
 
+          <!-- DPS - Deliverable identifier -->
+          <field name="checkpoint-deliverable"
+                 xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:citation/
+                          */cit:series/*/cit:issueIdentification"/>
+
+          <!--
+          DPS - Responsible party (point of contact) : organisation name
+          DPS - E-mail of responsible party -->
           <field name="edmerpNameGlobal" templateModeOnly="true" notDisplayedIfMissing="true"
                  xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:pointOfContact[*/cit:role/*/@codeListValue='edmerp']"
                  del="."
@@ -1363,27 +1373,20 @@
             </template>
           </field>
 
-
           <action type="add"
                   name="edmerpName"
                   addDirective="data-gn-directory-entry-selector"
                   or="pointOfContact"
                   in="/mdb:MD_Metadata/mdb:identificationInfo/*">
             <directiveAttributes
-                    data-template-add-action="false"
-                    data-search-action="false"
-                    data-popup-action="true"
-                    data-template-type="contact"
-                    data-filter='{"_groupPublished": "CONTACTS_EDMERP"}'
-                    data-variables="gmd:role/gmd:CI_RoleCode/@codeListValue~edmerp"
-                    data-transformation="contact-from-iso19139-to-iso19115-3"/>
+              data-template-add-action="false"
+              data-search-action="false"
+              data-popup-action="true"
+              data-template-type="contact"
+              data-filter='{"_groupPublished": "CONTACTS_EDMERP"}'
+              data-variables="gmd:role/gmd:CI_RoleCode/@codeListValue~edmerp"
+              data-transformation="contact-from-iso19139-to-iso19115-3"/>
           </action>
-
-
-          <!--<field
-                  name="programName"
-                  xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:credit"/>-->
-
 
           <action type="add" name="orAddEdmerpName"
                   or="pointOfContact"
@@ -1419,14 +1422,683 @@
               </snippet>
             </template>
           </action>
+
+
+
+          <!-- DPS - Metadataset creation date  (DD/MM/YYYY) -->
+          <!-- DPS - Metadataset revision date  (DD/MM/YYYY) -->
+          <field xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/
+                          mri:citation/*/cit:date[
+                            */cit:dateType/*/@codeListValue = 'creation' or
+                            */cit:dateType/*/@codeListValue = 'revision']"/>
+
+
+          <!-- DPS - E-mail of metadata contact -->
+          <field name="metadataPointOfContact"
+                 templateModeOnly="true"
+                 notDisplayedIfMissing="true"
+                 xpath="/mdb:MD_Metadata/mdb:contact"
+                 del=".">
+            <template>
+              <values readonlyIf="count(@xlink:href) > 0">
+                <key label="organisationName"
+                     xpath="*/cit:party/*/cit:name/gco:CharacterString"/>
+                <key label="electronicMailAddress"
+                     xpath="*/cit:party/*/cit:contactInfo/*/cit:address/*/cit:electronicMailAddress/gco:CharacterString"
+                     use="email"/>
+                <key label="phone"
+                     xpath="*/cit:party/*/cit:contactInfo/*/cit:phone/*[cit:numberType/*/@codeListValue = 'voice']/cit:number/gco:CharacterString"
+                     use="text"/>
+              </values>
+              <snippet>
+                <mdb:contact>
+                  <cit:CI_Responsibility>
+                    <gn:copy select="cit:role"/>
+                    <gn:copy select="cit:extent"/>
+                    <cit:party>
+                      <cit:CI_Organisation>
+                        <cit:name>
+                          <gco:CharacterString>{{organisationName}}</gco:CharacterString>
+                        </cit:name>
+                        <cit:contactInfo>
+                          <cit:CI_Contact>
+                            <cit:phone>
+                              <cit:CI_Telephone>
+                                <cit:number>
+                                  <gco:CharacterString>{{phone}}</gco:CharacterString>
+                                </cit:number>
+                                <cit:numberType>
+                                  <cit:CI_TelephoneTypeCode codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#CI_TelephoneTypeCode"
+                                                            codeListValue="voice"/>
+                                </cit:numberType>
+                              </cit:CI_Telephone>
+                            </cit:phone>
+                            <!--<gn:copy select="cit:phone"/>-->
+                            <cit:address>
+                              <cit:CI_Address>
+                                <cit:electronicMailAddress>
+                                  <gco:CharacterString>{{electronicMailAddress}}</gco:CharacterString>
+                                </cit:electronicMailAddress>
+                              </cit:CI_Address>
+                            </cit:address>
+                            <gn:copy select="cit:onlineResource"/>
+                            <gn:copy select="cit:hoursOfService"/>
+                            <gn:copy select="cit:contactInstructions"/>
+                            <gn:copy select="cit:contactType"/>
+                          </cit:CI_Contact>
+                        </cit:contactInfo>
+                        <gn:copy select="cit:logo"/>
+                        <gn:copy select="cit:individual"/>
+                      </cit:CI_Organisation>
+                    </cit:party>
+                  </cit:CI_Responsibility>
+                </mdb:contact>
+              </snippet>
+            </template>
+          </field>
+
+
+          <!-- DPS - Product identifier
+          DPS - Product name -->
+          <field xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:citation/cit:CI_Citation/cit:title"/>
+
+
+          <!-- DPS - Purpose -->
+          <field xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:purpose"/>
+
+
+          <!-- DPS - Abstract -->
+          <field xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:abstract"/>
+
+
+          <!-- DPS - Processing level -->
+          <field
+            name="level-of-characteristics"
+            xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/
+                    mri:descriptiveKeywords
+                    [contains(*/mri:thesaurusName/cit:CI_Citation/cit:title/gco:CharacterString,
+                    'Processing level of characteristics')]"/>
+
+
+          <!-- DPS - Production mode -->
+          <field
+            name="production-mode"
+            xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/
+                    mri:descriptiveKeywords
+                    [contains(*/mri:thesaurusName/cit:CI_Citation/cit:title/gco:CharacterString,
+                    'Production mode')]"/>
+        </section>
+
+        <section name="checkpoint-dps-spatial">
+          <!-- DPS - Horizontal Coordinate Reference System
+          DPS - Vertical coordinate reference system
+          DPS - Temporal reference system -->
+          <section xpath="/mdb:MD_Metadata/mdb:referenceSystemInfo" or="referenceSystemInfo"
+                   in="/mdb:MD_Metadata"/>
+
+
+          <!-- DPS - Spatial representation -->
+          <field xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:spatialRepresentationType"/>
+
+          <!-- DPS - Product distribution format -->
+          <field
+            name="dataFormats"
+            templateModeOnly="true"
+            xpath="/mdb:MD_Metadata/mdb:distributionInfo/*/mrd:distributionFormat/
+                            mrd:MD_Format/mrd:formatSpecificationCitation"
+            del="../..">
+            <template>
+              <values>
+                <key label="format"
+                     xpath="cit:CI_Citation/cit:title/gco:CharacterString"
+                     tooltip="cit:title">
+                  <helper name="cit:title" context="/mdb:MD_Metadata/mdb:distributionInfo/mrd:MD_Distribution/mrd:distributionFormat/mrd:MD_Format/mrd:formatSpecificationCitation/cit:CI_Citation/cit:title"/>
+                </key>
+              </values>
+              <snippet>
+                <mrd:formatSpecificationCitation>
+                  <cit:CI_Citation>
+                    <cit:title>
+                      <gco:CharacterString>{{format}}</gco:CharacterString>
+                    </cit:title>
+                  </cit:CI_Citation>
+                </mrd:formatSpecificationCitation>
+              </snippet>
+            </template>
+          </field>
+          <!-- <field
+                   name="dataFormats"
+                   xpath="/mdb:MD_Metadata/mdb:distributionInfo/*/mrd:distributionFormat"/>-->
+
+          <text ref="dataFormats-help"/>
+
+          <action type="add" name="dataFormats" or="distributionFormat"
+                  in="/mdb:MD_Metadata/mdb:distributionInfo/mrd:MD_Distribution">
+            <template>
+              <snippet>
+                <mrd:distributionFormat>
+                  <mrd:MD_Format>
+                    <mrd:formatSpecificationCitation>
+                      <cit:CI_Citation>
+                        <cit:title>
+                          <gco:CharacterString></gco:CharacterString>
+                        </cit:title>
+                      </cit:CI_Citation>
+                    </mrd:formatSpecificationCitation>
+                  </mrd:MD_Format>
+                </mrd:distributionFormat>
+              </snippet>
+            </template>
+          </action>
+
+          <!-- DPS - Number of component - See Quality section -->
+
+
+          <field
+            xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/
+              mri:extent/*/gex:geographicElement/gex:EX_GeographicBoundingBox"/>
+
+
+          <field name="temporalExtent" templateModeOnly="true"
+                 xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:extent/*/gex:temporalElement"
+                 if="count(mdb:MD_Metadata/mdb:identificationInfo/*) > 0">
+            <template>
+              <values>
+                <!-- -Need a * for gml:TimePeriodTypeCHOICE_ELEMENT2 added by editor enumerated tree -->
+                <key label="beginPosition"
+                     xpath="gex:EX_TemporalExtent/gex:extent/gml:TimePeriod/*/gml:beginPosition"
+                     use="gn-date-picker"
+                     tooltip="gex:extent|gex:EX_TemporalExtent">
+                  <directiveAttributes data-tag-name="gml:beginPosition"/>
+                </key>
+                <key label="endPosition"
+                     xpath="gex:EX_TemporalExtent/gex:extent/gml:TimePeriod/*/gml:endPosition"
+                     use="gn-date-picker"
+                     tooltip="gex:extent|gex:EX_TemporalExtent"
+                >
+                  <directiveAttributes
+                    data-tag-name="gml:endPosition"
+                    data-indeterminate-position="eval#gex:EX_TemporalExtent/gex:extent/gml:TimePeriod/*/gml:endPosition/@indeterminatePosition"/>
+                </key>
+              </values>
+              <snippet>
+                <gex:temporalElement>
+                  <gex:EX_TemporalExtent>
+                    <gex:extent>
+                      <gml:TimePeriod gml:id="">
+                        {{beginPosition}}
+                        {{endPosition}}
+                      </gml:TimePeriod>
+                    </gex:extent>
+                  </gex:EX_TemporalExtent>
+                </gex:temporalElement>
+              </snippet>
+            </template>
+          </field>
+
+
+          <field
+            name="minDepth"
+            xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/
+                              mri:extent/*/
+                              gex:verticalElement/*/gex:minimumValue"/>
+
+          <field
+            name="maxDepth"
+            xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/
+                              mri:extent/*/
+                              gex:verticalElement/*/gex:maximumValue"/>
+
         </section>
       </tab>
 
-      <tab id="medsea-dq-dps" mode="flat">
+      <tab id="checkpoint-dq" mode="flat">
         <section>
           <xsl xpath="/mdb:MD_Metadata/mdb:dataQualityInfo"
                or="report"
                mode="iso19115-3-qm"/>
+
+
+          <action type="add"
+                  btnLabel="checkpoint-dps-add-component"
+                  name="dataQualityInfo" or="dataQualityInfo"
+                  in="/mdb:MD_Metadata">
+            <template>
+              <snippet>
+                <mdb:dataQualityInfo>
+                  <mdq:DQ_DataQuality uuid="DPSUUID/CPUUID">
+                    <mdq:scope>
+                      <mcc:MD_Scope>
+                        <mcc:level>
+                          <mcc:MD_ScopeCode codeListValue="datasetComponent"
+                                            codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#MD_ScopeCode"/>
+                        </mcc:level>
+                        <mcc:levelDescription>
+                          <mcc:MD_ScopeDescription>
+                            <mcc:other>
+                              <gco:CharacterString>Component name</gco:CharacterString>
+                            </mcc:other>
+                          </mcc:MD_ScopeDescription>
+                        </mcc:levelDescription>
+                        <mcc:levelDescription>
+                          <mcc:MD_ScopeDescription>
+                            <mcc:other>
+                              <gco:CharacterString>Component description</gco:CharacterString>
+                            </mcc:other>
+                          </mcc:MD_ScopeDescription>
+                        </mcc:levelDescription>
+                        <mcc:levelDescription>
+                          <mcc:MD_ScopeDescription>
+                            <mcc:other>
+                              <gco:CharacterString>EM:...|P01:...|P02:...|PLA:...|PM:...</gco:CharacterString>
+                            </mcc:other>
+                          </mcc:MD_ScopeDescription>
+                        </mcc:levelDescription>
+                        <mcc:extent>
+                          <gex:EX_Extent>
+                            <gex:geographicElement>
+                              <gex:EX_GeographicBoundingBox>
+                                <gex:westBoundLongitude>
+                                  <gco:Decimal/>
+                                </gex:westBoundLongitude>
+                                <gex:eastBoundLongitude>
+                                  <gco:Decimal/>
+                                </gex:eastBoundLongitude>
+                                <gex:southBoundLatitude>
+                                  <gco:Decimal/>
+                                </gex:southBoundLatitude>
+                                <gex:northBoundLatitude>
+                                  <gco:Decimal/>
+                                </gex:northBoundLatitude>
+                              </gex:EX_GeographicBoundingBox>
+                            </gex:geographicElement>
+                            <gex:temporalElement>
+                              <gex:EX_TemporalExtent>
+                                <gex:extent>
+                                  <gml:TimePeriod gml:id="">
+                                    <gml:beginPosition/>
+                                    <gml:endPosition/>
+                                  </gml:TimePeriod>
+                                </gex:extent>
+                              </gex:EX_TemporalExtent>
+                            </gex:temporalElement>
+                            <gex:verticalElement>
+                              <gex:EX_VerticalExtent>
+                                <gex:minimumValue>
+                                  <gco:Real/>
+                                </gex:minimumValue>
+                                <gex:maximumValue>
+                                  <gco:Real/>
+                                </gex:maximumValue>
+                              </gex:EX_VerticalExtent>
+                            </gex:verticalElement>
+                          </gex:EX_Extent>
+                        </mcc:extent>
+                      </mcc:MD_Scope>
+                    </mdq:scope>
+                    <mdq:report>
+                      <mdq:DQ_CompletenessOmission>
+                        <mdq:measure>
+                          <mdq:DQ_MeasureReference>
+                            <mdq:measureIdentification>
+                              <mcc:MD_Identifier>
+                                <mcc:code>
+                                  <gco:CharacterString>AP.1.1</gco:CharacterString>
+                                </mcc:code>
+                              </mcc:MD_Identifier>
+                            </mdq:measureIdentification>
+                            <mdq:nameOfMeasure>
+                              <gco:CharacterString>Horizontal Spatial Coverage</gco:CharacterString>
+                            </mdq:nameOfMeasure>
+                            <mdq:measureDescription>
+                              <gco:CharacterString>Horizontal coverage extent of product (eg : surface of the Mediterranean Sea)</gco:CharacterString>
+                            </mdq:measureDescription>
+                          </mdq:DQ_MeasureReference>
+                        </mdq:measure>
+                        <mdq:result>
+                          <mdq:DQ_QuantitativeResult>
+                            <mdq:dateTime>
+                              <gco:Date/>
+                            </mdq:dateTime>
+                            <mdq:value>
+                              <gco:Record></gco:Record>
+                            </mdq:value>
+                            <mdq:valueUnit>
+                              <gml:UnitDefinition gml:id="">
+                                <gml:identifier codeSpace="">km**2</gml:identifier>
+                              </gml:UnitDefinition>
+                            </mdq:valueUnit>
+                            <mdq:valueRecordType>
+                              <gco:RecordType>Real</gco:RecordType>
+                            </mdq:valueRecordType>
+                          </mdq:DQ_QuantitativeResult>
+                        </mdq:result>
+                      </mdq:DQ_CompletenessOmission>
+                    </mdq:report>
+                    <mdq:report>
+                      <mdq:DQ_CompletenessOmission>
+                        <mdq:measure>
+                          <mdq:DQ_MeasureReference>
+                            <mdq:measureIdentification>
+                              <mcc:MD_Identifier>
+                                <mcc:code>
+                                  <gco:CharacterString>AP.1.2</gco:CharacterString>
+                                </mcc:code>
+                              </mcc:MD_Identifier>
+                            </mdq:measureIdentification>
+                            <mdq:nameOfMeasure>
+                              <gco:CharacterString>Vertical Spatial Coverage</gco:CharacterString>
+                            </mdq:nameOfMeasure>
+                            <mdq:measureDescription>
+                              <gco:CharacterString>Vertical coverage extent of product</gco:CharacterString>
+                            </mdq:measureDescription>
+                          </mdq:DQ_MeasureReference>
+                        </mdq:measure>
+                        <mdq:result>
+                          <mdq:DQ_QuantitativeResult>
+                            <mdq:dateTime>
+                              <gco:Date/>
+                            </mdq:dateTime>
+                            <mdq:value>
+                              <gco:Record></gco:Record>
+                            </mdq:value>
+                            <mdq:valueUnit>
+                              <gml:UnitDefinition gml:id="">
+                                <gml:identifier codeSpace="">meters</gml:identifier>
+                              </gml:UnitDefinition>
+                            </mdq:valueUnit>
+                            <mdq:valueRecordType>
+                              <gco:RecordType>Real</gco:RecordType>
+                            </mdq:valueRecordType>
+                          </mdq:DQ_QuantitativeResult>
+                        </mdq:result>
+                      </mdq:DQ_CompletenessOmission>
+                    </mdq:report>
+                    <mdq:report>
+                      <mdq:DQ_CompletenessOmission>
+                        <mdq:measure>
+                          <mdq:DQ_MeasureReference>
+                            <mdq:measureIdentification>
+                              <mcc:MD_Identifier>
+                                <mcc:code>
+                                  <gco:CharacterString>AP.1.3</gco:CharacterString>
+                                </mcc:code>
+                              </mcc:MD_Identifier>
+                            </mdq:measureIdentification>
+                            <mdq:nameOfMeasure>
+                              <gco:CharacterString>Temporal Coverage</gco:CharacterString>
+                            </mdq:nameOfMeasure>
+                            <mdq:measureDescription>
+                              <gco:CharacterString>Temporal coverage extent of product</gco:CharacterString>
+                            </mdq:measureDescription>
+                          </mdq:DQ_MeasureReference>
+                        </mdq:measure>
+                        <mdq:result>
+                          <mdq:DQ_QuantitativeResult>
+                            <mdq:dateTime>
+                              <gco:Date/>
+                            </mdq:dateTime>
+                            <mdq:value>
+                              <gco:Record/>
+                            </mdq:value>
+                            <mdq:valueUnit>
+                              <gml:UnitDefinition gml:id="">
+                                <gml:identifier codeSpace="">days</gml:identifier>
+                              </gml:UnitDefinition>
+                            </mdq:valueUnit>
+                            <mdq:valueRecordType>
+                              <gco:RecordType>Integer</gco:RecordType>
+                            </mdq:valueRecordType>
+                          </mdq:DQ_QuantitativeResult>
+                        </mdq:result>
+                      </mdq:DQ_CompletenessOmission>
+                    </mdq:report>
+                    <mdq:report>
+                      <mdq:DQ_ConceptualConsistency>
+                        <mdq:measure>
+                          <mdq:DQ_MeasureReference>
+                            <mdq:measureIdentification>
+                              <mcc:MD_Identifier>
+                                <mcc:code>
+                                  <gco:CharacterString>AP.2.1</gco:CharacterString>
+                                </mcc:code>
+                              </mcc:MD_Identifier>
+                            </mdq:measureIdentification>
+                            <mdq:nameOfMeasure>
+                              <gco:CharacterString>Number of Characteristics</gco:CharacterString>
+                            </mdq:nameOfMeasure>
+                            <mdq:measureDescription>
+                              <gco:CharacterString>Number of characteristics in product</gco:CharacterString>
+                            </mdq:measureDescription>
+                          </mdq:DQ_MeasureReference>
+                        </mdq:measure>
+                        <mdq:result>
+                          <mdq:DQ_QuantitativeResult>
+                            <mdq:dateTime>
+                              <gco:Date/>
+                            </mdq:dateTime>
+                            <mdq:value>
+                              <gco:Record/>
+                            </mdq:value>
+                            <mdq:valueRecordType>
+                              <gco:RecordType>Integer</gco:RecordType>
+                            </mdq:valueRecordType>
+                          </mdq:DQ_QuantitativeResult>
+                        </mdq:result>
+                      </mdq:DQ_ConceptualConsistency>
+                    </mdq:report>
+                    <mdq:report>
+                      <mdq:DQ_ThematicClassificationCorrectness>
+                        <mdq:measure>
+                          <mdq:DQ_MeasureReference>
+                            <mdq:measureIdentification>
+                              <mcc:MD_Identifier>
+                                <mcc:code>
+                                  <gco:CharacterString>AP.3.1</gco:CharacterString>
+                                </mcc:code>
+                              </mcc:MD_Identifier>
+                            </mdq:measureIdentification>
+                            <mdq:nameOfMeasure>
+                              <gco:CharacterString>Horizontal resolution</gco:CharacterString>
+                            </mdq:nameOfMeasure>
+                            <mdq:measureDescription>
+                              <gco:CharacterString>Horizontal mesh size or equivalent value for the given scale of product (eg 50m for 1/50 000)</gco:CharacterString>
+                            </mdq:measureDescription>
+                          </mdq:DQ_MeasureReference>
+                        </mdq:measure>
+                        <mdq:result>
+                          <mdq:DQ_QuantitativeResult>
+                            <mdq:value>
+                              <gco:Record/>
+                            </mdq:value>
+                            <mdq:valueUnit>
+                              <gml:UnitDefinition gml:id="">
+                                <gml:identifier codeSpace="">meters</gml:identifier>
+                              </gml:UnitDefinition>
+                            </mdq:valueUnit>
+                            <mdq:valueRecordType>
+                              <gco:RecordType>Integer</gco:RecordType>
+                            </mdq:valueRecordType>
+                          </mdq:DQ_QuantitativeResult>
+                        </mdq:result>
+                      </mdq:DQ_ThematicClassificationCorrectness>
+                    </mdq:report>
+                    <mdq:report>
+                      <mdq:DQ_ThematicClassificationCorrectness>
+                        <mdq:measure>
+                          <mdq:DQ_MeasureReference>
+                            <mdq:measureIdentification>
+                              <mcc:MD_Identifier>
+                                <mcc:code>
+                                  <gco:CharacterString>AP.3.2</gco:CharacterString>
+                                </mcc:code>
+                              </mcc:MD_Identifier>
+                            </mdq:measureIdentification>
+                            <mdq:nameOfMeasure>
+                              <gco:CharacterString>Vertical resolution</gco:CharacterString>
+                            </mdq:nameOfMeasure>
+                            <mdq:measureDescription>
+                              <gco:CharacterString>Average vertical sampling  and description of specific vertical sampling schema (100 words max)</gco:CharacterString>
+                            </mdq:measureDescription>
+                          </mdq:DQ_MeasureReference>
+                        </mdq:measure>
+                        <mdq:result>
+                          <mdq:DQ_QuantitativeResult>
+                            <mdq:dateTime>
+                              <gco:Date/>
+                            </mdq:dateTime>
+                            <mdq:value>
+                              <gco:Record/>
+                            </mdq:value>
+                            <mdq:valueUnit>
+                              <gml:UnitDefinition gml:id="">
+                                <gml:identifier codeSpace="">%</gml:identifier>
+                              </gml:UnitDefinition>
+                            </mdq:valueUnit>
+                            <mdq:valueRecordType>
+                              <gco:RecordType>Percentage</gco:RecordType>
+                            </mdq:valueRecordType>
+                          </mdq:DQ_QuantitativeResult>
+                        </mdq:result>
+                        <mdq:result>
+                          <mdq:DQ_DescriptiveResult>
+                            <mdq:dateTime>
+                              <gco:Date/>
+                            </mdq:dateTime>
+                            <mdq:statement gco:nilReason="missing">
+                              <gco:CharacterString/>
+                            </mdq:statement>
+                          </mdq:DQ_DescriptiveResult>
+                        </mdq:result>
+                      </mdq:DQ_ThematicClassificationCorrectness>
+                    </mdq:report>
+                    <mdq:report>
+                      <mdq:DQ_ThematicClassificationCorrectness>
+                        <mdq:measure>
+                          <mdq:DQ_MeasureReference>
+                            <mdq:measureIdentification>
+                              <mcc:MD_Identifier>
+                                <mcc:code>
+                                  <gco:CharacterString>AP.3.3</gco:CharacterString>
+                                </mcc:code>
+                              </mcc:MD_Identifier>
+                            </mdq:measureIdentification>
+                            <mdq:nameOfMeasure>
+                              <gco:CharacterString>Temporal resolution</gco:CharacterString>
+                            </mdq:nameOfMeasure>
+                            <mdq:measureDescription>
+                              <gco:CharacterString>Temporal sampling interval of product</gco:CharacterString>
+                            </mdq:measureDescription>
+                          </mdq:DQ_MeasureReference>
+                        </mdq:measure>
+                        <mdq:result>
+                          <mdq:DQ_QuantitativeResult>
+                            <mdq:dateTime>
+                              <gco:Date/>
+                            </mdq:dateTime>
+                            <mdq:value>
+                              <gco:Record/>
+                            </mdq:value>
+                            <mdq:valueUnit>
+                              <gml:UnitDefinition gml:id="">
+                                <gml:identifier codeSpace="">days</gml:identifier>
+                              </gml:UnitDefinition>
+                            </mdq:valueUnit>
+                            <mdq:valueRecordType>
+                              <gco:RecordType>Real</gco:RecordType>
+                            </mdq:valueRecordType>
+                          </mdq:DQ_QuantitativeResult>
+                        </mdq:result>
+                      </mdq:DQ_ThematicClassificationCorrectness>
+                    </mdq:report>
+                    <mdq:report>
+                      <mdq:DQ_QuantitativeAttributeAccuracy>
+                        <mdq:measure>
+                          <mdq:DQ_MeasureReference>
+                            <mdq:measureIdentification>
+                              <mcc:MD_Identifier>
+                                <mcc:code>
+                                  <gco:CharacterString>AP.3.4</gco:CharacterString>
+                                </mcc:code>
+                              </mcc:MD_Identifier>
+                            </mdq:measureIdentification>
+                            <mdq:nameOfMeasure>
+                              <gco:CharacterString>Thematic accuracy</gco:CharacterString>
+                            </mdq:nameOfMeasure>
+                            <mdq:measureDescription>
+                              <gco:CharacterString>Percentage error of the product and description of  error concept for the product (100 words max) provided by expert</gco:CharacterString>
+                            </mdq:measureDescription>
+                          </mdq:DQ_MeasureReference>
+                        </mdq:measure>
+                        <mdq:result>
+                          <mdq:DQ_QuantitativeResult>
+                            <mdq:dateTime>
+                              <gco:Date/>
+                            </mdq:dateTime>
+                            <mdq:value>
+                              <gco:Record/>
+                            </mdq:value>
+                            <mdq:valueUnit>
+                              <gml:UnitDefinition gml:id="">
+                                <gml:identifier codeSpace="">%</gml:identifier>
+                              </gml:UnitDefinition>
+                            </mdq:valueUnit>
+                            <mdq:valueRecordType>
+                              <gco:RecordType>Percentage</gco:RecordType>
+                            </mdq:valueRecordType>
+                          </mdq:DQ_QuantitativeResult>
+                        </mdq:result>
+                        <mdq:result>
+                          <mdq:DQ_DescriptiveResult>
+                            <mdq:statement gco:nilReason="missing">
+                              <gco:CharacterString/>
+                            </mdq:statement>
+                          </mdq:DQ_DescriptiveResult>
+                        </mdq:result>
+                      </mdq:DQ_QuantitativeAttributeAccuracy>
+                    </mdq:report>
+                    <mdq:report>
+                      <mdq:DQ_TemporalValidity>
+                        <mdq:measure>
+                          <mdq:DQ_MeasureReference>
+                            <mdq:measureIdentification>
+                              <mcc:MD_Identifier>
+                                <mcc:code>
+                                  <gco:CharacterString>AP4.1</gco:CharacterString>
+                                </mcc:code>
+                              </mcc:MD_Identifier>
+                            </mdq:measureIdentification>
+                            <mdq:nameOfMeasure>
+                              <gco:CharacterString>Temporal validity</gco:CharacterString>
+                            </mdq:nameOfMeasure>
+                            <mdq:measureDescription>
+                              <gco:CharacterString>Max elapsed time between last input data records  update and product creation date</gco:CharacterString>
+                            </mdq:measureDescription>
+                          </mdq:DQ_MeasureReference>
+                        </mdq:measure>
+                        <mdq:result>
+                          <mdq:DQ_QuantitativeResult>
+                            <mdq:value>
+                              <gco:Record/>
+                            </mdq:value>
+                            <mdq:valueUnit>
+                              <gml:UnitDefinition gml:id="">
+                                <gml:identifier codeSpace="">days</gml:identifier>
+                              </gml:UnitDefinition>
+                            </mdq:valueUnit>
+                            <mdq:valueRecordType>
+                              <gco:RecordType>Integer</gco:RecordType>
+                            </mdq:valueRecordType>
+                          </mdq:DQ_QuantitativeResult>
+                        </mdq:result>
+                      </mdq:DQ_TemporalValidity>
+                    </mdq:report>
+                  </mdq:DQ_DataQuality>
+                </mdb:dataQualityInfo>
+              </snippet>
+            </template>
+          </action>
+
         </section>
       </tab>
     </view>
