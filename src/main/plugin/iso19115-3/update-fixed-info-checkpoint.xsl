@@ -23,6 +23,56 @@
   <xsl:variable name="componentScopeCode" select="'datasetComponent'"/>
   <xsl:variable name="componentCodeSeparator" select="'/CP#'"/>
 
+
+
+
+  <!-- Compute title and identifier as "P02 - P01 - Dataprovider - Datasetname" -->
+  <xsl:template
+    match="mdb:MD_Metadata[
+                    contains(mdb:metadataStandard/
+                                        */cit:title/gco:CharacterString, 'Emodnet Checkpoint')]/
+                      mdb:identificationInfo/*/mri:citation/cit:CI_Citation/
+                        cit:title/gco:CharacterString|
+                  mdb:MD_Metadata[
+                    contains(mdb:metadataStandard/
+                                        */cit:title/gco:CharacterString, 'Emodnet Checkpoint')]/
+                      mdb:identificationInfo/*/mri:citation/cit:CI_Citation/
+                        cit:identifier/mcc:MD_Identifier/
+                          mcc:code/gco:CharacterString"
+    priority="200">
+    <!-- String join in case of multiple but this should not happen -->
+    <xsl:variable name="p02" select="string-join(ancestor::mdb:MD_Metadata/mdb:identificationInfo/*/
+                    mri:descriptiveKeywords
+                    [contains(*/mri:thesaurusName/cit:CI_Citation/cit:identifier/*/mcc:code/*/text(),
+                    'NVS.P02')]/*/mri:keyword/*, ' | ')"/>
+
+
+    <xsl:variable name="P01" select="string-join(ancestor::mdb:MD_Metadata/mdb:identificationInfo/*/
+                    mri:descriptiveKeywords
+                    [contains(*/mri:thesaurusName/cit:CI_Citation/cit:identifier/*/mcc:code/*/text(),
+                    'parameter.NVS.P01')]/*/mri:keyword/*, ' | ')"/>
+    <xsl:variable name="otherP01" select="string-join(ancestor::mdb:MD_Metadata/mdb:identificationInfo/*/
+                      mri:descriptiveKeywords/*
+                      [contains(mri:thesaurusName/cit:CI_Citation/cit:title/gco:CharacterString,
+                      'Parameter Usage Vocabulary (other)')]/mri:keyword/*, ' | ')"/>
+    <xsl:variable name="tokenP01"
+                  select="if ($P01 = '') then $otherP01 else $P01"/>
+
+    <xsl:variable name="edmoProvider" select="ancestor::mdb:MD_Metadata/mdb:identificationInfo/*/mri:pointOfContact[*/cit:role/*/@codeListValue='edmo']/*/cit:party/*/cit:name/gco:CharacterString"/>
+
+
+    <xsl:variable name="dataSetName" select="ancestor::mdb:MD_Metadata/mdb:identificationInfo/*/mri:citation/*/cit:alternateTitle[1]/gco:CharacterString"/>
+
+    <xsl:copy>
+      <xsl:value-of select="concat($p02, ' | ', $tokenP01, ' | ', $edmoProvider[1], ' | ', $dataSetName)"/>
+    </xsl:copy>
+  </xsl:template>
+
+
+
+
+
+
   <!-- Component / Set UUID if empty or not starting with DPS UUID.
 
   Component UUID is based on DPS UUID + DQ position.
@@ -42,6 +92,25 @@
       </mdq:DQ_DataQuality>
     </xsl:copy>
   </xsl:template>
+
+
+  <!-- When creating a component, the extent is based
+       on the extent of the DPS. -->
+  <xsl:template match="mdb:dataQualityInfo[
+                          */mdq:scope/*/mcc:level/*/@codeListValue = $componentScopeCode
+                          and (
+                            not(*/@uuid) or */@uuid = '' or not(starts-with(*/@uuid, /root/env/uuid)))
+                            ]/*/mdq:scope/*[not(mcc:extent)]">
+    <xsl:copy copy-namespaces="no">
+      <xsl:copy-of select="@*"/>
+      <xsl:apply-templates select="mcc:level"/>
+      <xsl:apply-templates select="mcc:levelDescription"/>
+      <mcc:extent>
+        <xsl:copy-of select="ancestor::mdb:MD_Metadata/mdb:identificationInfo/*/mri:extent[1]/*"/>
+      </mcc:extent>
+    </xsl:copy>
+  </xsl:template>
+
 
   <!-- Component / Set date of each measure if empty
 

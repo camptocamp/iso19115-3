@@ -1697,46 +1697,7 @@
                             </mcc:other>
                           </mcc:MD_ScopeDescription>
                         </mcc:levelDescription>
-                        <mcc:extent>
-                          <gex:EX_Extent>
-                            <gex:geographicElement>
-                              <gex:EX_GeographicBoundingBox>
-                                <gex:westBoundLongitude>
-                                  <gco:Decimal/>
-                                </gex:westBoundLongitude>
-                                <gex:eastBoundLongitude>
-                                  <gco:Decimal/>
-                                </gex:eastBoundLongitude>
-                                <gex:southBoundLatitude>
-                                  <gco:Decimal/>
-                                </gex:southBoundLatitude>
-                                <gex:northBoundLatitude>
-                                  <gco:Decimal/>
-                                </gex:northBoundLatitude>
-                              </gex:EX_GeographicBoundingBox>
-                            </gex:geographicElement>
-                            <gex:temporalElement>
-                              <gex:EX_TemporalExtent>
-                                <gex:extent>
-                                  <gml:TimePeriod gml:id="">
-                                    <gml:beginPosition/>
-                                    <gml:endPosition/>
-                                  </gml:TimePeriod>
-                                </gex:extent>
-                              </gex:EX_TemporalExtent>
-                            </gex:temporalElement>
-                            <gex:verticalElement>
-                              <gex:EX_VerticalExtent>
-                                <gex:minimumValue>
-                                  <gco:Real/>
-                                </gex:minimumValue>
-                                <gex:maximumValue>
-                                  <gco:Real/>
-                                </gex:maximumValue>
-                              </gex:EX_VerticalExtent>
-                            </gex:verticalElement>
-                          </gex:EX_Extent>
-                        </mcc:extent>
+                        <!-- Extent is copied from the DPS extent -->
                       </mcc:MD_Scope>
                     </mdq:scope>
                     <mdq:report>
