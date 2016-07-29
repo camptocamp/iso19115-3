@@ -47,16 +47,21 @@
   <endPosition>End</endPosition>
   <medsea>Emodnet Checkpoint</medsea>
   <checkpoint-dps>Emodnet Checkpoint data product specification</checkpoint-dps>
-  <checkpoint-dps-characteristics>Characteristics</checkpoint-dps-characteristics>
+  <checkpoint-dps-characteristics>DPS Characteristics</checkpoint-dps-characteristics>
   <checkpoint-dps-add-component>Add component</checkpoint-dps-add-component>
+  <checkpoint-dps-component>Component</checkpoint-dps-component>
   <checkpoint-dps-component-name>Name</checkpoint-dps-component-name>
   <checkpoint-dps-component-description>Description</checkpoint-dps-component-description>
   <checkpoint-dps-component-details>Details</checkpoint-dps-component-details>
   <checkpoint-dps-main>Identification</checkpoint-dps-main>
   <checkpoint-dps-spatial>Spatial info. and format</checkpoint-dps-spatial>
+  <checkpoint-dps-dq>Components &amp; quality measures</checkpoint-dps-dq>
   <checkpoint-deliverable>Deliverable identifier</checkpoint-deliverable>
-  <checkpoint-dq>Components &amp; quality measures</checkpoint-dq>
-  <medsea-targeted-product>Emodnet Checkpoint targeted product</medsea-targeted-product>
+  <checkpoint-tdp>Emodnet Checkpoint targeted product</checkpoint-tdp>
+  <checkpoint-tdp-characteristics>TDP Characteristics</checkpoint-tdp-characteristics>
+  <checkpoint-tdp-main>Identification</checkpoint-tdp-main>
+  <checkpoint-tdp-qm>Components &amp; quality measures</checkpoint-tdp-qm>
+  <checkpoint-ud-qm>Q. measures, Q. errors &amp; Fitness for use</checkpoint-ud-qm>
   <medsea-metadata>Metadata information</medsea-metadata>
   <medsea-metadata-tp>Identification</medsea-metadata-tp>
   <medsea-dq>Quality</medsea-dq>
