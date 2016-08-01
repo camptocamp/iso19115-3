@@ -23,7 +23,7 @@
                 xmlns:gcx="http://standards.iso.org/iso/19115/-3/gcx/1.0"
                 xmlns:gex="http://standards.iso.org/iso/19115/-3/gex/1.0"
                 xmlns:gfc="http://standards.iso.org/iso/19110/gfc/1.1"
-                xmlns:tr="java:org.fao.geonet.services.metadata.format.SchemaLocalizations"
+                xmlns:tr="java:org.fao.geonet.api.records.formatters.SchemaLocalizations"
                 xmlns:gn-fn-render="http://geonetwork-opensource.org/xsl/functions/render"
                 xmlns:gn-fn-metadata="http://geonetwork-opensource.org/xsl/functions/metadata"
                 xmlns:saxon="http://saxon.sf.net/"
@@ -185,11 +185,12 @@
   <xsl:template mode="render-field"
                 match="*[cit:CI_Responsibility]"
                 priority="100">
+
     <xsl:variable name="email">
-      <xsl:for-each select="**/cit:party/*/cit:contactInfo/
-                                      */cit:address/*/cit:electronicMailAddress">
-        <xsl:apply-templates mode="render-value"
-                             select="."/><xsl:if test="position() != last()">, </xsl:if>
+      <xsl:for-each select="*/cit:party/*/cit:contactInfo/
+                                      */cit:address/*/cit:electronicMailAddress[not(gco:nilReason)]">
+        <xsl:apply-templates mode="render-value" select="."/>
+        <xsl:if test="position() != last()">, </xsl:if>
       </xsl:for-each>
     </xsl:variable>
 
