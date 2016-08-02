@@ -80,7 +80,7 @@
       </cit:dateType>
     </cit:CI_Date>
   </mdb:dateInfo>
-  <mdb:metadataStandard xmlns:gfc="http://standards.iso.org/iso/19110/gfc/1.1">
+  <mdb:metadataStandard>
     <cit:CI_Citation>
       <cit:title>
         <gco:CharacterString>ISO 19115-3 / Emodnet Checkpoint - Targeted Data Product</gco:CharacterString>

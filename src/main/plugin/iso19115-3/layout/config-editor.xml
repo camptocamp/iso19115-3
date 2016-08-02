@@ -2083,7 +2083,7 @@
         <thesaurus key="local.theme.emodnet-checkpoint.visibility" maxtags="1"/>
         <thesaurus key="local.theme.emodnet-checkpoint.policy.visibility" maxtags="1"/>
         <thesaurus key="external.theme.inspire-theme" maxtags="1"/>
-        <thesaurus key="local.theme.emodnet-checkpoint.level.of.characteristics" maxtags="1"/>
+        <thesaurus key="local.theme.emodbnet-checkpoint.level.of.characteristics" maxtags="1"/>
         <thesaurus key="local.theme.emodnet-checkpoint.production.mode" maxtags="1"/>
         <thesaurus key="local.theme.emodnet-checkpoint.readyness" maxtags="1"/>
         <thesaurus key="local.theme.emodnet-checkpoint.data.delivery.mechanism" maxtags="1"/>
@@ -2450,17 +2450,30 @@
 
       <tab id="checkpoint-tdp-qm" mode="flat">
         <section>
+          <!-- If no DPS associated, warn user to choose one first. -->
+          <text ref="checkpoint-linkToSpecification-help"
+                if="count(//mri:associatedResource/*/mri:initiativeType/*[@codeListValue = 'specification']) = 0"
+          />
+          <action type="associatedResource"
+                  name="checkpoint-linkToSpecification"
+                  if="count(//mri:associatedResource/*/mri:initiativeType/*[@codeListValue = 'specification']) = 0"
+                  process="sibling"/>
+
+          <!-- Then user can pick up one component from the DPS. -->
+          <action type="add"
+                  name="checkpoint-tdp-add-component"
+                  or="dataQualityInfo"
+                  in="/mdb:MD_Metadata"
+                  addDirective="data-gn-record-fragment-selector">
+            <directiveAttributes data-source-records="xpath::string-join(
+              //mri:associatedResource/*[mri:initiativeType/*/@codeListValue = 'specification']
+                /mri:metadataReference/@uuidref, ',')"/>
+          </action>
+
+          <!-- Then user can encode QM values. -->
           <xsl xpath="/mdb:MD_Metadata/mdb:dataQualityInfo"
                or="report"
                mode="iso19115-3-qm"/>
-
-
-          <action type="add"
-                  btnLabel="checkpoint-tdp-add-component"
-                  name="dataQualityInfo" or="dataQualityInfo"
-                  in="/mdb:MD_Metadata">
-            <!-- TODO: Choose a component from a spec -->
-          </action>
 
         </section>
       </tab>

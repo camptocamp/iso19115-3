@@ -24,10 +24,16 @@
   <xsl:template name="iso19115-3-qm">
     <xsl:param name="config" as="node()?"/>
 
+    <xsl:variable name="isTdp"
+                  select="count(
+                            $metadata/mdb:metadataStandard/*/cit:title/*[text() =
+                              'ISO 19115-3 / Emodnet Checkpoint - Targeted Data Product']
+                          ) = 1"/>
+
     <!-- Component is in a section -->
     <xsl:call-template name="render-boxed-element">
       <xsl:with-param name="label"
-                      select="concat($strings/checkpoint-dps-component, ' #', position())"/>
+                      select="concat($strings/checkpoint-dps-component, ' ', */@uuid[contains(., '/CP')])"/>
       <xsl:with-param name="editInfo" select="gn:element"/>
       <xsl:with-param name="cls" select="local-name()"/>
       <!--<xsl:with-param name="attributesSnippet" select="$attributes"/>-->
@@ -36,20 +42,25 @@
 
         <!-- Component description -->
         <xsl:for-each select="*/mdq:scope">
+          <!-- TODO: In TDP do no display/or readonly component details ? -->
+
           <!-- Think to bypass choice element MD_ScopeDescription_TypeCHOICE_ELEMENT0 using // -->
           <xsl:apply-templates mode="mode-iso19115-3"
                                select="*/mcc:levelDescription[1]//mcc:other">
             <xsl:with-param name="overrideLabel" select="$strings/checkpoint-dps-component-name"/>
+            <xsl:with-param name="isDisabled" select="$isTdp"/>
           </xsl:apply-templates>
+
           <xsl:apply-templates mode="mode-iso19115-3"
                                select="*/mcc:levelDescription[2]//mcc:other">
             <xsl:with-param name="overrideLabel" select="$strings/checkpoint-dps-component-description"/>
+            <xsl:with-param name="isDisabled" select="$isTdp"/>
           </xsl:apply-templates>
           <xsl:apply-templates mode="mode-iso19115-3"
                                select="*/mcc:levelDescription[3]//mcc:other">
             <xsl:with-param name="overrideLabel" select="$strings/checkpoint-dps-component-details"/>
+            <xsl:with-param name="isDisabled" select="$isTdp"/>
           </xsl:apply-templates>
-
 
           <xsl:apply-templates mode="mode-iso19115-3" select="*/mcc:extent"/>
 

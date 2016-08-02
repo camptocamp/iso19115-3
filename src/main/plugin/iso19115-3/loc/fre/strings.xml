@@ -49,6 +49,7 @@
   <checkpoint-dps>Emodnet Checkpoint data product specification</checkpoint-dps>
   <checkpoint-dps-characteristics>DPS Characteristics</checkpoint-dps-characteristics>
   <checkpoint-dps-add-component>Add component</checkpoint-dps-add-component>
+  <checkpoint-tdp-add-component>Choose a DPS and then a component</checkpoint-tdp-add-component>
   <checkpoint-dps-component>Component</checkpoint-dps-component>
   <checkpoint-dps-component-name>Name</checkpoint-dps-component-name>
   <checkpoint-dps-component-description>Description</checkpoint-dps-component-description>

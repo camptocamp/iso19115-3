@@ -151,6 +151,7 @@
     <xsl:param name="schema" select="$schema" required="no"/>
     <xsl:param name="labels" select="$labels" required="no"/>
     <xsl:param name="overrideLabel" select="''" required="no"/>
+    <xsl:param name="isDisabled" required="no"/>
     <xsl:param name="refToDelete" select="''" required="no"/>
 
     <xsl:variable name="elementName" select="name()"/>
@@ -307,11 +308,11 @@
       <xsl:with-param name="name" select="if ($isEditing) then $theElement/gn:element/@ref else ''"/>
       <xsl:with-param name="editInfo" select="$theElement/gn:element"/>
       <xsl:with-param name="parentEditInfo" select="if (exists($refToDelete)) then $refToDelete else gn:element"/>
-      <!-- TODO: Handle conditional helper -->
       <xsl:with-param name="listOfValues" select="$helper"/>
       <xsl:with-param name="toggleLang" select="$isMultilingualElementExpanded"/>
       <xsl:with-param name="forceDisplayAttributes" select="$forceDisplayAttributes"/>
       <xsl:with-param name="isFirst" select="count(preceding-sibling::*[name() = $elementName]) = 0"/>
+      <xsl:with-param name="isDisabled" select="$isDisabled"/>
     </xsl:call-template>
   </xsl:template>
 

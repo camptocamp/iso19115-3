@@ -75,12 +75,18 @@
 
   <!-- Component / Set UUID if empty or not starting with DPS UUID.
 
+  Do not apply this rule to TDP or UD as we need to preserve component UUID
+  from DPS to TDP and UD.
+
   Component UUID is based on DPS UUID + DQ position.
   -->
-  <xsl:template match="mdb:dataQualityInfo[
-                          */mdq:scope/*/mcc:level/*/@codeListValue = $componentScopeCode
-                          and (
-                            not(*/@uuid) or */@uuid = '' or not(starts-with(*/@uuid, /root/env/uuid)))
+  <xsl:template match="mdb:MD_Metadata[
+                          contains(mdb:metadataStandard/*/cit:title/gco:CharacterString,
+                                  'Emodnet Checkpoint - Data Product Specification')]
+                          /mdb:dataQualityInfo[
+                            */mdq:scope/*/mcc:level/*/@codeListValue = $componentScopeCode
+                            and (
+                              not(*/@uuid) or */@uuid = '' or not(starts-with(*/@uuid, /root/env/uuid)))
                             ]">
     <xsl:copy copy-namespaces="no">
       <xsl:copy-of select="@*"/>
