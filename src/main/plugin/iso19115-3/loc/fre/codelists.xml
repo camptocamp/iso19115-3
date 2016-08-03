@@ -491,15 +491,15 @@
         l’utilisation de la ressource
       </description>
     </entry>
-    <entry> 
-      <code>edmerp</code> 
-      <label>Program name/project name (EDMERP)</label> 
-      <description></description> 
-    </entry> 
-    <entry> 
-      <code>edmo</code> 
-      <label>Data provider (EDMO)</label> 
-      <description></description> 
+    <entry>
+      <code>edmerp</code>
+      <label>Program name/project name (EDMERP)</label>
+      <description></description>
+    </entry>
+    <entry>
+      <code>edmo</code>
+      <label>Data provider (EDMO)</label>
+      <description></description>
     </entry>
   </codelist>
   <codelist name="mdq:DQ_EvaluationMethodTypeCode">
@@ -606,7 +606,7 @@
       <description>Data product specification</description>
     </entry>
     <entry>
-      <code>targetDataProduct</code>
+      <code>targetedDataProduct</code>
       <label>Targeted data product</label>
       <description>Targeted data product</description>
     </entry>

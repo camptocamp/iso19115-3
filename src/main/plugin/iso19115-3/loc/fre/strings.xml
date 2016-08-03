@@ -40,7 +40,6 @@
 
 
 
-  <!-- Medsea-->
   <edmo>EDMO</edmo>
   <edmerp>EDMERP</edmerp>
   <beginPosition>Begin</beginPosition>
@@ -50,6 +49,7 @@
   <checkpoint-dps-characteristics>DPS Characteristics</checkpoint-dps-characteristics>
   <checkpoint-dps-add-component>Add component</checkpoint-dps-add-component>
   <checkpoint-tdp-add-component>Choose a DPS and then a component</checkpoint-tdp-add-component>
+  <checkpoint-ud-add-component>Choose a TDP and then a component</checkpoint-ud-add-component>
   <checkpoint-dps-component>Component</checkpoint-dps-component>
   <checkpoint-dps-component-name>Name</checkpoint-dps-component-name>
   <checkpoint-dps-component-description>Description</checkpoint-dps-component-description>
@@ -63,6 +63,30 @@
   <checkpoint-tdp-main>Identification</checkpoint-tdp-main>
   <checkpoint-tdp-qm>Components &amp; quality measures</checkpoint-tdp-qm>
   <checkpoint-ud-qm>Q. measures, Q. errors &amp; Fitness for use</checkpoint-ud-qm>
+  <checkpoint-linkToSpecification>Link to a specification</checkpoint-linkToSpecification>
+  <checkpoint-linkToSpecification-help>
+    <div class="row">
+      <div class="col-xs-offset-2 col-xs-8">
+        <p class="help-block">
+          To describe quality measures for this targeted data product,
+          you need to link it with a data specification. Once the specification
+          is associated, you can then select component to evaluate.
+        </p>
+      </div>
+    </div>
+  </checkpoint-linkToSpecification-help>
+  <checkpoint-linkToTargetedDataProduct>Link to a targeted data product</checkpoint-linkToTargetedDataProduct>
+  <checkpoint-linkToTargetedDataProduct-help>
+    <div class="row">
+      <div class="col-xs-offset-2 col-xs-8">
+        <p class="help-block">
+          To describe quality measures for this upstream data,
+          you need to link it with a targeted data product first. Once the product
+          is associated, you can then select component to evaluate.
+        </p>
+      </div>
+    </div>
+  </checkpoint-linkToTargetedDataProduct-help>
   <medsea-metadata>Metadata information</medsea-metadata>
   <medsea-metadata-tp>Identification</medsea-metadata-tp>
   <medsea-dq>Quality</medsea-dq>

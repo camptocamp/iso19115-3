@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-	
+
  * Hide in edit mode : If some codelist needs to be hidden
  in edit mode, the hideInEditMode attribute could be added
  to any entries.
- 
+
  eg.
 	<entry hideInEditMode="true">
-	
+
  This will restrict the number of available entries for end
  user editors and keep all records ISO compatible when using
  codelist (eg. harvested records could use codelist hidden
  in local node and needs to be displayed in view mode).
- 
+
  By default, this attribute is not used.
- 
+
  * editorMode attribute allows to configure the editor form field.
- 
+
  * - not set -: simple combo box
  * radio : radio button in one line
  * radio_linebreak : radio button with line break
  * radio_withdesc : radion button with line break and codelist entry description
  * select : select box with size set to the number of items if lower than 7 entries.
- 
+
 -->
 <codelists xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xmlns:cat="http://standards.iso.org/iso/19115/-3/cat/1.0"
@@ -500,15 +500,15 @@
         resource
       </description>
     </entry>
-    <entry> 
-      <code>edmerp</code> 
-      <label>Program name/project name (EDMERP)</label> 
-      <description></description> 
-    </entry> 
-    <entry> 
-      <code>edmo</code> 
-      <label>Data provider (EDMO)</label> 
-      <description></description> 
+    <entry>
+      <code>edmerp</code>
+      <label>Program name/project name (EDMERP)</label>
+      <description></description>
+    </entry>
+    <entry>
+      <code>edmo</code>
+      <label>Data provider (EDMO)</label>
+      <description></description>
     </entry>
   </codelist>
   <codelist name="mdq:DQ_EvaluationMethodTypeCode">
@@ -605,7 +605,7 @@
       <description>Data product specification</description>
     </entry>
     <entry>
-      <code>targetDataProduct</code>
+      <code>targetedDataProduct</code>
       <label>Targeted data product</label>
       <description>Targeted data product</description>
     </entry>

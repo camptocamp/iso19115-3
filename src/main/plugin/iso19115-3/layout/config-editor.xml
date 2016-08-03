@@ -1267,9 +1267,33 @@
       </tab>
       <tab id="checkpoint-ud-qm" mode="flat">
         <section>
+          <!-- If no TDP associated, warn user to choose one first. -->
+          <text ref="checkpoint-linkToTargetedDataProduct-help"
+                if="count(//mri:associatedResource/*/mri:initiativeType/*[@codeListValue = 'targetedDataProduct']) = 0"
+          />
+          <action type="associatedResource"
+                  name="checkpoint-linkToTargetedDataProduct"
+                  if="count(//mri:associatedResource/*/mri:initiativeType/*[@codeListValue = 'targetedDataProduct']) = 0"
+                  process="sibling"/>
+
+          <!-- Then user can pick up one component from the TDP. -->
+          <action type="add"
+                  name="checkpoint-ud-add-component"
+                  or="dataQualityInfo"
+                  in="/mdb:MD_Metadata"
+                  if="count(//mri:associatedResource/*/mri:initiativeType/*[@codeListValue = 'targetedDataProduct']) > 0"
+                  addDirective="data-gn-record-fragment-selector">
+            <directiveAttributes data-source-records="xpath::string-join(
+              //mri:associatedResource/*[mri:initiativeType/*/@codeListValue = 'targetedDataProduct']
+                /mri:metadataReference/@uuidref, ',')"/>
+          </action>
+
+          <!-- Then user can encode QM values. -->
           <xsl xpath="/mdb:MD_Metadata/mdb:dataQualityInfo"
                or="report"
                mode="iso19115-3-qm"/>
+
+          <!-- TODO: Compute QE and FU -->
         </section>
       </tab>
     </view>
@@ -2464,6 +2488,7 @@
                   name="checkpoint-tdp-add-component"
                   or="dataQualityInfo"
                   in="/mdb:MD_Metadata"
+                  if="count(//mri:associatedResource/*/mri:initiativeType/*[@codeListValue = 'specification']) > 0"
                   addDirective="data-gn-record-fragment-selector">
             <directiveAttributes data-source-records="xpath::string-join(
               //mri:associatedResource/*[mri:initiativeType/*/@codeListValue = 'specification']
