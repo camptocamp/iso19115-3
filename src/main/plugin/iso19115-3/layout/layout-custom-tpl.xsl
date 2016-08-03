@@ -27,7 +27,7 @@
     <xsl:variable name="isTdp"
                   select="count(
                             $metadata/mdb:metadataStandard/*/cit:title/*[text() =
-                              'ISO 19115-3 / Emodnet Checkpoint - Targeted Data Product']
+                              'ISO 19115-3 - Emodnet Checkpoint - Targeted Data Product']
                           ) = 1"/>
 
     <!-- Component is in a section -->

@@ -1294,6 +1294,11 @@
                mode="iso19115-3-qm"/>
 
           <!-- TODO: Compute QE and FU -->
+          <action type="process"
+                  process="checkpoint-compute-qe-fu"
+                  btnClass="fa fa-calculator"
+                  if="count(//mdb:dataQualityInfo) > 0"/>
+
         </section>
       </tab>
     </view>

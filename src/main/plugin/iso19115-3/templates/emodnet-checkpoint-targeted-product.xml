@@ -83,7 +83,7 @@
   <mdb:metadataStandard>
     <cit:CI_Citation>
       <cit:title>
-        <gco:CharacterString>ISO 19115-3 / Emodnet Checkpoint - Targeted Data Product</gco:CharacterString>
+        <gco:CharacterString>ISO 19115-3 - Emodnet Checkpoint - Targeted Data Product</gco:CharacterString>
       </cit:title>
     </cit:CI_Citation>
   </mdb:metadataStandard>

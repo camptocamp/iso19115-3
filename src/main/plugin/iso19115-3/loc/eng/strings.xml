@@ -90,6 +90,8 @@
       </div>
     </div>
   </checkpoint-linkToTargetedDataProduct-help>
+  <checkpoint-compute-qe-fu>Compute or update quality errors and fitness for use values</checkpoint-compute-qe-fu>
+  <checkpoint-compute-qe-fuHelp></checkpoint-compute-qe-fuHelp>
   <medsea-metadata>Metadata information</medsea-metadata>
   <medsea-metadata-tp>Identification</medsea-metadata-tp>
   <medsea-dq>Quality</medsea-dq>

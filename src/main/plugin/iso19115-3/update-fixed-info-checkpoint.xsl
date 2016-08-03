@@ -24,6 +24,24 @@
   <xsl:variable name="componentCodeSeparator" select="'/CP#'"/>
 
 
+  <xsl:variable name="isDps"
+                select="count(
+                            /root/mdb:MD_Metadata/mdb:metadataStandard/*/cit:title/*[text() =
+                              'ISO 19115-3 - Emodnet Checkpoint - Data Product Specification']
+                          ) = 1"/>
+
+  <xsl:variable name="isTdp"
+                select="count(
+                            /root/mdb:MD_Metadata/mdb:metadataStandard/*/cit:title/*[text() =
+                              'ISO 19115-3 - Emodnet Checkpoint - Targeted Data Product']
+                          ) = 1"/>
+
+  <xsl:variable name="isUd"
+                select="count(
+                            /root/mdb:MD_Metadata/mdb:metadataStandard/*/cit:title/*[text() =
+                              'ISO 19115-3 - Emodnet Checkpoint']
+                          ) = 1"/>
+
 
 
   <!-- Compute title and identifier as "P02 - P01 - Dataprovider - Datasetname" -->
@@ -80,9 +98,7 @@
 
   Component UUID is based on DPS UUID + DQ position.
   -->
-  <xsl:template match="mdb:MD_Metadata[
-                          contains(mdb:metadataStandard/*/cit:title/gco:CharacterString,
-                                  'Emodnet Checkpoint - Data Product Specification')]
+  <xsl:template match="mdb:MD_Metadata[$isDps]
                           /mdb:dataQualityInfo[
                             */mdq:scope/*/mcc:level/*/@codeListValue = $componentScopeCode
                             and (
@@ -103,6 +119,7 @@
   <!-- When creating a component, the extent is based
        on the extent of the DPS. -->
   <xsl:template match="mdb:dataQualityInfo[
+                          not($isUd) and
                           */mdq:scope/*/mcc:level/*/@codeListValue = $componentScopeCode
                           and (
                             not(*/@uuid) or */@uuid = '' or not(starts-with(*/@uuid, /root/env/uuid)))
@@ -124,4 +141,17 @@
    based on a template with empty dates, then dates are initialized
    to current date time.
    -->
+
+
+  <!-- Component in UD does not contains component details ie. only uuid and name. -->
+  <xsl:template match="mdb:MD_Metadata[$isUd]
+                          /mdb:dataQualityInfo/*/mdq:scope/*[
+                            mcc:level/*/@codeListValue = $componentScopeCode
+                            ]/mcc:levelDescription[position() > 1]|
+                       mdb:MD_Metadata[$isUd]
+                          /mdb:dataQualityInfo/*/mdq:scope/*[
+                            mcc:level/*/@codeListValue = $componentScopeCode
+                            ]/mcc:extent">
+  </xsl:template>
+
 </xsl:stylesheet>

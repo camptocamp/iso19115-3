@@ -83,7 +83,7 @@
   <mdb:metadataStandard xmlns:gfc="http://standards.iso.org/iso/19110/gfc/1.1">
     <cit:CI_Citation>
       <cit:title>
-        <gco:CharacterString>ISO 19115-3 / Emodnet Checkpoint - Data Product Specification</gco:CharacterString>
+        <gco:CharacterString>ISO 19115-3 - Emodnet Checkpoint - Data Product Specification</gco:CharacterString>
       </cit:title>
     </cit:CI_Citation>
   </mdb:metadataStandard>
