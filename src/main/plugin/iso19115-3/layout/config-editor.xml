@@ -1293,7 +1293,8 @@
                or="report"
                mode="iso19115-3-qm"/>
 
-          <!-- TODO: Compute QE and FU -->
+          <!-- Compute QE and FU -->
+          <!-- TODO: Only if component attached first -->
           <action type="process"
                   process="checkpoint-compute-qe-fu"
                   btnClass="fa fa-calculator"
@@ -2057,7 +2058,7 @@
                             <mdq:measureIdentification>
                               <mcc:MD_Identifier>
                                 <mcc:code>
-                                  <gco:CharacterString>AP4.1</gco:CharacterString>
+                                  <gco:CharacterString>AP.4.1</gco:CharacterString>
                                 </mcc:code>
                               </mcc:MD_Identifier>
                             </mdq:measureIdentification>
@@ -2505,6 +2506,11 @@
                or="report"
                mode="iso19115-3-qm"/>
 
+          <!-- Compute QE and FU -->
+          <action type="process"
+                  process="checkpoint-compute-qe-fu"
+                  btnClass="fa fa-calculator"
+                  if="count(//mdb:dataQualityInfo) > 0"/>
         </section>
       </tab>
     </view>

@@ -87,6 +87,11 @@
       </div>
     </div>
   </checkpoint-linkToTargetedDataProduct-help>
+  <checkpoint-compute-qe>Compute or update quality errors</checkpoint-compute-qe>
+  <checkpoint-compute-qe-fu>Compute or update quality errors and fitness for use values</checkpoint-compute-qe-fu>
+  <checkpoint-compute-qe-fuHelp></checkpoint-compute-qe-fuHelp>
+  <checkpoint-qe>Quality errors (%)</checkpoint-qe>
+  <checkpoint-fu>Fitness for use (%)</checkpoint-fu>
   <medsea-metadata>Metadata information</medsea-metadata>
   <medsea-metadata-tp>Identification</medsea-metadata-tp>
   <medsea-dq>Quality</medsea-dq>

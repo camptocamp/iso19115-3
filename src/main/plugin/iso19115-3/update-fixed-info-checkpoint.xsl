@@ -46,12 +46,12 @@
 
   <!-- Compute title and identifier as "P02 - P01 - Dataprovider - Datasetname" -->
   <xsl:template
-    match="mdb:MD_Metadata[
+    match="mdb:MD_Metadata[$isUd and
                     contains(mdb:metadataStandard/
                                         */cit:title/gco:CharacterString, 'Emodnet Checkpoint')]/
                       mdb:identificationInfo/*/mri:citation/cit:CI_Citation/
                         cit:title/gco:CharacterString|
-                  mdb:MD_Metadata[
+                  mdb:MD_Metadata[$isUd and
                     contains(mdb:metadataStandard/
                                         */cit:title/gco:CharacterString, 'Emodnet Checkpoint')]/
                       mdb:identificationInfo/*/mri:citation/cit:CI_Citation/
@@ -154,4 +154,7 @@
                             ]/mcc:extent">
   </xsl:template>
 
+
+
+  <!-- If a component is removed, remove also related QE or FU TODO -->
 </xsl:stylesheet>

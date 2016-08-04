@@ -2,19 +2,34 @@
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns:geonet="http://www.fao.org/geonetwork"
                 xmlns:java="java:org.fao.geonet.util.XslUtil"
+                xmlns:gml="http://www.opengis.net/gml/3.2"
+                xmlns:xs="http://www.w3.org/2001/XMLSchema"
                 xmlns:gco="http://standards.iso.org/iso/19115/-3/gco/1.0"
-                xmlns:gmx="http://www.isotc211.org/2005/gmx"
                 xmlns:mcc="http://standards.iso.org/iso/19115/-3/mcc/1.0"
                 xmlns:cit="http://standards.iso.org/iso/19115/-3/cit/1.0"
                 xmlns:mdb="http://standards.iso.org/iso/19115/-3/mdb/1.0"
                 xmlns:mdq="http://standards.iso.org/iso/19157/-2/mdq/1.0"
                 xmlns:mri="http://standards.iso.org/iso/19115/-3/mri/1.0"
+                xmlns:gn-fn-math="http://geonetwork-opensource.org/xsl/functions/math"
                 version="2.0" exclude-result-prefixes="#all">
 
   <xsl:param name="nodeUrl"/>
 
   <xsl:param name="debug" select="true()"/>
+
   <xsl:variable name="componentMatch" select="'.*/CP#[0-9]*$'"/>
+
+  <xsl:variable name="isTdp"
+                select="count(
+                            /mdb:MD_Metadata/mdb:metadataStandard/*/cit:title/*[text() =
+                              'ISO 19115-3 - Emodnet Checkpoint - Targeted Data Product']
+                          ) = 1"/>
+
+  <xsl:variable name="isUd"
+                select="count(
+                            /mdb:MD_Metadata/mdb:metadataStandard/*/cit:title/*[text() =
+                              'ISO 19115-3 - Emodnet Checkpoint']
+                          ) = 1"/>
 
   <xsl:template match="/mdb:MD_Metadata|*[@gco:isoType='mdb:MD_Metadata']">
     <xsl:copy>
@@ -43,21 +58,9 @@
            component details.
             -->
       <xsl:apply-templates select="mdb:dataQualityInfo[
-                                    count(*/mdq:scope/*/mcc:levelDescription) = 1 and
-                                    matches(*/@uuid, $componentMatch)]"/>
+                                    matches(*/@uuid, $componentMatch)
+                                    ]"/>
 
-
-      <xsl:variable name="isTdp"
-                    select="count(
-                            mdb:metadataStandard/*/cit:title/*[text() =
-                              'ISO 19115-3 - Emodnet Checkpoint - Targeted Data Product']
-                          ) = 1"/>
-
-      <xsl:variable name="isUd"
-                    select="count(
-                            mdb:metadataStandard/*/cit:title/*[text() =
-                              'ISO 19115-3 - Emodnet Checkpoint']
-                          ) = 1"/>
 
       <!-- For each component registered (and bypass QE or FU) -->
       <xsl:for-each select="mdb:dataQualityInfo/*[matches(@uuid, $componentMatch)]">
@@ -109,15 +112,250 @@
 
   <xsl:template name="compute-qe">
     <xsl:param name="dps" as="node()"/>
-    <xsl:message>Creating QE ...</xsl:message>
+
+    <xsl:variable name="cptId"
+                  select="@uuid"/>
+    <xsl:message>Creating QE for component <xsl:value-of select="$cptId"/> ...</xsl:message>
 
     <mdb:dataQualityInfo>
       <xsl:copy>
-        <xsl:attribute name="uuid" select="concat(@uuid, '#QE')"/>
-        <xsl:apply-templates select="*"/>
+        <xsl:attribute name="uuid" select="concat($cptId, '#QE')"/>
+        <xsl:apply-templates select="*" mode="qe">
+          <xsl:with-param name="cptId" select="$cptId"/>
+          <xsl:with-param name="dps" select="$dps"/>
+        </xsl:apply-templates>
       </xsl:copy>
     </mdb:dataQualityInfo>
   </xsl:template>
+
+
+
+
+  <xsl:variable name="qConfig" select="document('checkpoint-expressions.xml')/expressions"/>
+
+
+
+
+  <!-- Compute quality error based on measure -->
+  <xsl:template match="*[*/mdq:measure]" mode="qe" priority="200">
+    <xsl:param name="cptId"/>
+    <xsl:param name="dps"/>
+
+    <xsl:variable name="qmId"
+                  select="*/mdq:measure/*/mdq:measureIdentification/*/mcc:code/*/text()"/>
+    <xsl:variable name="q"
+                  select="$qConfig/qm[@id = $qmId]"/>
+
+    <!-- Quality errors / start -->
+    <!-- Derivated measure config -->
+    <xsl:variable name="dm"
+                  select="if ($isUd) then $q/udQe else $q/tdpQe"/>
+    <xsl:variable name="expression"
+                  select="$dm/@expression"/>
+
+    <xsl:choose>
+      <xsl:when test="$expression != ''">
+        <xsl:variable name="qValue"
+                      select="*/mdq:result/*/mdq:value/*/text()"/>
+
+        <!-- TODO: Need TDP -->
+        <xsl:variable name="dpsValue"
+                      select="$dps//mdq:DQ_DataQuality[@uuid = $cptId]/mdq:report/*[
+                    mdq:measure/*/mdq:measureIdentification/*/mcc:code/*/text() = $qmId
+                  ]/mdq:result/*/mdq:value/*/text()"/>
+
+        <xsl:variable name="params">
+          <xsl:value-of select="concat(if ($isUd) then 'UD_' else 'TDP_', replace($qmId, '\.', '_'), '=', $qValue)"/>|
+          <xsl:value-of select="concat('DPS_', replace($qmId, '\.', '_'), '=', $dpsValue)"/>
+        </xsl:variable>
+
+        <xsl:message>Compute qe for <xsl:value-of select="$qmId"/> using expression <xsl:value-of select="$expression"/> and with parameters <xsl:value-of select="normalize-space($params)"/></xsl:message>
+
+
+        <!-- Variable names must start with a letter or the underscore _
+        and can only include letters, digits or underscores. So replace
+        . by _.-->
+        <xsl:variable name="qeValue"
+                      select="java:evaluate(
+                        replace($expression, '\.', '_'),
+                        $params)"/>
+
+        <xsl:copy>
+          <xsl:element name="{name(*[1])}">
+            <mdq:measure>
+              <mdq:DQ_MeasureReference>
+                <mdq:measureIdentification>
+                  <mcc:MD_Identifier>
+                    <mcc:code>
+                      <gco:CharacterString>
+                        <xsl:value-of select="$dm/@id"/>
+                      </gco:CharacterString>
+                    </mcc:code>
+                  </mcc:MD_Identifier>
+                </mdq:measureIdentification>
+                <mdq:nameOfMeasure>
+                  <gco:CharacterString>
+                    <xsl:value-of select="$dm/@name"/>
+                  </gco:CharacterString>
+                </mdq:nameOfMeasure>
+                <mdq:measureDescription>
+                  <gco:CharacterString>
+                    <xsl:value-of select="$dm/text()"/>
+                    <xsl:value-of select="$expression"/>
+                  </gco:CharacterString>
+                </mdq:measureDescription>
+              </mdq:DQ_MeasureReference>
+            </mdq:measure>
+            <mdq:result>
+              <mdq:DQ_QuantitativeResult>
+                <mdq:dateTime>
+                  <gco:Date></gco:Date>
+                </mdq:dateTime>
+                <mdq:value>
+                  <gco:Record>
+                    <xsl:message><xsl:value-of select="$qeValue"/>== </xsl:message>
+                    <xsl:choose>
+                      <xsl:when test="string(number($qeValue)) = 'NaN'">
+
+                      </xsl:when>
+                      <xsl:otherwise>
+                        <xsl:value-of select="$qeValue"/>
+                      </xsl:otherwise>
+                    </xsl:choose>
+                  </gco:Record>
+                </mdq:value>
+                <mdq:valueUnit>
+                  <gml:UnitDefinition>
+                    <gml:identifier codeSpace="">%</gml:identifier>
+                  </gml:UnitDefinition>
+                </mdq:valueUnit>
+                <mdq:valueRecordType>
+                  <gco:RecordType>Percentage</gco:RecordType>
+                </mdq:valueRecordType>
+              </mdq:DQ_QuantitativeResult>
+            </mdq:result>
+          </xsl:element>
+        </xsl:copy>
+        <!-- Quality errors / end -->
+
+
+
+        <!-- Fitness for use / start -->
+        <xsl:if test="$isUd">
+          <!-- Derivated measure config -->
+          <xsl:variable name="dm"
+                        select="$q/udFu"/>
+          <xsl:variable name="expression"
+                        select="$dm/@expression"/>
+
+          <xsl:choose>
+            <xsl:when test="$expression != ''">
+              <!-- eg. abs(UD.APE.1.1)*P.APE.1.1/sqrt(UD.APE.1.1^2+P.APE.1.1^2) -->
+              <xsl:variable name="dpsValue"
+                            select="$dps//mdq:DQ_DataQuality[@uuid = $cptId]/mdq:report/*[
+                        mdq:measure/*/mdq:measureIdentification/*/mcc:code/*/text() = $qmId
+                      ]/mdq:result/*/mdq:value/*/text()"/>
+
+              <xsl:variable name="params">
+                <!-- Rework variable ids to match how they are written in expressions -->
+                <xsl:value-of select="concat('UD_', replace(replace($qmId, 'AP', 'APE'), '\.', '_'), '=', $qeValue)"/>|
+                <xsl:value-of select="concat('P_', replace(replace($qmId, 'AP', 'APE'), '\.', '_'), '=', $dpsValue)"/>
+              </xsl:variable>
+
+              <xsl:message>Compute fu for <xsl:value-of select="$qmId"/> using expression <xsl:value-of select="$expression"/> and with parameters <xsl:value-of select="normalize-space($params)"/></xsl:message>
+
+              <xsl:copy>
+                <xsl:element name="{name(*[1])}">
+                  <mdq:measure>
+                    <mdq:DQ_MeasureReference>
+                      <mdq:measureIdentification>
+                        <mcc:MD_Identifier>
+                          <mcc:code>
+                            <gco:CharacterString>
+                              <xsl:value-of select="$dm/@id"/>
+                            </gco:CharacterString>
+                          </mcc:code>
+                        </mcc:MD_Identifier>
+                      </mdq:measureIdentification>
+                      <mdq:nameOfMeasure>
+                        <gco:CharacterString>
+                          <xsl:value-of select="$dm/@name"/>
+                        </gco:CharacterString>
+                      </mdq:nameOfMeasure>
+                      <mdq:measureDescription>
+                        <gco:CharacterString>
+                          <xsl:value-of select="$dm/text()"/>
+                          <xsl:value-of select="$expression"/>
+                        </gco:CharacterString>
+                      </mdq:measureDescription>
+                    </mdq:DQ_MeasureReference>
+                  </mdq:measure>
+                  <mdq:result>
+                    <mdq:DQ_QuantitativeResult>
+                      <mdq:dateTime>
+                        <gco:Date></gco:Date>
+                      </mdq:dateTime>
+                      <mdq:value>
+                        <gco:Record>
+                          <!-- Variable names must start with a letter or the underscore _
+                          and can only include letters, digits or underscores. So replace
+                          . by _.-->
+                          <xsl:variable name="fuValue" select="java:evaluate(
+                              replace($expression, '\.', '_'),
+                              $params)"/>
+
+                          <xsl:choose>
+                            <xsl:when test="string(number($fuValue)) = 'NaN'">
+
+                            </xsl:when>
+                            <xsl:otherwise>
+                              <xsl:value-of select="$fuValue"/>
+                            </xsl:otherwise>
+                          </xsl:choose>
+                        </gco:Record>
+                      </mdq:value>
+                      <mdq:valueUnit>
+                        <gml:UnitDefinition>
+                          <gml:identifier codeSpace="">%</gml:identifier>
+                        </gml:UnitDefinition>
+                      </mdq:valueUnit>
+                      <mdq:valueRecordType>
+                        <gco:RecordType>Percentage</gco:RecordType>
+                      </mdq:valueRecordType>
+                    </mdq:DQ_QuantitativeResult>
+                  </mdq:result>
+                </xsl:element>
+              </xsl:copy>
+            </xsl:when>
+            <xsl:otherwise>
+              <xsl:message>No expression provided for fu <xsl:value-of select="$qmId"/>.</xsl:message>
+            </xsl:otherwise>
+          </xsl:choose>
+        </xsl:if>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:message>No expression provided for qe <xsl:value-of select="$qmId"/>.</xsl:message>
+      </xsl:otherwise>
+    </xsl:choose>
+
+  </xsl:template>
+
+  <!-- Ignore mdq:scope -->
+  <xsl:template match="mdq:scope" mode="qe" priority="200"/>
+
+  <!-- And copy everything else. -->
+  <xsl:template match="@*|node()" mode="qe">
+    <xsl:param name="cptId"/>
+    <xsl:param name="dps"/>
+
+    <xsl:copy>
+      <xsl:apply-templates select="@*|node()" mode="qe">
+        <xsl:with-param name="cptId" select="$cptId"/>
+        <xsl:with-param name="dps" select="$dps"/>
+      </xsl:apply-templates>
+    </xsl:copy>
+  </xsl:template>
+
 
 
 

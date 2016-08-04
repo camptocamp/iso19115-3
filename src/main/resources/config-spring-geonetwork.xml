@@ -23,7 +23,7 @@
           <property name="id"
                     value="dq-sections"/>
           <property name="xpath"
-                    value="mdb:dataQualityInfo"/>
+                    value="mdb:dataQualityInfo[contains(*/@uuid, '/CP#')]"/>
           <property name="label"
                     value="*/@uuid"/>
           <property name="cleanValues"
