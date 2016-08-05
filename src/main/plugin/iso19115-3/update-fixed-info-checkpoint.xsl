@@ -21,7 +21,7 @@
   exclude-result-prefixes="#all">
 
   <xsl:variable name="componentScopeCode" select="'datasetComponent'"/>
-  <xsl:variable name="componentCodeSeparator" select="'/CP#'"/>
+  <xsl:variable name="componentCodeSeparator" select="'/CP'"/>
 
 
   <xsl:variable name="isDps"
@@ -39,7 +39,7 @@
   <xsl:variable name="isUd"
                 select="count(
                             /root/mdb:MD_Metadata/mdb:metadataStandard/*/cit:title/*[text() =
-                              'ISO 19115-3 - Emodnet Checkpoint']
+                              'ISO 19115-3 - Emodnet Checkpoint - Upstream Data']
                           ) = 1"/>
 
 
@@ -109,7 +109,9 @@
       <mdq:DQ_DataQuality>
         <xsl:copy-of select="@*"/>
         <xsl:attribute name="uuid"
-                       select="concat(/root/env/uuid, $componentCodeSeparator, position())"/>
+                       select="concat(/root/env/uuid,
+                                      $componentCodeSeparator,
+                                      position())"/>
         <xsl:apply-templates select="*/*"/>
       </mdq:DQ_DataQuality>
     </xsl:copy>

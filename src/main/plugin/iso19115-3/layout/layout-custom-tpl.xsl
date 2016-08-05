@@ -26,6 +26,12 @@
 
     <xsl:variable name="format" select="'#0'"></xsl:variable>
 
+    <xsl:variable name="isDps"
+                  select="count(
+                            $metadata/mdb:metadataStandard/*/cit:title/*[text() =
+                              'ISO 19115-3 - Emodnet Checkpoint - Data Product Specification']
+                          ) = 1"/>
+
     <xsl:variable name="isTdp"
                   select="count(
                             $metadata/mdb:metadataStandard/*/cit:title/*[text() =
@@ -35,13 +41,13 @@
     <xsl:variable name="isUd"
                   select="count(
                             $metadata/mdb:metadataStandard/*/cit:title/*[text() =
-                              'ISO 19115-3 - Emodnet Checkpoint']
+                              'ISO 19115-3 - Emodnet Checkpoint - Upstream Data']
                           ) = 1"/>
 
     <!-- Component is in a section -->
-    <xsl:variable name="cptId" select="*/@uuid[contains(., 'CP#')]"/>
+    <xsl:variable name="cptId" select="*/@uuid[contains(., '/CP')]"/>
 
-    <xsl:if test="matches($cptId, '.*/CP#[0-9]*$')">
+    <xsl:if test="matches($cptId, '.*/CP[0-9]*$')">
       <xsl:call-template name="render-boxed-element">
         <xsl:with-param name="label"
                         select="concat($strings/checkpoint-dps-component, ' ', $cptId)"/>
@@ -179,9 +185,14 @@
                         </xsl:when>
                       </xsl:choose>
 
-                      <col remove="">
-                        <xsl:copy-of select="ancestor::mdq:report/gn:element"/>
-                      </col>
+                      <!-- Measures can only be removed in the DPS. ie. once defined
+                       in component in a spec, the related TDP and UDs MUST encode
+                       the same list of values. -->
+                      <xsl:if test="$isDps">
+                        <col remove="">
+                          <xsl:copy-of select="ancestor::mdq:report/gn:element"/>
+                        </col>
+                      </xsl:if>
                     </xsl:when>
                     <!-- Descriptive results -->
                     <xsl:when test="mdq:DQ_DescriptiveResult">

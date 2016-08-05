@@ -84,12 +84,25 @@
       <div class="col-xs-offset-2 col-xs-8">
         <p class="help-block">
           To describe quality measures for this upstream data,
-          you need to link it with a targeted data product first. Once the product
-          is associated, you can then select component to evaluate.
+          you need to link it with a targeted data product first.
+          This can be done in the related targeted data product.
+          <!-- TODO: Could we add link to the TDP ? -->
         </p>
       </div>
     </div>
   </checkpoint-linkToTargetedDataProduct-help>
+  <checkpoint-linkToUpstreamData>Link to one or more upstream data</checkpoint-linkToUpstreamData>
+  <checkpoint-linkToUpstreamData-help>
+    <div class="row">
+      <div class="col-xs-offset-2 col-xs-8">
+        <p class="help-block">
+          Choose related upstream data to this targeted data product.
+          This is required in order to be able to encode component quality measure
+          in upstream data.
+        </p>
+      </div>
+    </div>
+  </checkpoint-linkToUpstreamData-help>
   <checkpoint-compute-qe>Compute or update quality errors</checkpoint-compute-qe>
   <checkpoint-compute-qe-fu>Compute or update quality errors and fitness for use values</checkpoint-compute-qe-fu>
   <checkpoint-compute-qe-fuHelp></checkpoint-compute-qe-fuHelp>

@@ -17,7 +17,7 @@
 
   <xsl:param name="debug" select="true()"/>
 
-  <xsl:variable name="componentMatch" select="'.*/CP#[0-9]*$'"/>
+  <xsl:variable name="componentMatch" select="'.*/CP[0-9]*$'"/>
 
   <xsl:variable name="isTdp"
                 select="count(
@@ -28,7 +28,7 @@
   <xsl:variable name="isUd"
                 select="count(
                             /mdb:MD_Metadata/mdb:metadataStandard/*/cit:title/*[text() =
-                              'ISO 19115-3 - Emodnet Checkpoint']
+                              'ISO 19115-3 - Emodnet Checkpoint - Upstream Data']
                           ) = 1"/>
 
   <xsl:template match="/mdb:MD_Metadata|*[@gco:isoType='mdb:MD_Metadata']">

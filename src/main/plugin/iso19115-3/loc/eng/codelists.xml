@@ -605,10 +605,15 @@
       <description>Data product specification</description>
     </entry>
     <entry>
+      <code>upstreamData</code>
+      <label>Upstream data</label>
+      <description></description>
+    </entry>
+    <!--<entry>
       <code>targetedDataProduct</code>
       <label>Targeted data product</label>
       <description>Targeted data product</description>
-    </entry>
+    </entry>-->
   </codelist>
   <codelist name="mri:DS_InitiativeTypeCode" alias="initiativeType">
     <entry>

@@ -385,7 +385,7 @@
     <view name="medsea"
           upAndDownControlHidden="true"
           displayIfRecord="ends-with(mdb:MD_Metadata/mdb:metadataStandard/
-                                        */cit:title/gco:CharacterString, 'Emodnet Checkpoint')">
+                                        */cit:title/gco:CharacterString, 'Emodnet Checkpoint - Upstream Data')">
       <thesaurusList>
         <thesaurus key="local.theme.emodnet-checkpoint.environmental.matrix" maxtags="1"/>
         <thesaurus key="local.theme.emodnet-checkpoint.status" maxtags="1"/>
@@ -1271,34 +1271,34 @@
           <text ref="checkpoint-linkToTargetedDataProduct-help"
                 if="count(//mri:associatedResource/*/mri:initiativeType/*[@codeListValue = 'targetedDataProduct']) = 0"
           />
-          <action type="associatedResource"
+          <!--<action type="associatedResource"
                   name="checkpoint-linkToTargetedDataProduct"
                   if="count(//mri:associatedResource/*/mri:initiativeType/*[@codeListValue = 'targetedDataProduct']) = 0"
-                  process="sibling"/>
+                  process="sibling"/>-->
 
           <!-- Then user can pick up one component from the TDP. -->
           <action type="add"
                   name="checkpoint-ud-add-component"
                   or="dataQualityInfo"
                   in="/mdb:MD_Metadata"
-                  if="count(//mri:associatedResource/*/mri:initiativeType/*[@codeListValue = 'targetedDataProduct']) > 0"
                   addDirective="data-gn-record-fragment-selector">
-            <directiveAttributes data-source-records="xpath::string-join(
-              //mri:associatedResource/*[mri:initiativeType/*/@codeListValue = 'targetedDataProduct']
-                /mri:metadataReference/@uuidref, ',')"/>
+            <directiveAttributes
+                    data-search-query="{'agg_associated': '{uuid}', 'standardName':'ISO 19115-3 - Emodnet Checkpoint - Targeted Data Product'}"
+            />
           </action>
 
           <!-- Then user can encode QM values. -->
           <xsl xpath="/mdb:MD_Metadata/mdb:dataQualityInfo"
-               or="report"
                mode="iso19115-3-qm"/>
 
-          <!-- Compute QE and FU -->
-          <!-- TODO: Only if component attached first -->
+          <!-- Compute QE and FU
+          Hack on uuid because the metadata document contains another uuid attribute
+          with the ref of the element.
+          -->
           <action type="process"
                   process="checkpoint-compute-qe-fu"
                   btnClass="fa fa-calculator"
-                  if="count(//mdb:dataQualityInfo) > 0"/>
+                  if="count(//mdb:dataQualityInfo[contains(string-join(*/@uuid, ''), '/CP')]) > 0"/>
 
         </section>
       </tab>
@@ -2510,7 +2510,19 @@
           <action type="process"
                   process="checkpoint-compute-qe-fu"
                   btnClass="fa fa-calculator"
-                  if="count(//mdb:dataQualityInfo) > 0"/>
+                  if="count(//mdb:dataQualityInfo[contains(string-join(*/@uuid, ''), '/CP')]) > 0"/>
+
+          <!-- If no UD associated, warn user to choose one or more. -->
+          <text ref="checkpoint-linkToUpstreamData-help"
+                if="count(//mri:associatedResource/*/mri:initiativeType/*[@codeListValue = 'upstreamData']) = 0"
+          />
+
+          <!-- Allows to attach as many upstream data as required once a spec is associated. -->
+          <action type="associatedResource"
+                  name="checkpoint-linkToUpstreamData"
+                  if="count(//mri:associatedResource/*/mri:initiativeType/*[@codeListValue = 'specification']) = 1"
+                  process="sibling"/>
+
         </section>
       </tab>
     </view>
