@@ -47,7 +47,7 @@
     <!-- Component is in a section -->
     <xsl:variable name="cptId" select="*/@uuid[contains(., '/CP')]"/>
 
-    <xsl:if test="matches($cptId, '.*/CP[0-9]*$')">
+    <xsl:if test="matches($cptId, '.*/CP[0-9]*(/.*|$)') and not(ends-with($cptId, '#QE'))">
       <xsl:call-template name="render-boxed-element">
         <xsl:with-param name="label"
                         select="concat($strings/checkpoint-dps-component, ' ', $cptId)"/>

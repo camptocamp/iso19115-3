@@ -2509,7 +2509,7 @@
 
           <!-- Compute QE and FU -->
           <action type="process"
-                  process="checkpoint-compute-qe-fu"
+                  process="checkpoint-compute-qe"
                   btnClass="fa fa-calculator"
                   if="count(//mdb:dataQualityInfo[contains(string-join(*/@uuid, ''), '/CP')]) > 0"/>
 

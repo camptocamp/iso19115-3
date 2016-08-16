@@ -17,7 +17,7 @@
 
   <xsl:param name="debug" select="true()"/>
 
-  <xsl:variable name="componentMatch" select="'.*/CP[0-9]*$'"/>
+  <xsl:variable name="componentMatch" select="'.*/CP[0-9]*(/.*|$)'"/>
 
   <xsl:variable name="isTdp"
                 select="count(
@@ -58,18 +58,20 @@
            component details.
             -->
       <xsl:apply-templates select="mdb:dataQualityInfo[
-                                    matches(*/@uuid, $componentMatch)
+                                    matches(*/@uuid, $componentMatch) and
+                                    not(ends-with(*/@uuid, '#QE'))
                                     ]"/>
 
-
       <!-- For each component registered (and bypass QE or FU) -->
-      <xsl:for-each select="mdb:dataQualityInfo/*[matches(@uuid, $componentMatch)]">
+      <xsl:for-each select="mdb:dataQualityInfo/*[
+                                  matches(@uuid, $componentMatch) and
+                                  not(ends-with(@uuid, '#QE'))]">
         <xsl:variable name="componentId"
                       select="@uuid"/>
         <xsl:message>Processing component '<xsl:value-of select="$componentId"/>' ...</xsl:message>
 
         <xsl:variable name="dpsId"
-                      select="substring-before($componentId, '/')"/>
+                      select="tokenize($componentId, '/')[1]"/>
         <!--<xsl:variable name="dpsUrl"
                           select="concat($nodeUrl, 'api/records/', $dpsId, '/formatters/xml')"/>
         <xsl:message>DPS: <xsl:copy-of select="$dpsUrl"/></xsl:message>
@@ -78,25 +80,26 @@
         <xsl:variable name="dpsDocument"
                       select="java:getRecord($dpsId)"/>
         <!--<xsl:message>DPS: <xsl:copy-of select="$dpsDocument"/></xsl:message>-->
+        <!--<xsl:message>DPS: <xsl:copy-of select="$dpsId"/></xsl:message>-->
 
-        <xsl:if test="$isTdp or $isUd">
-          <xsl:call-template name="compute-qe">
-            <xsl:with-param name="dps" select="$dpsDocument"/>
-          </xsl:call-template>
-        </xsl:if>
+        <xsl:choose>
+          <xsl:when test="$isTdp">
+            <xsl:call-template name="compute-qe">
+              <xsl:with-param name="dps" select="$dpsDocument"/>
+            </xsl:call-template>
+          </xsl:when>
+          <xsl:when test="$isUd">
+            <xsl:variable name="tdpId"
+                          select="tokenize($componentId, '/')[3]"/>
+            <xsl:variable name="tdpDocument"
+                          select="java:getRecord($tdpId)"/>
 
-
-        <xsl:if test="$isUd">
-          <xsl:variable name="tdpId"
-                        select="''"/>
-          <xsl:variable name="tdpDocument"
-                        select="."/>
-          <xsl:call-template name="compute-fu">
-            <xsl:with-param name="dps" select="$dpsDocument"/>
-            <xsl:with-param name="tdp" select="$tdpDocument"/>
-          </xsl:call-template>
-        </xsl:if>
-
+            <xsl:call-template name="compute-qe">
+              <xsl:with-param name="dps" select="$dpsDocument"/>
+              <xsl:with-param name="tdp" select="$tdpDocument"/>
+            </xsl:call-template>
+          </xsl:when>
+        </xsl:choose>
       </xsl:for-each>
 
       <xsl:apply-templates select="mdb:resourceLineage"/>
@@ -112,10 +115,11 @@
 
   <xsl:template name="compute-qe">
     <xsl:param name="dps" as="node()"/>
+    <xsl:param name="tdp" as="node()?"/>
 
     <xsl:variable name="cptId"
                   select="@uuid"/>
-    <xsl:message>Creating QE for component <xsl:value-of select="$cptId"/> ...</xsl:message>
+    <xsl:message>Computing derivated values for component <xsl:value-of select="$cptId"/> ...</xsl:message>
 
     <mdb:dataQualityInfo>
       <xsl:copy>
@@ -123,6 +127,7 @@
         <xsl:apply-templates select="*" mode="qe">
           <xsl:with-param name="cptId" select="$cptId"/>
           <xsl:with-param name="dps" select="$dps"/>
+          <xsl:with-param name="tdp" select="$tdp"/>
         </xsl:apply-templates>
       </xsl:copy>
     </mdb:dataQualityInfo>
@@ -139,7 +144,8 @@
   <!-- Compute quality error based on measure -->
   <xsl:template match="*[*/mdq:measure]" mode="qe" priority="200">
     <xsl:param name="cptId"/>
-    <xsl:param name="dps"/>
+    <xsl:param name="dps" as="node()"/>
+    <xsl:param name="tdp" as="node()?"/>
 
     <xsl:variable name="qmId"
                   select="*/mdq:measure/*/mdq:measureIdentification/*/mcc:code/*/text()"/>
@@ -151,16 +157,19 @@
     <xsl:variable name="dm"
                   select="if ($isUd) then $q/udQe else $q/tdpQe"/>
     <xsl:variable name="expression"
-                  select="$dm/@expression"/>
+                  select="replace($dm/@expression, '\.', '_')"/>
 
     <xsl:choose>
       <xsl:when test="$expression != ''">
         <xsl:variable name="qValue"
                       select="*/mdq:result/*/mdq:value/*/text()"/>
 
-        <!-- TODO: Need TDP -->
+        <xsl:variable name="dpsCptId"
+                      select="tokenize($cptId, '/')"/>
         <xsl:variable name="dpsValue"
-                      select="$dps//mdq:DQ_DataQuality[@uuid = $cptId]/mdq:report/*[
+                      select="$dps//mdq:DQ_DataQuality[
+                                      @uuid = string-join($dpsCptId[position() &lt; 3], '/')
+                                      ]/mdq:report/*[
                     mdq:measure/*/mdq:measureIdentification/*/mcc:code/*/text() = $qmId
                   ]/mdq:result/*/mdq:value/*/text()"/>
 
@@ -177,7 +186,7 @@
         . by _.-->
         <xsl:variable name="qeValue"
                       select="java:evaluate(
-                        replace($expression, '\.', '_'),
+                        $expression,
                         $params)"/>
 
         <xsl:copy>
@@ -213,11 +222,8 @@
                 </mdq:dateTime>
                 <mdq:value>
                   <gco:Record>
-                    <xsl:message><xsl:value-of select="$qeValue"/>== </xsl:message>
                     <xsl:choose>
-                      <xsl:when test="string(number($qeValue)) = 'NaN'">
-
-                      </xsl:when>
+                      <xsl:when test="string(number($qeValue)) = 'NaN'"/>
                       <xsl:otherwise>
                         <xsl:value-of select="$qeValue"/>
                       </xsl:otherwise>
@@ -246,20 +252,21 @@
           <xsl:variable name="dm"
                         select="$q/udFu"/>
           <xsl:variable name="expression"
-                        select="$dm/@expression"/>
+                        select="replace($dm/@expression, '\.', '_')"/>
 
           <xsl:choose>
             <xsl:when test="$expression != ''">
               <!-- eg. abs(UD.APE.1.1)*P.APE.1.1/sqrt(UD.APE.1.1^2+P.APE.1.1^2) -->
-              <xsl:variable name="dpsValue"
-                            select="$dps//mdq:DQ_DataQuality[@uuid = $cptId]/mdq:report/*[
-                        mdq:measure/*/mdq:measureIdentification/*/mcc:code/*/text() = $qmId
-                      ]/mdq:result/*/mdq:value/*/text()"/>
-
+              <xsl:variable name="tdpValue"
+                            select="$tdp//mdq:DQ_DataQuality[@uuid = concat($cptId, '#QE')]/
+                                      mdq:report/*[
+                                        mdq:measure/*/mdq:measureIdentification/*/mcc:code/*/text() =
+                                        concat('P.', replace($qmId, 'AP', 'APE'))
+                                      ]/mdq:result/*/mdq:value/*/text()"/>
               <xsl:variable name="params">
                 <!-- Rework variable ids to match how they are written in expressions -->
                 <xsl:value-of select="concat('UD_', replace(replace($qmId, 'AP', 'APE'), '\.', '_'), '=', $qeValue)"/>|
-                <xsl:value-of select="concat('P_', replace(replace($qmId, 'AP', 'APE'), '\.', '_'), '=', $dpsValue)"/>
+                <xsl:value-of select="concat('P_', replace(replace($qmId, 'AP', 'APE'), '\.', '_'), '=', $tdpValue)"/>
               </xsl:variable>
 
               <xsl:message>Compute fu for <xsl:value-of select="$qmId"/> using expression <xsl:value-of select="$expression"/> and with parameters <xsl:value-of select="normalize-space($params)"/></xsl:message>
@@ -301,7 +308,7 @@
                           and can only include letters, digits or underscores. So replace
                           . by _.-->
                           <xsl:variable name="fuValue" select="java:evaluate(
-                              replace($expression, '\.', '_'),
+                              $expression,
                               $params)"/>
 
                           <xsl:choose>
@@ -355,18 +362,6 @@
       </xsl:apply-templates>
     </xsl:copy>
   </xsl:template>
-
-
-
-
-
-  <xsl:template name="compute-fu">
-    <xsl:param name="dps" as="node()"/>
-    <xsl:param name="tdp" as="node()"/>
-
-    <xsl:message>Creating FU ...</xsl:message>
-  </xsl:template>
-
 
 
   <!-- Do a copy of every nodes and attributes -->
