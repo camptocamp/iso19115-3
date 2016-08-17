@@ -20,9 +20,13 @@
   xmlns:gn="http://www.fao.org/geonetwork"
   exclude-result-prefixes="#all">
 
-  <xsl:variable name="componentScopeCode" select="'datasetComponent'"/>
-  <xsl:variable name="componentCodeSeparator" select="'/CP'"/>
+  <xsl:variable name="componentScopeCode" as="xs:string"
+                select="'datasetComponent'"/>
+  <xsl:variable name="componentCodeSeparator" as="xs:string"
+                select="'/CP'"/>
 
+  <xsl:variable name="dateFormat" as="xs:string"
+                select="'[Y0001]-[M01]-[D01]'"/>
 
   <xsl:variable name="isDps"
                 select="count(
@@ -88,14 +92,10 @@
 
 
 
-
-
-
   <!-- Component / Set UUID if empty or not starting with DPS UUID.
 
   Do not apply this rule to TDP or UD as we need to preserve component UUID
   from DPS to TDP and UD.
-
   Component UUID is based on DPS UUID + DQ position.
   -->
   <xsl:template match="mdb:MD_Metadata[$isDps]
@@ -118,6 +118,7 @@
   </xsl:template>
 
 
+
   <!-- When creating a component, the extent is based
        on the extent of the DPS. -->
   <xsl:template match="mdb:dataQualityInfo[
@@ -137,12 +138,20 @@
   </xsl:template>
 
 
+
   <!-- Component / Set date of each measure if empty
 
    This basically means that when the user click add component
    based on a template with empty dates, then dates are initialized
    to current date time.
    -->
+  <xsl:template match="mdq:result/*/mdq:dateTime/gco:Date[normalize-space() = '']" priority="200">
+    <xsl:copy copy-namespaces="no">
+      <xsl:apply-templates select="@*"/>
+      <xsl:value-of select="format-dateTime(current-dateTime(), $dateFormat)"/>
+    </xsl:copy>
+  </xsl:template>
+
 
 
   <!-- Component in UD does not contains component details ie. only uuid and name. -->
@@ -153,8 +162,7 @@
                        mdb:MD_Metadata[$isUd]
                           /mdb:dataQualityInfo/*/mdq:scope/*[
                             mcc:level/*/@codeListValue = $componentScopeCode
-                            ]/mcc:extent">
-  </xsl:template>
+                            ]/mcc:extent"/>
 
 
 
@@ -165,7 +173,7 @@
     <xsl:if test="count(/root/mdb:MD_Metadata/mdb:dataQualityInfo[
                             starts-with(*/@uuid, $qeUuid) and not(ends-with(*/@uuid, '#QE'))
                           ]) > 0">
-      <xsl:copy>
+      <xsl:copy copy-namespaces="no">
         <xsl:apply-templates select="@*|*"/>
       </xsl:copy>
     </xsl:if>

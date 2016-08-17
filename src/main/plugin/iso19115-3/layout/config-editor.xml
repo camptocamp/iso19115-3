@@ -1724,6 +1724,20 @@
                         <!-- Extent is copied from the DPS extent -->
                       </mcc:MD_Scope>
                     </mdq:scope>
+                    <mdq:standaloneQualityReport>
+                      <mdq:DQ_StandaloneQualityReportInformation>
+                        <mdq:reportReference>
+                          <cit:CI_Citation>
+                            <cit:title>
+                              <gco:CharacterString></gco:CharacterString>
+                            </cit:title>
+                          </cit:CI_Citation>
+                        </mdq:reportReference>
+                        <mdq:abstract>
+                          <gco:CharacterString></gco:CharacterString>
+                        </mdq:abstract>
+                      </mdq:DQ_StandaloneQualityReportInformation>
+                    </mdq:standaloneQualityReport>
                     <mdq:report>
                       <mdq:DQ_CompletenessOmission>
                         <mdq:measure>
