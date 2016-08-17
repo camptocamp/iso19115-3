@@ -1721,13 +1721,6 @@
                             </mcc:other>
                           </mcc:MD_ScopeDescription>
                         </mcc:levelDescription>
-                        <mcc:levelDescription>
-                          <mcc:MD_ScopeDescription>
-                            <mcc:other>
-                              <gco:CharacterString>EM:...|P01:...|P02:...|PLA:...|PM:...</gco:CharacterString>
-                            </mcc:other>
-                          </mcc:MD_ScopeDescription>
-                        </mcc:levelDescription>
                         <!-- Extent is copied from the DPS extent -->
                       </mcc:MD_Scope>
                     </mdq:scope>

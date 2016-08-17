@@ -73,12 +73,7 @@
               <xsl:with-param name="overrideLabel" select="$strings/checkpoint-dps-component-description"/>
               <xsl:with-param name="isDisabled" select="$isTdp"/>
             </xsl:apply-templates>
-            <xsl:apply-templates mode="mode-iso19115-3"
-                                 select="*/mcc:levelDescription[3]//mcc:other">
-              <xsl:with-param name="overrideLabel" select="$strings/checkpoint-dps-component-details"/>
-              <xsl:with-param name="isDisabled" select="$isTdp"/>
-            </xsl:apply-templates>
-
+            
             <xsl:apply-templates mode="mode-iso19115-3" select="*/mcc:extent"/>
 
           </xsl:for-each>
