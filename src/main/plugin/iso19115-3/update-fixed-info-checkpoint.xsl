@@ -158,5 +158,16 @@
 
 
 
-  <!-- If a component is removed, remove also related QE or FU TODO -->
+  <!-- If a component is removed, remove also related QE or FU -->
+  <xsl:template match="mdb:dataQualityInfo[ends-with(*/@uuid, '#QE')]" priority="200">
+    <xsl:variable name="qeUuid" select="*/uuid"/>
+
+    <xsl:if test="count(/root/mdb:MD_Metadata/mdb:dataQualityInfo[
+                            starts-with(*/@uuid, $qeUuid) and not(ends-with(*/@uuid, '#QE'))
+                          ]) > 0">
+      <xsl:copy>
+        <xsl:apply-templates select="@*|*"/>
+      </xsl:copy>
+    </xsl:if>
+  </xsl:template>
 </xsl:stylesheet>

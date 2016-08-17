@@ -25,7 +25,7 @@
           <property name="xpath"
                     value="mdb:dataQualityInfo[contains(*/@uuid, '/CP') and not(ends-with(*/@uuid, 'QE'))]"/>
           <property name="label"
-                    value="*/@uuid"/>
+                    value=".//mcc:levelDescription[1]//mcc:other"/>
           <property name="cleanValues"
                     value=".//mdq:result/*/mdq:value/gco:Record|.//mdq:result/*/mdq:statement/gco:CharacterString"/>
         </bean>
