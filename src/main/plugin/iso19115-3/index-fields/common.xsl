@@ -14,6 +14,7 @@
                 xmlns:mrs="http://standards.iso.org/iso/19115/-3/mrs/1.0"
                 xmlns:mrl="http://standards.iso.org/iso/19115/-3/mrl/1.0"
                 xmlns:mrd="http://standards.iso.org/iso/19115/-3/mrd/1.0"
+                xmlns:mdq="http://standards.iso.org/iso/19157/-2/mdq/1.0"
                 xmlns:gml="http://www.opengis.net/gml/3.2"
                 xmlns:srv="http://standards.iso.org/iso/19115/-3/srv/2.0"
                 xmlns:gcx="http://standards.iso.org/iso/19115/-3/gcx/1.0"
@@ -714,6 +715,52 @@
     </xsl:for-each>
 
 
+    <!-- TODO: Multilingual support -->
+    <xsl:for-each select="$metadata/mdb:dataQualityInfo">
+      <!-- Checpoint / Index component id.
+        If not set, then index by dq section position. -->
+      <xsl:variable name="cptId" select="*/@uuid"/>
+      <xsl:variable name="cptName" select="*/mdq:scope/*/mcc:levelDescription[1]/*/mcc:other/*/text()"/>
+      <xsl:variable name="dqId" select="if ($cptId != '') then $cptId else position()"/>
+
+      <Field name="dqCpt" index="true" store="true"
+             string="{$dqId}"/>
+
+
+      <xsl:for-each select="*/mdq:standaloneQualityReport/*[
+                              mdq:reportReference/*/cit:title/*/text() != ''
+                            ]">
+        <Field name="dqSReport" index="false" store="true"
+               string="{normalize-space(concat(
+                          mdq:reportReference/*/cit:title/*/text(), '|', mdq:abstract/*/text()))}"/>
+      </xsl:for-each>
+
+      <xsl:for-each select="*/mdq:report/*[
+                            mdq:measure/*/mdq:measureIdentification/*/mcc:code/*/text() != ''
+                          ]">
+
+        <xsl:variable name="qmId" select="mdq:measure/*/mdq:measureIdentification/*/mcc:code/*/text()"/>
+        <xsl:variable name="qmName" select="mdq:measure/*/mdq:nameOfMeasure/*/text()"/>
+
+        <!-- Search record by measure id or measure name. -->
+        <Field name="dqMeasure" index="true" store="false"
+               string="{$qmId}"/>
+        <Field name="dqMeasureName" index="true" store="false"
+               string="{$qmName}"/>
+
+
+        <xsl:for-each select="mdq:result/mdq:DQ_QuantitativeResult">
+          <xsl:variable name="qmDate" select="mdq:dateTime/gco:Date/text()"/>
+          <xsl:variable name="qmValue" select="mdq:value/gco:Record/text()"/>
+          <xsl:variable name="qmUnit" select="mdq:valueUnit/*/gml:identifier/text()"/>
+          <Field name="dqValues" index="true" store="true"
+                 string="{concat($dqId, '|', $cptName, '|', $qmId, '|', $qmName, '|', $qmDate, '|', $qmValue, '|', $qmUnit)}"/>
+
+        </xsl:for-each>
+      </xsl:for-each>
+    </xsl:for-each>
+
+
 
     <xsl:for-each select="$metadata/mdb:resourceLineage/*/mrl:source[@uuidref]">
       <Field  name="hassource" string="{string(@uuidref)}" store="false" index="true"/>
@@ -901,7 +948,7 @@
                               '|', $positionName, '|',
                               $address, '|', string-join($phones, ','))}"
            store="true" index="false"/>
-           
+
     <xsl:for-each select="$email">
       <Field name="{$fieldPrefix}Email" string="{string(.)}" store="true" index="true"/>
       <Field name="{$fieldPrefix}RoleAndEmail" string="{$role}|{string(.)}" store="true" index="true"/>
