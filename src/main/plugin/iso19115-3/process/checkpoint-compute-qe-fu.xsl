@@ -258,11 +258,14 @@
             <xsl:when test="$expression != ''">
               <!-- eg. abs(UD.APE.1.1)*P.APE.1.1/sqrt(UD.APE.1.1^2+P.APE.1.1^2) -->
               <xsl:variable name="tdpValue"
-                            select="$tdp//mdq:DQ_DataQuality[@uuid = concat($cptId, '#QE')]/
+                            select="$tdp//mdq:DQ_DataQuality[@uuid = concat(
+                                          string-join($dpsCptId[position() &lt; 4], '/')
+                                          , '#QE')]/
                                       mdq:report/*[
                                         mdq:measure/*/mdq:measureIdentification/*/mcc:code/*/text() =
                                         concat('P.', replace($qmId, 'AP', 'APE'))
                                       ]/mdq:result/*/mdq:value/*/text()"/>
+
               <xsl:variable name="params">
                 <!-- Rework variable ids to match how they are written in expressions -->
                 <xsl:value-of select="concat('UD_', replace(replace($qmId, 'AP', 'APE'), '\.', '_'), '=', $qeValue)"/>|
