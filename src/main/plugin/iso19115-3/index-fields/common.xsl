@@ -715,7 +715,12 @@
     </xsl:for-each>
 
 
-    <!-- TODO: Multilingual support -->
+    <Field name="hasDqMeasures" index="true" store="true"
+           string="{count($metadata/mdb:dataQualityInfo/*/mdq:report/*[
+                            mdq:measure/*/mdq:measureIdentification/*/mcc:code/*/text() != ''
+                          ]/mdq:result/mdq:DQ_QuantitativeResult[mdq:value/gco:Record/text() != '']) > 0}"/>
+
+   <!-- TODO: Multilingual support -->
     <xsl:for-each select="$metadata/mdb:dataQualityInfo">
       <!-- Checpoint / Index component id.
         If not set, then index by dq section position. -->
