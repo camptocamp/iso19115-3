@@ -4342,6 +4342,21 @@
       </option>
     </helper>
   </element>
+
+  <element name="cit:title" id="360.0"
+           context="/mdb:MD_Metadata/mdb:identificationInfo/mri:MD_DataIdentification/mri:citation/cit:CI_Citation/cit:title">
+    <label>Title</label>
+    <description>Name by which the cited resource is known</description>
+    <helper rel="cit:alternateTitle"
+            displayIf="ancestor::node()[
+                name()='mdb:MD_Metadata' and
+                contains(mdb:metadataStandard/*/cit:title/*:CharacterString, 'Emodnet Checkpoint')]">
+      <option value="Product #1" title="#1">Product #1</option>
+      <option value="Product #2" title="#2">Product #2</option>
+      <!-- TODO -->
+    </helper>
+  </element>
+
   <element name="cit:title" id="360.0">
     <label>Title</label>
     <description>Name by which the cited resource is known</description>

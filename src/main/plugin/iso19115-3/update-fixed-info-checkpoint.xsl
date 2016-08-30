@@ -48,6 +48,29 @@
 
 
 
+  <xsl:variable name="product2deliverables">
+    <entry key="Product #1" value="D1"/>
+    <entry key="Product #2" value="D2"/>
+  </xsl:variable>
+
+  <!-- In TDP set deliverable info if not set based on product name -->
+  <xsl:template
+    match="cit:issueIdentification[$isTdp and normalize-space(gco:CharacterString) = '']"
+    priority="2000">
+
+    <xsl:variable name="product"
+                  select="ancestor::cit:CI_Citation/cit:title/gco:CharacterString/text()"/>
+
+    <xsl:variable name="deliverable"
+                  select="$product2deliverables/entry[@key = $product]/@value"/>
+    <xsl:copy>
+      <xsl:copy-of select="./@*"/>
+      <gco:CharacterString><xsl:value-of select="if ($deliverable != '') then $deliverable else ''"/></gco:CharacterString>
+    </xsl:copy>
+  </xsl:template>
+
+
+
   <!-- Compute title and identifier as "P02 - P01 - Dataprovider - Datasetname" -->
   <xsl:template
     match="mdb:MD_Metadata[$isUd and

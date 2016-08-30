@@ -1329,11 +1329,16 @@
       <tab id="checkpoint-dps-characteristics" default="true">
         <section name="checkpoint-dps-main">
           <!-- DPS - Challenge number + name  -->
-          <field name="useByChallenges"
+          <field name="challenge"
                  xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/
                   mri:descriptiveKeywords
                   [contains(*/mri:thesaurusName/*/cit:title/gco:CharacterString,
                   'Used by challenges')]"/>
+
+
+          <!-- DPS - Product name -->
+          <field name="checkpoint-tdp-productName"
+                 xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:citation/cit:CI_Citation/cit:title"/>
 
           <!-- DPS - Deliverable identifier -->
           <field name="checkpoint-deliverable"
@@ -1343,48 +1348,44 @@
           <!--
           DPS - Responsible party (point of contact) : organisation name
           DPS - E-mail of responsible party -->
-          <field name="edmerpNameGlobal" templateModeOnly="true" notDisplayedIfMissing="true"
-                 xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:pointOfContact[*/cit:role/*/@codeListValue='edmerp']"
-                 del="."
-                 if="count(mdb:MD_Metadata/mdb:identificationInfo/*) > 0">
+          <field name="pointOfContact"
+                 templateModeOnly="true" notDisplayedIfMissing="true"
+                 xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:pointOfContact"
+                 del=".">
             <template>
               <values readonlyIf="count(@xlink:href) > 0">
-                <key label="projectTitle"
+                <key label="organisationName"
                      xpath="*/cit:party/*/cit:name/gco:CharacterString"/>
-                <key label="acronym"
-                     xpath="*/cit:party/*/cit:individual/*/cit:name/gco:CharacterString"/>
-                <key label="programNameWebsite"
-                     xpath="*/cit:party/*/cit:contactInfo/*/cit:onlineResource/*/cit:linkage/gco:CharacterString"/>
-                <key label="edmerpId"
-                     xpath="cit:CI_Responsibility/@id"/>
+                <key label="electronicMailAddress"
+                     xpath="*/cit:party/*/cit:contactInfo/*/cit:address/*/cit:electronicMailAddress/gco:CharacterString"/>
+
               </values>
               <snippet>
                 <mri:pointOfContact>
-                  <cit:CI_Responsibility id="{{edmerpId}}">
+                  <cit:CI_Responsibility>
                     <gn:copy select="cit:role"/>
                     <gn:copy select="cit:extent"/>
                     <cit:party>
                       <cit:CI_Organisation>
                         <cit:name>
-                          <gco:CharacterString>{{projectTitle}}</gco:CharacterString>
+                          <gco:CharacterString>{{organisationName}}</gco:CharacterString>
                         </cit:name>
                         <cit:contactInfo>
                           <cit:CI_Contact>
                             <gn:copy select="cit:phone"/>
-                            <gn:copy select="cit:address"/>
-                            <cit:onlineResource>
-                              <cit:CI_OnlineResource>
-                                <cit:linkage>
-                                  <gco:CharacterString>{{programNameWebsite}}</gco:CharacterString>
-                                </cit:linkage>
-                                <gn:copy select="cit:protocol"/>
-                                <gn:copy select="cit:applicationProfile"/>
-                                <gn:copy select="cit:name"/>
-                                <gn:copy select="cit:description"/>
-                                <gn:copy select="cit:function"/>
-                                <gn:copy select="cit:protocolRequest"/>
-                              </cit:CI_OnlineResource>
-                            </cit:onlineResource>
+                            <cit:address>
+                              <cit:CI_Address>
+                                <gn:copy select="deliveryPoint"/>
+                                <gn:copy select="city"/>
+                                <gn:copy select="administrativeArea"/>
+                                <gn:copy select="postalCode"/>
+                                <gn:copy select="country"/>
+                                <cit:electronicMailAddress>
+                                  <gco:CharacterString>{{electronicMailAddress}}</gco:CharacterString>
+                                </cit:electronicMailAddress>
+                              </cit:CI_Address>
+                            </cit:address>
+                            <gn:copy select="cit:onlineResource"/>
                             <gn:copy select="cit:hoursOfService"/>
                             <gn:copy select="cit:contactInstructions"/>
                             <gn:copy select="cit:contactType"/>
@@ -1393,9 +1394,7 @@
                         <gn:copy select="cit:logo"/>
                         <cit:individual>
                           <cit:CI_Individual>
-                            <cit:name>
-                              <gco:CharacterString>{{acronym}}</gco:CharacterString>
-                            </cit:name>
+                            <gn:copy select="cit:name"/>
                             <gn:copy select="cit:contactInfo"/>
                           </cit:CI_Individual>
                         </cit:individual>
@@ -1407,8 +1406,8 @@
             </template>
           </field>
 
-          <action type="add"
-                  name="edmerpName"
+          <!--<action type="add"
+                  name="pointOfContact"
                   addDirective="data-gn-directory-entry-selector"
                   or="pointOfContact"
                   in="/mdb:MD_Metadata/mdb:identificationInfo/*">
@@ -1417,12 +1416,12 @@
               data-search-action="false"
               data-popup-action="true"
               data-template-type="contact"
-              data-filter='{"_groupPublished": "CONTACTS_EDMERP"}'
-              data-variables="gmd:role/gmd:CI_RoleCode/@codeListValue~edmerp"
+              data-filter='{"_groupPublished": "*"}'
+              data-variables="gmd:role/gmd:CI_RoleCode/@codeListValue~pointOfContact"
               data-transformation="contact-from-iso19139-to-iso19115-3"/>
-          </action>
+          </action>-->
 
-          <action type="add" name="orAddEdmerpName"
+          <action type="add" name="pointOfContact"
                   or="pointOfContact"
                   in="/mdb:MD_Metadata/mdb:identificationInfo/*">
             <template>
@@ -1431,7 +1430,7 @@
                   <cit:CI_Responsibility>
                     <cit:role>
                       <cit:CI_RoleCode codeList="codeListLocation#CI_RoleCode"
-                                       codeListValue="edmerp">edmerp</cit:CI_RoleCode>
+                                       codeListValue="pointOfContact">pointOfContact</cit:CI_RoleCode>
                     </cit:role>
                     <cit:party>
                       <cit:CI_Organisation>
@@ -1440,13 +1439,13 @@
                         </cit:name>
                         <cit:contactInfo>
                           <cit:CI_Contact>
-                            <cit:onlineResource>
-                              <cit:CI_OnlineResource>
-                                <cit:linkage>
-                                  <gco:CharacterString></gco:CharacterString>
-                                </cit:linkage>
-                              </cit:CI_OnlineResource>
-                            </cit:onlineResource>
+                            <cit:address>
+                              <cit:CI_Address>
+                                <cit:electronicMailAddress>
+                                  <gco:CharacterString/>
+                                </cit:electronicMailAddress>
+                              </cit:CI_Address>
+                            </cit:address>
                           </cit:CI_Contact>
                         </cit:contactInfo>
                       </cit:CI_Organisation>
@@ -1532,10 +1531,6 @@
           </field>
 
 
-          <!-- DPS - Product identifier
-          DPS - Product name -->
-          <field xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:citation/cit:CI_Citation/cit:title"/>
-
 
           <!-- DPS - Purpose -->
           <field xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:purpose"/>
@@ -1544,10 +1539,16 @@
           <!-- DPS - Abstract -->
           <field xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:abstract"/>
 
+          <field
+            name="inspireTheme"
+            xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/
+                    mri:descriptiveKeywords
+                    [contains(*/mri:thesaurusName/cit:CI_Citation/cit:title/gco:CharacterString,
+                    'INSPIRE themes')]"/>
 
           <!-- DPS - Processing level -->
           <field
-            name="level-of-characteristics"
+            name="processing-level"
             xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/
                     mri:descriptiveKeywords
                     [contains(*/mri:thesaurusName/cit:CI_Citation/cit:title/gco:CharacterString,
@@ -1573,6 +1574,68 @@
 
           <!-- DPS - Spatial representation -->
           <field xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:spatialRepresentationType"/>
+
+          <!-- DPS - Number of component - See Quality section -->
+
+
+          <field
+            xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/
+              mri:extent/*/gex:geographicElement/gex:EX_GeographicBoundingBox"/>
+
+
+          <field name="temporalExtent" templateModeOnly="true"
+                 xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:extent/*/gex:temporalElement"
+                 if="count(mdb:MD_Metadata/mdb:identificationInfo/*) > 0">
+            <template>
+              <values>
+                <!-- -Need a * for gml:TimePeriodTypeCHOICE_ELEMENT2 added by editor enumerated tree -->
+                <key label="beginPosition"
+                     xpath="gex:EX_TemporalExtent/gex:extent/gml:TimePeriod/*/gml:beginPosition"
+                     use="gn-date-picker"
+                     tooltip="gex:extent|gex:EX_TemporalExtent">
+                  <directiveAttributes data-tag-name="gml:beginPosition"/>
+                </key>
+                <key label="endPosition"
+                     xpath="gex:EX_TemporalExtent/gex:extent/gml:TimePeriod/*/gml:endPosition"
+                     use="gn-date-picker"
+                     tooltip="gex:extent|gex:EX_TemporalExtent"
+                >
+                  <directiveAttributes
+                    data-tag-name="gml:endPosition"
+                    data-indeterminate-position="eval#gex:EX_TemporalExtent/gex:extent/gml:TimePeriod/*/gml:endPosition/@indeterminatePosition"/>
+                </key>
+              </values>
+              <snippet>
+                <gex:temporalElement>
+                  <gex:EX_TemporalExtent>
+                    <gex:extent>
+                      <gml:TimePeriod gml:id="">
+                        {{beginPosition}}
+                        {{endPosition}}
+                      </gml:TimePeriod>
+                    </gex:extent>
+                  </gex:EX_TemporalExtent>
+                </gex:temporalElement>
+              </snippet>
+            </template>
+          </field>
+
+          <section name="checkpoint-ve">
+            <field
+              name="minDepth"
+              xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/
+                                mri:extent/*/
+                                gex:verticalElement/*/gex:minimumValue"/>
+
+            <field
+              name="maxDepth"
+              xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/
+                                mri:extent/*/
+                                gex:verticalElement/*/gex:maximumValue"/>
+          </section>
+        </section>
+
+        <section name="checkpoint-dps-distribution">
 
           <!-- DPS - Product distribution format -->
           <field
@@ -1624,64 +1687,6 @@
               </snippet>
             </template>
           </action>
-
-          <!-- DPS - Number of component - See Quality section -->
-
-
-          <field
-            xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/
-              mri:extent/*/gex:geographicElement/gex:EX_GeographicBoundingBox"/>
-
-
-          <field name="temporalExtent" templateModeOnly="true"
-                 xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:extent/*/gex:temporalElement"
-                 if="count(mdb:MD_Metadata/mdb:identificationInfo/*) > 0">
-            <template>
-              <values>
-                <!-- -Need a * for gml:TimePeriodTypeCHOICE_ELEMENT2 added by editor enumerated tree -->
-                <key label="beginPosition"
-                     xpath="gex:EX_TemporalExtent/gex:extent/gml:TimePeriod/*/gml:beginPosition"
-                     use="gn-date-picker"
-                     tooltip="gex:extent|gex:EX_TemporalExtent">
-                  <directiveAttributes data-tag-name="gml:beginPosition"/>
-                </key>
-                <key label="endPosition"
-                     xpath="gex:EX_TemporalExtent/gex:extent/gml:TimePeriod/*/gml:endPosition"
-                     use="gn-date-picker"
-                     tooltip="gex:extent|gex:EX_TemporalExtent"
-                >
-                  <directiveAttributes
-                    data-tag-name="gml:endPosition"
-                    data-indeterminate-position="eval#gex:EX_TemporalExtent/gex:extent/gml:TimePeriod/*/gml:endPosition/@indeterminatePosition"/>
-                </key>
-              </values>
-              <snippet>
-                <gex:temporalElement>
-                  <gex:EX_TemporalExtent>
-                    <gex:extent>
-                      <gml:TimePeriod gml:id="">
-                        {{beginPosition}}
-                        {{endPosition}}
-                      </gml:TimePeriod>
-                    </gex:extent>
-                  </gex:EX_TemporalExtent>
-                </gex:temporalElement>
-              </snippet>
-            </template>
-          </field>
-
-
-          <field
-            name="minDepth"
-            xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/
-                              mri:extent/*/
-                              gex:verticalElement/*/gex:minimumValue"/>
-
-          <field
-            name="maxDepth"
-            xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/
-                              mri:extent/*/
-                              gex:verticalElement/*/gex:maximumValue"/>
 
         </section>
       </tab>
@@ -1954,11 +1959,11 @@
                             </mdq:value>
                             <mdq:valueUnit>
                               <gml:UnitDefinition gml:id="">
-                                <gml:identifier codeSpace="">%</gml:identifier>
+                                <gml:identifier codeSpace="">meters</gml:identifier>
                               </gml:UnitDefinition>
                             </mdq:valueUnit>
                             <mdq:valueRecordType>
-                              <gco:RecordType>Percentage</gco:RecordType>
+                              <gco:RecordType>Real</gco:RecordType>
                             </mdq:valueRecordType>
                           </mdq:DQ_QuantitativeResult>
                         </mdq:result>
@@ -2129,11 +2134,18 @@
       <tab id="checkpoint-tdp-characteristics" default="true">
         <section name="checkpoint-tdp-main">
           <!-- DPS - Challenge number + name  -->
-          <field name="useByChallenges"
+          <field name="challenge"
                  xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/
                   mri:descriptiveKeywords
                   [contains(*/mri:thesaurusName/*/cit:title/gco:CharacterString,
                   'Used by challenges')]"/>
+
+          <!-- DPS - Product name -->
+          <field name="checkpoint-tdp-productName"
+                 xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:citation/cit:CI_Citation/cit:title"/>
+          <!-- DPS - Product identifier -->
+          <field name="checkpoint-tdp-productIdentifier"
+                 xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:citation/cit:CI_Citation/cit:alternateTitle"/>
 
           <!-- DPS - Deliverable identifier -->
           <field name="checkpoint-deliverable"
@@ -2143,48 +2155,44 @@
           <!--
           DPS - Responsible party (point of contact) : organisation name
           DPS - E-mail of responsible party -->
-          <field name="edmerpNameGlobal" templateModeOnly="true" notDisplayedIfMissing="true"
-                 xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:pointOfContact[*/cit:role/*/@codeListValue='edmerp']"
-                 del="."
-                 if="count(mdb:MD_Metadata/mdb:identificationInfo/*) > 0">
+          <field name="pointOfContact"
+                 templateModeOnly="true" notDisplayedIfMissing="true"
+                 xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:pointOfContact"
+                 del=".">
             <template>
               <values readonlyIf="count(@xlink:href) > 0">
-                <key label="projectTitle"
+                <key label="organisationName"
                      xpath="*/cit:party/*/cit:name/gco:CharacterString"/>
-                <key label="acronym"
-                     xpath="*/cit:party/*/cit:individual/*/cit:name/gco:CharacterString"/>
-                <key label="programNameWebsite"
-                     xpath="*/cit:party/*/cit:contactInfo/*/cit:onlineResource/*/cit:linkage/gco:CharacterString"/>
-                <key label="edmerpId"
-                     xpath="cit:CI_Responsibility/@id"/>
+                <key label="electronicMailAddress"
+                     xpath="*/cit:party/*/cit:contactInfo/*/cit:address/*/cit:electronicMailAddress/gco:CharacterString"/>
+
               </values>
               <snippet>
                 <mri:pointOfContact>
-                  <cit:CI_Responsibility id="{{edmerpId}}">
+                  <cit:CI_Responsibility>
                     <gn:copy select="cit:role"/>
                     <gn:copy select="cit:extent"/>
                     <cit:party>
                       <cit:CI_Organisation>
                         <cit:name>
-                          <gco:CharacterString>{{projectTitle}}</gco:CharacterString>
+                          <gco:CharacterString>{{organisationName}}</gco:CharacterString>
                         </cit:name>
                         <cit:contactInfo>
                           <cit:CI_Contact>
                             <gn:copy select="cit:phone"/>
-                            <gn:copy select="cit:address"/>
-                            <cit:onlineResource>
-                              <cit:CI_OnlineResource>
-                                <cit:linkage>
-                                  <gco:CharacterString>{{programNameWebsite}}</gco:CharacterString>
-                                </cit:linkage>
-                                <gn:copy select="cit:protocol"/>
-                                <gn:copy select="cit:applicationProfile"/>
-                                <gn:copy select="cit:name"/>
-                                <gn:copy select="cit:description"/>
-                                <gn:copy select="cit:function"/>
-                                <gn:copy select="cit:protocolRequest"/>
-                              </cit:CI_OnlineResource>
-                            </cit:onlineResource>
+                            <cit:address>
+                              <cit:CI_Address>
+                                <gn:copy select="deliveryPoint"/>
+                                <gn:copy select="city"/>
+                                <gn:copy select="administrativeArea"/>
+                                <gn:copy select="postalCode"/>
+                                <gn:copy select="country"/>
+                                <cit:electronicMailAddress>
+                                  <gco:CharacterString>{{electronicMailAddress}}</gco:CharacterString>
+                                </cit:electronicMailAddress>
+                              </cit:CI_Address>
+                            </cit:address>
+                            <gn:copy select="cit:onlineResource"/>
                             <gn:copy select="cit:hoursOfService"/>
                             <gn:copy select="cit:contactInstructions"/>
                             <gn:copy select="cit:contactType"/>
@@ -2193,9 +2201,7 @@
                         <gn:copy select="cit:logo"/>
                         <cit:individual>
                           <cit:CI_Individual>
-                            <cit:name>
-                              <gco:CharacterString>{{acronym}}</gco:CharacterString>
-                            </cit:name>
+                            <gn:copy select="cit:name"/>
                             <gn:copy select="cit:contactInfo"/>
                           </cit:CI_Individual>
                         </cit:individual>
@@ -2207,8 +2213,8 @@
             </template>
           </field>
 
-          <action type="add"
-                  name="edmerpName"
+          <!--<action type="add"
+                  name="pointOfContact"
                   addDirective="data-gn-directory-entry-selector"
                   or="pointOfContact"
                   in="/mdb:MD_Metadata/mdb:identificationInfo/*">
@@ -2217,12 +2223,12 @@
               data-search-action="false"
               data-popup-action="true"
               data-template-type="contact"
-              data-filter='{"_groupPublished": "CONTACTS_EDMERP"}'
-              data-variables="gmd:role/gmd:CI_RoleCode/@codeListValue~edmerp"
+              data-filter='{"_groupPublished": "*"}'
+              data-variables="gmd:role/gmd:CI_RoleCode/@codeListValue~pointOfContact"
               data-transformation="contact-from-iso19139-to-iso19115-3"/>
           </action>
-
-          <action type="add" name="orAddEdmerpName"
+-->
+          <action type="add" name="pointOfContact"
                   or="pointOfContact"
                   in="/mdb:MD_Metadata/mdb:identificationInfo/*">
             <template>
@@ -2231,7 +2237,7 @@
                   <cit:CI_Responsibility>
                     <cit:role>
                       <cit:CI_RoleCode codeList="codeListLocation#CI_RoleCode"
-                                       codeListValue="edmerp">edmerp</cit:CI_RoleCode>
+                                       codeListValue="pointOfContact">pointOfContact</cit:CI_RoleCode>
                     </cit:role>
                     <cit:party>
                       <cit:CI_Organisation>
@@ -2240,13 +2246,13 @@
                         </cit:name>
                         <cit:contactInfo>
                           <cit:CI_Contact>
-                            <cit:onlineResource>
-                              <cit:CI_OnlineResource>
-                                <cit:linkage>
-                                  <gco:CharacterString></gco:CharacterString>
-                                </cit:linkage>
-                              </cit:CI_OnlineResource>
-                            </cit:onlineResource>
+                            <cit:address>
+                              <cit:CI_Address>
+                                <cit:electronicMailAddress>
+                                  <gco:CharacterString/>
+                                </cit:electronicMailAddress>
+                              </cit:CI_Address>
+                            </cit:address>
                           </cit:CI_Contact>
                         </cit:contactInfo>
                       </cit:CI_Organisation>
@@ -2332,10 +2338,6 @@
           </field>
 
 
-          <!-- DPS - Product identifier
-          DPS - Product name -->
-          <field xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:citation/cit:CI_Citation/cit:title"/>
-
 
           <!-- DPS - Purpose -->
           <field xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:purpose"/>
@@ -2344,10 +2346,16 @@
           <!-- DPS - Abstract -->
           <field xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:abstract"/>
 
+          <field
+            name="inspireTheme"
+            xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/
+                    mri:descriptiveKeywords
+                    [contains(*/mri:thesaurusName/cit:CI_Citation/cit:title/gco:CharacterString,
+                    'INSPIRE themes')]"/>
 
           <!-- DPS - Processing level -->
           <field
-            name="level-of-characteristics"
+            name="processing-level"
             xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/
                     mri:descriptiveKeywords
                     [contains(*/mri:thesaurusName/cit:CI_Citation/cit:title/gco:CharacterString,
@@ -2373,6 +2381,69 @@
 
           <!-- DPS - Spatial representation -->
           <field xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:spatialRepresentationType"/>
+
+          <!-- DPS - Number of component - See Quality section -->
+
+
+          <field
+            xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/
+              mri:extent/*/gex:geographicElement/gex:EX_GeographicBoundingBox"/>
+
+
+          <field name="temporalExtent" templateModeOnly="true"
+                 xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:extent/*/gex:temporalElement"
+                 if="count(mdb:MD_Metadata/mdb:identificationInfo/*) > 0">
+            <template>
+              <values>
+                <!-- -Need a * for gml:TimePeriodTypeCHOICE_ELEMENT2 added by editor enumerated tree -->
+                <key label="beginPosition"
+                     xpath="gex:EX_TemporalExtent/gex:extent/gml:TimePeriod/*/gml:beginPosition"
+                     use="gn-date-picker"
+                     tooltip="gex:extent|gex:EX_TemporalExtent">
+                  <directiveAttributes data-tag-name="gml:beginPosition"/>
+                </key>
+                <key label="endPosition"
+                     xpath="gex:EX_TemporalExtent/gex:extent/gml:TimePeriod/*/gml:endPosition"
+                     use="gn-date-picker"
+                     tooltip="gex:extent|gex:EX_TemporalExtent"
+                >
+                  <directiveAttributes
+                    data-tag-name="gml:endPosition"
+                    data-indeterminate-position="eval#gex:EX_TemporalExtent/gex:extent/gml:TimePeriod/*/gml:endPosition/@indeterminatePosition"/>
+                </key>
+              </values>
+              <snippet>
+                <gex:temporalElement>
+                  <gex:EX_TemporalExtent>
+                    <gex:extent>
+                      <gml:TimePeriod gml:id="">
+                        {{beginPosition}}
+                        {{endPosition}}
+                      </gml:TimePeriod>
+                    </gex:extent>
+                  </gex:EX_TemporalExtent>
+                </gex:temporalElement>
+              </snippet>
+            </template>
+          </field>
+
+
+          <section name="checkpoint-ve">
+            <field
+              name="minDepth"
+              xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/
+                                mri:extent/*/
+                                gex:verticalElement/*/gex:minimumValue"/>
+
+            <field
+              name="maxDepth"
+              xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/
+                                mri:extent/*/
+                                gex:verticalElement/*/gex:maximumValue"/>
+          </section>
+        </section>
+
+        <section name="checkpoint-dps-distribution">
 
           <!-- DPS - Product distribution format -->
           <field
@@ -2424,64 +2495,6 @@
               </snippet>
             </template>
           </action>
-
-          <!-- DPS - Number of component - See Quality section -->
-
-
-          <field
-            xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/
-              mri:extent/*/gex:geographicElement/gex:EX_GeographicBoundingBox"/>
-
-
-          <field name="temporalExtent" templateModeOnly="true"
-                 xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:extent/*/gex:temporalElement"
-                 if="count(mdb:MD_Metadata/mdb:identificationInfo/*) > 0">
-            <template>
-              <values>
-                <!-- -Need a * for gml:TimePeriodTypeCHOICE_ELEMENT2 added by editor enumerated tree -->
-                <key label="beginPosition"
-                     xpath="gex:EX_TemporalExtent/gex:extent/gml:TimePeriod/*/gml:beginPosition"
-                     use="gn-date-picker"
-                     tooltip="gex:extent|gex:EX_TemporalExtent">
-                  <directiveAttributes data-tag-name="gml:beginPosition"/>
-                </key>
-                <key label="endPosition"
-                     xpath="gex:EX_TemporalExtent/gex:extent/gml:TimePeriod/*/gml:endPosition"
-                     use="gn-date-picker"
-                     tooltip="gex:extent|gex:EX_TemporalExtent"
-                >
-                  <directiveAttributes
-                    data-tag-name="gml:endPosition"
-                    data-indeterminate-position="eval#gex:EX_TemporalExtent/gex:extent/gml:TimePeriod/*/gml:endPosition/@indeterminatePosition"/>
-                </key>
-              </values>
-              <snippet>
-                <gex:temporalElement>
-                  <gex:EX_TemporalExtent>
-                    <gex:extent>
-                      <gml:TimePeriod gml:id="">
-                        {{beginPosition}}
-                        {{endPosition}}
-                      </gml:TimePeriod>
-                    </gex:extent>
-                  </gex:EX_TemporalExtent>
-                </gex:temporalElement>
-              </snippet>
-            </template>
-          </field>
-
-
-          <field
-            name="minDepth"
-            xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/
-                              mri:extent/*/
-                              gex:verticalElement/*/gex:minimumValue"/>
-
-          <field
-            name="maxDepth"
-            xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/
-                              mri:extent/*/
-                              gex:verticalElement/*/gex:maximumValue"/>
 
         </section>
       </tab>

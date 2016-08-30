@@ -45,8 +45,9 @@
   <beginPosition>Begin</beginPosition>
   <endPosition>End</endPosition>
   <medsea>Emodnet Checkpoint</medsea>
+  <orAddPointOfContact>or add point of contact</orAddPointOfContact>
   <checkpoint-dps>Emodnet Checkpoint data product specification</checkpoint-dps>
-  <checkpoint-dps-characteristics>DPS Characteristics</checkpoint-dps-characteristics>
+  <checkpoint-dps-characteristics>DPS  identification and overview</checkpoint-dps-characteristics>
   <checkpoint-dps-add-component>Add component</checkpoint-dps-add-component>
   <checkpoint-tdp-add-component>Choose a DPS and then a component</checkpoint-tdp-add-component>
   <checkpoint-ud-add-component>Choose a TDP and then a component</checkpoint-ud-add-component>
@@ -55,11 +56,15 @@
   <checkpoint-dps-component-description>Description</checkpoint-dps-component-description>
   <checkpoint-dps-component-details>Details</checkpoint-dps-component-details>
   <checkpoint-dps-main>Identification</checkpoint-dps-main>
-  <checkpoint-dps-spatial>Spatial info. and format</checkpoint-dps-spatial>
+  <checkpoint-dps-distribution>Distribution</checkpoint-dps-distribution>
+  <checkpoint-dps-spatial>Spatial information</checkpoint-dps-spatial>
+  <checkpoint-ve>Vertical extent</checkpoint-ve>
+  <checkpoint-tdp-productName>Product name</checkpoint-tdp-productName>
+  <checkpoint-tdp-productIdentifier>Product identifier</checkpoint-tdp-productIdentifier>
   <checkpoint-dps-dq>Components &amp; quality measures</checkpoint-dps-dq>
   <checkpoint-deliverable>Deliverable identifier</checkpoint-deliverable>
   <checkpoint-tdp>Emodnet Checkpoint targeted product</checkpoint-tdp>
-  <checkpoint-tdp-characteristics>TDP Characteristics</checkpoint-tdp-characteristics>
+  <checkpoint-tdp-characteristics>TDP  identification and overview</checkpoint-tdp-characteristics>
   <checkpoint-tdp-main>Identification</checkpoint-tdp-main>
   <checkpoint-tdp-qm>Components &amp; quality measures</checkpoint-tdp-qm>
   <checkpoint-ud-qm>Q. measures, Q. errors &amp; Fitness for use</checkpoint-ud-qm>
@@ -118,7 +123,6 @@
       </div>
     </div>
   </medseaTitle-help>
-  <checkpoint-compute-qe-fu>Compute or update quality errors and fitness for use values</checkpoint-compute-qe-fu>
   <characteristics>Characteristics</characteristics>
   <medseaHierarchyLevel>Hierarchy data level*</medseaHierarchyLevel>
   <datasources>Data sources</datasources>
@@ -157,6 +161,7 @@
   <p01>Characteristic name (P01)</p01>
   <production-mode>Production mode</production-mode>
   <level-of-characteristics>Processing level of characteristics*</level-of-characteristics>
+  <processing-level>Processing level*</processing-level>
   <providerSpecification>Purpose of characteristics production*</providerSpecification>
   <providerSpecification-help>
     <div class="row">
@@ -241,7 +246,6 @@
       </div>
     </div>
   </separator>
-
   <dataCollection-help>
     <div class="row">
       <div class="col-xs-offset-2 col-xs-8">
