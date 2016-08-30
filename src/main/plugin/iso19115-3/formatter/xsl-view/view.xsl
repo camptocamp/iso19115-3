@@ -104,7 +104,16 @@
     </div>
   </xsl:template>
 
+  <!-- MedSea data quality section is rendered in a table -->
+  <xsl:template mode="render-field"
+                match="mdb:dataQualityInfo[1]"
+                priority="9999">
+    <div data-gn-data-quality-measure-renderer="{$metadataId}"/>
+  </xsl:template>
 
+  <xsl:template mode="render-field"
+                match="mdb:dataQualityInfo[position() > 1]"
+                priority="9999"/>
 
   <!-- Most of the elements are ... -->
   <xsl:template mode="render-field"
