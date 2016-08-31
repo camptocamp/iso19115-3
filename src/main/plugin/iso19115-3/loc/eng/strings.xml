@@ -61,6 +61,7 @@
   <checkpoint-dps-main>Identification</checkpoint-dps-main>
   <checkpoint-dps-distribution>Distribution</checkpoint-dps-distribution>
   <checkpoint-dps-spatial>Spatial information</checkpoint-dps-spatial>
+  <checkpoint-dps-component-lineage>Lineage</checkpoint-dps-component-lineage>
   <checkpoint-ve>Vertical extent</checkpoint-ve>
   <checkpoint-tdp-productName>Product name</checkpoint-tdp-productName>
   <checkpoint-tdp-productIdentifier>Product identifier</checkpoint-tdp-productIdentifier>

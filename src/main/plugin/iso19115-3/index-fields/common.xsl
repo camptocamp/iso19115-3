@@ -849,10 +849,59 @@
       <Field name="language" string="{string(.)}" store="true" index="true"/>
     </xsl:for-each>
 
-
-    <xsl:for-each select="$metadata/mdb:metadataStandard/cit:CI_Citation/cit:title/gco:CharacterString">
+    <xsl:variable name="standardName"
+                  select="$metadata/mdb:metadataStandard/cit:CI_Citation/cit:title/gco:CharacterString"/>
+    <xsl:for-each select="$standardName">
       <Field name="standardName" string="{string(.)}" store="true" index="true"/>
     </xsl:for-each>
+
+    <!-- Checkpoint / Upstream data
+    Index possible values for:
+     * environmental matrix
+     * P02
+     * P01
+     * Processing level of analysis
+     * Production mode
+
+     Then http://localhost:8080/geonetwork/srv/eng/suggest?field=checkpointUdLineageDesc&origin=INDEX_TERM_VALUES
+     can be use to return possible values.
+     -->
+
+    <xsl:if test="$standardName = 'ISO 19115-3 - Emodnet Checkpoint - Upstream Data'">
+      <xsl:variable name="em"
+                    select="$metadata//mdb:identificationInfo/*/
+                    mri:descriptiveKeywords
+                    [contains(*/mri:thesaurusName/cit:CI_Citation/cit:title/gco:CharacterString,
+                    'Environmental matrix')]/*/mri:keyword/gco:CharacterString"/>
+
+      <xsl:variable name="p02"
+                    select="$metadata//mdb:identificationInfo/*/
+                    mri:descriptiveKeywords
+                    [contains(*/mri:thesaurusName/cit:CI_Citation/cit:identifier/*/mcc:code/*/text(),
+                    'NVS.P02')]/*/mri:keyword/gco:CharacterString"/>
+
+      <xsl:variable name="p01"
+                    select="$metadata//mdb:identificationInfo/*/
+                    mri:descriptiveKeywords
+                    [contains(*/mri:thesaurusName/cit:CI_Citation/cit:identifier/*/mcc:code/*/text(),
+                      'parameter.NVS.P01')]/*/mri:keyword/gco:CharacterString"/>
+
+      <xsl:variable name="pla"
+                    select="$metadata//mdb:identificationInfo/*/
+                    mri:descriptiveKeywords
+                    [contains(*/mri:thesaurusName/cit:CI_Citation/cit:title/gco:CharacterString,
+                    'Processing level of characteristics')]/*/mri:keyword/gco:CharacterString"/>
+
+      <xsl:variable name="pm"
+                    select="$metadata//mdb:identificationInfo/*/
+                    mri:descriptiveKeywords
+                    [contains(*/mri:thesaurusName/cit:CI_Citation/cit:title/gco:CharacterString,
+                    'Production mode')]/*/mri:keyword/gco:CharacterString"/>
+
+      <Field name="checkpointUdLineageDesc"
+             string="{concat($em, '|', $p02, '|', $p01, '|', $pla, '|', $pm)}"
+             store="true" index="true"/>
+    </xsl:if>
 
 
     <xsl:for-each select="$metadata/mdb:metadataIdentifier/mcc:MD_Identifier">

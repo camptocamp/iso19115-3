@@ -57,6 +57,10 @@
         <xsl:with-param name="subTreeSnippet">
 
 
+          <!-- TODO: List all related DPS/TDP/UD with link in editor mode -->
+
+
+
           <!-- Component description -->
           <xsl:for-each select="*/mdq:scope">
             <!-- TODO: In TDP do no display/or readonly component details ? -->
@@ -74,11 +78,19 @@
               <xsl:with-param name="isDisabled" select="$isTdp"/>
             </xsl:apply-templates>
 
+            <xsl:if test="$isDps">
+              <xsl:apply-templates mode="mode-iso19115-3"
+                                   select="*/mcc:levelDescription[3]//mcc:other">
+                <xsl:with-param name="overrideLabel" select="$strings/checkpoint-dps-component-lineage"/>
+                <xsl:with-param name="isDisabled" select="$isTdp"/>
+              </xsl:apply-templates>
+            </xsl:if>
+
             <xsl:apply-templates mode="mode-iso19115-3" select="*/mcc:extent"/>
 
           </xsl:for-each>
 
-          <!-- TODO: MEDSEA Checkbox if component covered or not -->
+          <!-- MEDSEA Checkbox if component covered or not -->
           <xsl:variable name="sqr"
                         select="*/mdq:standaloneQualityReport/*"/>
           <xsl:variable name="sqrId"
