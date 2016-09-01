@@ -79,11 +79,27 @@
             </xsl:apply-templates>
 
             <xsl:if test="$isDps">
-              <xsl:apply-templates mode="mode-iso19115-3"
+              <!--<xsl:apply-templates mode="mode-iso19115-3"
                                    select="*/mcc:levelDescription[3]//mcc:other">
                 <xsl:with-param name="overrideLabel" select="$strings/checkpoint-dps-component-lineage"/>
                 <xsl:with-param name="isDisabled" select="$isTdp"/>
-              </xsl:apply-templates>
+              </xsl:apply-templates>-->
+
+              <xsl:variable name="element"
+                            select="*/mcc:levelDescription[3]//mcc:other"/>
+
+              <xsl:call-template name="render-element">
+                <xsl:with-param name="label" select="$strings/checkpoint-dps-component-lineage"/>
+                <xsl:with-param name="value" select="$element/*"/>
+                <xsl:with-param name="cls" select="local-name($element)"/>
+                <xsl:with-param name="type" select="'text'"/>
+                <xsl:with-param name="name" select="$element/*/gn:element/@ref"/>
+                <xsl:with-param name="editInfo" select="$element/*/gn:element"/>
+                <xsl:with-param name="parentEditInfo" select="$element/gn:element"/>
+                <xsl:with-param name="listOfValues">
+                  <directive name="gn-field-suggestions" data-field="checkpointUdLineageDesc"/>
+                </xsl:with-param>
+              </xsl:call-template>
             </xsl:if>
 
             <xsl:apply-templates mode="mode-iso19115-3" select="*/mcc:extent"/>

@@ -2515,7 +2515,9 @@
           <action type="associatedResource"
                   name="checkpoint-linkToSpecification"
                   if="count(//mri:associatedResource/*/mri:initiativeType/*[@codeListValue = 'specification']) = 0"
-                  process="sibling"/>
+                  process="sibling">
+            <directiveAttributes>{"associationType": "crossReference", "initiativeType": "specification"}</directiveAttributes>
+          </action>
 
           <!-- Then user can pick up one component from the DPS. -->
           <action type="add"
@@ -2549,7 +2551,9 @@
           <action type="associatedResource"
                   name="checkpoint-linkToUpstreamData"
                   if="count(//mri:associatedResource/*/mri:initiativeType/*[@codeListValue = 'specification']) = 1"
-                  process="sibling"/>
+                  process="sibling">
+            <directiveAttributes>{"associationType": "crossReference", "initiativeType": "upstreamData"}</directiveAttributes>
+          </action>
 
         </section>
       </tab>
