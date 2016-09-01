@@ -44,7 +44,7 @@
       </lan:language>
       <lan:characterEncoding>
         <lan:MD_CharacterSetCode codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#MD_CharacterSetCode"
-                                 codeListValue="anyValidURI"/>
+                                 codeListValue="utf8"/>
       </lan:characterEncoding>
     </lan:PT_Locale>
   </mdb:defaultLocale>

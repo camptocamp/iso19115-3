@@ -86,9 +86,8 @@
     <link rel="stylesheet" type="text/css"
           href="{$baseUrl}../../apps/sextant/css/metadata-view.css"></link>
 
-    <table class="related">
-      <tr></tr>
-    </table>
+    <div data-gn-related="md" data-types="siblings|associated" data-title="Associated resources"></div>
+
 
     <div class="ui-layout-content mdshow-tabpanel">
       <a class="file-link"
@@ -114,6 +113,7 @@
   <xsl:template mode="render-field"
                 match="mdb:dataQualityInfo[position() > 1]"
                 priority="9999"/>
+
 
   <!-- Most of the elements are ... -->
   <xsl:template mode="render-field"

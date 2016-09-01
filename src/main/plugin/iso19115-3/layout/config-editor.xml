@@ -186,6 +186,7 @@
 
 
   <fieldsWithFieldset>
+    <name>mdb:MD_Metadata</name>
     <name>mcc:MD_Identifier</name>
     <name>mdb:metadataStandard</name>
     <name>mdb:metadataScope</name>
@@ -2138,7 +2139,7 @@
         <thesaurus key="local.theme.emodnet-checkpoint.readyness" maxtags="1"/>
         <thesaurus key="local.theme.emodnet-checkpoint.data.delivery.mechanism" maxtags="1"/>
       </thesaurusList>
-      <tab id="checkpoint-tdp-characteristics" default="true">
+      <tab id="checkpoint-tdp-characteristics" default="true" mode="flat">
         <section name="checkpoint-tdp-main">
           <!-- DPS - Challenge number + name  -->
           <field name="challenge"
@@ -2376,6 +2377,10 @@
                     mri:descriptiveKeywords
                     [contains(*/mri:thesaurusName/cit:CI_Citation/cit:title/gco:CharacterString,
                     'Production mode')]"/>
+
+
+          <field xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:resourceConstraints"/>
+
         </section>
 
         <section name="checkpoint-dps-spatial">
