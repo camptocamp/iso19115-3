@@ -154,6 +154,9 @@
                     <col>
                       <xsl:value-of select="$strings/checkpoint-qe"/>
                     </col>
+                    <col>
+                      <xsl:value-of select="$strings/checkpoint-dps-value"/>
+                    </col>
                   </xsl:when>
                   <xsl:when test="$isUd">
                     <col>
@@ -161,6 +164,12 @@
                     </col>
                     <col>
                       <xsl:value-of select="$strings/checkpoint-fu"/>
+                    </col>
+                    <col>
+                      <xsl:value-of select="$strings/checkpoint-dps-value"/>
+                    </col>
+                    <col>
+                      <xsl:value-of select="$strings/checkpoint-tdp-value"/>
                     </col>
                   </xsl:when>
                 </xsl:choose>
@@ -196,7 +205,6 @@
                                             then $unit/text()
                                             else */mdq:valueRecordType/*/normalize-space()"/>
                         </col>
-
                         <xsl:choose>
                           <xsl:when test="$isTdp">
                             <xsl:variable name="qeId"
@@ -208,6 +216,9 @@
                                                       ]"/>
                             <col readonly="" title="{$tdpQe/mdq:measure/*/mdq:measureDescription/*/text()}">
                               <xsl:value-of select="format-number($tdpQe/mdq:result/*/mdq:value/*/text(), $format)"/>
+                            </col>
+                            <col readonly="">
+                              <span data-gn-qm-value="{concat($cptId, '|', $measureId/text())}"/>
                             </col>
                           </xsl:when>
                           <xsl:when test="$isUd">
@@ -233,8 +244,17 @@
                             <col readonly="" title="{$udFu/mdq:measure/*/mdq:measureDescription/*/text()}">
                               <xsl:value-of select="format-number($udFu/mdq:result/*/mdq:value/*/text(), $format)"/>
                             </col>
+
+                            <col readonly="">
+                              <span data-gn-qm-value="{concat($cptId, '|', $measureId/text())}"/>
+                            </col>
+                            <col readonly="">
+                              <span data-gn-qm-value="{concat($cptId, '|', $measureId/text())}" data-tdp="true"/>
+                            </col>
                           </xsl:when>
                         </xsl:choose>
+
+
 
                         <!-- Measures can only be removed in the DPS. ie. once defined
                          in component in a spec, the related TDP and UDs MUST encode

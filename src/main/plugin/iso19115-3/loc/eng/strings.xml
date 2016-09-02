@@ -71,6 +71,8 @@
   <checkpoint-tdp-characteristics>TDP  identification and overview</checkpoint-tdp-characteristics>
   <checkpoint-tdp-main>Identification</checkpoint-tdp-main>
   <checkpoint-tdp-qm>Components &amp; quality measures</checkpoint-tdp-qm>
+  <checkpoint-dps-value>DPS value</checkpoint-dps-value>
+  <checkpoint-tdp-value>TDP value</checkpoint-tdp-value>
   <checkpoint-ud-qm>Q. measures, Q. errors &amp; Fitness for use</checkpoint-ud-qm>
   <checkpoint-linkToSpecification>Link to a specification</checkpoint-linkToSpecification>
   <checkpoint-linkToSpecification-help>
