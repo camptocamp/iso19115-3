@@ -324,14 +324,14 @@
                           </xsl:choose>
                         </gco:Record>
                       </mdq:value>
-                      <mdq:valueUnit>
+                      <!--<mdq:valueUnit>
                         <gml:UnitDefinition>
                           <gml:identifier codeSpace="">%</gml:identifier>
                         </gml:UnitDefinition>
                       </mdq:valueUnit>
                       <mdq:valueRecordType>
                         <gco:RecordType>Percentage</gco:RecordType>
-                      </mdq:valueRecordType>
+                      </mdq:valueRecordType>-->
                     </mdq:DQ_QuantitativeResult>
                   </mdq:result>
                 </xsl:element>

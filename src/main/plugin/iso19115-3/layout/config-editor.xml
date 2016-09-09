@@ -1544,13 +1544,6 @@
           <field name="checkpoint-abstract"
                  xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:abstract"/>
 
-          <field
-            name="inspireTheme"
-            xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/
-                    mri:descriptiveKeywords
-                    [contains(*/mri:thesaurusName/cit:CI_Citation/cit:title/gco:CharacterString,
-                    'INSPIRE themes')]"/>
-
           <!-- DPS - Processing level -->
           <field
             name="processing-level"
@@ -1567,6 +1560,14 @@
                     mri:descriptiveKeywords
                     [contains(*/mri:thesaurusName/cit:CI_Citation/cit:title/gco:CharacterString,
                     'Production mode')]"/>
+
+          <field
+            name="inspireTheme"
+            xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/
+                    mri:descriptiveKeywords
+                    [contains(*/mri:thesaurusName/cit:CI_Citation/cit:title/gco:CharacterString,
+                    'INSPIRE themes')]"/>
+
         </section>
 
         <section name="checkpoint-dps-spatial">
@@ -2144,7 +2145,7 @@
         <thesaurus key="local.theme.emodnet-checkpoint.readyness" maxtags="1"/>
         <thesaurus key="local.theme.emodnet-checkpoint.data.delivery.mechanism" maxtags="1"/>
       </thesaurusList>
-      <tab id="checkpoint-tdp-characteristics" default="true" mode="flat">
+      <tab id="checkpoint-tdp-characteristics" default="true">
         <section name="checkpoint-tdp-main">
           <!-- DPS - Challenge number + name  -->
           <field name="challenge"
@@ -2359,13 +2360,6 @@
           <!-- DPS - Abstract -->
           <field xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:abstract"/>
 
-          <field
-            name="inspireTheme"
-            xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/
-                    mri:descriptiveKeywords
-                    [contains(*/mri:thesaurusName/cit:CI_Citation/cit:title/gco:CharacterString,
-                    'INSPIRE themes')]"/>
-
           <!-- DPS - Processing level -->
           <field
             name="processing-level"
@@ -2382,6 +2376,13 @@
                     mri:descriptiveKeywords
                     [contains(*/mri:thesaurusName/cit:CI_Citation/cit:title/gco:CharacterString,
                     'Production mode')]"/>
+
+          <field
+            name="inspireTheme"
+            xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/
+                    mri:descriptiveKeywords
+                    [contains(*/mri:thesaurusName/cit:CI_Citation/cit:title/gco:CharacterString,
+                    'INSPIRE themes')]"/>
 
 
           <field xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:resourceConstraints"/>
