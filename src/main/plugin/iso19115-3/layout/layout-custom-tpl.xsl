@@ -85,24 +85,56 @@
                 <xsl:with-param name="isDisabled" select="$isTdp"/>
               </xsl:apply-templates>-->
 
-              <xsl:variable name="element"
-                            select="*/mcc:levelDescription[3]//mcc:other"/>
+              <xsl:for-each select="*/mcc:levelDescription[position() > 2]//mcc:other">
+                <xsl:call-template name="render-element">
+                  <xsl:with-param name="label" select="$strings/checkpoint-dps-component-lineage"/>
+                  <xsl:with-param name="value" select="./*"/>
+                  <xsl:with-param name="cls" select="local-name(.)"/>
+                  <xsl:with-param name="type" select="'text'"/>
+                  <xsl:with-param name="name" select="./*/gn:element/@ref"/>
+                  <xsl:with-param name="editInfo" select="./*/gn:element"/>
+                  <xsl:with-param name="parentEditInfo" select="./gn:element"/>
+                  <xsl:with-param name="listOfValues">
+                    <directive name="gn-field-suggestions" data-field="checkpointUdLineageDesc"/>
+                  </xsl:with-param>
+                </xsl:call-template>
+              </xsl:for-each>
 
-              <xsl:call-template name="render-element">
-                <xsl:with-param name="label" select="$strings/checkpoint-dps-component-lineage"/>
-                <xsl:with-param name="value" select="$element/*"/>
-                <xsl:with-param name="cls" select="local-name($element)"/>
-                <xsl:with-param name="type" select="'text'"/>
-                <xsl:with-param name="name" select="$element/*/gn:element/@ref"/>
-                <xsl:with-param name="editInfo" select="$element/*/gn:element"/>
-                <xsl:with-param name="parentEditInfo" select="$element/gn:element"/>
-                <xsl:with-param name="listOfValues">
-                  <directive name="gn-field-suggestions" data-field="checkpointUdLineageDesc"/>
-                </xsl:with-param>
-              </xsl:call-template>
+
+              <!-- TODO: Add the capabilitie to populate manually the value -->
+
+              <xsl:variable name="ref" select="*/gn:element/@ref"/>
+              <div class="form-group gn-field gn-lineage gn-extra-field gn-add-field"
+                   data-gn-field-highlight="">
+                <label class="col-sm-2 control-label">
+                </label>
+                <div class="col-sm-9">
+                  <div>
+                    <button class="btn btn-default ng-isolate-scope"
+                            data-gn-template-field-add-button="_X{$ref}_mccCOLONlevelDescription">
+                      <i class="fa fa-plus"></i>
+                    </button>
+                    <div class="hidden">
+                      <textarea class="form-control gn-debug ng-isolate-scope"
+                                name="_X{$ref}_mccCOLONlevelDescription">
+                        <![CDATA[<mcc:levelDescription
+                    xmlns:gco="http://standards.iso.org/iso/19115/-3/gco/1.0"
+                    xmlns:mcc="http://standards.iso.org/iso/19115/-3/mcc/1.0">
+                    <mcc:MD_ScopeDescription>
+                      <mcc:other>
+                        <gco:CharacterString></gco:CharacterString>
+                      </mcc:other>
+                    </mcc:MD_ScopeDescription>
+                  </mcc:levelDescription>]]>
+                      </textarea>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </xsl:if>
 
-            <xsl:apply-templates mode="mode-iso19115-3" select="*/mcc:extent"/>
+            <xsl:apply-templates mode="mode-iso19115-3"
+                                 select="*/mcc:extent"/>
 
           </xsl:for-each>
 

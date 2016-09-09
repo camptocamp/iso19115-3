@@ -874,6 +874,12 @@
                     [contains(*/mri:thesaurusName/cit:CI_Citation/cit:title/gco:CharacterString,
                     'Environmental matrix')]/*/mri:keyword/gco:CharacterString"/>
 
+      <xsl:variable name="c"
+                    select="$metadata//mdb:identificationInfo/*/
+                    mri:descriptiveKeywords
+                    [contains(*/mri:thesaurusName/*/cit:title/gco:CharacterString,
+                      'Used by challenges')]/*/mri:keyword/gco:CharacterString"/>
+
       <xsl:variable name="p02"
                     select="$metadata//mdb:identificationInfo/*/
                     mri:descriptiveKeywords
@@ -897,9 +903,8 @@
                     mri:descriptiveKeywords
                     [contains(*/mri:thesaurusName/cit:CI_Citation/cit:title/gco:CharacterString,
                     'Production mode')]/*/mri:keyword/gco:CharacterString"/>
-
       <Field name="checkpointUdLineageDesc"
-             string="{concat($em, '|', $p02, '|', $p01, '|', $pla, '|', $pm)}"
+             string="{concat($c, '|', $em, '|', $p02, '|', $p01, '|', $pla, '|', $pm)}"
              store="true" index="true"/>
     </xsl:if>
 

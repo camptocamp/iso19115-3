@@ -1319,6 +1319,7 @@
       <thesaurusList>
         <thesaurus key="local.theme.emodnet-checkpoint.environmental.matrix" maxtags="1"/>
         <thesaurus key="local.theme.emodnet-checkpoint.status" maxtags="1"/>
+        <thesaurus key="local.theme.emodnet-checkpoint.challenges" maxtags="1"/>
         <thesaurus key="local.theme.emodnet-checkpoint.visibility" maxtags="1"/>
         <thesaurus key="local.theme.emodnet-checkpoint.policy.visibility" maxtags="1"/>
         <thesaurus key="external.theme.inspire-theme" maxtags="1"/>
@@ -1349,7 +1350,7 @@
           <!--
           DPS - Responsible party (point of contact) : organisation name
           DPS - E-mail of responsible party -->
-          <field name="pointOfContact"
+          <field name="checkpoint-pointOfContact"
                  templateModeOnly="true" notDisplayedIfMissing="true"
                  xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:pointOfContact"
                  del=".">
@@ -1422,7 +1423,7 @@
               data-transformation="contact-from-iso19139-to-iso19115-3"/>
           </action>-->
 
-          <action type="add" name="pointOfContact"
+          <action type="add" name="checkpoint-pointOfContact"
                   or="pointOfContact"
                   in="/mdb:MD_Metadata/mdb:identificationInfo/*">
             <template>
@@ -1461,7 +1462,8 @@
 
           <!-- DPS - Metadataset creation date  (DD/MM/YYYY) -->
           <!-- DPS - Metadataset revision date  (DD/MM/YYYY) -->
-          <field xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/
+          <field name="checkpoint-date"
+                 xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/
                           mri:citation/*/cit:date[
                             */cit:dateType/*/@codeListValue = 'creation' or
                             */cit:dateType/*/@codeListValue = 'revision']"/>
@@ -1534,11 +1536,13 @@
 
 
           <!-- DPS - Purpose -->
-          <field xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:purpose"/>
+          <field name="checkpoint-purpose"
+                 xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:purpose"/>
 
 
           <!-- DPS - Abstract -->
-          <field xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:abstract"/>
+          <field name="checkpoint-abstract"
+                 xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:abstract"/>
 
           <field
             name="inspireTheme"
@@ -1558,7 +1562,7 @@
 
           <!-- DPS - Production mode -->
           <field
-            name="production-mode"
+            name="checkpoint-production-mode"
             xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/
                     mri:descriptiveKeywords
                     [contains(*/mri:thesaurusName/cit:CI_Citation/cit:title/gco:CharacterString,
@@ -1579,9 +1583,9 @@
           <!-- DPS - Number of component - See Quality section -->
 
 
-          <field
-            xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/
-              mri:extent/*/gex:geographicElement/gex:EX_GeographicBoundingBox"/>
+          <field name="checkpoint-dps-extent"
+                 xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/
+                        mri:extent/*/gex:geographicElement/gex:EX_GeographicBoundingBox"/>
 
 
           <field name="temporalExtent" templateModeOnly="true"
@@ -1623,13 +1627,13 @@
 
           <section name="checkpoint-ve">
             <field
-              name="minDepth"
+              name="checkpoint-minDepth"
               xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/
                                 mri:extent/*/
                                 gex:verticalElement/*/gex:minimumValue"/>
 
             <field
-              name="maxDepth"
+              name="checkpoint-maxDepth"
               xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/
                                 mri:extent/*/
                                 gex:verticalElement/*/gex:maximumValue"/>
@@ -2116,6 +2120,7 @@
 
         </section>
       </tab>
+
     </view>
 
 
