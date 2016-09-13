@@ -130,17 +130,6 @@
               </cit:dateType>
             </cit:CI_Date>
           </cit:date>
-          <cit:date>
-            <cit:CI_Date>
-              <cit:date>
-                <gco:Date/>
-              </cit:date>
-              <cit:dateType>
-                <cit:CI_DateTypeCode codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#CI_DateTypeCode"
-                                     codeListValue="revision"/>
-              </cit:dateType>
-            </cit:CI_Date>
-          </cit:date>
           <cit:series>
             <cit:CI_Series>
               <cit:issueIdentification gco:nilReason="missing">

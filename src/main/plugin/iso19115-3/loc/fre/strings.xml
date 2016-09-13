@@ -15,6 +15,7 @@
   <simple>Simple</simple>
   <inspire>INSPIRE</inspire>
   <inspireTheme>Thèmes INSPIRE</inspireTheme>
+  <inspireThemeMandatory>INSPIRE themes*</inspireThemeMandatory>
   <resource>Ressource</resource>
   <xml>XML</xml>
   <metadata>Métadonnées</metadata>
@@ -56,6 +57,7 @@
   <checkpoint-dps-component-description>Description*</checkpoint-dps-component-description>
   <checkpoint-dps-component-details>Details</checkpoint-dps-component-details>
   <checkpoint-dps-main>Identification</checkpoint-dps-main>
+  <checkpoint-add-revision>Add revision date</checkpoint-add-revision>
   <checkpoint-dps-distribution>Distribution</checkpoint-dps-distribution>
   <checkpoint-dps-spatial>Spatial information</checkpoint-dps-spatial>
   <checkpoint-dps-component-lineage>Lineage*</checkpoint-dps-component-lineage>

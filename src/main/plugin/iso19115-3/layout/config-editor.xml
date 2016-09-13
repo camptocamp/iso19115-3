@@ -70,6 +70,7 @@
     <for name="gco:Distance" use="number"/>
     <for name="gco:Decimal" use="number"/>
     <for name="gco:Integer" use="number"/>
+    <for name="gco:Real" use="number"/>
     <for name="gco:Angle" use="number"/>
     <for name="gco:Boolean" use="checkbox"/>
 
@@ -1468,6 +1469,32 @@
                             */cit:dateType/*/@codeListValue = 'creation' or
                             */cit:dateType/*/@codeListValue = 'revision']"/>
 
+          <action type="add"
+                  btnLabel="checkpoint-add-revision"
+                  or="date"
+                  in="/mdb:MD_Metadata/mdb:identificationInfo/*/
+                          mri:citation/*"
+                  if="count(mdb:MD_Metadata/mdb:identificationInfo/*/
+                          mri:citation/*/cit:date[
+                            */cit:dateType/*/@codeListValue = 'revision']) = 0">
+            <template>
+              <snippet>
+                <cit:date>
+                  <cit:CI_Date>
+                    <cit:date>
+                      <gco:Date/>
+                    </cit:date>
+                    <cit:dateType>
+                      <cit:CI_DateTypeCode codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#CI_DateTypeCode"
+                                           codeListValue="revision"/>
+                    </cit:dateType>
+                  </cit:CI_Date>
+                </cit:date>
+              </snippet>
+            </template>
+          </action>
+
+
 
           <!-- DPS - E-mail of metadata contact -->
           <field name="metadataPointOfContact"
@@ -2138,6 +2165,7 @@
         <thesaurus key="local.theme.emodnet-checkpoint.environmental.matrix" maxtags="1"/>
         <thesaurus key="local.theme.emodnet-checkpoint.status" maxtags="1"/>
         <thesaurus key="local.theme.emodnet-checkpoint.visibility" maxtags="1"/>
+        <thesaurus key="local.theme.emodnet-checkpoint.challenges" maxtags="1"/>
         <thesaurus key="local.theme.emodnet-checkpoint.policy.visibility" maxtags="1"/>
         <thesaurus key="external.theme.inspire-theme" maxtags="1"/>
         <thesaurus key="local.theme.emodbnet-checkpoint.level.of.characteristics" maxtags="1"/>
@@ -2147,6 +2175,19 @@
       </thesaurusList>
       <tab id="checkpoint-tdp-characteristics" default="true">
         <section name="checkpoint-tdp-main">
+          <!-- If no DPS associated, warn user to choose one first. -->
+          <text ref="checkpoint-linkToSpecification-help"
+                if="count(//mri:associatedResource/*/mri:initiativeType/*[@codeListValue = 'specification']) = 0"
+          />
+          <action type="associatedResource"
+                  name="checkpoint-linkToSpecification"
+                  if="count(//mri:associatedResource/*/mri:initiativeType/*[@codeListValue = 'specification']) = 0"
+                  process="sibling">
+            <directiveAttributes>{"associationType": "crossReference", "initiativeType": "specification"}</directiveAttributes>
+          </action>
+
+
+
           <!-- DPS - Challenge number + name  -->
           <field name="challenge"
                  xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/
@@ -2378,14 +2419,15 @@
                     'Production mode')]"/>
 
           <field
-            name="inspireTheme"
+            name="inspireThemeMandatory"
             xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/
                     mri:descriptiveKeywords
                     [contains(*/mri:thesaurusName/cit:CI_Citation/cit:title/gco:CharacterString,
                     'INSPIRE themes')]"/>
 
 
-          <field xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:resourceConstraints"/>
+          <field xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:resourceConstraints/*/mco:useLimitation"/>
+          <field xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:resourceConstraints/*/mco:useConstraints"/>
 
         </section>
 
@@ -2519,16 +2561,6 @@
 
       <tab id="checkpoint-tdp-qm" mode="flat">
         <section>
-          <!-- If no DPS associated, warn user to choose one first. -->
-          <text ref="checkpoint-linkToSpecification-help"
-                if="count(//mri:associatedResource/*/mri:initiativeType/*[@codeListValue = 'specification']) = 0"
-          />
-          <action type="associatedResource"
-                  name="checkpoint-linkToSpecification"
-                  if="count(//mri:associatedResource/*/mri:initiativeType/*[@codeListValue = 'specification']) = 0"
-                  process="sibling">
-            <directiveAttributes>{"associationType": "crossReference", "initiativeType": "specification"}</directiveAttributes>
-          </action>
 
           <!-- Then user can pick up one component from the DPS. -->
           <action type="add"

@@ -75,7 +75,7 @@
             <xsl:apply-templates mode="mode-iso19115-3"
                                  select="*/mcc:levelDescription[2]//mcc:other">
               <xsl:with-param name="overrideLabel" select="$strings/checkpoint-dps-component-description"/>
-              <xsl:with-param name="isDisabled" select="$isTdp"/>
+              <!--<xsl:with-param name="isDisabled" select="$isTdp"/>-->
             </xsl:apply-templates>
 
             <xsl:if test="$isDps">
