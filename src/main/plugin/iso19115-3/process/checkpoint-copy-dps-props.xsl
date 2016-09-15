@@ -94,12 +94,13 @@
     <xsl:copy-of select="$dpsDocument//mdb:identificationInfo/*/mri:spatialRepresentationType"/>
   </xsl:template>
 
+  <!-- Contact pour la ressource -->
 
   <!-- Copy challenge -->
   <xsl:template match="mri:descriptiveKeywords[$hasDps and (
               normalize-space(*/mri:thesaurusName/*/cit:title/gco:CharacterString) = 'Used by challenges' or
               normalize-space(*/mri:thesaurusName/*/cit:title/gco:CharacterString) = 'Production mode' or
-              normalize-space(*/mri:thesaurusName/*/cit:title/gco:CharacterString) = 'INSPIRE themes' or
+              normalize-space(*/mri:thesaurusName/*/cit:title/gco:CharacterString) = 'GEMET - INSPIRE themes, version 1.0' or
               normalize-space(*/mri:thesaurusName/*/cit:title/gco:CharacterString) = 'Processing level of characteristics'
                         )]">
     <xsl:variable name="thesaurusKey"

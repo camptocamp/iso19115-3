@@ -1589,7 +1589,7 @@
                     'Production mode')]"/>
 
           <field
-            name="inspireTheme"
+            name="inspireThemeMandatory"
             xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/
                     mri:descriptiveKeywords
                     [contains(*/mri:thesaurusName/cit:CI_Citation/cit:title/gco:CharacterString,
@@ -2207,9 +2207,6 @@
           <!-- DPS - Product name -->
           <field name="checkpoint-tdp-productName"
                  xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:citation/cit:CI_Citation/cit:title"/>
-          <!-- DPS - Product identifier -->
-          <field name="checkpoint-tdp-productIdentifier"
-                 xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:citation/cit:CI_Citation/cit:alternateTitle"/>
 
           <!-- DPS - Deliverable identifier -->
           <field name="checkpoint-deliverable"

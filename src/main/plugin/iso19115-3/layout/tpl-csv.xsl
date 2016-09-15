@@ -10,6 +10,7 @@
                 xmlns:msr="http://standards.iso.org/iso/19115/-3/msr/1.0"
                 xmlns:lan="http://standards.iso.org/iso/19115/-3/lan/1.0"
                 xmlns:gcx="http://standards.iso.org/iso/19115/-3/gcx/1.0"
+                xmlns:mdq="http://standards.iso.org/iso/19157/-2/mdq/1.0"
                 xmlns:gex="http://standards.iso.org/iso/19115/-3/gex/1.0"
                 xmlns:dqm="http://standards.iso.org/iso/19157/-2/dqm/1.0"
                 xmlns:cit="http://standards.iso.org/iso/19115/-3/cit/1.0"
@@ -65,6 +66,7 @@
         </image>
       </xsl:for-each>
 
+      <!-- Group by thesaurus -->
       <xsl:for-each select="mdb:identificationInfo/*//mri:keyword[not(@gco:nilReason)]">
         <keyword>
           <xsl:apply-templates mode="localised" select=".">
@@ -112,6 +114,26 @@
         <link>
           <xsl:value-of select="*/text()"/>
         </link>
+      </xsl:for-each>
+
+      <xsl:for-each select="mdb:identificationInfo/*/mri:pointOfContact">
+        <xsl:variable name="email"
+                      select="*/cit:party/*/cit:contactInfo/*/cit:address/*/cit:electronicMailAddress/gco:CharacterString"/>
+        <contact>
+          <xsl:value-of select="*/cit:party/*/cit:name/gco:CharacterString"/>
+          <xsl:if test="$email">
+          (<xsl:value-of select="$email"/>)
+          </xsl:if>
+        </contact>
+      </xsl:for-each>
+
+      <!-- Responsivness / MedSea specific -->
+      <xsl:for-each
+        select="mdb:dataQualityInfo/*/mdq:report/*[
+                  mdq:measure/*/mdq:nameOfMeasure/gco:CharacterString = 'Responsiveness']">
+        <responsiveness>
+          <xsl:value-of select="mdq:result/*/mdq:value/gco:Record"/>
+        </responsiveness>
       </xsl:for-each>
 
       <xsl:copy-of select="gn:info"/>
