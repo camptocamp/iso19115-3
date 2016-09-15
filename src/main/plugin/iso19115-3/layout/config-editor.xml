@@ -2186,6 +2186,15 @@
             <directiveAttributes>{"associationType": "crossReference", "initiativeType": "specification"}</directiveAttributes>
           </action>
 
+          <!-- Compute QE and FU -->
+          <action type="process"
+                  process="checkpoint-copy-dps-props"
+                  btnClass="fa fa-clone"
+                  if="count(//mri:associatedResource/*/mri:initiativeType/*[@codeListValue = 'specification']) = 1"/>
+
+          <text ref="checkpoint-copy-dps-props-help"
+                if="count(//mri:associatedResource/*/mri:initiativeType/*[@codeListValue = 'specification']) = 1"
+          />
 
 
           <!-- DPS - Challenge number + name  -->
@@ -2328,6 +2337,32 @@
                             */cit:dateType/*/@codeListValue = 'revision']"/>
 
 
+          <action type="add"
+                  btnLabel="checkpoint-add-revision"
+                  or="date"
+                  in="/mdb:MD_Metadata/mdb:identificationInfo/*/
+                          mri:citation/*"
+                  if="count(mdb:MD_Metadata/mdb:identificationInfo/*/
+                          mri:citation/*/cit:date[
+                            */cit:dateType/*/@codeListValue = 'revision']) = 0">
+            <template>
+              <snippet>
+                <cit:date>
+                  <cit:CI_Date>
+                    <cit:date>
+                      <gco:Date/>
+                    </cit:date>
+                    <cit:dateType>
+                      <cit:CI_DateTypeCode codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#CI_DateTypeCode"
+                                           codeListValue="revision"/>
+                    </cit:dateType>
+                  </cit:CI_Date>
+                </cit:date>
+              </snippet>
+            </template>
+          </action>
+
+
           <!-- DPS - E-mail of metadata contact -->
           <field name="metadataPointOfContact"
                  templateModeOnly="true"
@@ -2395,11 +2430,11 @@
 
 
           <!-- DPS - Purpose -->
-          <field xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:purpose"/>
+          <field name="checkpoint-purpose" xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:purpose"/>
 
 
           <!-- DPS - Abstract -->
-          <field xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:abstract"/>
+          <field name="checkpoint-abstract" xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:abstract"/>
 
           <!-- DPS - Processing level -->
           <field
@@ -2412,7 +2447,7 @@
 
           <!-- DPS - Production mode -->
           <field
-            name="production-mode"
+            name="checkpoint-production-mode"
             xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/
                     mri:descriptiveKeywords
                     [contains(*/mri:thesaurusName/cit:CI_Citation/cit:title/gco:CharacterString,

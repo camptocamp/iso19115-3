@@ -61,6 +61,18 @@
   <checkpoint-dps-distribution>Distribution</checkpoint-dps-distribution>
   <checkpoint-dps-spatial>Spatial information</checkpoint-dps-spatial>
   <checkpoint-dps-component-lineage>Lineage*</checkpoint-dps-component-lineage>
+  <checkpoint-copy-dps-props>Copy properties from DPS</checkpoint-copy-dps-props>
+  <checkpoint-copy-dps-props-help>
+    <div class="row">
+      <div class="col-xs-offset-2 col-xs-8">
+        <p class="help-block">
+          Replace current TDP properties (spatial, vertical and temporal extents,
+          Challenge, Processing level, Production mode and INSPIRE theme) by
+          the one from the related DPS.
+        </p>
+      </div>
+    </div>
+  </checkpoint-copy-dps-props-help>
   <checkpoint-ve>Vertical extent</checkpoint-ve>
   <checkpoint-tdp-productName>Product name*</checkpoint-tdp-productName>
   <checkpoint-tdp-productIdentifier>Product identifier</checkpoint-tdp-productIdentifier>

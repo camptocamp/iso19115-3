@@ -99,11 +99,61 @@
     <entry key='MEDSEA_CH7_Product_7 / Annual time series of Total Phosphorous [mg/l]' value='MEDSEA D7.3.4'/>
     <entry key='MEDSEA_CH7_Product_8 / Monthly time series of Total Phosphorous [mg/l]' value='MEDSEA D7.3.4'/>
     <entry key='MEDSEA_CH7_Product_9 / Annual time series of Eels Production per country [tons]' value='MEDSEA D7.3.4'/>
+    <entry key='MEDSEA_CH1_Specification_1 / A Wind and wave data set (subsample of a larger data set from MARINA project produced for EMODnet)' value='MEDSEA D1.3.4'/>
+    <entry key='MEDSEA_CH1_Specification_2 / A suitability index of a wind farm in the NWMed concerning the environmental resources (ONLY)' value='MEDSEA D1.3.4'/>
+    <entry key='MEDSEA_CH1_Specification_3 / A suitability index of a wind farm in the NWMed concerning the environmental resources, the natural barriers, human activities, MPA and fisheries' value='MEDSEA D1.3.4'/>
+    <entry key='MEDSEA_CH2_Specification_1 / Med protection initiatives (management and conservation areas)' value='MEDSEA D2.3.4'/>
+    <entry key='MEDSEA_CH2_Specification_2 / Med conservation areas and depth zones' value='MEDSEA D2.3.4'/>
+    <entry key='MEDSEA_CH2_Specification_3 / Proposed regional conservation areas in the Mediterranean' value='MEDSEA D2.3.4'/>
+    <entry key='MEDSEA_CH2_Specification_4 / Qualitative analysis of connectivity between MPAs' value='MEDSEA D2.3.4'/>
+    <entry key='MEDSEA_CH2_Specification_5 / Representativity of habitats/species/other features, estuaries, lagoons etc' value='MEDSEA D2.3.4'/>
+    <entry key='MEDSEA_CH2_Specification_6 / The capacity of biodiversity monitoring in MPAs' value='MEDSEA D2.3.4'/>
+    <entry key='MEDSEA_CH3_Specification_1 / 24hr EMODnet Oil spill Bulletin' value='MEDSEA D3.3.4'/>
+    <entry key='MEDSEA_CH3_Specification_2 / 72hr EMODnet Oil spill Bulletin' value='MEDSEA D3.3.4'/>
+    <entry key='MEDSEA_CH4_Specification_1 / Sea Temperature Trend from Models' value='MEDSEA D4.3.4'/>
+    <entry key='MEDSEA_CH4_Specification_2 / Sea Temperature Trend from Reanalysis' value='MEDSEA D4.3.4'/>
+    <entry key='MEDSEA_CH4_Specification_3 / Sea Temperature Trend from Satellite' value='MEDSEA D4.3.4'/>
+    <entry key='MEDSEA_CH4_Specification_4 / Sea Internal Energy Trend from Models' value='MEDSEA D4.3.4'/>
+    <entry key='MEDSEA_CH4_Specification_5 / Sea Level Trend from Models' value='MEDSEA D4.3.4'/>
+    <entry key='MEDSEA_CH4_Specification_6 / Sea Level Trend from satellite' value='MEDSEA D4.3.4'/>
+    <entry key='MEDSEA_CH4_Specification_7 / Sea Level Trend from Low Temporal Resolution Tide-Gauges' value='MEDSEA D4.3.4'/>
+    <entry key='MEDSEA_CH4_Specification_8 / Sea Level Trend from High Temporal Resolution Tide-Gauges' value='MEDSEA D4.3.4'/>
+    <entry key='MEDSEA_CH4_Specification_9 / Sediment Mass Balance from Experts Survey' value='MEDSEA D4.3.4'/>
+    <entry key='MEDSEA_CH4_Specification_10 / Sediment Mass Balance from Literarure Survey' value='MEDSEA D4.3.4'/>
+    <entry key='MEDSEA_CH4_Specification_11 / Annual Average Sea Temperature from Models' value='MEDSEA D4.3.4'/>
+    <entry key='MEDSEA_CH4_Specification_12 / Annual Average Sea Temperature from Reanalysis' value='MEDSEA D4.3.4'/>
+    <entry key='MEDSEA_CH4_Specification_13 / Annual Average Sea Temperature Satellite' value='MEDSEA D4.3.4'/>
+    <entry key='MEDSEA_CH4_Specification_14 / Annual Average Internal Energy from Models' value='MEDSEA D4.3.4'/>
+    <entry key='MEDSEA_CH4_Specification_15 / Annual Average Sea Level from Models' value='MEDSEA D4.3.4'/>
+    <entry key='MEDSEA_CH4_Specification_16 / Annual Average Sea Level from Low Temporal Resolution Tide Gauges' value='MEDSEA D4.3.4'/>
+    <entry key='MEDSEA_CH4_Specification_17 / Annual Average Sea Level from High Temporal Resolution Tide Gauges' value='MEDSEA D4.3.4'/>
+    <entry key='MEDSEA_CH4_Specification_18 / Annual Average Sea Level from Satellite' value='MEDSEA D4.3.4'/>
+    <entry key='MEDSEA_CH5_Specification_1 / Collated data set of fish landings by species and year, for mass and number' value='MEDSEA D5.3.4'/>
+    <entry key='MEDSEA_CH5_Specification_2 / Collated data set of fish discards by species and year, for mass and number' value='MEDSEA D5.3.4'/>
+    <entry key='MEDSEA_CH5_Specification_3 / Collated data set of fish bycatch by species and year, for mass and number' value='MEDSEA D5.3.4'/>
+    <entry key='MEDSEA_CH5_Specification_4 / Impact of fisheries on the bottom from VMS data combined with habitat vulnerability' value='MEDSEA D5.3.4'/>
+    <entry key='MEDSEA_CH5_Specification_5 / Change level of disturbance from VMS data combined with habitat vulnerability' value='MEDSEA D5.3.4'/>
+    <entry key='MEDSEA_CH5_Specification_6 / Impact of fisheries on the bottom from AIS data combined with habitat vulnerability' value='MEDSEA D5.3.4'/>
+    <entry key='MEDSEA_CH5_Specification_7 / Change level of disturbance from AIS data combined with habitat vulnerability' value='MEDSEA D5.3.4'/>
+    <entry key='MEDSEA_CH5_Specification_8 / Impact of fisheries on the bottom from Data Logger combined with habitat vulnerability' value='MEDSEA D5.3.4'/>
+    <entry key='MEDSEA_CH6_Specification_1 / Chlorophyll seasonal maps [mg/m3]' value='MEDSEA D6.3.4'/>
+    <entry key='MEDSEA_CH6_Specification_2 / Chlorophyll trends map [mg/m3/year]' value='MEDSEA D6.3.4'/>
+    <entry key='MEDSEA_CH6_Specification_3 / Average TRIX maps' value='MEDSEA D6.3.4'/>
+    <entry key='MEDSEA_CH6_Specification_4 / Map of TRIX trend' value='MEDSEA D6.3.4'/>
+    <entry key='MEDSEA_CH7_Specification_1 / Annual time series of Water Discharge (Qw) [m3/s]' value='MEDSEA D7.3.4'/>
+    <entry key='MEDSEA_CH7_Specification_2 / Monthly time series of Water Discharge (Qw) [m3/s]' value='MEDSEA D7.3.4'/>
+    <entry key='MEDSEA_CH7_Specification_3 / Annual time series of Total Suspended Matter (TSM) from satellite data [mg/l]' value='MEDSEA D7.3.4'/>
+    <entry key='MEDSEA_CH7_Specification_4 / Monthly time series of Total Suspended Matter (TSM) from satellite data [mg/l]' value='MEDSEA D7.3.4'/>
+    <entry key='MEDSEA_CH7_Specification_5 / Annual time series of Total Nitrogen [mg/l]' value='MEDSEA D7.3.4'/>
+    <entry key='MEDSEA_CH7_Specification_6 / Monthly time series of Total Nitrogen [mg/l]' value='MEDSEA D7.3.4'/>
+    <entry key='MEDSEA_CH7_Specification_7 / Annual time series of Total Phosphorous [mg/l]' value='MEDSEA D7.3.4'/>
+    <entry key='MEDSEA_CH7_Specification_8 / Monthly time series of Total Phosphorous [mg/l]' value='MEDSEA D7.3.4'/>
+    <entry key='MEDSEA_CH7_Specification_9 / Annual time series of Eels Production per country [tons]' value='MEDSEA D7.3.4'/>
   </xsl:variable>
 
   <!-- In TDP set deliverable info if not set based on product name -->
   <xsl:template
-    match="cit:issueIdentification[$isTdp and normalize-space(gco:CharacterString) = '']"
+    match="cit:issueIdentification[($isTdp or $isDps) and normalize-space(gco:CharacterString) = '']"
     priority="2000">
 
     <xsl:variable name="product"
