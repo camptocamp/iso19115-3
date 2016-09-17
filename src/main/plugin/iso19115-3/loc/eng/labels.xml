@@ -4600,7 +4600,7 @@
             used for navigation_</description>
     <helper displayIf="ancestor::node()[
               name()='mdb:MD_Metadata' and
-              contains(mdb:metadataStandard/*/cit:title/*:CharacterString, 'Emodnet Checkpoint')]"
+              contains(mdb:metadataStandard/*/cit:title/*:CharacterString, 'Emodnet Checkpoint - Upstream Data')]"
             editorMode="radio">
       <option value="Not or not well documented">Not or not well documented</option>
       <option value="Commercial charge">Commercial charge</option>

@@ -51,7 +51,7 @@
           </gco:CharacterString>
         </cit:title>
 
-        <xsl:copy-of select="$dpsDocument//mdb:identificationInfo/*/mri:citation/*/cit:date"/>
+        <xsl:copy-of select="*/cit:date"/>
         <xsl:copy-of select="$dpsDocument//mdb:identificationInfo/*/mri:citation/*/cit:series"/>
       </cit:CI_Citation>
     </mri:citation>
@@ -89,6 +89,12 @@
       <xsl:apply-templates select="mdb:acquisitionInformation"/>
     </xsl:copy>
   </xsl:template>
+
+  <!-- Copy DPS contact in the first pointOfContact -->
+  <xsl:template match="mdb:identificationInfo/*/mri:pointOfContact[$hasDps][1]">
+    <xsl:copy-of select="$dpsDocument//mdb:identificationInfo/*/mri:pointOfContact"/>
+  </xsl:template>
+  <xsl:template match="mdb:identificationInfo/*/mri:pointOfContact[$hasDps][position() > 1]"/>
 
   <xsl:template match="mdb:identificationInfo/*/mri:spatialRepresentationType[$hasDps]">
     <xsl:copy-of select="$dpsDocument//mdb:identificationInfo/*/mri:spatialRepresentationType"/>
