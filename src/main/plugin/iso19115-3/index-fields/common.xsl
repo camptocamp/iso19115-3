@@ -903,9 +903,12 @@
                     mri:descriptiveKeywords
                     [contains(*/mri:thesaurusName/cit:CI_Citation/cit:title/gco:CharacterString,
                     'Production mode')]/*/mri:keyword/gco:CharacterString"/>
-      <Field name="checkpointUdLineageDesc"
-             string="{concat($c, '|', $em, '|', $p02, '|', $p01, '|', $pla, '|', $pm)}"
-             store="true" index="true"/>
+
+      <xsl:for-each select="$c">
+        <Field name="checkpointUdLineageDesc"
+               string="{concat(., '|', $em, '|', $p02, '|', $p01, '|', $pla, '|', $pm)}"
+               store="true" index="true"/>
+      </xsl:for-each>
     </xsl:if>
 
 
