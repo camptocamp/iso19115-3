@@ -78,7 +78,7 @@
               <!--<xsl:with-param name="isDisabled" select="$isTdp"/>-->
             </xsl:apply-templates>
 
-            <xsl:if test="$isDps">
+            <xsl:if test="$isDps or $isTdp">
               <!--<xsl:apply-templates mode="mode-iso19115-3"
                                    select="*/mcc:levelDescription[3]//mcc:other">
                 <xsl:with-param name="overrideLabel" select="$strings/checkpoint-dps-component-lineage"/>
@@ -93,7 +93,7 @@
                   <xsl:with-param name="type" select="'text'"/>
                   <xsl:with-param name="name" select="./*/gn:element/@ref"/>
                   <xsl:with-param name="editInfo" select="./*/gn:element"/>
-                  <xsl:with-param name="parentEditInfo" select="./gn:element"/>
+                  <xsl:with-param name="parentEditInfo" select="ancestor::mcc:levelDescription/gn:element"/>
                   <xsl:with-param name="listOfValues">
                     <directive name="gn-field-suggestions" data-field="checkpointUdLineageDesc"/>
                   </xsl:with-param>
@@ -145,11 +145,14 @@
                         select="concat('gn-sqr-', generate-id($sqr/mdq:reportReference))"/>
           <xsl:variable name="isCovered"
                         select="normalize-space($sqr/mdq:reportReference/*/cit:title) = ''"/>
-          <div data-gn-checkpoint-cpt-covered="{$isCovered}"
-               data-id="{$sqrId}"
-               data-title-id="{$sqr/mdq:reportReference/*/cit:title/gco:CharacterString/gn:element/@ref}"
-               data-abstract-id="{$sqr/mdq:abstract/gco:CharacterString/gn:element/@ref}"
-          />
+
+          <xsl:if test="not($isDps)">
+            <div data-gn-checkpoint-cpt-covered="{$isCovered}"
+                 data-id="{$sqrId}"
+                 data-title-id="{$sqr/mdq:reportReference/*/cit:title/gco:CharacterString/gn:element/@ref}"
+                 data-abstract-id="{$sqr/mdq:abstract/gco:CharacterString/gn:element/@ref}"
+            />
+          </xsl:if>
 
           <!-- If not display textearea to populate explanation
           in a standalone quality report.
@@ -224,6 +227,7 @@
                       <!-- Quantitative results with units -->
                       <xsl:when test="mdq:DQ_QuantitativeResult">
                         <col readonly="">
+                          <!-- TODO: Add DPS. or TDP. or UD. -->
                           <xsl:value-of select="$measureId"/>
                         </col>
                         <col readonly="">
@@ -314,6 +318,7 @@
                       </xsl:otherwise>
                     </xsl:choose>
                   </row>
+                  <!-- TODO: Add all unique date of measure-->
                 </xsl:for-each>
               </xsl:for-each>
             </xsl:variable>
