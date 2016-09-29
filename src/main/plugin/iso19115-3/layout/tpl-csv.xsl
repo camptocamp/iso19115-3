@@ -66,13 +66,41 @@
         </image>
       </xsl:for-each>
 
-      <!-- Group by thesaurus -->
-      <xsl:for-each select="mdb:identificationInfo/*//mri:keyword[not(@gco:nilReason)]">
+      <!-- All keywords not having thesaurus reference -->
+      <xsl:for-each select="mdb:identificationInfo/*/mri:descriptiveKeywords/*[not(mri:thesaurusName)]/mri:keyword[not(@gco:nilReason)]">
         <keyword>
           <xsl:apply-templates mode="localised" select=".">
             <xsl:with-param name="langId" select="$langId"/>
           </xsl:apply-templates>
         </keyword>
+      </xsl:for-each>
+
+      <!-- One column per thesaurus -->
+      <xsl:for-each select="mdb:identificationInfo/*/mri:descriptiveKeywords/*[mri:thesaurusName]">
+        <xsl:variable name="thesaurusId" select="mri:thesaurusName/*/cit:identifier/*/mcc:code/*/text()"/>
+        <xsl:variable name="thesaurusKey" select="if ($thesaurusId != '') then $thesaurusId else position()"/>
+
+        <xsl:for-each select="mri:keyword[not(@gco:nilReason)]">
+          <xsl:element name="keyword-{$thesaurusKey}">
+            <xsl:apply-templates mode="localised" select=".">
+              <xsl:with-param name="langId" select="$langId"/>
+            </xsl:apply-templates>
+          </xsl:element>
+        </xsl:for-each>
+      </xsl:for-each>
+
+      <!-- One column per contact role -->
+      <xsl:for-each select="mdb:identificationInfo/*/mri:pointOfContact">
+        <xsl:variable name="key" select="*/cit:role/*/@codeListValue"/>
+
+        <xsl:element name="contact-{$key}">
+          <xsl:apply-templates mode="localised" select="*/cit:party/*/cit:name">
+            <xsl:with-param name="langId" select="$langId"/>
+          </xsl:apply-templates>/
+          <xsl:apply-templates mode="localised" select="*/cit:contactInfo/*/cit:onlineResource/*/cit:linkage">
+            <xsl:with-param name="langId" select="$langId"/>
+          </xsl:apply-templates>
+        </xsl:element>
       </xsl:for-each>
 
       <xsl:for-each select="mdb:identificationInfo/*//gex:EX_GeographicBoundingBox">
