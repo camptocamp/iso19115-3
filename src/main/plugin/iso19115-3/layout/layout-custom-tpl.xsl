@@ -227,7 +227,8 @@
                       <!-- Quantitative results with units -->
                       <xsl:when test="mdq:DQ_QuantitativeResult">
                         <col readonly="">
-                          <!-- TODO: Add DPS. or TDP. or UD. -->
+                          <!-- Add DPS. or TDP. or UD prefix. -->
+                          <xsl:value-of select="if ($isUd) then 'UD.' else if ($isTdp) then 'TDP.' else if ($isDps) then 'DPS.' else ''"/>
                           <xsl:value-of select="$measureId"/>
                         </col>
                         <col readonly="">
