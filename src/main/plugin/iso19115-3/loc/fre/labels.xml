@@ -6998,6 +6998,7 @@ diffusion restreinte.
     <condition>Obligatoire</condition>
     <helper>
       <option value="Text">Text</option>
+      <option value="XLS">XLS</option>
       <option value="ESRI Shapefile">ESRI Shapefile</option>
       <option value="Mapinfo MIF/MID">Mapinfo MIF/MID</option>
       <option value="Mapinfo TAB">Mapinfo TAB</option>

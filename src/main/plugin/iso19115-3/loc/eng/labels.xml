@@ -4250,6 +4250,7 @@
     <help>File or link format name</help>
     <helper>
       <option value="Text">Text</option>
+      <option value="XLS">XLS</option>
       <option value="ESRI Shapefile">ESRI Shapefile</option>
       <option value="Mapinfo MIF/MID">Mapinfo MIF/MID</option>
       <option value="Mapinfo TAB">Mapinfo TAB</option>
