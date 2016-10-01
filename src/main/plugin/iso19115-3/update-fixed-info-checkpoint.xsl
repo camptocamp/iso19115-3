@@ -290,4 +290,20 @@
       </xsl:copy>
     </xsl:if>
   </xsl:template>
+
+
+  <!--
+      Compute number of characteristics value based
+      on the number of lineage for the component
+  -->
+  <xsl:template match="mdb:dataQualityInfo/*/mdq:report/*[
+                          mdq:measure/*/mdq:nameOfMeasure/*/text() = 'Number of Characteristics'
+                        ]/mdq:result/*/mdq:value/gco:Record" priority="2000">
+    <xsl:variable name="numberOfLineage" select="count(ancestor::mdb:dataQualityInfo/*/mdq:scope/*/mcc:levelDescription) - 2"/>
+    <xsl:copy>
+      <xsl:value-of select="$numberOfLineage"/>
+    </xsl:copy>
+  </xsl:template>
+
+
 </xsl:stylesheet>
