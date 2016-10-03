@@ -2213,6 +2213,16 @@
                  xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:citation/
                           */cit:series/*/cit:issueIdentification"/>
 
+          <!--<action type="process"
+                  process="checkpoint-add-deliverable-link"
+                  btnClass="fa fa-link"
+                  if="count(mdb:MD_Metadata//cit:linkage/gco:CharacterString[
+                        contains(
+                          text(),
+                          ancestor::mdb:MD_Metadata/mdb:identificationInfo/*/mri:citation/
+                            */cit:series/*/cit:issueIdentification/gco:CharacterString/text()
+                         )]) = 0"/>-->
+
           <!--
           DPS - Responsible party (point of contact) : organisation name
           DPS - E-mail of responsible party -->

@@ -62,6 +62,7 @@
   <checkpoint-dps-spatial>Spatial information</checkpoint-dps-spatial>
   <checkpoint-dps-component-lineage>Lineage*</checkpoint-dps-component-lineage>
   <checkpoint-measure-date>Date</checkpoint-measure-date>
+  <checkpoint-add-deliverable-link>Add deliverable report link</checkpoint-add-deliverable-link>
   <checkpoint-copy-dps-props>Copy properties from DPS</checkpoint-copy-dps-props>
   <checkpoint-copy-dps-props-help>
     <div class="row">
