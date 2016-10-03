@@ -322,6 +322,14 @@
                   <!-- TODO: Add all unique date of measure-->
                 </xsl:for-each>
               </xsl:for-each>
+              <row>
+                <col readonly="" colspan="4">
+                  <xsl:value-of select="$strings/checkpoint-measure-date"/>&#160;
+                  <xsl:value-of select="string-join(
+                                          distinct-values(*/mdq:report/mdq:*/
+                                            mdq:result/*/mdq:dateTime/gco:Date), ', ')"/>
+                </col>
+              </row>
             </xsl:variable>
 
             <xsl:call-template name="render-table">
