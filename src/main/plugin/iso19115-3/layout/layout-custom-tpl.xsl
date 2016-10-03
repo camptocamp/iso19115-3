@@ -44,6 +44,13 @@
                               'ISO 19115-3 - Emodnet Checkpoint - Upstream Data']
                           ) = 1"/>
 
+    <xsl:variable name="challenge"
+                  select="$metadata/mdb:identificationInfo/*/
+                            mri:descriptiveKeywords[
+                              contains(*/mri:thesaurusName/*/cit:title/gco:CharacterString,
+                              'Used by challenges')
+                            ]/*/mri:keyword/gco:CharacterString/text()"/>
+
     <!-- Component is in a section -->
     <xsl:variable name="cptId" select="*/@uuid[contains(., '/CP')]"/>
 
@@ -95,7 +102,9 @@
                   <xsl:with-param name="editInfo" select="./*/gn:element"/>
                   <xsl:with-param name="parentEditInfo" select="ancestor::mcc:levelDescription/gn:element"/>
                   <xsl:with-param name="listOfValues">
-                    <directive name="gn-field-suggestions" data-field="checkpointUdLineageDesc"/>
+                    <directive name="gn-field-suggestions"
+                               data-field="checkpointUdLineageDesc"
+                               data-fq="{if ($challenge != '') then $challenge else ''}"/>
                   </xsl:with-param>
                 </xsl:call-template>
               </xsl:for-each>
