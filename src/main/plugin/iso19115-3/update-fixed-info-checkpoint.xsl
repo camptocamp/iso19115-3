@@ -49,22 +49,22 @@
 
 
   <xsl:variable name="product2deliverables">
-    <entry key='MEDSEA_CH1_Product_1 / Wind and wave data set from MARINA project' value='MEDSEA D1.3.5'/>
-    <entry key='MEDSEA_CH1_Product_2 / Suitability index of a wind farm in the NWMed concerning the environmental resources' value='MEDSEA D1.3.5'/>
-    <entry key='MEDSEA_CH1_Product_3 / Suitability index of a wind farm in the NWMed concerning the environmental resources, the natural barriers, human activities, MPA and fisheries' value='MEDSEA D1.3.5'/>
-    <entry key='MEDSEA_CH2_Product_1 / Med protection initiatives (management and conservation areas). Collated data set (excel file) containing information on MPA extension areas and different protection levels' value='MEDSEA D2.3.5'/>
-    <entry key='MEDSEA_CH2_Product_2 / Med conservation areas and depth zones. Shape file with the layers containing the information as in Product CH2-1 and depth zones' value='MEDSEA D2.3.5'/>
-    <entry key='MEDSEA_CH2_Product_3 / Proposed regional conservation areas in the Mediterranean. Mediterranean Cetaceans, Fisheries Restricted Areas etc.' value='MEDSEA D2.3.5'/>
-    <entry key='MEDSEA_CH2_Product_4 / Qualitative analysis of connectivity between MPAs. Combination of MPA, seasonal surface temperature and currents' value='MEDSEA D2.3.5'/>
-    <entry key='MEDSEA_CH2_Product_5 / Representativity of habitats/species/other features. Combination of bathymetry, MPA, seagrass distributions, Cetaceans, light, habitats substrate, Natura sites' value='MEDSEA D2.3.5'/>
-    <entry key='MEDSEA_CH2_Product_6 / The monitoring capacity of biodiversity in MPAs. Combination MPA and monitoring stations for biodiversity elements' value='MEDSEA D2.3.5'/>
-    <entry key='MEDSEA_CH3_Product_1 / Oil Platform Leak Bulletin released after a DG MARE request received by email on the 28th of July 2014' value='MEDSEA D3.3.5'/>
-    <entry key='MEDSEA_CH3_Product_1 / Oil Platform Leak Bulletin released after the DG MARE alert received by email on the 10th of May 2016' value='MEDSEA D3.3.5'/>
-    <entry key='MEDSEA_CH4_Product_1 / Spatial layers of Sea sutface temperature trend from observations (HadISST dataset) over periods of 10 (2003 – 2012), 50 (1963-2012) and 100 (1913-2012) years. Basin maps and NUTS3 region are considered' value='MEDSEA D4.3.5'/>
+    <entry key='MEDSEA_CH1_Product_1 / Wind and wave data set from MARINA project' value='MEDSEA D2.3.5'/>
+    <entry key='MEDSEA_CH1_Product_2 / Suitability index of a wind farm in the NWMed concerning the environmental resources' value='MEDSEA D2.3.5'/>
+    <entry key='MEDSEA_CH1_Product_3 / Suitability index of a wind farm in the NWMed concerning the environmental resources, the natural barriers, human activities, MPA and fisheries.' value='MEDSEA D2.3.5'/>
+    <entry key='MEDSEA_CH2_Product_1 / Med protection initiatives (management and conservation areas)' value='MEDSEA D3.3.5'/>
+    <entry key='MEDSEA_CH2_Product_2 / Med conservation areas and depth zones' value='MEDSEA D3.3.5'/>
+    <entry key='MEDSEA_CH2_Product_3 / Proposed regional conservation areas in the Mediterranean' value='MEDSEA D3.3.5'/>
+    <entry key='MEDSEA_CH2_Product_4 / Qualitative analysis of connectivity between MPAs' value='MEDSEA D3.3.5'/>
+    <entry key='MEDSEA_CH2_Product_5 / Representativity of habitats/species/other features' value='MEDSEA D3.3.5'/>
+    <entry key='MEDSEA_CH2_Product_6 / The monitoring capacity of biodiversity in MPAs' value='MEDSEA D3.3.5'/>
+    <entry key='MEDSEA_CH3_Product_1 / Oil Platform Leak Bulletin released after a DG MARE request received by email on the 28th of July 2014' value='MEDSEA D4.3.5'/>
+    <entry key='MEDSEA_CH3_Product_2 / Oil Platform Leak Bulletin released after the DG MARE alert received by email on the 10th of May 2016' value='MEDSEA D4.3.5'/>
+    <entry key='MEDSEA_CH4_Product_1 / Spatial layers of Sea surface temperature trend from observations (HadISST dataset) over periods of 10 (2003 – 2012), 50 (1963-2012) and 100 (1913-2012) years. Basin maps and NUTS3 region are considered' value='MEDSEA D4.3.5'/>
     <entry key='MEDSEA_CH4_Product_2 / Spatial layer of Sea temperature trend at mid-depth and at sea-bottom from reanalysis (CMEMS Mediterranean Physics Reanalysis) over period of 10 (2003 – 2012) years' value='MEDSEA D4.3.5'/>
     <entry key='MEDSEA_CH4_Product_3 / Spatial layer of Sea internal energy trend from reanalysis (CMEMS Mediterranean Physics Reanalysis) over period of 20 (1993 – 2012) years' value='MEDSEA D4.3.5'/>
     <entry key='MEDSEA_CH4_Product_4 / Spatial layers of sea level trend from MyOcean-CMCC reconstruction over periods of 50 years (1963 – 2012) and 100 years (1913-2012)' value='MEDSEA D4.3.5'/>
-    <entry key='MEDSEA_CH4_Product_5 / Spatial layer of sea-level trend from AVISO reconstruction over period of 10 years (2003 – 2012).' value='MEDSEA D4.3.5'/>
+    <entry key='MEDSEA_CH4_Product_5 / Spatial layer of sea-level trend from AVISO reconstruction over period of 10 years (2003 – 2012)' value='MEDSEA D4.3.5'/>
     <entry key='MERSEA_CH4_Product_6 / Spatial layers of sea–level trend from PSMSL tide-gauges over periods of 50 years (1963-2012) and 100 years (1913-2012)' value='MEDSEA D4.3.5'/>
     <entry key='MEDSEA_CH4_Product_7 / Sediment Mass Balance at the Coast from Experts Survey and Scientific Literature Review' value='MEDSEA D4.3.5'/>
     <entry key='MEDSEA_CH4_Product_8 / Time series of annual average sea surface temperature from observations (HadISST dataset) over periods of 10 years (2003-2012), 50 years (1963-2012) and 100 years (1913-2012)' value='MEDSEA D4.3.5'/>
@@ -73,44 +73,44 @@
     <entry key='MEDSEA_CH4_Product_11 / Time series of annual average sea level from MyOcean-CMCC reconstruction over periods of 50 years (1963-2012) and 100 years (1913-2012)' value='MEDSEA D4.3.5'/>
     <entry key='MEDSEA_CH4_Product_12 / Time series of annual average sea level from PSMSL time-gauges over periods of 50 years (1963-2012) and 100 years (1913-2012)' value='MEDSEA D4.3.5'/>
     <entry key='MEDSEA_CH4_Product_13 / Time series of annual average sea-level from AVISO satellite altimetry over period of 10 years (2003-2012)' value='MEDSEA D4.3.5'/>
-    <entry key='MEDSEA_ CH5_Product_1 / Collated data set of fish landings by species and year, for mass and number' value='MEDSEA D5.3.5'/>
-    <entry key='MEDSEA_ CH5_Product_2 / Collated data set of fish discards by species and year, for mass and number' value='MEDSEA D5.3.5'/>
-    <entry key='MEDSEA_ CH5_Product_3 / Collated data set of fish bycatch by species and year, for mass and number' value='MEDSEA D5.3.5'/>
-    <entry key='MEDSEA_ CH5_Product_4 / Impact of fisheries on the bottom from VMS data combined with habitat vulnerability' value='MEDSEA D5.3.5'/>
-    <entry key='MEDSEA_ CH5_Product_5 / Change level of disturbance from VMS data combined with habitat vulnerability' value='MEDSEA D5.3.5'/>
-    <entry key='MEDSEA_ CH5_Product_6 / Impact of fisheries on the bottom from AIS data combined with habitat vulnerability' value='MEDSEA D5.3.5'/>
-    <entry key='MEDSEA_ CH5_Product_7 / Change level of disturbance from AIS data combined with habitat vulnerability' value='MEDSEA D5.3.5'/>
-    <entry key='MEDSEA_ CH5_Product_8 / Impact of fisheries on the bottom from Data Logger combined with habitat vulnerability' value='MEDSEA D5.3.5'/>
-    <entry key='MEDSEA_ CH6_product_1 / Maps of Chlorophyll concentration seasonal climatologies (i.e., Winter, Spring, Summer, and Fall) over the Mediterranean Sea relative to the period 1998-2009' value='MEDSEA D6.3.5'/>
-    <entry key='MEDSEA_ CH6_product_2 / Map of Chlorophyll concentration trend over the Mediterranean Sea, relative to the period 1998-2009, expressed as percent of variation respect to the climatological field' value='MEDSEA D6.3.5'/>
-    <entry key='MEDSEA_ CH6_product_3 / Maps of average TRIX indices calculated from Mediterranean sea surface data for the periods 2008-2012, 1998-2002, and 1993-1997' value='MEDSEA D6.3.5'/>
-    <entry key='MEDSEA_ CH6_product_4 / Maps showing differences between most recent TRIX estimates (2008-2012) and TRIX from the earlier periods 1998-2002 and 1993-1997' value='MEDSEA D6.3.5'/>
-    <entry key='MEDSEA_CH7_Product_1 / Annual time series of Water Discharge (Qw) [m3/s]' value='MEDSEA D7.3.5'/>
-    <entry key='MEDSEA_CH7_Product_2 / Monthly time series of Water Discharge (Qw) [m3/s]' value='MEDSEA D7.3.5'/>
-    <entry key='MEDSEA_CH7_Product_3 / Annual time series of TSM from satellite data' value='MEDSEA D7.3.5'/>
-    <entry key='MEDSEA_CH7_Product_4 / Monthly time seriesof TSM from satellite data' value='MEDSEA D7.3.5'/>
-    <entry key='MEDSEA_CH7_Product_5 / Annual time series of Total Nitrogen [mg/l]' value='MEDSEA D7.3.5'/>
-    <entry key='MEDSEA_CH7_Product_6 / Monthly time series of Total Nitrogen from model data [mg/l]' value='MEDSEA D7.3.5'/>
-    <entry key='MEDSEA_CH7_Product_7 / Annual time series of Total Phosphorous/Phosphates [mg/l]' value='MEDSEA D7.3.5'/>
-    <entry key='MEDSEA_CH7_Product_8 / Monthly time series of Total Phosphorous from model data [mg/l]' value='MEDSEA D7.3.5'/>
-    <entry key='MEDSEA_CH7_Product_9 / Annual time series of Eels production[tons]' value='MEDSEA D7.3.5'/>
+    <entry key='MEDSEA_CH5_Product_1 / Collated data set of fish landings by species and year, for mass and number' value='MEDSEA D6.3.5'/>
+    <entry key='MEDSEA_CH5_Product_2 / Collated data set of fish discards by species and year, for mass and number' value='MEDSEA D6.3.5'/>
+    <entry key='MEDSEA_CH5_Product_3 / Collated data set of fish bycatch by species and year, for mass and number' value='MEDSEA D6.3.5'/>
+    <entry key='MEDSEA_CH5_Product_4 / Impact of fisheries on the bottom from VMS data combined with habitat vulnerability' value='MEDSEA D6.3.5'/>
+    <entry key='MEDSEA_CH5_Product_5 / Change level of disturbance from VMS data combined with habitat vulnerability' value='MEDSEA D6.3.5'/>
+    <entry key='MEDSEA_CH5_Product_6 / Impact of fisheries on the bottom from AIS data combined with habitat vulnerability' value='MEDSEA D6.3.5'/>
+    <entry key='MEDSEA_CH5_Product_7 / Change level of disturbance from AIS data combined with habitat vulnerability' value='MEDSEA D6.3.5'/>
+    <entry key='MEDSEA_CH5_Product_8 / Impact of fisheries on the bottom from Data Logger combined with habitat vulnerability' value='MEDSEA D6.3.5'/>
+    <entry key='MEDSEA_CH6_product_1 / Maps of Chlorophyll concentration seasonal climatologies (i.e., Winter, Spring, Summer, and Fall) over the Mediterranean Sea relative to the period 1998-2009.' value='MEDSEA D7.3.5'/>
+    <entry key='MEDSEA_CH6_product_2 / Map of Chlorophyll concentration trend over the Mediterranean Sea, relative to the period 1998-2009, expressed as percent of variation respect to the climatological field' value='MEDSEA D7.3.5'/>
+    <entry key='MEDSEA_CH6_product_3 / Maps of average TRIX indices calculated from Mediterranean sea surface data for the periods 2008-2012, 1998-2002, and 1993-1997' value='MEDSEA D7.3.5'/>
+    <entry key='MEDSEA_CH6_product_4 / Maps showing differences between most recent TRIX estimates (2008-2012) and TRIX from the earlier periods 1998-2002 and 1993-1997' value='MEDSEA D7.3.5'/>
+    <entry key='MEDSEA_CH7_Product_1 / Annual time series of Water Discharge (Qw) [m3/s]' value='MEDSEA D8.3.5'/>
+    <entry key='MEDSEA_CH7_Product_2 / Monthly time series of Water Discharge (Qw) [m3/s]' value='MEDSEA D8.3.5'/>
+    <entry key='MEDSEA_CH7_Product_3 / Annual time series of TSM from satellite data' value='MEDSEA D8.3.5'/>
+    <entry key='MEDSEA_CH7_Product_4 / Monthly time series of TSM from satellite data' value='MEDSEA D8.3.5'/>
+    <entry key='MEDSEA_CH7_Product_5 / Annual time series of Total Nitrogen [mg/l]' value='MEDSEA D8.3.5'/>
+    <entry key='MEDSEA_CH7_Product_6 / Monthly time series of Total Nitrogen from model data [mg/l]' value='MEDSEA D8.3.5'/>
+    <entry key='MEDSEA_CH7_Product_7 / Annual time series of Total Phosphorous/Phosphates [mg/l]' value='MEDSEA D8.3.5'/>
+    <entry key='MEDSEA_CH7_Product_8 / Monthly time series of Total Phosphorous from model data [mg/l]' value='MEDSEA D8.3.5'/>
+    <entry key='MEDSEA_CH7_Product_9 / Annual time series of Eels production[tons]' value='MEDSEA D8.3.5'/>
 
-    <entry key='MEDSEA_CH1_Specification_1 / Wind and wave data set from MARINA project' value='MEDSEA D1.3.5'/>
-    <entry key='MEDSEA_CH1_Specification_2 / Suitability index of a wind farm in the NWMed concerning the environmental resources' value='MEDSEA D1.3.5'/>
-    <entry key='MEDSEA_CH1_Specification_3 / Suitability index of a wind farm in the NWMed concerning the environmental resources, the natural barriers, human activities, MPA and fisheries' value='MEDSEA D1.3.5'/>
-    <entry key='MEDSEA_CH2_Specification_1 / Med protection initiatives (management and conservation areas). Collated data set (excel file) containing information on MPA extension areas and different protection levels' value='MEDSEA D2.3.5'/>
-    <entry key='MEDSEA_CH2_Specification_2 / Med conservation areas and depth zones. Shape file with the layers containing the information as in Specification CH2-1 and depth zones' value='MEDSEA D2.3.5'/>
-    <entry key='MEDSEA_CH2_Specification_3 / Proposed regional conservation areas in the Mediterranean. Mediterranean Cetaceans, Fisheries Restricted Areas etc.' value='MEDSEA D2.3.5'/>
-    <entry key='MEDSEA_CH2_Specification_4 / Qualitative analysis of connectivity between MPAs. Combination of MPA, seasonal surface temperature and currents' value='MEDSEA D2.3.5'/>
-    <entry key='MEDSEA_CH2_Specification_5 / Representativity of habitats/species/other features. Combination of bathymetry, MPA, seagrass distributions, Cetaceans, light, habitats substrate, Natura sites' value='MEDSEA D2.3.5'/>
-    <entry key='MEDSEA_CH2_Specification_6 / The monitoring capacity of biodiversity in MPAs. Combination MPA and monitoring stations for biodiversity elements' value='MEDSEA D2.3.5'/>
-    <entry key='MEDSEA_CH3_Specification_1 / Oil Platform Leak Bulletin released after a DG MARE request received by email on the 28th of July 2014' value='MEDSEA D3.3.5'/>
-    <entry key='MEDSEA_CH3_Specification_1 / Oil Platform Leak Bulletin released after the DG MARE alert received by email on the 10th of May 2016' value='MEDSEA D3.3.5'/>
-    <entry key='MEDSEA_CH4_Specification_1 / Spatial layers of Sea sutface temperature trend from observations (HadISST dataset) over periods of 10 (2003 – 2012), 50 (1963-2012) and 100 (1913-2012) years. Basin maps and NUTS3 region are considered' value='MEDSEA D4.3.5'/>
+    <entry key='MEDSEA_CH1_Specification_1 / Wind and wave data set from MARINA project' value='MEDSEA D2.3.5'/>
+    <entry key='MEDSEA_CH1_Specification_2 / Suitability index of a wind farm in the NWMed concerning the environmental resources' value='MEDSEA D2.3.5'/>
+    <entry key='MEDSEA_CH1_Specification_3 / Suitability index of a wind farm in the NWMed concerning the environmental resources, the natural barriers, human activities, MPA and fisheries.' value='MEDSEA D2.3.5'/>
+    <entry key='MEDSEA_CH2_Specification_1 / Med protection initiatives (management and conservation areas)' value='MEDSEA D3.3.5'/>
+    <entry key='MEDSEA_CH2_Specification_2 / Med conservation areas and depth zones' value='MEDSEA D3.3.5'/>
+    <entry key='MEDSEA_CH2_Specification_3 / Proposed regional conservation areas in the Mediterranean' value='MEDSEA D3.3.5'/>
+    <entry key='MEDSEA_CH2_Specification_4 / Qualitative analysis of connectivity between MPAs' value='MEDSEA D3.3.5'/>
+    <entry key='MEDSEA_CH2_Specification_5 / Representativity of habitats/species/other features' value='MEDSEA D3.3.5'/>
+    <entry key='MEDSEA_CH2_Specification_6 / The monitoring capacity of biodiversity in MPAs' value='MEDSEA D3.3.5'/>
+    <entry key='MEDSEA_CH3_Specification_1 / Oil Platform Leak Bulletin released after a DG MARE request received by email on the 28th of July 2014' value='MEDSEA D4.3.5'/>
+    <entry key='MEDSEA_CH3_Specification_2 / Oil Platform Leak Bulletin released after the DG MARE alert received by email on the 10th of May 2016' value='MEDSEA D4.3.5'/>
+    <entry key='MEDSEA_CH4_Specification_1 / Spatial layers of Sea surface temperature trend from observations (HadISST dataset) over periods of 10 (2003 – 2012), 50 (1963-2012) and 100 (1913-2012) years. Basin maps and NUTS3 region are considered' value='MEDSEA D4.3.5'/>
     <entry key='MEDSEA_CH4_Specification_2 / Spatial layer of Sea temperature trend at mid-depth and at sea-bottom from reanalysis (CMEMS Mediterranean Physics Reanalysis) over period of 10 (2003 – 2012) years' value='MEDSEA D4.3.5'/>
     <entry key='MEDSEA_CH4_Specification_3 / Spatial layer of Sea internal energy trend from reanalysis (CMEMS Mediterranean Physics Reanalysis) over period of 20 (1993 – 2012) years' value='MEDSEA D4.3.5'/>
     <entry key='MEDSEA_CH4_Specification_4 / Spatial layers of sea level trend from MyOcean-CMCC reconstruction over periods of 50 years (1963 – 2012) and 100 years (1913-2012)' value='MEDSEA D4.3.5'/>
-    <entry key='MEDSEA_CH4_Specification_5 / Spatial layer of sea-level trend from AVISO reconstruction over period of 10 years (2003 – 2012).' value='MEDSEA D4.3.5'/>
+    <entry key='MEDSEA_CH4_Specification_5 / Spatial layer of sea-level trend from AVISO reconstruction over period of 10 years (2003 – 2012)' value='MEDSEA D4.3.5'/>
     <entry key='MERSEA_CH4_Specification_6 / Spatial layers of sea–level trend from PSMSL tide-gauges over periods of 50 years (1963-2012) and 100 years (1913-2012)' value='MEDSEA D4.3.5'/>
     <entry key='MEDSEA_CH4_Specification_7 / Sediment Mass Balance at the Coast from Experts Survey and Scientific Literature Review' value='MEDSEA D4.3.5'/>
     <entry key='MEDSEA_CH4_Specification_8 / Time series of annual average sea surface temperature from observations (HadISST dataset) over periods of 10 years (2003-2012), 50 years (1963-2012) and 100 years (1913-2012)' value='MEDSEA D4.3.5'/>
@@ -119,32 +119,32 @@
     <entry key='MEDSEA_CH4_Specification_11 / Time series of annual average sea level from MyOcean-CMCC reconstruction over periods of 50 years (1963-2012) and 100 years (1913-2012)' value='MEDSEA D4.3.5'/>
     <entry key='MEDSEA_CH4_Specification_12 / Time series of annual average sea level from PSMSL time-gauges over periods of 50 years (1963-2012) and 100 years (1913-2012)' value='MEDSEA D4.3.5'/>
     <entry key='MEDSEA_CH4_Specification_13 / Time series of annual average sea-level from AVISO satellite altimetry over period of 10 years (2003-2012)' value='MEDSEA D4.3.5'/>
-    <entry key='MEDSEA_ CH5_Specification_1 / Collated data set of fish landings by species and year, for mass and number' value='MEDSEA D5.3.5'/>
-    <entry key='MEDSEA_ CH5_Specification_2 / Collated data set of fish discards by species and year, for mass and number' value='MEDSEA D5.3.5'/>
-    <entry key='MEDSEA_ CH5_Specification_3 / Collated data set of fish bycatch by species and year, for mass and number' value='MEDSEA D5.3.5'/>
-    <entry key='MEDSEA_ CH5_Specification_4 / Impact of fisheries on the bottom from VMS data combined with habitat vulnerability' value='MEDSEA D5.3.5'/>
-    <entry key='MEDSEA_ CH5_Specification_5 / Change level of disturbance from VMS data combined with habitat vulnerability' value='MEDSEA D5.3.5'/>
-    <entry key='MEDSEA_ CH5_Specification_6 / Impact of fisheries on the bottom from AIS data combined with habitat vulnerability' value='MEDSEA D5.3.5'/>
-    <entry key='MEDSEA_ CH5_Specification_7 / Change level of disturbance from AIS data combined with habitat vulnerability' value='MEDSEA D5.3.5'/>
-    <entry key='MEDSEA_ CH5_Specification_8 / Impact of fisheries on the bottom from Data Logger combined with habitat vulnerability' value='MEDSEA D5.3.5'/>
-    <entry key='MEDSEA_ CH6_Specification_1 / Maps of Chlorophyll concentration seasonal climatologies (i.e., Winter, Spring, Summer, and Fall) over the Mediterranean Sea relative to the period 1998-2009' value='MEDSEA D6.3.5'/>
-    <entry key='MEDSEA_ CH6_Specification_2 / Map of Chlorophyll concentration trend over the Mediterranean Sea, relative to the period 1998-2009, expressed as percent of variation respect to the climatological field' value='MEDSEA D6.3.5'/>
-    <entry key='MEDSEA_ CH6_Specification_3 / Maps of average TRIX indices calculated from Mediterranean sea surface data for the periods 2008-2012, 1998-2002, and 1993-1997' value='MEDSEA D6.3.5'/>
-    <entry key='MEDSEA_ CH6_Specification_4 / Maps showing differences between most recent TRIX estimates (2008-2012) and TRIX from the earlier periods 1998-2002 and 1993-1997' value='MEDSEA D6.3.5'/>
-    <entry key='MEDSEA_CH7_Specification_1 / Annual time series of Water Discharge (Qw) [m3/s]' value='MEDSEA D7.3.5'/>
-    <entry key='MEDSEA_CH7_Specification_2 / Monthly time series of Water Discharge (Qw) [m3/s]' value='MEDSEA D7.3.5'/>
-    <entry key='MEDSEA_CH7_Specification_3 / Annual time series of TSM from satellite data' value='MEDSEA D7.3.5'/>
-    <entry key='MEDSEA_CH7_Specification_4 / Monthly time seriesof TSM from satellite data' value='MEDSEA D7.3.5'/>
-    <entry key='MEDSEA_CH7_Specification_5 / Annual time series of Total Nitrogen [mg/l]' value='MEDSEA D7.3.5'/>
-    <entry key='MEDSEA_CH7_Specification_6 / Monthly time series of Total Nitrogen from model data [mg/l]' value='MEDSEA D7.3.5'/>
-    <entry key='MEDSEA_CH7_Specification_7 / Annual time series of Total Phosphorous/Phosphates [mg/l]' value='MEDSEA D7.3.5'/>
-    <entry key='MEDSEA_CH7_Specification_8 / Monthly time series of Total Phosphorous from model data [mg/l]' value='MEDSEA D7.3.5'/>
-    <entry key='MEDSEA_CH7_Specification_9 / Annual time series of Eels Specificationion[tons]' value='MEDSEA D7.3.5'/>
+    <entry key='MEDSEA_CH5_Specification_1 / Collated data set of fish landings by species and year, for mass and number' value='MEDSEA D6.3.5'/>
+    <entry key='MEDSEA_CH5_Specification_2 / Collated data set of fish discards by species and year, for mass and number' value='MEDSEA D6.3.5'/>
+    <entry key='MEDSEA_CH5_Specification_3 / Collated data set of fish bycatch by species and year, for mass and number' value='MEDSEA D6.3.5'/>
+    <entry key='MEDSEA_CH5_Specification_4 / Impact of fisheries on the bottom from VMS data combined with habitat vulnerability' value='MEDSEA D6.3.5'/>
+    <entry key='MEDSEA_CH5_Specification_5 / Change level of disturbance from VMS data combined with habitat vulnerability' value='MEDSEA D6.3.5'/>
+    <entry key='MEDSEA_CH5_Specification_6 / Impact of fisheries on the bottom from AIS data combined with habitat vulnerability' value='MEDSEA D6.3.5'/>
+    <entry key='MEDSEA_CH5_Specification_7 / Change level of disturbance from AIS data combined with habitat vulnerability' value='MEDSEA D6.3.5'/>
+    <entry key='MEDSEA_CH5_Specification_8 / Impact of fisheries on the bottom from Data Logger combined with habitat vulnerability' value='MEDSEA D6.3.5'/>
+    <entry key='MEDSEA_CH6_Specification_1 / Maps of Chlorophyll concentration seasonal climatologies (i.e., Winter, Spring, Summer, and Fall) over the Mediterranean Sea relative to the period 1998-2009.' value='MEDSEA D7.3.5'/>
+    <entry key='MEDSEA_CH6_Specification_2 / Map of Chlorophyll concentration trend over the Mediterranean Sea, relative to the period 1998-2009, expressed as percent of variation respect to the climatological field' value='MEDSEA D7.3.5'/>
+    <entry key='MEDSEA_CH6_Specification_3 / Maps of average TRIX indices calculated from Mediterranean sea surface data for the periods 2008-2012, 1998-2002, and 1993-1997' value='MEDSEA D7.3.5'/>
+    <entry key='MEDSEA_CH6_Specification_4 / Maps showing differences between most recent TRIX estimates (2008-2012) and TRIX from the earlier periods 1998-2002 and 1993-1997' value='MEDSEA D7.3.5'/>
+    <entry key='MEDSEA_CH7_Specification_1 / Annual time series of Water Discharge (Qw) [m3/s]' value='MEDSEA D8.3.5'/>
+    <entry key='MEDSEA_CH7_Specification_2 / Monthly time series of Water Discharge (Qw) [m3/s]' value='MEDSEA D8.3.5'/>
+    <entry key='MEDSEA_CH7_Specification_3 / Annual time series of TSM from satellite data' value='MEDSEA D8.3.5'/>
+    <entry key='MEDSEA_CH7_Specification_4 / Monthly time series of TSM from satellite data' value='MEDSEA D8.3.5'/>
+    <entry key='MEDSEA_CH7_Specification_5 / Annual time series of Total Nitrogen [mg/l]' value='MEDSEA D8.3.5'/>
+    <entry key='MEDSEA_CH7_Specification_6 / Monthly time series of Total Nitrogen from model data [mg/l]' value='MEDSEA D8.3.5'/>
+    <entry key='MEDSEA_CH7_Specification_7 / Annual time series of Total Phosphorous/Phosphates [mg/l]' value='MEDSEA D8.3.5'/>
+    <entry key='MEDSEA_CH7_Specification_8 / Monthly time series of Total Phosphorous from model data [mg/l]' value='MEDSEA D8.3.5'/>
+    <entry key='MEDSEA_CH7_Specification_9 / Annual time series of Eels Specificationion[tons]' value='MEDSEA D8.3.5'/>
   </xsl:variable>
 
   <!-- In TDP set deliverable info if not set based on product name -->
   <xsl:template
-    match="cit:issueIdentification[($isTdp or $isDps) and normalize-space(gco:CharacterString) = '']"
+    match="cit:issueIdentification[($isTdp or $isDps)]"
     priority="2000">
 
     <xsl:variable name="product"
