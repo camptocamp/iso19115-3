@@ -298,10 +298,20 @@
   -->
   <xsl:template match="mdb:dataQualityInfo/*/mdq:report/*[
                           mdq:measure/*/mdq:nameOfMeasure/*/text() = 'Number of Characteristics'
-                        ]/mdq:result/*/mdq:value/gco:Record" priority="2000">
-    <xsl:variable name="numberOfLineage" select="count(ancestor::mdb:dataQualityInfo/*/mdq:scope/*/mcc:levelDescription) - 2"/>
+                        ]/mdq:result/*/mdq:value" priority="2000">
     <xsl:copy>
-      <xsl:value-of select="$numberOfLineage"/>
+      <xsl:choose>
+        <xsl:when test="$isUd">
+          <xsl:attribute name="gco:nilReason" select="'inapplicable'"/>
+          <gco:Record/>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:variable name="numberOfLineage" select="count(ancestor::mdb:dataQualityInfo/*/mdq:scope/*/mcc:levelDescription) - 2"/>
+          <gco:Record>
+            <xsl:value-of select="$numberOfLineage"/>
+          </gco:Record>
+        </xsl:otherwise>
+      </xsl:choose>
     </xsl:copy>
   </xsl:template>
 

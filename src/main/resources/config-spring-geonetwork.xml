@@ -23,7 +23,12 @@
           <property name="id"
                     value="dq-sections"/>
           <property name="xpath"
-                    value="mdb:dataQualityInfo[contains(*/@uuid, '/CP') and not(ends-with(*/@uuid, 'QE'))]"/>
+                    value="mdb:dataQualityInfo[
+                            contains(*/@uuid, '/CP') and
+                            not(ends-with(*/@uuid, 'QE')) and
+                            count(*/mdq:standaloneQualityReport[
+                              */mdq:reportReference/*/cit:title/gco:CharacterString =
+                              'Component not covered']) = 0]"/>
           <property name="label"
                     value=".//mcc:levelDescription[1]//mcc:other"/>
           <property name="cleanValues"

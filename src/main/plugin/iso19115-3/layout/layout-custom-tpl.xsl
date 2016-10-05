@@ -155,7 +155,7 @@
           <xsl:variable name="isCovered"
                         select="normalize-space($sqr/mdq:reportReference/*/cit:title) = ''"/>
 
-          <xsl:if test="not($isDps)">
+          <xsl:if test="$isTdp">
             <div data-gn-checkpoint-cpt-covered="{$isCovered}"
                  data-id="{$sqrId}"
                  data-title-id="{$sqr/mdq:reportReference/*/cit:title/gco:CharacterString/gn:element/@ref}"
@@ -244,6 +244,9 @@
                           <xsl:value-of select="$measureName"/>
                         </col>
                         <col type="{*/mdq:valueRecordType/*/text()}">
+                          <xsl:if test="*/mdq:value/@gco:nilReason = 'inapplicable'">
+                            <xsl:attribute name="readonly"/>
+                          </xsl:if>
                           <xsl:copy-of select="*/mdq:value/gco:*"/>
                         </col>
                         <col readonly="">
