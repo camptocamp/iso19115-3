@@ -57,6 +57,8 @@
            Distinction is made by the fact that QE and FU do not provide
            component details.
             -->
+      <xsl:apply-templates select="mdb:dataQualityInfo[count(*/@uuid) = 0]"/>
+
       <xsl:apply-templates select="mdb:dataQualityInfo[
                                     matches(*/@uuid, $componentMatch) and
                                     not(ends-with(*/@uuid, '#QE'))
