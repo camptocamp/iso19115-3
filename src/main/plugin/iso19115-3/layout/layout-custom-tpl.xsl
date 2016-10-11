@@ -100,46 +100,50 @@
                   <xsl:with-param name="type" select="'text'"/>
                   <xsl:with-param name="name" select="./*/gn:element/@ref"/>
                   <xsl:with-param name="editInfo" select="./*/gn:element"/>
+                  <xsl:with-param name="isDisabled" select="$isTdp"/>
                   <xsl:with-param name="parentEditInfo" select="ancestor::mcc:levelDescription/gn:element"/>
                   <xsl:with-param name="listOfValues">
-                    <directive name="gn-field-suggestions"
-                               data-field="checkpointUdLineageDesc"
-                               data-fq="{if ($challenge != '') then $challenge else ''}"/>
+                    <xsl:if test="$isDps">
+                      <directive name="gn-field-suggestions"
+                                 data-field="checkpointUdLineageDesc"
+                                 data-fq="{if ($challenge != '') then $challenge else ''}"/>
+                    </xsl:if>
                   </xsl:with-param>
                 </xsl:call-template>
               </xsl:for-each>
 
 
-              <!-- TODO: Add the capabilitie to populate manually the value -->
-
-              <xsl:variable name="ref" select="*/gn:element/@ref"/>
-              <div class="form-group gn-field gn-lineage gn-extra-field gn-add-field"
-                   data-gn-field-highlight="">
-                <label class="col-sm-2 control-label">
-                </label>
-                <div class="col-sm-9">
-                  <div>
-                    <button class="btn btn-default ng-isolate-scope"
-                            data-gn-template-field-add-button="_X{$ref}_mccCOLONlevelDescription">
-                      <i class="fa fa-plus"></i>
-                    </button>
-                    <div class="hidden">
-                      <textarea class="form-control gn-debug ng-isolate-scope"
-                                name="_X{$ref}_mccCOLONlevelDescription">
-                        <![CDATA[<mcc:levelDescription
-                    xmlns:gco="http://standards.iso.org/iso/19115/-3/gco/1.0"
-                    xmlns:mcc="http://standards.iso.org/iso/19115/-3/mcc/1.0">
-                    <mcc:MD_ScopeDescription>
-                      <mcc:other>
-                        <gco:CharacterString></gco:CharacterString>
-                      </mcc:other>
-                    </mcc:MD_ScopeDescription>
-                  </mcc:levelDescription>]]>
-                      </textarea>
+              <!-- TODO: Add the capability to populate manually the value -->
+              <xsl:if test="$isDps">
+                <xsl:variable name="ref" select="*/gn:element/@ref"/>
+                <div class="form-group gn-field gn-lineage gn-extra-field gn-add-field"
+                     data-gn-field-highlight="">
+                  <label class="col-sm-2 control-label">
+                  </label>
+                  <div class="col-sm-9">
+                    <div>
+                      <button class="btn btn-default ng-isolate-scope"
+                              data-gn-template-field-add-button="_X{$ref}_mccCOLONlevelDescription">
+                        <i class="fa fa-plus"></i>
+                      </button>
+                      <div class="hidden">
+                        <textarea class="form-control gn-debug ng-isolate-scope"
+                                  name="_X{$ref}_mccCOLONlevelDescription">
+                          <![CDATA[<mcc:levelDescription
+                      xmlns:gco="http://standards.iso.org/iso/19115/-3/gco/1.0"
+                      xmlns:mcc="http://standards.iso.org/iso/19115/-3/mcc/1.0">
+                      <mcc:MD_ScopeDescription>
+                        <mcc:other>
+                          <gco:CharacterString></gco:CharacterString>
+                        </mcc:other>
+                      </mcc:MD_ScopeDescription>
+                    </mcc:levelDescription>]]>
+                        </textarea>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
+              </xsl:if>
             </xsl:if>
 
             <xsl:apply-templates mode="mode-iso19115-3"
@@ -147,7 +151,7 @@
 
           </xsl:for-each>
 
-          <!-- MEDSEA Checkbox if component covered or not -->
+          <!-- Checkbox if component covered or not -->
           <xsl:variable name="sqr"
                         select="*/mdq:standaloneQualityReport/*"/>
           <xsl:variable name="sqrId"
@@ -161,19 +165,19 @@
                  data-title-id="{$sqr/mdq:reportReference/*/cit:title/gco:CharacterString/gn:element/@ref}"
                  data-abstract-id="{$sqr/mdq:abstract/gco:CharacterString/gn:element/@ref}"
             />
+            <!-- If not display textearea to populate explanation
+            in a standalone quality report.
+
+            Component can not be covered
+            -->
+            <div id="{$sqrId}">
+              <xsl:apply-templates mode="mode-iso19115-3"
+                                   select="$sqr/mdq:reportReference/*/cit:title"/>
+              <xsl:apply-templates mode="mode-iso19115-3"
+                                   select="$sqr/mdq:abstract"/>
+            </div>
           </xsl:if>
 
-          <!-- If not display textearea to populate explanation
-          in a standalone quality report.
-
-          Component can not be covered
-          -->
-          <div id="{$sqrId}">
-            <xsl:apply-templates mode="mode-iso19115-3"
-                                 select="$sqr/mdq:reportReference/*/cit:title"/>
-            <xsl:apply-templates mode="mode-iso19115-3"
-                                 select="$sqr/mdq:abstract"/>
-          </div>
 
           <!-- If covered, display table -->
           <div id="{$sqrId}-table">

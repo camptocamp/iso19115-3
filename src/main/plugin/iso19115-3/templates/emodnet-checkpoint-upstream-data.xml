@@ -910,35 +910,6 @@
           </mdq:result>
         </mdq:DQ_DomainConsistency>
       </mdq:report>
-      <mdq:report>
-        <mdq:DQ_DomainConsistency>
-          <mdq:measure>
-            <mdq:DQ_MeasureReference>
-              <mdq:nameOfMeasure>
-                <gco:CharacterString>Reliability</gco:CharacterString>
-              </mdq:nameOfMeasure>
-            </mdq:DQ_MeasureReference>
-          </mdq:measure>
-          <mdq:evaluationMethod>
-            <mdq:DQ_FullInspection>
-              <mdq:evaluationProcedure/>
-            </mdq:DQ_FullInspection>
-          </mdq:evaluationMethod>
-          <mdq:result>
-            <mdq:DQ_QuantitativeResult>
-              <mdq:value>
-                <gco:Record/>
-              </mdq:value>
-              <mdq:valueUnit>
-                <BaseUnit xmlns="http://www.opengis.net/gml/3.2" gml:id="unknown">
-                  <identifier codeSpace="">unknown</identifier>
-                  <unitsSystem/>
-                </BaseUnit>
-              </mdq:valueUnit>
-            </mdq:DQ_QuantitativeResult>
-          </mdq:result>
-        </mdq:DQ_DomainConsistency>
-      </mdq:report>
     </mdq:DQ_DataQuality>
   </mdb:dataQualityInfo>
   <mdb:resourceLineage>
