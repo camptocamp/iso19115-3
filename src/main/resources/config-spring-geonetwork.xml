@@ -32,7 +32,8 @@
           <property name="label"
                     value=".//mcc:levelDescription[1]//mcc:other"/>
           <property name="cleanValues"
-                    value=".//mdq:result/*/mdq:value/gco:Record|.//mdq:result/*/mdq:statement/gco:CharacterString"/>
+                    value=".//mdq:result/*/mdq:value/gco:Record|
+                           .//mdq:result/*/mdq:statement/gco:CharacterString"/>
         </bean>
       </list>
     </property>

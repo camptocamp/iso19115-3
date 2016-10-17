@@ -266,15 +266,18 @@
 
 
 
-  <!-- Component in UD does not contains component details ie. only uuid and name. -->
-  <xsl:template match="mdb:MD_Metadata[$isUd]
-                          /mdb:dataQualityInfo/*/mdq:scope/*[
-                            mcc:level/*/@codeListValue = $componentScopeCode
-                            ]/mcc:levelDescription[position() > 1]|
+  <!-- Component in UD does not contains component details ie. only uuid and name.
+
+   We used to remove extent.
                        mdb:MD_Metadata[$isUd]
                           /mdb:dataQualityInfo/*/mdq:scope/*[
                             mcc:level/*/@codeListValue = $componentScopeCode
-                            ]/mcc:extent"/>
+                            ]/mcc:extent
+   -->
+  <xsl:template match="mdb:MD_Metadata[$isUd]
+                          /mdb:dataQualityInfo/*/mdq:scope/*[
+                            mcc:level/*/@codeListValue = $componentScopeCode
+                            ]/mcc:levelDescription[position() > 1]"/>
 
 
 

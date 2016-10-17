@@ -85,7 +85,7 @@
               <!--<xsl:with-param name="isDisabled" select="$isTdp"/>-->
             </xsl:apply-templates>
 
-            <xsl:if test="$isDps or $isTdp">
+            <xsl:if test="$isDps or $isTdp or $isUd">
               <!--<xsl:apply-templates mode="mode-iso19115-3"
                                    select="*/mcc:levelDescription[3]//mcc:other">
                 <xsl:with-param name="overrideLabel" select="$strings/checkpoint-dps-component-lineage"/>
@@ -247,7 +247,8 @@
                         <col readonly="">
                           <xsl:value-of select="$measureName"/>
                         </col>
-                        <col type="{*/mdq:valueRecordType/*/text()}">
+                        <col type="{*/mdq:valueRecordType/*/text()}"
+                             min="0">
                           <xsl:if test="*/mdq:value/@gco:nilReason = 'inapplicable'">
                             <xsl:attribute name="readonly"/>
                           </xsl:if>
