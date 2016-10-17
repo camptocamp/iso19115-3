@@ -247,8 +247,9 @@
                         <col readonly="">
                           <xsl:value-of select="$measureName"/>
                         </col>
-                        <col type="{*/mdq:valueRecordType/*/text()}"
-                             min="0">
+                        <!--<col type="{*/mdq:valueRecordType/*/text()}"
+                             min="0">-->
+                        <col type="{*/mdq:valueRecordType/*/text()}">
                           <xsl:if test="*/mdq:value/@gco:nilReason = 'inapplicable'">
                             <xsl:attribute name="readonly"/>
                           </xsl:if>
