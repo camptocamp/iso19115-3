@@ -60,19 +60,19 @@
     <entry key='MEDSEA_CH2_Product_6 / The monitoring capacity of biodiversity in MPAs' value='MEDSEA D3.3.5'/>
     <entry key='MEDSEA_CH3_Product_1 / Oil Platform Leak Bulletin released after a DG MARE request received by email on the 28th of July 2014' value='MEDSEA D4.3.5'/>
     <entry key='MEDSEA_CH3_Product_2 / Oil Platform Leak Bulletin released after the DG MARE alert received by email on the 10th of May 2016' value='MEDSEA D4.3.5'/>
-    <entry key='MEDSEA_CH4_Product_1 / Spatial layers of Sea surface temperature trend from observations (HadISST dataset) over periods of 10 (2003 – 2012), 50 (1963-2012) and 100 (1913-2012) years. Basin maps and NUTS3 region are considered' value='MEDSEA D4.3.5'/>
-    <entry key='MEDSEA_CH4_Product_2 / Spatial layer of Sea temperature trend at mid-depth and at sea-bottom from reanalysis (CMEMS Mediterranean Physics Reanalysis) over period of 10 (2003 – 2012) years' value='MEDSEA D4.3.5'/>
-    <entry key='MEDSEA_CH4_Product_3 / Spatial layer of Sea internal energy trend from reanalysis (CMEMS Mediterranean Physics Reanalysis) over period of 20 (1993 – 2012) years' value='MEDSEA D4.3.5'/>
-    <entry key='MEDSEA_CH4_Product_4 / Spatial layers of sea level trend from MyOcean-CMCC reconstruction over periods of 50 years (1963 – 2012) and 100 years (1913-2012)' value='MEDSEA D4.3.5'/>
-    <entry key='MEDSEA_CH4_Product_5 / Spatial layer of sea-level trend from AVISO reconstruction over period of 10 years (2003 – 2012)' value='MEDSEA D4.3.5'/>
-    <entry key='MERSEA_CH4_Product_6 / Spatial layers of sea–level trend from PSMSL tide-gauges over periods of 50 years (1963-2012) and 100 years (1913-2012)' value='MEDSEA D4.3.5'/>
-    <entry key='MEDSEA_CH4_Product_7 / Sediment Mass Balance at the Coast from Experts Survey and Scientific Literature Review' value='MEDSEA D4.3.5'/>
-    <entry key='MEDSEA_CH4_Product_8 / Time series of annual average sea surface temperature from observations (HadISST dataset) over periods of 10 years (2003-2012), 50 years (1963-2012) and 100 years (1913-2012)' value='MEDSEA D4.3.5'/>
-    <entry key='MEDSEA_CH4_Product_9 / Time series of annual average sea temperature at mid-depth and sea-bottom from reanalysis (CMEMS Mediterranean Physics Reanalysis dataset) over period of 10 years (2003-2012)' value='MEDSEA D4.3.5'/>
-    <entry key='MEDSEA_CH4_Product_10 / Time series of annual average sea internal energy from reanalysis (CMEMS Mediterranean Physics Reanalysis dataset) over period of 20 years (1993-2012)' value='MEDSEA D4.3.5'/>
-    <entry key='MEDSEA_CH4_Product_11 / Time series of annual average sea level from MyOcean-CMCC reconstruction over periods of 50 years (1963-2012) and 100 years (1913-2012)' value='MEDSEA D4.3.5'/>
-    <entry key='MEDSEA_CH4_Product_12 / Time series of annual average sea level from PSMSL time-gauges over periods of 50 years (1963-2012) and 100 years (1913-2012)' value='MEDSEA D4.3.5'/>
-    <entry key='MEDSEA_CH4_Product_13 / Time series of annual average sea-level from AVISO satellite altimetry over period of 10 years (2003-2012)' value='MEDSEA D4.3.5'/>
+    <entry key='MEDSEA_CH4_Product_1 / Spatial layers of Sea surface temperature trend from observations (HadISST dataset) over periods of 10 (2003 – 2012), 50 (1963-2012) and 100 (1913-2012) years. Basin maps and NUTS3 region are considered' value='MEDSEA D5.3.5'/>
+    <entry key='MEDSEA_CH4_Product_2 / Spatial layer of Sea temperature trend at mid-depth and at sea-bottom from reanalysis (CMEMS Mediterranean Physics Reanalysis) over period of 10 (2003 – 2012) years' value='MEDSEA D5.3.5'/>
+    <entry key='MEDSEA_CH4_Product_3 / Spatial layer of Sea internal energy trend from reanalysis (CMEMS Mediterranean Physics Reanalysis) over period of 20 (1993 – 2012) years' value='MEDSEA D5.3.5'/>
+    <entry key='MEDSEA_CH4_Product_4 / Spatial layers of sea level trend from MyOcean-CMCC reconstruction over periods of 50 years (1963 – 2012) and 100 years (1913-2012)' value='MEDSEA D5.3.5'/>
+    <entry key='MEDSEA_CH4_Product_5 / Spatial layer of sea-level trend from AVISO reconstruction over period of 10 years (2003 – 2012)' value='MEDSEA D5.3.5'/>
+    <entry key='MERSEA_CH4_Product_6 / Spatial layers of sea–level trend from PSMSL tide-gauges over periods of 50 years (1963-2012) and 100 years (1913-2012)' value='MEDSEA D5.3.5'/>
+    <entry key='MEDSEA_CH4_Product_7 / Sediment Mass Balance at the Coast from Experts Survey and Scientific Literature Review' value='MEDSEA D5.3.5'/>
+    <entry key='MEDSEA_CH4_Product_8 / Time series of annual average sea surface temperature from observations (HadISST dataset) over periods of 10 years (2003-2012), 50 years (1963-2012) and 100 years (1913-2012)' value='MEDSEA D5.3.5'/>
+    <entry key='MEDSEA_CH4_Product_9 / Time series of annual average sea temperature at mid-depth and sea-bottom from reanalysis (CMEMS Mediterranean Physics Reanalysis dataset) over period of 10 years (2003-2012)' value='MEDSEA D5.3.5'/>
+    <entry key='MEDSEA_CH4_Product_10 / Time series of annual average sea internal energy from reanalysis (CMEMS Mediterranean Physics Reanalysis dataset) over period of 20 years (1993-2012)' value='MEDSEA D5.3.5'/>
+    <entry key='MEDSEA_CH4_Product_11 / Time series of annual average sea level from MyOcean-CMCC reconstruction over periods of 50 years (1963-2012) and 100 years (1913-2012)' value='MEDSEA D5.3.5'/>
+    <entry key='MEDSEA_CH4_Product_12 / Time series of annual average sea level from PSMSL time-gauges over periods of 50 years (1963-2012) and 100 years (1913-2012)' value='MEDSEA D5.3.5'/>
+    <entry key='MEDSEA_CH4_Product_13 / Time series of annual average sea-level from AVISO satellite altimetry over period of 10 years (2003-2012)' value='MEDSEA D5.3.5'/>
     <entry key='MEDSEA_CH5_Product_1 / Collated data set of fish landings by species and year, for mass and number' value='MEDSEA D6.3.5'/>
     <entry key='MEDSEA_CH5_Product_2 / Collated data set of fish discards by species and year, for mass and number' value='MEDSEA D6.3.5'/>
     <entry key='MEDSEA_CH5_Product_3 / Collated data set of fish bycatch by species and year, for mass and number' value='MEDSEA D6.3.5'/>
@@ -106,19 +106,19 @@
     <entry key='MEDSEA_CH2_Specification_6 / The monitoring capacity of biodiversity in MPAs' value='MEDSEA D3.3.5'/>
     <entry key='MEDSEA_CH3_Specification_1 / Oil Platform Leak Bulletin released after a DG MARE request received by email on the 28th of July 2014' value='MEDSEA D4.3.5'/>
     <entry key='MEDSEA_CH3_Specification_2 / Oil Platform Leak Bulletin released after the DG MARE alert received by email on the 10th of May 2016' value='MEDSEA D4.3.5'/>
-    <entry key='MEDSEA_CH4_Specification_1 / Spatial layers of Sea surface temperature trend from observations (HadISST dataset) over periods of 10 (2003 – 2012), 50 (1963-2012) and 100 (1913-2012) years. Basin maps and NUTS3 region are considered' value='MEDSEA D4.3.5'/>
-    <entry key='MEDSEA_CH4_Specification_2 / Spatial layer of Sea temperature trend at mid-depth and at sea-bottom from reanalysis (CMEMS Mediterranean Physics Reanalysis) over period of 10 (2003 – 2012) years' value='MEDSEA D4.3.5'/>
-    <entry key='MEDSEA_CH4_Specification_3 / Spatial layer of Sea internal energy trend from reanalysis (CMEMS Mediterranean Physics Reanalysis) over period of 20 (1993 – 2012) years' value='MEDSEA D4.3.5'/>
-    <entry key='MEDSEA_CH4_Specification_4 / Spatial layers of sea level trend from MyOcean-CMCC reconstruction over periods of 50 years (1963 – 2012) and 100 years (1913-2012)' value='MEDSEA D4.3.5'/>
-    <entry key='MEDSEA_CH4_Specification_5 / Spatial layer of sea-level trend from AVISO reconstruction over period of 10 years (2003 – 2012)' value='MEDSEA D4.3.5'/>
-    <entry key='MERSEA_CH4_Specification_6 / Spatial layers of sea–level trend from PSMSL tide-gauges over periods of 50 years (1963-2012) and 100 years (1913-2012)' value='MEDSEA D4.3.5'/>
-    <entry key='MEDSEA_CH4_Specification_7 / Sediment Mass Balance at the Coast from Experts Survey and Scientific Literature Review' value='MEDSEA D4.3.5'/>
-    <entry key='MEDSEA_CH4_Specification_8 / Time series of annual average sea surface temperature from observations (HadISST dataset) over periods of 10 years (2003-2012), 50 years (1963-2012) and 100 years (1913-2012)' value='MEDSEA D4.3.5'/>
-    <entry key='MEDSEA_CH4_Specification_9 / Time series of annual average sea temperature at mid-depth and sea-bottom from reanalysis (CMEMS Mediterranean Physics Reanalysis dataset) over period of 10 years (2003-2012)' value='MEDSEA D4.3.5'/>
-    <entry key='MEDSEA_CH4_Specification_10 / Time series of annual average sea internal energy from reanalysis (CMEMS Mediterranean Physics Reanalysis dataset) over period of 20 years (1993-2012)' value='MEDSEA D4.3.5'/>
-    <entry key='MEDSEA_CH4_Specification_11 / Time series of annual average sea level from MyOcean-CMCC reconstruction over periods of 50 years (1963-2012) and 100 years (1913-2012)' value='MEDSEA D4.3.5'/>
-    <entry key='MEDSEA_CH4_Specification_12 / Time series of annual average sea level from PSMSL time-gauges over periods of 50 years (1963-2012) and 100 years (1913-2012)' value='MEDSEA D4.3.5'/>
-    <entry key='MEDSEA_CH4_Specification_13 / Time series of annual average sea-level from AVISO satellite altimetry over period of 10 years (2003-2012)' value='MEDSEA D4.3.5'/>
+    <entry key='MEDSEA_CH4_Specification_1 / Spatial layers of Sea surface temperature trend from observations (HadISST dataset) over periods of 10 (2003 – 2012), 50 (1963-2012) and 100 (1913-2012) years. Basin maps and NUTS3 region are considered' value='MEDSEA D5.3.5'/>
+    <entry key='MEDSEA_CH4_Specification_2 / Spatial layer of Sea temperature trend at mid-depth and at sea-bottom from reanalysis (CMEMS Mediterranean Physics Reanalysis) over period of 10 (2003 – 2012) years' value='MEDSEA D5.3.5'/>
+    <entry key='MEDSEA_CH4_Specification_3 / Spatial layer of Sea internal energy trend from reanalysis (CMEMS Mediterranean Physics Reanalysis) over period of 20 (1993 – 2012) years' value='MEDSEA D5.3.5'/>
+    <entry key='MEDSEA_CH4_Specification_4 / Spatial layers of sea level trend from MyOcean-CMCC reconstruction over periods of 50 years (1963 – 2012) and 100 years (1913-2012)' value='MEDSEA D5.3.5'/>
+    <entry key='MEDSEA_CH4_Specification_5 / Spatial layer of sea-level trend from AVISO reconstruction over period of 10 years (2003 – 2012)' value='MEDSEA D5.3.5'/>
+    <entry key='MERSEA_CH4_Specification_6 / Spatial layers of sea–level trend from PSMSL tide-gauges over periods of 50 years (1963-2012) and 100 years (1913-2012)' value='MEDSEA D5.3.5'/>
+    <entry key='MEDSEA_CH4_Specification_7 / Sediment Mass Balance at the Coast from Experts Survey and Scientific Literature Review' value='MEDSEA D5.3.5'/>
+    <entry key='MEDSEA_CH4_Specification_8 / Time series of annual average sea surface temperature from observations (HadISST dataset) over periods of 10 years (2003-2012), 50 years (1963-2012) and 100 years (1913-2012)' value='MEDSEA D5.3.5'/>
+    <entry key='MEDSEA_CH4_Specification_9 / Time series of annual average sea temperature at mid-depth and sea-bottom from reanalysis (CMEMS Mediterranean Physics Reanalysis dataset) over period of 10 years (2003-2012)' value='MEDSEA D5.3.5'/>
+    <entry key='MEDSEA_CH4_Specification_10 / Time series of annual average sea internal energy from reanalysis (CMEMS Mediterranean Physics Reanalysis dataset) over period of 20 years (1993-2012)' value='MEDSEA D5.3.5'/>
+    <entry key='MEDSEA_CH4_Specification_11 / Time series of annual average sea level from MyOcean-CMCC reconstruction over periods of 50 years (1963-2012) and 100 years (1913-2012)' value='MEDSEA D5.3.5'/>
+    <entry key='MEDSEA_CH4_Specification_12 / Time series of annual average sea level from PSMSL time-gauges over periods of 50 years (1963-2012) and 100 years (1913-2012)' value='MEDSEA D5.3.5'/>
+    <entry key='MEDSEA_CH4_Specification_13 / Time series of annual average sea-level from AVISO satellite altimetry over period of 10 years (2003-2012)' value='MEDSEA D5.3.5'/>
     <entry key='MEDSEA_CH5_Specification_1 / Collated data set of fish landings by species and year, for mass and number' value='MEDSEA D6.3.5'/>
     <entry key='MEDSEA_CH5_Specification_2 / Collated data set of fish discards by species and year, for mass and number' value='MEDSEA D6.3.5'/>
     <entry key='MEDSEA_CH5_Specification_3 / Collated data set of fish bycatch by species and year, for mass and number' value='MEDSEA D6.3.5'/>
