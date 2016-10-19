@@ -100,7 +100,7 @@
                   <xsl:with-param name="type" select="'text'"/>
                   <xsl:with-param name="name" select="./*/gn:element/@ref"/>
                   <xsl:with-param name="editInfo" select="./*/gn:element"/>
-                  <xsl:with-param name="isDisabled" select="$isTdp"/>
+                  <xsl:with-param name="isReadOnly" select="$isTdp"/>
                   <xsl:with-param name="parentEditInfo" select="ancestor::mcc:levelDescription/gn:element"/>
                   <xsl:with-param name="listOfValues">
                     <xsl:if test="$isDps">
