@@ -223,7 +223,6 @@
     <name>cit:extent</name>
     <name>gex:verticalElement</name>
     <name>gex:geographicBox</name>
-    <name>gex:verticalElement</name>
     <name>gex:EX_TemporalExtent</name>
     <name>mrd:MD_Distributor</name>
     <name>srv:containsOperations</name>
@@ -2736,8 +2735,5 @@
     <view name="xml">
       <tab id="xml" default="true"/>
     </view>
-
-
-
   </views>
 </editor>
