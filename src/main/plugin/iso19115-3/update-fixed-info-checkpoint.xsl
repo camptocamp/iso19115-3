@@ -297,7 +297,8 @@
 
   <!--
       Compute number of characteristics value based
-      on the number of lineage for the component
+      on the number of lineage for the component.
+      For Upstream data, this is not applicable.
   -->
   <xsl:template match="mdb:dataQualityInfo/*/mdq:report/*[
                           mdq:measure/*/mdq:nameOfMeasure/*/text() = 'Number of Characteristics'
@@ -318,5 +319,14 @@
     </xsl:copy>
   </xsl:template>
 
+  <!-- Set nilReason to inapplicable to all
+  QM without any value. -->
+  <xsl:template match="mdb:dataQualityInfo/*/mdq:report/*/mdq:result/*/mdq:value[gco:Record = '']"
+                priority="2000">
+    <xsl:copy>
+        <xsl:attribute name="gco:nilReason" select="'inapplicable'"/>
+        <xsl:copy-of select="gco:Record" copy-namespaces="no"/>
+    </xsl:copy>
+  </xsl:template>
 
 </xsl:stylesheet>

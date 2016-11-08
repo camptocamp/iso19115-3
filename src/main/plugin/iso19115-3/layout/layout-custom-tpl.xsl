@@ -110,6 +110,18 @@
                     </xsl:if>
                   </xsl:with-param>
                 </xsl:call-template>
+
+
+                <!-- Add link to upstream data -->
+                <xsl:if test="$isTdp">
+                  <xsl:variable name="labelKey" select="'checkpoint-linkToUpstreamData'"/>
+                  <xsl:variable name="label" select="$strings/*[name() = $labelKey]"/>
+                  <xsl:call-template name="render-associated-resource-button">
+                    <xsl:with-param name="type" select="'sibling'"/>
+                    <xsl:with-param name="options">{"associationType": "crossReference", "initiativeType": "upstreamData"}</xsl:with-param>
+                    <xsl:with-param name="label" select="if ($label != '') then $label else $labelKey"/>
+                  </xsl:call-template>
+                </xsl:if>
               </xsl:for-each>
 
 
@@ -250,7 +262,7 @@
                         <!--<col type="{*/mdq:valueRecordType/*/text()}"
                              min="0">-->
                         <col type="{*/mdq:valueRecordType/*/text()}">
-                          <xsl:if test="*/mdq:value/@gco:nilReason = 'inapplicable'">
+                          <xsl:if test="$isUd and $measureName = 'Number of Characteristics'">
                             <xsl:attribute name="readonly"/>
                           </xsl:if>
                           <xsl:copy-of select="*/mdq:value/gco:*"/>
