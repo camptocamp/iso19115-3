@@ -321,11 +321,13 @@
 
   <!-- Set nilReason to inapplicable to all
   QM without any value. -->
-  <xsl:template match="mdb:dataQualityInfo/*/mdq:report/*/mdq:result/*/mdq:value[gco:Record = '']"
+  <xsl:template match="mdb:dataQualityInfo/*/mdq:report/*/mdq:result/*/mdq:value"
                 priority="2000">
     <xsl:copy>
+      <xsl:if test="gco:Record = ''">
         <xsl:attribute name="gco:nilReason" select="'inapplicable'"/>
-        <xsl:copy-of select="gco:Record" copy-namespaces="no"/>
+      </xsl:if>
+      <xsl:copy-of select="gco:Record" copy-namespaces="no"/>
     </xsl:copy>
   </xsl:template>
 
