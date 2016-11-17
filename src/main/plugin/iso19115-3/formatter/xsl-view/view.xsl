@@ -631,7 +631,7 @@
 
 
   <xsl:template mode="render-value"
-                match="gco:Distance">
+                match="gco:Distance|gco:Measure">
     <span><xsl:value-of select="."/>&#10;<xsl:value-of select="@uom"/></span>
   </xsl:template>
 
