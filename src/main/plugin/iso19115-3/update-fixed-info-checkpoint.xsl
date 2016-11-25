@@ -65,7 +65,7 @@
     <entry key='MEDSEA_CH4_Product_3 / Spatial layer of Sea internal energy trend from reanalysis (CMEMS Mediterranean Physics Reanalysis) over period of 20 (1993 – 2012) years' value='MEDSEA D5.3.5'/>
     <entry key='MEDSEA_CH4_Product_4 / Spatial layers of sea level trend from MyOcean-CMCC reconstruction over periods of 50 years (1963 – 2012) and 100 years (1913-2012)' value='MEDSEA D5.3.5'/>
     <entry key='MEDSEA_CH4_Product_5 / Spatial layer of sea-level trend from AVISO reconstruction over period of 10 years (2003 – 2012)' value='MEDSEA D5.3.5'/>
-    <entry key='MERSEA_CH4_Product_6 / Spatial layers of sea–level trend from PSMSL tide-gauges over periods of 50 years (1963-2012) and 100 years (1913-2012)' value='MEDSEA D5.3.5'/>
+    <entry key='MEDSEA_CH4_Product_6 / Spatial layers of sea–level trend from PSMSL tide-gauges over periods of 50 years (1963-2012) and 100 years (1913-2012)' value='MEDSEA D5.3.5'/>
     <entry key='MEDSEA_CH4_Product_7 / Sediment Mass Balance at the Coast from Experts Survey and Scientific Literature Review' value='MEDSEA D5.3.5'/>
     <entry key='MEDSEA_CH4_Product_8 / Time series of annual average sea surface temperature from observations (HadISST dataset) over periods of 10 years (2003-2012), 50 years (1963-2012) and 100 years (1913-2012)' value='MEDSEA D5.3.5'/>
     <entry key='MEDSEA_CH4_Product_9 / Time series of annual average sea temperature at mid-depth and sea-bottom from reanalysis (CMEMS Mediterranean Physics Reanalysis dataset) over period of 10 years (2003-2012)' value='MEDSEA D5.3.5'/>
@@ -76,11 +76,11 @@
     <entry key='MEDSEA_CH5_Product_1 / Collated data set of fish landings by species and year, for mass and number' value='MEDSEA D6.3.5'/>
     <entry key='MEDSEA_CH5_Product_2 / Collated data set of fish discards by species and year, for mass and number' value='MEDSEA D6.3.5'/>
     <entry key='MEDSEA_CH5_Product_3 / Collated data set of fish bycatch by species and year, for mass and number' value='MEDSEA D6.3.5'/>
-    <entry key='MEDSEA_CH5_Product_4 / Impact of fisheries on the bottom from VMS data combined with habitat vulnerability' value='MEDSEA D6.3.5'/>
+    <entry key='MEDSEA_CH5_Product_4 / Impact of fisheries on the bottom from VMS data combined with seabed substrate and habitat vulnerability' value='MEDSEA D6.3.5'/>
     <entry key='MEDSEA_CH5_Product_5 / Change level of disturbance from VMS data combined with habitat vulnerability' value='MEDSEA D6.3.5'/>
-    <entry key='MEDSEA_CH5_Product_6 / Impact of fisheries on the bottom from AIS data combined with habitat vulnerability' value='MEDSEA D6.3.5'/>
+    <entry key='MEDSEA_CH5_Product_6 / Impact of fisheries on the bottom from AIS data combined with seabed substrate and habitat vulnerability' value='MEDSEA D6.3.5'/>
     <entry key='MEDSEA_CH5_Product_7 / Change level of disturbance from AIS data combined with habitat vulnerability' value='MEDSEA D6.3.5'/>
-    <entry key='MEDSEA_CH5_Product_8 / Impact of fisheries on the bottom from Data Logger combined with habitat vulnerability' value='MEDSEA D6.3.5'/>
+    <entry key='MEDSEA_CH5_Product_8 / Impact of fisheries on the bottom from Data Logger combined with seabed substrate and habitat vulnerability' value='MEDSEA D6.3.5'/>
     <entry key='MEDSEA_CH6_product_1 / Maps of Chlorophyll concentration seasonal climatologies (i.e., Winter, Spring, Summer, and Fall) over the Mediterranean Sea relative to the period 1998-2009.' value='MEDSEA D7.3.5'/>
     <entry key='MEDSEA_CH6_product_2 / Map of Chlorophyll concentration trend over the Mediterranean Sea, relative to the period 1998-2009, expressed as percent of variation respect to the climatological field' value='MEDSEA D7.3.5'/>
     <entry key='MEDSEA_CH6_product_3 / Maps of average TRIX indices calculated from Mediterranean sea surface data for the periods 2008-2012, 1998-2002, and 1993-1997' value='MEDSEA D7.3.5'/>
@@ -111,7 +111,7 @@
     <entry key='MEDSEA_CH4_Specification_3 / Spatial layer of Sea internal energy trend from reanalysis (CMEMS Mediterranean Physics Reanalysis) over period of 20 (1993 – 2012) years' value='MEDSEA D5.3.5'/>
     <entry key='MEDSEA_CH4_Specification_4 / Spatial layers of sea level trend from MyOcean-CMCC reconstruction over periods of 50 years (1963 – 2012) and 100 years (1913-2012)' value='MEDSEA D5.3.5'/>
     <entry key='MEDSEA_CH4_Specification_5 / Spatial layer of sea-level trend from AVISO reconstruction over period of 10 years (2003 – 2012)' value='MEDSEA D5.3.5'/>
-    <entry key='MERSEA_CH4_Specification_6 / Spatial layers of sea–level trend from PSMSL tide-gauges over periods of 50 years (1963-2012) and 100 years (1913-2012)' value='MEDSEA D5.3.5'/>
+    <entry key='MEDSEA_CH4_Specification_6 / Spatial layers of sea–level trend from PSMSL tide-gauges over periods of 50 years (1963-2012) and 100 years (1913-2012)' value='MEDSEA D5.3.5'/>
     <entry key='MEDSEA_CH4_Specification_7 / Sediment Mass Balance at the Coast from Experts Survey and Scientific Literature Review' value='MEDSEA D5.3.5'/>
     <entry key='MEDSEA_CH4_Specification_8 / Time series of annual average sea surface temperature from observations (HadISST dataset) over periods of 10 years (2003-2012), 50 years (1963-2012) and 100 years (1913-2012)' value='MEDSEA D5.3.5'/>
     <entry key='MEDSEA_CH4_Specification_9 / Time series of annual average sea temperature at mid-depth and sea-bottom from reanalysis (CMEMS Mediterranean Physics Reanalysis dataset) over period of 10 years (2003-2012)' value='MEDSEA D5.3.5'/>
@@ -122,11 +122,11 @@
     <entry key='MEDSEA_CH5_Specification_1 / Collated data set of fish landings by species and year, for mass and number' value='MEDSEA D6.3.5'/>
     <entry key='MEDSEA_CH5_Specification_2 / Collated data set of fish discards by species and year, for mass and number' value='MEDSEA D6.3.5'/>
     <entry key='MEDSEA_CH5_Specification_3 / Collated data set of fish bycatch by species and year, for mass and number' value='MEDSEA D6.3.5'/>
-    <entry key='MEDSEA_CH5_Specification_4 / Impact of fisheries on the bottom from VMS data combined with habitat vulnerability' value='MEDSEA D6.3.5'/>
+    <entry key='MEDSEA_CH5_Specification_4 / Impact of fisheries on the bottom from VMS data combined with seabed substrate and habitat vulnerability' value='MEDSEA D6.3.5'/>
     <entry key='MEDSEA_CH5_Specification_5 / Change level of disturbance from VMS data combined with habitat vulnerability' value='MEDSEA D6.3.5'/>
-    <entry key='MEDSEA_CH5_Specification_6 / Impact of fisheries on the bottom from AIS data combined with habitat vulnerability' value='MEDSEA D6.3.5'/>
+    <entry key='MEDSEA_CH5_Specification_6 / Impact of fisheries on the bottom from AIS data combined with seabed substrate and habitat vulnerability' value='MEDSEA D6.3.5'/>
     <entry key='MEDSEA_CH5_Specification_7 / Change level of disturbance from AIS data combined with habitat vulnerability' value='MEDSEA D6.3.5'/>
-    <entry key='MEDSEA_CH5_Specification_8 / Impact of fisheries on the bottom from Data Logger combined with habitat vulnerability' value='MEDSEA D6.3.5'/>
+    <entry key='MEDSEA_CH5_Specification_8 / Impact of fisheries on the bottom from Data Logger combined with seabed substrate and habitat vulnerability' value='MEDSEA D6.3.5'/>
     <entry key='MEDSEA_CH6_Specification_1 / Maps of Chlorophyll concentration seasonal climatologies (i.e., Winter, Spring, Summer, and Fall) over the Mediterranean Sea relative to the period 1998-2009.' value='MEDSEA D7.3.5'/>
     <entry key='MEDSEA_CH6_Specification_2 / Map of Chlorophyll concentration trend over the Mediterranean Sea, relative to the period 1998-2009, expressed as percent of variation respect to the climatological field' value='MEDSEA D7.3.5'/>
     <entry key='MEDSEA_CH6_Specification_3 / Maps of average TRIX indices calculated from Mediterranean sea surface data for the periods 2008-2012, 1998-2002, and 1993-1997' value='MEDSEA D7.3.5'/>
