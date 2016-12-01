@@ -231,6 +231,11 @@
            index="true" />
 
 
+    <!-- Boolean flag for checpoint records. -->
+    <xsl:variable name="isCheckpoint"
+                  select="count($metadata/mdb:metadataStandard/cit:CI_Citation/
+                                  cit:title/gco:CharacterString[starts-with(., 'ISO 19115-3 - Emodnet Checkpoint - ')]) > 0"/>
+
 
     <xsl:for-each select="$metadata/mdb:identificationInfo/*">
 
@@ -720,6 +725,36 @@
                             mdq:measure/*/mdq:measureIdentification/*/mcc:code/*/text() != ''
                           ]/mdq:result/mdq:DQ_QuantitativeResult[mdq:value/gco:Record/text() != '']) > 0}"/>
 
+    <!-- For checkpoint records, check if:
+    * there is at least one component described.
+    * there is at least one measure set in one of the component.
+
+    This allows to search for:
+    * resources with no component
+    * resources with component with no measures. -->
+    <xsl:if test="$isCheckpoint">
+      <xsl:variable name="hasCheckpointCpt"
+                    select="count($metadata/mdb:dataQualityInfo/*[contains(@uuid, '/CP')]) = 0"/>
+      <Field name="hasCheckpointCpt" index="true" store="true"
+             string="{$hasCheckpointCpt}"/>
+
+      <xsl:if test="$hasCheckpointCpt">
+        <Field name="hasDqCptNotCovered" index="true" store="true"
+               string="{count(
+               $metadata/mdb:dataQualityInfo/*[contains(@uuid, '/CP') and
+                                mdq:standaloneQualityReport/*/mdq:reportReference/*/
+                                  cit:title/*/text() = 'Component not covered']) > 0}"/>
+        <Field name="hasDqEmptyCptMeasures" index="true" store="true"
+               string="{count(
+              $metadata/mdb:dataQualityInfo/*[contains(@uuid, '/CP') and
+                                count(mdq:report/*[
+                                  mdq:measure/*/mdq:measureIdentification/*/mcc:code/*/text() != '' and
+                                  mdq:result/*/mdq:value/gco:Record != '']) = 0]) > 0}"/>
+      </xsl:if>
+    </xsl:if>
+
+
+
    <!-- TODO: Multilingual support -->
     <xsl:for-each select="$metadata/mdb:dataQualityInfo">
       <!-- Checpoint / Index component id.
@@ -851,8 +886,18 @@
 
     <xsl:variable name="standardName"
                   select="$metadata/mdb:metadataStandard/cit:CI_Citation/cit:title/gco:CharacterString"/>
+
     <xsl:for-each select="$standardName">
       <Field name="standardName" string="{string(.)}" store="true" index="true"/>
+
+      <!-- Index checkpoint resource type
+      ISO 19115-3 - Emodnet Checkpoint - Data Product Specification -->
+      <xsl:if test="starts-with(., 'ISO 19115-3 - Emodnet Checkpoint - ')">
+        <Field name="checkpointType"
+               string="{substring-after(., 'ISO 19115-3 - Emodnet Checkpoint - ')}"
+               store="true"
+               index="true"/>
+      </xsl:if>
     </xsl:for-each>
 
     <!-- Checkpoint / Upstream data
