@@ -734,7 +734,7 @@
     * resources with component with no measures. -->
     <xsl:if test="$isCheckpoint">
       <xsl:variable name="hasCheckpointCpt"
-                    select="count($metadata/mdb:dataQualityInfo/*[contains(@uuid, '/CP')]) = 0"/>
+                    select="count($metadata/mdb:dataQualityInfo/*[contains(@uuid, '/CP')]) > 0"/>
       <Field name="hasCheckpointCpt" index="true" store="true"
              string="{$hasCheckpointCpt}"/>
 
