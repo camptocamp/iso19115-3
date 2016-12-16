@@ -39,16 +39,25 @@
 
 
   <xsl:template match="/">
-    <xsl:text>type;challenge;p01;p02;p03;processingLevel;productionMode;inspireTheme;envMatrix;visibility;uuid;title;component;</xsl:text>
+    <xsl:text>type;hierarchyLevel;challenge;p01;otherp01;p02;p03;processingLevel;productionMode;inspireTheme;</xsl:text>
+    <xsl:text>envMatrix;visibility;serviceExtent;policyVisibility;dataDelivery;dataPolicy;costBasis;readyness;responsiveness;</xsl:text>
+    <xsl:text>uuid;title;extentWSEN;minZ;maxZ;minT;maxT;component;</xsl:text>
     <xsl:for-each select="$measures/entry">
+      <xsl:variable name="mId" select="."/>
+
       <xsl:value-of select="."/>
       <xsl:text>;</xsl:text>
       <xsl:value-of select="."/>
       <xsl:text> UOM;</xsl:text>
       <xsl:value-of select="concat(., ' ERROR')"/>
       <xsl:text>;</xsl:text>
+      <xsl:if test="$mId = 'AP.3.2' or $mId = 'AP.3.4'">
+        <xsl:text>DESC</xsl:text>
+        <xsl:text>;</xsl:text>
+      </xsl:if>
     </xsl:for-each>
-    <xsl:text>lineage;spatialDims;extentWSEN;minZ;maxZ;minT;maxT;program;provider;DPSuuid;TDPuuid;UDuuids;link</xsl:text>
+    <xsl:text>lineage;spatialDims;CPTextentWSEN;CPTminZ;CPTmaxZ;CPTminT;CPTmaxT;program;provider;DPSuuid;TDPuuid;UDuuids;</xsl:text>
+    <xsl:text>link;catUrl;datasetUrl</xsl:text>
     <xsl:text>&#xA;</xsl:text>
 
     <xsl:apply-templates select="//mdb:MD_Metadata"/>
@@ -65,6 +74,10 @@
 
     <xsl:variable name="uuid"
                   select="normalize-space($metadata/mdb:metadataIdentifier/*/mcc:code/gco:CharacterString/text())"/>
+
+    <xsl:variable name="hl"
+                  select="normalize-space($metadata/mdb:metadataScope/mdb:MD_MetadataScope/
+                          mdb:resourceScope/*/@codeListValue)"/>
 
     <xsl:variable name="isDps"
                   select="count(mdb:metadataStandard/*/cit:title/*[text() =
@@ -91,6 +104,12 @@
                   select="string-join(mdb:identificationInfo/*/mri:descriptiveKeywords
                     [contains(*/mri:thesaurusName/cit:CI_Citation/cit:identifier/*/mcc:code/*/text(),
                     'NVS.P01')]/*/mri:keyword/*, ' | ')"/>
+
+    <xsl:variable name="otherp01"
+                  select="string-join(mdb:identificationInfo/*/
+                      mri:descriptiveKeywords/*
+                      [contains(mri:thesaurusName/cit:CI_Citation/cit:title/gco:CharacterString,
+                      'Parameter Usage Vocabulary (other)')]/mri:keyword/*, ' | ')"/>
 
     <xsl:variable name="p03"
                   select="string-join(mdb:identificationInfo/*/mri:descriptiveKeywords
@@ -123,6 +142,38 @@
                           [contains(*/mri:thesaurusName/cit:CI_Citation/cit:identifier/*/mcc:code/*/text(),
                           'emodnet-checkpoint.visibility')]/*/mri:keyword/*, ' | ')"/>
 
+    <xsl:variable name="serviceExtent"
+                  select="string-join(mdb:identificationInfo/*/
+                          mri:descriptiveKeywords
+                          [contains(*/mri:thesaurusName/cit:CI_Citation/cit:identifier/*/mcc:code/*/text(),
+                          'theme.emodnet-checkpoint.service.extent')]/*/mri:keyword/*, ' | ')"/>
+
+    <xsl:variable name="readyness"
+                  select="string-join(mdb:identificationInfo/*/
+                          mri:descriptiveKeywords
+                          [contains(*/mri:thesaurusName/cit:CI_Citation/cit:identifier/*/mcc:code/*/text(),
+                          'emodnet-checkpoint.readyness')]/*/mri:keyword/*, ' | ')"/>
+
+    <xsl:variable name="policyVisibility"
+                  select="string-join(mdb:identificationInfo/*/
+                          mri:descriptiveKeywords
+                          [contains(*/mri:thesaurusName/cit:CI_Citation/cit:identifier/*/mcc:code/*/text(),
+                          'emodnet-checkpoint.policy.visibility')]/*/mri:keyword/*, ' | ')"/>
+
+    <xsl:variable name="dataDelivery"
+                  select="string-join(mdb:identificationInfo/*/
+                          mri:descriptiveKeywords
+                          [contains(*/mri:thesaurusName/cit:CI_Citation/cit:title/gco:CharacterString,
+                          'Data delivery mechanism')]/*/mri:keyword/*, ' | ')"/>
+
+    <xsl:variable name="dataPolicy"
+                  select="string-join(mdb:identificationInfo/*/
+                          mri:resourceConstraints/mco:MD_LegalConstraints/mco:otherConstraints/*, ' | ')"/>
+
+    <xsl:variable name="costBasis"
+                  select="string-join(mdb:identificationInfo/*/
+                            mri:resourceConstraints/mco:MD_Constraints/mco:useLimitation/*, ' | ')"/>
+
     <xsl:variable name="envMatrix"
                   select="string-join(mdb:identificationInfo/*/
                     mri:descriptiveKeywords
@@ -139,6 +190,11 @@
                               mri:pointOfContact[*/cit:role/*/@codeListValue='edmo']/
                               */cit:party/*/cit:name/gco:CharacterString, ' | ')"/>
 
+    <xsl:variable name="responsiveness"
+                  select="string-join(mdb:dataQualityInfo/*/
+                      mdq:report/mdq:DQ_DomainConsistency[mdq:measure/*/mdq:nameOfMeasure/gco:CharacterString = 'Responsiveness']/
+                      mdq:result/mdq:DQ_QuantitativeResult/mdq:value, ' | ')"/>
+
     <xsl:variable name="inspiretheme"
                   select="string-join(mdb:identificationInfo/*/
                               mri:descriptiveKeywords
@@ -154,6 +210,8 @@
             <!-- type -->
             <xsl:value-of select="if ($isDps) then 'DPS' else if ($isTdp) then 'TDP' else if ($isUd) then 'UD' else ''"/>
             <xsl:text>;</xsl:text>
+            <xsl:value-of select="$hl"/>
+            <xsl:text>;</xsl:text>
 
             <!-- challenge -->
             <xsl:value-of select="$challenges"/>
@@ -162,6 +220,8 @@
 
             <!-- p01;p02;p03 -->
             <xsl:value-of select="$p01"/>
+            <xsl:text>;</xsl:text>
+            <xsl:value-of select="$otherp01"/>
             <xsl:text>;</xsl:text>
             <xsl:value-of select="$p02"/>
             <xsl:text>;</xsl:text>
@@ -180,12 +240,43 @@
             <xsl:text>;</xsl:text>
             <xsl:value-of select="$visibility"/>
             <xsl:text>;</xsl:text>
+            <xsl:value-of select="$serviceExtent"/>
+            <xsl:text>;</xsl:text>
+            <xsl:value-of select="$policyVisibility"/>
+            <xsl:text>;</xsl:text>
+            <xsl:value-of select="$dataDelivery"/>
+            <xsl:text>;</xsl:text>
+            <xsl:value-of select="$dataPolicy"/>
+            <xsl:text>;</xsl:text>
+            <xsl:value-of select="$costBasis"/>
+            <xsl:text>;</xsl:text>
+            <xsl:value-of select="$readyness"/>
+            <xsl:text>;</xsl:text>
+            <xsl:value-of select="$responsiveness"/>
+            <xsl:text>;</xsl:text>
 
 
             <!-- ;uuid;title;component; -->
             <xsl:value-of select="$uuid"/>
             <xsl:text>;</xsl:text>
             <xsl:value-of select="normalize-space($metadata/mdb:identificationInfo/*/mri:citation/*/cit:title/*/text())"/>
+            <xsl:text>;</xsl:text>
+
+
+            <xsl:value-of select="concat(
+            $metadata/mdb:identificationInfo/*/mri:extent/*/gex:geographicElement/*/gex:westBoundLongitude/*/text(), ',',
+            $metadata/mdb:identificationInfo/*/mri:extent/*/gex:geographicElement/*/gex:southBoundLatitude/*/text(), ',',
+            $metadata/mdb:identificationInfo/*/mri:extent/*/gex:geographicElement/*/gex:eastBoundLongitude/*/text(), ',',
+            $metadata/mdb:identificationInfo/*/mri:extent/*/gex:geographicElement/*/gex:northBoundLatitude/*/text()
+            )"/>
+            <xsl:text>;</xsl:text>
+            <xsl:value-of select="$metadata/mdb:identificationInfo/*/mri:extent/*/gex:verticalElement/*/gex:minimumValue/text()"/>
+            <xsl:text>;</xsl:text>
+            <xsl:value-of select="$metadata/mdb:identificationInfo/*/mri:extent/*/gex:verticalElement/*/gex:maximumValue/text()"/>
+            <xsl:text>;</xsl:text>
+            <xsl:value-of select="$metadata/mdb:identificationInfo/*/mri:extent/*/gex:temporalElement/*/gex:extent/*/gml:beginPosition/text()"/>
+            <xsl:text>;</xsl:text>
+            <xsl:value-of select="$metadata/mdb:identificationInfo/*/mri:extent/*/gex:temporalElement/*/gex:extent/*/gml:endPosition/text()"/>
             <xsl:text>;</xsl:text>
 
 
@@ -239,6 +330,12 @@
                                                       ]/mdq:result/*/mdq:value/*/text()"/>
               <xsl:value-of select="$tdpQe"/>
               <xsl:text>;</xsl:text>
+
+              <xsl:if test="$mId = 'AP.3.2' or $mId = 'AP.3.4'">
+                <xsl:value-of select="$report/mdq:result/mdq:DQ_DescriptiveResult/
+                                        mdq:statement/gco:CharacterString/text()"/>
+                <xsl:text>;</xsl:text>
+              </xsl:if>
             </xsl:for-each>
 
             <!-- lineage; -->
@@ -309,6 +406,10 @@
             <xsl:text>;</xsl:text>
 
             <xsl:value-of select="concat(util:getSiteUrl(), '/', util:getNodeId(), '/metadata/', $uuid)"/>
+            <xsl:text>;</xsl:text>
+            <xsl:value-of select="normalize-space($metadata/mdb:distributionInfo/*/mrd:transferOptions/*/mrd:onLine[1]/*/cit:linkage/*)"/>
+            <xsl:text>;</xsl:text>
+            <xsl:value-of select="normalize-space($metadata/mdb:identificationInfo/*/mri:citation/*/cit:otherCitationDetails/*)"/>
 
             <xsl:text>&#xA;</xsl:text>
           </xsl:if>
@@ -316,6 +417,8 @@
       </xsl:when>
       <xsl:otherwise>
         <xsl:value-of select="if ($isDps) then 'DPS' else if ($isTdp) then 'TDP' else if ($isUd) then 'UD' else ''"/>
+        <xsl:text>;</xsl:text>
+        <xsl:value-of select="$hl"/>
         <xsl:text>;</xsl:text>
 
         <!-- challenge -->
@@ -325,6 +428,8 @@
 
         <!-- p01;p02;p03 -->
         <xsl:value-of select="$p01"/>
+        <xsl:text>;</xsl:text>
+        <xsl:value-of select="$otherp01"/>
         <xsl:text>;</xsl:text>
         <xsl:value-of select="$p02"/>
         <xsl:text>;</xsl:text>
@@ -343,6 +448,20 @@
         <xsl:text>;</xsl:text>
         <xsl:value-of select="$visibility"/>
         <xsl:text>;</xsl:text>
+        <xsl:value-of select="$serviceExtent"/>
+        <xsl:text>;</xsl:text>
+        <xsl:value-of select="$policyVisibility"/>
+        <xsl:text>;</xsl:text>
+        <xsl:value-of select="$dataDelivery"/>
+        <xsl:text>;</xsl:text>
+        <xsl:value-of select="$dataPolicy"/>
+        <xsl:text>;</xsl:text>
+        <xsl:value-of select="$costBasis"/>
+        <xsl:text>;</xsl:text>
+        <xsl:value-of select="$readyness"/>
+        <xsl:text>;</xsl:text>
+        <xsl:value-of select="$responsiveness"/>
+        <xsl:text>;</xsl:text>
 
 
 
@@ -351,10 +470,28 @@
         <xsl:text>;</xsl:text>
         <xsl:value-of select="normalize-space($metadata/mdb:identificationInfo/*/mri:citation/*/cit:title/*/text())"/>
         <xsl:text>;</xsl:text>
+
+        <xsl:value-of select="concat(
+            $metadata/mdb:identificationInfo/*/mri:extent/*/gex:geographicElement/*/gex:westBoundLongitude/*/text(), ',',
+            $metadata/mdb:identificationInfo/*/mri:extent/*/gex:geographicElement/*/gex:southBoundLatitude/*/text(), ',',
+            $metadata/mdb:identificationInfo/*/mri:extent/*/gex:geographicElement/*/gex:eastBoundLongitude/*/text(), ',',
+            $metadata/mdb:identificationInfo/*/mri:extent/*/gex:geographicElement/*/gex:northBoundLatitude/*/text()
+            )"/>
+        <xsl:text>;</xsl:text>
+        <xsl:value-of select="$metadata/mdb:identificationInfo/*/mri:extent/*/gex:verticalElement/*/gex:minimumValue/text()"/>
+        <xsl:text>;</xsl:text>
+        <xsl:value-of select="$metadata/mdb:identificationInfo/*/mri:extent/*/gex:verticalElement/*/gex:maximumValue/text()"/>
+        <xsl:text>;</xsl:text>
+        <xsl:value-of select="$metadata/mdb:identificationInfo/*/mri:extent/*/gex:temporalElement/*/gex:extent/*/gml:beginPosition/text()"/>
+        <xsl:text>;</xsl:text>
+        <xsl:value-of select="$metadata/mdb:identificationInfo/*/mri:extent/*/gex:temporalElement/*/gex:extent/*/gml:endPosition/text()"/>
+        <xsl:text>;</xsl:text>
+
+
         <xsl:text>None described</xsl:text>
-        <xsl:text>;;;;;;;;;</xsl:text>
-        <xsl:text>;;;;;;;;;</xsl:text>
         <xsl:text>;;;;;;;;;;</xsl:text>
+        <xsl:text>;;;;;;;;;</xsl:text>
+        <xsl:text>;;;;;;;;;;;</xsl:text>
         <!--<xsl:for-each select="$measures/entry">
           <xsl:text>;</xsl:text>
         </xsl:for-each>-->
@@ -367,6 +504,10 @@
         <xsl:text>;;;;</xsl:text>
 
         <xsl:value-of select="concat(util:getSiteUrl(), '/', util:getNodeId(), '/metadata/', $uuid)"/>
+        <xsl:text>;</xsl:text>
+        <xsl:value-of select="normalize-space($metadata/mdb:distributionInfo/*/mrd:transferOptions/*/mrd:onLine[1]/*/cit:linkage/*)"/>
+        <xsl:text>;</xsl:text>
+        <xsl:value-of select="normalize-space($metadata/mdb:identificationInfo/*/mri:citation/*/cit:otherCitationDetails/*)"/>
 
         <xsl:text>&#xA;</xsl:text>
       </xsl:otherwise>
