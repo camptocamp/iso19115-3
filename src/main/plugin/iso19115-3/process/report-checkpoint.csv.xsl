@@ -59,7 +59,7 @@
     match="mdb:MD_Metadata"
     priority="2">
 
-    <xsl:message><xsl:value-of select="position()"/> </xsl:message>
+    <xsl:variable name="pos" select="position()"/>
     <xsl:variable name="metadata"
                   select="."/>
 
@@ -145,14 +145,12 @@
                               [contains(*/mri:thesaurusName/cit:CI_Citation/cit:title/gco:CharacterString,
                               'INSPIRE themes')]/*/mri:keyword/*, ' | ')"/>
     <xsl:choose>
-      <xsl:when test="mdb:dataQualityInfo">
+      <xsl:when test="mdb:dataQualityInfo[*/matches(@uuid, '.*/CP[0-9]*(/.*|$)') and not(ends-with(@uuid, '#QE'))]">
         <xsl:for-each select="mdb:dataQualityInfo">
-
           <xsl:variable name="cptId" select="*/@uuid"/>
 
           <!-- Only report DQ mesure on CP - not QE which are added as column -->
           <xsl:if test="matches($cptId, '.*/CP[0-9]*(/.*|$)') and not(ends-with($cptId, '#QE'))">
-
             <!-- type -->
             <xsl:value-of select="if ($isDps) then 'DPS' else if ($isTdp) then 'TDP' else if ($isUd) then 'UD' else ''"/>
             <xsl:text>;</xsl:text>
