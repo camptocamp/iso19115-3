@@ -364,7 +364,7 @@
         <xsl:value-of select="$program"/>
         <xsl:text>;</xsl:text>
         <xsl:value-of select="$provider"/>
-        <xsl:text>;;;</xsl:text>
+        <xsl:text>;;;;</xsl:text>
 
         <xsl:value-of select="concat(util:getSiteUrl(), '/', util:getNodeId(), '/metadata/', $uuid)"/>
 
