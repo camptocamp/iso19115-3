@@ -354,7 +354,7 @@
         <xsl:text>None described</xsl:text>
         <xsl:text>;;;;;;;;;</xsl:text>
         <xsl:text>;;;;;;;;;</xsl:text>
-        <xsl:text>;;;;;;;;;;;</xsl:text>
+        <xsl:text>;;;;;;;;;;</xsl:text>
         <!--<xsl:for-each select="$measures/entry">
           <xsl:text>;</xsl:text>
         </xsl:for-each>-->
