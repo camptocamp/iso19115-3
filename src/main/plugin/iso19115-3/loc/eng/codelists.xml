@@ -1452,6 +1452,11 @@
         historical purposes
       </description>
     </entry>
+    <entry hideInEditMode="true">
+      <code>notobsolete</code>
+      <label>Not obsolete</label>
+      <description></description>
+    </entry>
   </codelist>
   <codelist name="mco:MD_RestrictionCode">
     <entry>
