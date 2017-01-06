@@ -41,7 +41,7 @@
   <xsl:template match="/">
     <xsl:text>type;hierarchyLevel;challenge;p01;otherp01;p02;p03;processingLevel;productionMode;inspireTheme;</xsl:text>
     <xsl:text>envMatrix;visibility;serviceExtent;policyVisibility;dataDelivery;dataPolicy;costBasis;readyness;responsiveness;</xsl:text>
-    <xsl:text>uuid;title;extentWSEN;minZ;maxZ;minT;maxT;component;</xsl:text>
+    <xsl:text>uuid;title;extentWSEN;minZ;maxZ;minT;maxT;component;description;</xsl:text>
     <xsl:for-each select="$measures/entry">
       <xsl:variable name="mId" select="."/>
 
@@ -283,6 +283,7 @@
             <!-- Checpoint / Index component id.
               If not set, then index by dq section position. -->
             <xsl:variable name="cptName" select="*/mdq:scope/*/mcc:levelDescription[1]/*/mcc:other/*/text()"/>
+            <xsl:variable name="cptDesc" select="*/mdq:scope/*/mcc:levelDescription[2]/*/mcc:other/*/text()"/>
             <xsl:variable name="dqId" select="if ($cptId != '') then $cptId else position()"/>
 
             <xsl:choose>
@@ -294,6 +295,8 @@
                 <xsl:value-of select="normalize-space($cptName)"/>
               </xsl:otherwise>
             </xsl:choose>
+            <xsl:text>;</xsl:text>
+            <xsl:value-of select="$cptDesc"/>
             <xsl:text>;</xsl:text>
 
 
@@ -398,12 +401,18 @@
             <xsl:text>;</xsl:text>
 
             <!-- UDuuids-->
-            <xsl:value-of select="string-join(
-                            $metadata//mri:associatedResource/*[
+            <xsl:variable name="udUuids"
+                          select="$metadata//mri:associatedResource/*[
                                 mri:initiativeType/*/@codeListValue = 'upstreamData'
-                              ]/mri:metadataReference/@uuidref,
-                            '|')"/>
+                              ]/mri:metadataReference/@uuidref"/>
+            <xsl:for-each select="$udUuids">
+              <xsl:variable name="title"
+                            select="util:getIndexField('', string(.), '_defaultTitle', 'eng')"/>
+              <xsl:value-of select="concat(., ' ', $title)"/>
+              <xsl:text>#</xsl:text>
+            </xsl:for-each>
             <xsl:text>;</xsl:text>
+
 
             <xsl:value-of select="concat(util:getSiteUrl(), '/', util:getNodeId(), '/metadata/', $uuid)"/>
             <xsl:text>;</xsl:text>
@@ -488,7 +497,7 @@
         <xsl:text>;</xsl:text>
 
 
-        <xsl:text>None described</xsl:text>
+        <xsl:text>None described;</xsl:text>
         <xsl:text>;;;;;;;;;;</xsl:text>
         <xsl:text>;;;;;;;;;</xsl:text>
         <xsl:text>;;;;;;;;;;;</xsl:text>
