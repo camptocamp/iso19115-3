@@ -987,13 +987,13 @@
               <values>
                 <!-- -Need a * for gml:TimePeriodTypeCHOICE_ELEMENT2 added by editor enumerated tree -->
                 <key label="beginPosition"
-                     xpath="gex:EX_TemporalExtent/gex:extent/gml:TimePeriod/*/gml:beginPosition"
+                     xpath="gex:EX_TemporalExtent/gex:extent/gml:TimePeriod//gml:beginPosition"
                      use="gn-date-picker"
                      tooltip="gex:extent|gex:EX_TemporalExtent">
                   <directiveAttributes data-tag-name="gml:beginPosition"/>
                 </key>
                 <key label="endPosition"
-                     xpath="gex:EX_TemporalExtent/gex:extent/gml:TimePeriod/*/gml:endPosition"
+                     xpath="gex:EX_TemporalExtent/gex:extent/gml:TimePeriod//gml:endPosition"
                      use="gn-date-picker"
                      tooltip="gex:extent|gex:EX_TemporalExtent"
                         >
@@ -1622,13 +1622,13 @@
               <values>
                 <!-- -Need a * for gml:TimePeriodTypeCHOICE_ELEMENT2 added by editor enumerated tree -->
                 <key label="beginPosition"
-                     xpath="gex:EX_TemporalExtent/gex:extent/gml:TimePeriod/*/gml:beginPosition"
+                     xpath="gex:EX_TemporalExtent/gex:extent/gml:TimePeriod//gml:beginPosition"
                      use="gn-date-picker"
                      tooltip="gex:extent|gex:EX_TemporalExtent">
                   <directiveAttributes data-tag-name="gml:beginPosition"/>
                 </key>
                 <key label="endPosition"
-                     xpath="gex:EX_TemporalExtent/gex:extent/gml:TimePeriod/*/gml:endPosition"
+                     xpath="gex:EX_TemporalExtent/gex:extent/gml:TimePeriod//gml:endPosition"
                      use="gn-date-picker"
                      tooltip="gex:extent|gex:EX_TemporalExtent"
                 >
@@ -2498,13 +2498,13 @@
               <values>
                 <!-- -Need a * for gml:TimePeriodTypeCHOICE_ELEMENT2 added by editor enumerated tree -->
                 <key label="beginPosition"
-                     xpath="gex:EX_TemporalExtent/gex:extent/gml:TimePeriod/*/gml:beginPosition"
+                     xpath="gex:EX_TemporalExtent/gex:extent/gml:TimePeriod//gml:beginPosition"
                      use="gn-date-picker"
                      tooltip="gex:extent|gex:EX_TemporalExtent">
                   <directiveAttributes data-tag-name="gml:beginPosition"/>
                 </key>
                 <key label="endPosition"
-                     xpath="gex:EX_TemporalExtent/gex:extent/gml:TimePeriod/*/gml:endPosition"
+                     xpath="gex:EX_TemporalExtent/gex:extent/gml:TimePeriod//gml:endPosition"
                      use="gn-date-picker"
                      tooltip="gex:extent|gex:EX_TemporalExtent"
                 >
