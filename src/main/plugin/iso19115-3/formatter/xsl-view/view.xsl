@@ -107,7 +107,7 @@
   <xsl:template mode="render-field"
                 match="mdb:dataQualityInfo"
                 priority="9999">
-    <xsl:variable name="cptId" select="@uuid"/>
+    <xsl:variable name="cptId" select="*/@uuid"/>
     <div>
       <h3 style="width:100%">
         <xsl:value-of select="*/mdq:scope/*/mcc:levelDescription[1]/*/mcc:other/*"/>

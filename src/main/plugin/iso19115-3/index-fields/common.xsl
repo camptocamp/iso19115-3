@@ -795,6 +795,7 @@
 
         <xsl:variable name="qmId" select="mdq:measure/*/mdq:measureIdentification/*/mcc:code/*/text()"/>
         <xsl:variable name="qmName" select="mdq:measure/*/mdq:nameOfMeasure/*/text()"/>
+        <xsl:variable name="qmDefinition" select="mdq:measure/*/mdq:measureDescription/*/text()"/>
 
         <!-- Search record by measure id or measure name. -->
         <Field name="dqMeasure" index="true" store="false"
@@ -806,9 +807,10 @@
         <xsl:for-each select="mdq:result/mdq:DQ_QuantitativeResult">
           <xsl:variable name="qmDate" select="mdq:dateTime/gco:Date/text()"/>
           <xsl:variable name="qmValue" select="mdq:value/gco:Record/text()"/>
+          <xsl:variable name="qmStatement" select="normalize-space(../../mdq:result/mdq:DQ_DescriptiveResult/mdq:statement/gco:CharacterString/text())"/>
           <xsl:variable name="qmUnit" select="mdq:valueUnit/*/gml:identifier/text()"/>
           <Field name="dqValues" index="true" store="true"
-                 string="{concat($dqId, '|', $cptName, '|', $qmId, '|', $qmName, '|', $qmDate, '|', $qmValue, '|', $qmUnit)}"/>
+                 string="{concat($dqId, '|', $cptName, '|', $qmId, '|', $qmName, '|', $qmDate, '|', $qmValue, '|', $qmUnit, '|', $qmDefinition, '|', $qmStatement)}"/>
 
         </xsl:for-each>
       </xsl:for-each>
