@@ -105,14 +105,41 @@
 
   <!-- MedSea data quality section is rendered in a table -->
   <xsl:template mode="render-field"
-                match="mdb:dataQualityInfo[1]"
+                match="mdb:dataQualityInfo"
                 priority="9999">
-    <div data-gn-data-quality-measure-renderer="{$metadataId}"/>
-  </xsl:template>
+    <xsl:variable name="cptId" select="@uuid"/>
+    <div>
+      <h3 style="width:100%">
+        <xsl:value-of select="*/mdq:scope/*/mcc:levelDescription[1]/*/mcc:other/*"/>
+        <xsl:text> - </xsl:text>
+        <xsl:value-of select="*/mdq:scope/*/mcc:levelDescription[2]/*/mcc:other/*"/>
+      </h3>
 
+      <xsl:for-each select="*/mdq:scope/*/mcc:extent/*">
+        <xsl:copy-of select="gn-fn-render:bbox(
+                              xs:double(gex:geographicElement/*/gex:westBoundLongitude/gco:Decimal),
+                              xs:double(gex:geographicElement/*/gex:southBoundLatitude/gco:Decimal),
+                              xs:double(gex:geographicElement/*/gex:eastBoundLongitude/gco:Decimal),
+                              xs:double(gex:geographicElement/*/gex:northBoundLatitude/gco:Decimal))"/>
+
+
+        <xsl:apply-templates select="gex:temporalElement/*/gex:extent/gml:*/gml:beginPosition"
+                             mode="render-field"/>
+        <xsl:apply-templates select="gex:temporalElement/*/gex:extent/gml:*/gml:endPosition"
+                             mode="render-field"/>
+
+        <xsl:apply-templates select="gex:verticalElement"
+                             mode="render-field"/>
+      </xsl:for-each>
+
+      <div data-gn-data-quality-measure-renderer="{$metadataId}"
+           data-cpt-id="{$cptId}"/>
+    </div>
+  </xsl:template>
+<!--
   <xsl:template mode="render-field"
                 match="mdb:dataQualityInfo[position() > 1]"
-                priority="9999"/>
+                priority="9999"/>-->
 
 
   <!-- Most of the elements are ... -->
