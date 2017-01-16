@@ -40,8 +40,9 @@
 
   <xsl:template match="/">
     <xsl:text>type;hierarchyLevel;challenge;p01;otherp01;p02;p03;processingLevel;productionMode;inspireTheme;</xsl:text>
-    <xsl:text>envMatrix;visibility;serviceExtent;policyVisibility;dataDelivery;dataPolicy;costBasis;readyness;responsiveness;</xsl:text>
-    <xsl:text>uuid;title;extentWSEN;minZ;maxZ;minT;maxT;component;description;</xsl:text>
+    <xsl:text>envMatrix;visibility;serviceExtent;policyVisibility;dataDelivery;dataPolicy;costBasis;readyness;</xsl:text>
+    <xsl:text>responsiveness;spatialRepType;refSystem;useLimitation;useConstraints;dataFormats;</xsl:text>
+    <xsl:text>uuid;title;extentWSEN;minZ;maxZ;minT;maxT;component;description;dqDate;</xsl:text>
     <xsl:for-each select="$measures/entry">
       <xsl:variable name="mId" select="."/>
 
@@ -200,6 +201,28 @@
                               mri:descriptiveKeywords
                               [contains(*/mri:thesaurusName/cit:CI_Citation/cit:title/gco:CharacterString,
                               'INSPIRE themes')]/*/mri:keyword/*, ' | ')"/>
+
+    <xsl:variable name="spatialRepType"
+                  select="string-join(mdb:identificationInfo/*/
+                              mri:spatialRepresentationType/*/@codeListValue, ' | ')"/>
+
+    <xsl:variable name="refSystem"
+                  select="string-join(mdb:referenceSystemInfo/*/
+                              mrs:referenceSystemIdentifier/*/mcc:code/*, ' | ')"/>
+
+
+    <xsl:variable name="useLimitation"
+                  select="string-join(mdb:identificationInfo/*/
+                              mri:resourceConstraints/*/mco:useLimitation, ' | ')"/>
+
+    <xsl:variable name="useConstraints"
+                  select="string-join(mdb:identificationInfo/*/
+                              mri:resourceConstraints/*/mco:useConstraints/*/@codeListValue, ' | ')"/>
+
+    <xsl:variable name="dataFormats"
+                  select="string-join(mdb:distributionInfo/*/mrd:distributionFormat/
+                            mrd:MD_Format/mrd:formatSpecificationCitation/cit:CI_Citation/cit:title/*, ' | ')"/>
+
     <xsl:choose>
       <xsl:when test="mdb:dataQualityInfo[*/matches(@uuid, '.*/CP[0-9]*(/.*|$)') and not(ends-with(@uuid, '#QE'))]">
         <xsl:for-each select="mdb:dataQualityInfo">
@@ -254,6 +277,16 @@
             <xsl:text>;</xsl:text>
             <xsl:value-of select="$responsiveness"/>
             <xsl:text>;</xsl:text>
+            <xsl:value-of select="$spatialRepType"/>
+            <xsl:text>;</xsl:text>
+            <xsl:value-of select="$refSystem"/>
+            <xsl:text>;</xsl:text>
+            <xsl:value-of select="$useLimitation"/>
+            <xsl:text>;</xsl:text>
+            <xsl:value-of select="$useConstraints"/>
+            <xsl:text>;</xsl:text>
+            <xsl:value-of select="$dataFormats"/>
+            <xsl:text>;</xsl:text>
 
 
             <!-- ;uuid;title;component; -->
@@ -302,6 +335,11 @@
 
             <!-- Assuming only one date -->
             <xsl:variable name="dq" select="."/>
+
+            <!--Date  -->
+            <xsl:value-of select="string-join(distinct-values(
+                          $dq/*/mdq:report/*/mdq:result/*/mdq:dateTime/*), ' | ')"/>
+            <xsl:text>;</xsl:text>
             <xsl:for-each select="$measures/entry">
               <xsl:variable name="mId" select="."/>
 
@@ -471,6 +509,16 @@
         <xsl:text>;</xsl:text>
         <xsl:value-of select="$responsiveness"/>
         <xsl:text>;</xsl:text>
+        <xsl:value-of select="$spatialRepType"/>
+        <xsl:text>;</xsl:text>
+        <xsl:value-of select="$refSystem"/>
+        <xsl:text>;</xsl:text>
+        <xsl:value-of select="$useLimitation"/>
+        <xsl:text>;</xsl:text>
+        <xsl:value-of select="$useConstraints"/>
+        <xsl:text>;</xsl:text>
+        <xsl:value-of select="$dataFormats"/>
+        <xsl:text>;</xsl:text>
 
 
 
@@ -498,7 +546,7 @@
 
 
         <xsl:text>None described;</xsl:text>
-        <xsl:text>;;;;;;;;;;</xsl:text>
+        <xsl:text>;;;;;;;;;;;</xsl:text>
         <xsl:text>;;;;;;;;;</xsl:text>
         <xsl:text>;;;;;;;;;;;</xsl:text>
         <!--<xsl:for-each select="$measures/entry">
