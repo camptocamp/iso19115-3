@@ -107,34 +107,38 @@
   <xsl:template mode="render-field"
                 match="mdb:dataQualityInfo"
                 priority="9999">
-    <xsl:variable name="cptId" select="*/@uuid"/>
-    <div>
-      <h3 style="width:100%">
-        <xsl:value-of select="*/mdq:scope/*/mcc:levelDescription[1]/*/mcc:other/*"/>
-        <xsl:text> - </xsl:text>
-        <xsl:value-of select="*/mdq:scope/*/mcc:levelDescription[2]/*/mcc:other/*"/>
-      </h3>
+    <!-- Only render quality section for a component, not for errors
+    that are in the index and rendered by the directive. -->
+    <xsl:if test="*/@uuid[not(ends-with(., '#QE'))]">
+      <xsl:variable name="cptId" select="*/@uuid"/>
+      <div>
+        <h3 style="width:100%">
+          <xsl:value-of select="*/mdq:scope/*/mcc:levelDescription[1]/*/mcc:other/*"/>
+          <xsl:text> - </xsl:text>
+          <xsl:value-of select="*/mdq:scope/*/mcc:levelDescription[2]/*/mcc:other/*"/>
+        </h3>
 
-      <xsl:for-each select="*/mdq:scope/*/mcc:extent/*">
-        <xsl:copy-of select="gn-fn-render:bbox(
-                              xs:double(gex:geographicElement/*/gex:westBoundLongitude/gco:Decimal),
-                              xs:double(gex:geographicElement/*/gex:southBoundLatitude/gco:Decimal),
-                              xs:double(gex:geographicElement/*/gex:eastBoundLongitude/gco:Decimal),
-                              xs:double(gex:geographicElement/*/gex:northBoundLatitude/gco:Decimal))"/>
+        <xsl:for-each select="*/mdq:scope/*/mcc:extent/*">
+          <xsl:copy-of select="gn-fn-render:bbox(
+                                xs:double(gex:geographicElement/*/gex:westBoundLongitude/gco:Decimal),
+                                xs:double(gex:geographicElement/*/gex:southBoundLatitude/gco:Decimal),
+                                xs:double(gex:geographicElement/*/gex:eastBoundLongitude/gco:Decimal),
+                                xs:double(gex:geographicElement/*/gex:northBoundLatitude/gco:Decimal))"/>
 
 
-        <xsl:apply-templates select="gex:temporalElement/*/gex:extent/gml:*/gml:beginPosition"
-                             mode="render-field"/>
-        <xsl:apply-templates select="gex:temporalElement/*/gex:extent/gml:*/gml:endPosition"
-                             mode="render-field"/>
+          <xsl:apply-templates select="gex:temporalElement/*/gex:extent/gml:*/gml:beginPosition"
+                               mode="render-field"/>
+          <xsl:apply-templates select="gex:temporalElement/*/gex:extent/gml:*/gml:endPosition"
+                               mode="render-field"/>
 
-        <xsl:apply-templates select="gex:verticalElement"
-                             mode="render-field"/>
-      </xsl:for-each>
+          <xsl:apply-templates select="gex:verticalElement"
+                               mode="render-field"/>
+        </xsl:for-each>
 
-      <div data-gn-data-quality-measure-renderer="{$metadataId}"
-           data-cpt-id="{$cptId}"/>
-    </div>
+        <div data-gn-data-quality-measure-renderer="{$metadataId}"
+             data-cpt-id="{$cptId}"/>
+      </div>
+    </xsl:if>
   </xsl:template>
 <!--
   <xsl:template mode="render-field"
