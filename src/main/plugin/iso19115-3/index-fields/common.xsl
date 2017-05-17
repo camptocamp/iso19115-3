@@ -1064,6 +1064,11 @@
       </xsl:apply-templates>
     </xsl:variable>
 
+    <Field name="{$type}_{$fieldPrefix}_{$role}"
+           string="{$orgName}"
+           store="false"
+           index="true"/>
+
     <Field name="{$fieldPrefix}"
            string="{concat($roleTranslation, '|', $type, '|',
                               $orgName, '|', $logo, '|',
