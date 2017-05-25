@@ -60,6 +60,24 @@
                 select="/root/mdb:MD_Metadata"/>
 
 
+  <!-- Checkpoint resource type -->
+  <xsl:variable name="isDps"
+                select="count(
+                            /root/mdb:MD_Metadata/mdb:metadataStandard/*/cit:title/*[text() =
+                              'ISO 19115-3 - Emodnet Checkpoint - Data Product Specification']
+                          ) = 1"/>
+
+  <xsl:variable name="isTdp"
+                select="count(
+                            /root/mdb:MD_Metadata/mdb:metadataStandard/*/cit:title/*[text() =
+                              'ISO 19115-3 - Emodnet Checkpoint - Targeted Data Product']
+                          ) = 1"/>
+
+  <xsl:variable name="isUd"
+                select="count(
+                            /root/mdb:MD_Metadata/mdb:metadataStandard/*/cit:title/*[text() =
+                              'ISO 19115-3 - Emodnet Checkpoint - Upstream Data']
+                          ) = 1"/>
 
 
   <!-- Specific schema rendering -->
@@ -86,8 +104,26 @@
     <link rel="stylesheet" type="text/css"
           href="{$baseUrl}../../apps/sextant/css/metadata-view.css"></link>
 
-    <div data-gn-related="md" data-types="siblings|associated" data-title="Links"></div>
 
+
+    <xsl:choose>
+      <xsl:when test="$isTdp">
+        <div data-gn-related="md"
+             data-types="siblings|associated"
+             data-filter="associationType:specification"
+             data-title="Links"></div>
+      </xsl:when>
+      <xsl:when test="$isDps">
+        <div data-gn-related="md"
+             data-types="siblings|associated"
+             data-title="Links"></div>
+      </xsl:when>
+      <xsl:when test="$isUd">
+        <div data-gn-related="md"
+             data-types="siblings|associated"
+             data-title="Links"></div>
+      </xsl:when>
+    </xsl:choose>
 
     <div class="ui-layout-content mdshow-tabpanel">
       <a class="file-link"
@@ -101,6 +137,25 @@
          style="display: block;float: right; text-decoration: none;"
          href="{$baseUrl}xml.metadata.get?id={$metadataId}">&#160;</a>
     </div>
+  </xsl:template>
+
+  <!-- Display links after INSPIRE theme. If there is no INSPIRE
+  themes in the record, the link section will not be displayed. -->
+  <xsl:template mode="render-field"
+                priority="999"
+                match="mri:descriptiveKeywords[*/mri:thesaurusName/*/cit:title/* = 'GEMET - INSPIRE themes, version 1.0']">
+    <xsl:param name="fieldName"/>
+
+    <xsl:apply-templates mode="render-field" select="mri:MD_Keywords">
+      <xsl:with-param name="fieldName" select="$fieldName"/>
+    </xsl:apply-templates>
+
+    <xsl:if test="$isTdp">
+      <div data-gn-related="md"
+           data-types="siblings|associated"
+           data-filter="associationType:upstreamData"
+           data-title="Upstream data"></div>
+    </xsl:if>
   </xsl:template>
 
   <!-- MedSea data quality section is rendered in a table -->
@@ -413,10 +468,9 @@
 
   <!-- Display thesaurus name and the list of keywords -->
   <xsl:template mode="render-field"
-                match="mri:descriptiveKeywords[count(*/mri:keyword) = 0]" priority="200"/>
+                match="mri:descriptiveKeywords/*[count(mri:keyword) = 0]" priority="200"/>
   <xsl:template mode="render-field"
-                match="mri:descriptiveKeywords[
-                        */mri:thesaurusName/cit:CI_Citation/cit:title]"
+                match="mri:descriptiveKeywords/*[mri:thesaurusName/cit:CI_Citation/cit:title]"
                 priority="100">
     <xsl:param name="fieldName"/>
 
@@ -426,7 +480,7 @@
           <xsl:when test="$fieldName != ''"><xsl:value-of select="replace($fieldName, '\*', '')"/></xsl:when>
           <xsl:otherwise>
             <xsl:apply-templates mode="render-value"
-                                 select="*/mri:thesaurusName/cit:CI_Citation/cit:title/*"/>
+                                 select="mri:thesaurusName/cit:CI_Citation/cit:title/*"/>
           </xsl:otherwise>
         </xsl:choose>
 
@@ -440,7 +494,7 @@
           <ul>
             <li>
               <xsl:apply-templates mode="render-value"
-                                   select="*/mri:keyword/*"/>
+                                   select="mri:keyword/*"/>
             </li>
           </ul>
         </div>
