@@ -402,7 +402,7 @@
         <thesaurus key="external.parameter.NVS.P01" maxtags="1"/>
         <thesaurus key="external.parameter.NVS.P02" maxtags="1"/>
       </thesaurusList>
-      <tab id="characteristics" mode="flat" default="true">
+      <tab id="characteristics" mode="flat" default="true" display-order="2">
         <section>
 
           <field
@@ -469,7 +469,7 @@
 
 
 
-      <tab id="datasources">
+      <tab id="datasources" display-order="3">
         <section>
 
           <!--
@@ -897,7 +897,7 @@
       </tab>
 
 
-      <tab id="overview">
+      <tab id="overview" display-order="4">
         <section>
           <field
                   name="providerSpecification"
@@ -928,7 +928,7 @@
 
         </section>
       </tab>
-      <tab id="spatialCoverage" mode="flat">
+      <tab id="spatialCoverage" mode="flat" display-order="5">
         <section name="selectRegion">
           <!--<field
               name="geographicalAreaCode"
@@ -976,7 +976,7 @@
           <text ref="listOfOL-help"/>
         </section>
       </tab>
-      <tab id="timeCoverage">
+      <tab id="timeCoverage" display-order="6">
         <section>
 
 
@@ -1028,7 +1028,7 @@
 
         </section>
       </tab>
-      <tab id="accessibility" mode="flat">
+      <tab id="accessibility" mode="flat" display-order="7">
         <section name="datasetVisibility">
 
           <field name="visibility"
@@ -1148,10 +1148,21 @@
                             'theme.emodnet-checkpoint.reliability')]"/>-->
         </section>
       </tab>
-      <tab id="medsea-metadata" mode="flat">
+      <tab id="medsea-metadata" mode="flat" display-order="1">
         <section>
 
           <field xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:citation/cit:CI_Citation/cit:title"/>
+
+          <!-- MedSea challenges
+          TODO: Can't define to use Anchor mode by default
+          in keyword selector.
+          <field
+                  xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/
+                gmd:descriptiveKeywords
+                [contains(gmd:MD_Keywords/gmd:thesaurusName/gmd:CI_Citation/gmd:title/gco:CharacterString,
+                'Challenges')]"/>
+          -->
+          <field name="challenge" xpath="/mdb:MD_Metadata/mdb:metadataScope/mdb:MD_MetadataScope/mdb:name"/>
 
           <!--<field
                   name="uniqueIdentifier"
@@ -1241,17 +1252,6 @@
           </field>
 
 
-          <!-- MedSea challenges
-          TODO: Can't define to use Anchor mode by default
-          in keyword selector.
-          <field
-                  xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/
-                gmd:descriptiveKeywords
-                [contains(gmd:MD_Keywords/gmd:thesaurusName/gmd:CI_Citation/gmd:title/gco:CharacterString,
-                'Challenges')]"/>
-          -->
-          <field name="challenge" xpath="/mdb:MD_Metadata/mdb:metadataScope/mdb:MD_MetadataScope/mdb:name"/>
-
           <field xpath="/mdb:MD_Metadata/mdb:dateInfo[*/cit:dateType/*/@codeListValue = 'revision']"/>
 
 
@@ -1267,7 +1267,7 @@
                     gmd:lineage/gmd:LI_Lineage/gmd:statement"/>-->
         </section>
       </tab>
-      <tab id="checkpoint-ud-qm" mode="flat">
+      <tab id="checkpoint-ud-qm" mode="flat" display-order="9">
         <section>
           <!-- If no TDP associated, warn user to choose one first. -->
           <text ref="checkpoint-linkToTargetedDataProduct-help"
@@ -1819,6 +1819,16 @@
                             </mdq:valueRecordType>
                           </mdq:DQ_QuantitativeResult>
                         </mdq:result>
+                        <mdq:result>
+                          <mdq:DQ_DescriptiveResult>
+                            <mdq:dateTime>
+                              <gco:Date/>
+                            </mdq:dateTime>
+                            <mdq:statement gco:nilReason="missing">
+                              <gco:CharacterString/>
+                            </mdq:statement>
+                          </mdq:DQ_DescriptiveResult>
+                        </mdq:result>
                       </mdq:DQ_CompletenessOmission>
                     </mdq:report>
                     <mdq:report>
@@ -1857,6 +1867,16 @@
                               <gco:RecordType>Real</gco:RecordType>
                             </mdq:valueRecordType>
                           </mdq:DQ_QuantitativeResult>
+                        </mdq:result>
+                        <mdq:result>
+                          <mdq:DQ_DescriptiveResult>
+                            <mdq:dateTime>
+                              <gco:Date/>
+                            </mdq:dateTime>
+                            <mdq:statement gco:nilReason="missing">
+                              <gco:CharacterString/>
+                            </mdq:statement>
+                          </mdq:DQ_DescriptiveResult>
                         </mdq:result>
                       </mdq:DQ_CompletenessOmission>
                     </mdq:report>
@@ -1897,6 +1917,16 @@
                             </mdq:valueRecordType>
                           </mdq:DQ_QuantitativeResult>
                         </mdq:result>
+                        <mdq:result>
+                          <mdq:DQ_DescriptiveResult>
+                            <mdq:dateTime>
+                              <gco:Date/>
+                            </mdq:dateTime>
+                            <mdq:statement gco:nilReason="missing">
+                              <gco:CharacterString/>
+                            </mdq:statement>
+                          </mdq:DQ_DescriptiveResult>
+                        </mdq:result>
                       </mdq:DQ_CompletenessOmission>
                     </mdq:report>
                     <mdq:report>
@@ -1930,6 +1960,16 @@
                               <gco:RecordType>Integer</gco:RecordType>
                             </mdq:valueRecordType>
                           </mdq:DQ_QuantitativeResult>
+                        </mdq:result>
+                        <mdq:result>
+                          <mdq:DQ_DescriptiveResult>
+                            <mdq:dateTime>
+                              <gco:Date/>
+                            </mdq:dateTime>
+                            <mdq:statement gco:nilReason="missing">
+                              <gco:CharacterString/>
+                            </mdq:statement>
+                          </mdq:DQ_DescriptiveResult>
                         </mdq:result>
                       </mdq:DQ_ConceptualConsistency>
                     </mdq:report>
@@ -1966,6 +2006,16 @@
                               <gco:RecordType>Integer</gco:RecordType>
                             </mdq:valueRecordType>
                           </mdq:DQ_QuantitativeResult>
+                        </mdq:result>
+                        <mdq:result>
+                          <mdq:DQ_DescriptiveResult>
+                            <mdq:dateTime>
+                              <gco:Date/>
+                            </mdq:dateTime>
+                            <mdq:statement gco:nilReason="missing">
+                              <gco:CharacterString/>
+                            </mdq:statement>
+                          </mdq:DQ_DescriptiveResult>
                         </mdq:result>
                       </mdq:DQ_ThematicClassificationCorrectness>
                     </mdq:report>
@@ -2055,6 +2105,16 @@
                             </mdq:valueRecordType>
                           </mdq:DQ_QuantitativeResult>
                         </mdq:result>
+                        <mdq:result>
+                          <mdq:DQ_DescriptiveResult>
+                            <mdq:dateTime>
+                              <gco:Date/>
+                            </mdq:dateTime>
+                            <mdq:statement gco:nilReason="missing">
+                              <gco:CharacterString/>
+                            </mdq:statement>
+                          </mdq:DQ_DescriptiveResult>
+                        </mdq:result>
                       </mdq:DQ_ThematicClassificationCorrectness>
                     </mdq:report>
                     <mdq:report>
@@ -2136,6 +2196,16 @@
                               <gco:RecordType>Integer</gco:RecordType>
                             </mdq:valueRecordType>
                           </mdq:DQ_QuantitativeResult>
+                        </mdq:result>
+                        <mdq:result>
+                          <mdq:DQ_DescriptiveResult>
+                            <mdq:dateTime>
+                              <gco:Date/>
+                            </mdq:dateTime>
+                            <mdq:statement gco:nilReason="missing">
+                              <gco:CharacterString/>
+                            </mdq:statement>
+                          </mdq:DQ_DescriptiveResult>
                         </mdq:result>
                       </mdq:DQ_TemporalValidity>
                     </mdq:report>
