@@ -95,7 +95,7 @@
       Percentage to which the product temporal sampling interval is not compliant with the one defined in DPS
       (percentage to be extracted from text of AP.3.3 measure)</tdpQe>
     <udQe id='UD.APE.3.3' name='Temporal resolution compliance'
-          expression='100 - (DPS.AP.3.3- UD.AP.3.3)*100/DPS.AP.3.3'>Percentage to which the temporal sampling interval
+          expression='(DPS.AP.3.3-UD.AP.3.3)*100/DPS.AP.3.3'>Percentage to which the temporal sampling interval
       is not compliant with the DPS temporal sampling interval
     </udQe>
     <udFu id='UD.FU.3.3' name='Temporal resolution fitness for use error'
