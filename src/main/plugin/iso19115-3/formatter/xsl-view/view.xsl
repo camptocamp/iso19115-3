@@ -23,6 +23,7 @@
                 xmlns:gcx="http://standards.iso.org/iso/19115/-3/gcx/1.0"
                 xmlns:gex="http://standards.iso.org/iso/19115/-3/gex/1.0"
                 xmlns:gfc="http://standards.iso.org/iso/19110/gfc/1.1"
+                xmlns:util="java:org.fao.geonet.util.XslUtil"
                 xmlns:tr="java:org.fao.geonet.api.records.formatters.SchemaLocalizations"
                 xmlns:gn-fn-render="http://geonetwork-opensource.org/xsl/functions/render"
                 xmlns:gn-fn-metadata="http://geonetwork-opensource.org/xsl/functions/metadata"
@@ -168,9 +169,14 @@
       <xsl:variable name="cptId" select="*/@uuid"/>
       <div>
         <h3 style="width:100%">
-          <xsl:value-of select="*/mdq:scope/*/mcc:levelDescription[1]/*/mcc:other/*"/>
-          <xsl:text> - </xsl:text>
-          <xsl:value-of select="*/mdq:scope/*/mcc:levelDescription[2]/*/mcc:other/*"/>
+          <xsl:value-of select="util:getIndexField('',
+                                string(tokenize($cptId, '/')[3]), '_defaultTitle', 'eng')"/>
+          <!--<xsl:text> - </xsl:text>
+          <xsl:value-of select="*/mdq:scope/*/mcc:levelDescription[1]/*/mcc:other/*"/>-->
+          <xsl:if test="*/mdq:scope/*/mcc:levelDescription[2]/*/mcc:other/* != ''">
+            <xsl:text> - </xsl:text>
+            <xsl:value-of select="*/mdq:scope/*/mcc:levelDescription[2]/*/mcc:other/*"/>
+          </xsl:if>
         </h3>
 
         <xsl:for-each select="*/mdq:scope/*/mcc:extent/*">

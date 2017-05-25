@@ -402,7 +402,7 @@
         <thesaurus key="external.parameter.NVS.P01" maxtags="1"/>
         <thesaurus key="external.parameter.NVS.P02" maxtags="1"/>
       </thesaurusList>
-      <tab id="characteristics" mode="flat" default="true" display-order="2">
+      <tab id="characteristics" mode="flat" default="true" formatter-order="2">
         <section>
 
           <field
@@ -469,7 +469,7 @@
 
 
 
-      <tab id="datasources" display-order="3">
+      <tab id="datasources" formatter-order="3">
         <section>
 
           <!--
@@ -897,7 +897,7 @@
       </tab>
 
 
-      <tab id="overview" display-order="4">
+      <tab id="overview" formatter-order="4">
         <section>
           <field
                   name="providerSpecification"
@@ -928,7 +928,7 @@
 
         </section>
       </tab>
-      <tab id="spatialCoverage" mode="flat" display-order="5">
+      <tab id="spatialCoverage" mode="flat" formatter-order="5">
         <section name="selectRegion">
           <!--<field
               name="geographicalAreaCode"
@@ -976,7 +976,7 @@
           <text ref="listOfOL-help"/>
         </section>
       </tab>
-      <tab id="timeCoverage" display-order="6">
+      <tab id="timeCoverage" formatter-order="6">
         <section>
 
 
@@ -1028,7 +1028,7 @@
 
         </section>
       </tab>
-      <tab id="accessibility" mode="flat" display-order="7">
+      <tab id="accessibility" mode="flat" formatter-order="7">
         <section name="datasetVisibility">
 
           <field name="visibility"
@@ -1148,7 +1148,7 @@
                             'theme.emodnet-checkpoint.reliability')]"/>-->
         </section>
       </tab>
-      <tab id="medsea-metadata" mode="flat" display-order="1">
+      <tab id="medsea-metadata" mode="flat" formatter-order="1">
         <section>
 
           <field xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:citation/cit:CI_Citation/cit:title"/>
@@ -1267,7 +1267,7 @@
                     gmd:lineage/gmd:LI_Lineage/gmd:statement"/>-->
         </section>
       </tab>
-      <tab id="checkpoint-ud-qm" mode="flat" display-order="9">
+      <tab id="checkpoint-ud-qm" mode="flat" formatter-order="9">
         <section>
           <!-- If no TDP associated, warn user to choose one first. -->
           <text ref="checkpoint-linkToTargetedDataProduct-help"
