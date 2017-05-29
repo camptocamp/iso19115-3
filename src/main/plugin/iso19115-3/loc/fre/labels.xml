@@ -5051,6 +5051,7 @@ période de temps couverte par le service.
       <option value='MEDSEA D6.3.5'>MEDSEA D6.3.5</option>
       <option value='MEDSEA D7.3.5'>MEDSEA D7.3.5</option>
       <option value='MEDSEA D8.3.5'>MEDSEA D8.3.5</option>
+      <option value='Not applicable'>Not applicable</option>
     </helper>
   </element>
   <element name="mri:keyword" id="53.0">
