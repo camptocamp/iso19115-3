@@ -2034,7 +2034,7 @@
                               <gco:CharacterString>Vertical resolution</gco:CharacterString>
                             </mdq:nameOfMeasure>
                             <mdq:measureDescription>
-                              <gco:CharacterString>Average vertical sampling  and description of specific vertical sampling schema (100 words max)</gco:CharacterString>
+                              <gco:CharacterString>Average vertical sampling</gco:CharacterString>
                             </mdq:measureDescription>
                           </mdq:DQ_MeasureReference>
                         </mdq:measure>
@@ -2178,7 +2178,7 @@
                               <gco:CharacterString>Temporal validity</gco:CharacterString>
                             </mdq:nameOfMeasure>
                             <mdq:measureDescription>
-                              <gco:CharacterString>Max elapsed time between last input data records  update and product creation date</gco:CharacterString>
+                              <gco:CharacterString>Max elapsed time between last input data records  update and product creation date. Minimum value 1/24 day.</gco:CharacterString>
                             </mdq:measureDescription>
                           </mdq:DQ_MeasureReference>
                         </mdq:measure>
