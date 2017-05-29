@@ -308,8 +308,19 @@
                                                         mdq:measure/*/mdq:measureIdentification/*/mcc:code/*/text() = $fuId
                                                       ]"/>
 
-                            <col readonly="" title="{$udFu/mdq:measure/*/mdq:measureDescription/*/text()}">
-                              <xsl:value-of select="format-number($udFu/mdq:result/*/mdq:value/*/text(), $format)"/>
+                            <!--
+                                Red: [-100 et -10[
+                                Yellow: [-10 et + 10]
+                                Green: ]10 à 100%]
+                            -->
+                            <xsl:variable name="v" select="$udFu/mdq:result/*/mdq:value/*/text()"/>
+                            <col readonly=""
+                                 class="{if (string($v) = 'NaN' or $v = '') then ''
+                                        else if ($v &lt; -10) then 'gn-class-red'
+                                        else if ($v &gt;= -10 and $v &lt;= 10) then 'gn-class-yellow'
+                                        else if ($v &gt; 10) then 'gn-class-green' else ''}"
+                                 title="{$udFu/mdq:measure/*/mdq:measureDescription/*/text()}">
+                              <xsl:value-of select="format-number($v, $format)"/>
                             </col>
 
                             <col readonly="">

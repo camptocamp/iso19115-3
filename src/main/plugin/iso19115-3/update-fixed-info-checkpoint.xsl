@@ -140,6 +140,8 @@
     <entry key='MEDSEA_CH7_Specification_7 / Annual time series of Total Phosphorous/Phosphates [mg/l]' value='MEDSEA D8.3.5'/>
     <entry key='MEDSEA_CH7_Specification_8 / Monthly time series of Total Phosphorous from model data [mg/l]' value='MEDSEA D8.3.5'/>
     <entry key='MEDSEA_CH7_Specification_9 / Annual time series of Eels Specificationion[tons]' value='MEDSEA D8.3.5'/>
+
+    <entry key='ATLANTIC_CH' value='Not Applicable'/>
   </xsl:variable>
 
   <!-- In TDP set deliverable info if not set based on product name -->
@@ -151,7 +153,7 @@
                   select="ancestor::cit:CI_Citation/cit:title/gco:CharacterString/text()"/>
 
     <xsl:variable name="deliverable"
-                  select="$product2deliverables/entry[@key = $product]/@value"/>
+                  select="$product2deliverables/entry[contains($product, @key)]/@value"/>
     <xsl:copy>
       <xsl:copy-of select="./@*"/>
       <gco:CharacterString><xsl:value-of select="if ($deliverable != '') then $deliverable else ''"/></gco:CharacterString>
