@@ -27,8 +27,7 @@
           expression='(UD.AP.1.1 - DPS.AP.1.1)*100/DPS.AP.1.1'>Percentage to which the extent of the horizontal spatial
       coverage of the selected input data is not compliant with the DPS extent in km**2
     </udQe>
-    <udFu id='UD.FU.1.1' name='Horizontal spatial coverage fitness for use error'
-          expression='abs(UD.APE.1.1)*P.APE.1.1/sqrt(UD.APE.1.1^2+P.APE.1.1^2)'>Combination of the errors of the product
+    <udFu id='UD.FU.1.1' name='Horizontal spatial coverage fitness for use error'>Combination of the errors of the product
       component Cn with the error of the selected input data set Ud Cn used for this component
     </udFu>
   </qm>
@@ -40,8 +39,7 @@
           expression='(UD.AP.1.2 - DPS.AP.1.2)*100/DPS.AP.1.2'>Percentage to which the vertical coverage of the selected
       input data is not compliant with the DPS coverage extent in metres
     </udQe>
-    <udFu id='UD.FU.1.2' name='Vertical spatial coverage fitness for use error'
-          expression='abs(UD.APE.1.2)*P.APE.1.2/sqrt(UD.APE.1.2^2+P.APE.1.2^2)'>Combination of the errors of the product
+    <udFu id='UD.FU.1.2' name='Vertical spatial coverage fitness for use error'>Combination of the errors of the product
       component Cn with the error of the selected input data set Ud Cn used for this component
     </udFu>
   </qm>
@@ -52,8 +50,7 @@
     <udQe id='UD.APE.1.3' name='Temporal coverage compliance' expression='(UD.AP.1.3 -  DPS.AP.1.3)*100/DPS.AP.1.3'>
       Percentage to which the time coverage of the selected input data is compliant with the DPS coverage extent in days
     </udQe>
-    <udFu id='UD.FU.1.3' name='Temporal coverage fitness for use error'
-          expression='abs(UD.APE.1.3)*P.APE.1.3/sqrt(UD.APE.1.3^2+P.APE.1.3^2)'>Combination of the errors of the product
+    <udFu id='UD.FU.1.3' name='Temporal coverage fitness for use error'>Combination of the errors of the product
       component Cn with the error of the selected input data set Ud Cn used for this component
     </udFu>
   </qm>
@@ -61,7 +58,7 @@
     <tdpQe id='P.APE.2.1' name='Thematic content error' expression='(TDP.AP.2.1 - DPS.AP.2.1)*100/DPS.AP.2.1'>Percentage
       of completeness/Incompleteness of the number of characteristcs with respect to the list in DPS</tdpQe>
     <udQe id='UD.APE.2.1' name='Thematic content compliance' expression=''>Not applicable</udQe>
-    <udFu id='UD.FU.2.1' name='Thematic content fitness for use error' expression=''>Not applicable</udFu>
+    <udFu id='UD.FU.2.1' name='Thematic content fitness for use error'>Not applicable</udFu>
   </qm>
   <qm id='AP.3.1'>
     <tdpQe id='P.APE.3.1' name='Horizontal resolution error' expression='(DPS.AP.3.1 - TDP.AP.3.1)*100/DPS.AP.3.1'>
@@ -72,8 +69,7 @@
       or mean horizontal sampling interval of the selected input data is compliant not with the DPS horizontal
       resolution
     </udQe>
-    <udFu id='UD.FU.3.1' name='Horizontal resolution fitness for use error'
-          expression='abs(UD.APE.3.1)*P.APE.3.1/sqrt(UD.APE.3.1^2+P.APE.3.1^2)'>Combination of the errors of the product
+    <udFu id='UD.FU.3.1' name='Horizontal resolution fitness for use error'>Combination of the errors of the product
       component Cn with the error of the selected input data set Ud Cn used for this component
     </udFu>
   </qm>
@@ -85,8 +81,7 @@
       Percentage to which the vertical sampling interval of the selected input data is not compliant with the DPS
       vertical resolution
     </udQe>
-    <udFu id='UD.FU.3.2' name='Vertical resolution fitness for use error'
-          expression='abs(UD.APE.3.2)*P.APE.3.2/sqrt(UD.APE.3.2^2+P.APE.3.2^2)'>Combination of the errors of the product
+    <udFu id='UD.FU.3.2' name='Vertical resolution fitness for use error'>Combination of the errors of the product
       component Cn with the error of the selected input data set Ud Cn used for this component
     </udFu>
   </qm>
@@ -95,11 +90,10 @@
       Percentage to which the product temporal sampling interval is not compliant with the one defined in DPS
       (percentage to be extracted from text of AP.3.3 measure)</tdpQe>
     <udQe id='UD.APE.3.3' name='Temporal resolution compliance'
-          expression='100 - (DPS.AP.3.3- UD.AP.3.3)*100/DPS.AP.3.3'>Percentage to which the temporal sampling interval
+          expression='(DPS.AP.3.3-UD.AP.3.3)*100/DPS.AP.3.3'>Percentage to which the temporal sampling interval
       is not compliant with the DPS temporal sampling interval
     </udQe>
-    <udFu id='UD.FU.3.3' name='Temporal resolution fitness for use error'
-          expression='abs(UD.APE.3.3)*P.APE.3.3/sqrt(UD.APE.3.3^2+P.APE.3.3^2)'>Combination of the error of the product
+    <udFu id='UD.FU.3.3' name='Temporal resolution fitness for use error'>Combination of the error of the product
       component Cn with the error of the selected input data set Ud Cn used for this component
     </udFu>
   </qm>
@@ -110,8 +104,7 @@
       the accuracy of the selected input data with the value domain of the accuracy defined in DPS (% extracted from
       thematic accuracy description)
     </udQe>
-    <udFu id='UD.FU.3.4' name='Thematic accuracy fitness for use error'
-          expression='abs(UD.APE.3.4)*P.APE.3.4/sqrt(UD.APE.3.4^2+P.APE.3.4^2)'>Combination of the error of the product
+    <udFu id='UD.FU.3.4' name='Thematic accuracy fitness for use error'>Combination of the error of the product
       component Cn with the error of the selected input data set Ud Cn used for this component
     </udFu>
   </qm>
@@ -123,8 +116,7 @@
       Percentage to which the elapsed time between last selected input data record update is not compliant with the max
       elapsed time specified in DPS
     </udQe>
-    <udFu id='UD.FU.4.1' name='Temporal validity fitness for use error'
-          expression='abs(UD.APE.4.1)*P.APE.4.1/sqrt(UD.APE.4.1^2+P.APE.4.1^2)'>Combination od errors of extent to which
+    <udFu id='UD.FU.4.1' name='Temporal validity fitness for use error'>Combination od errors of extent to which
       the elapsed time between last selected input data record update and the product creation date is compliant with
       the max elapsed time specified in DPS
     </udFu>

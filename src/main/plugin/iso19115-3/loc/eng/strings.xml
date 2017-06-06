@@ -89,7 +89,7 @@
   <checkpoint-tdp-qm>Components &amp; quality measures</checkpoint-tdp-qm>
   <checkpoint-dps-value>DPS value</checkpoint-dps-value>
   <checkpoint-tdp-value>TDP value</checkpoint-tdp-value>
-  <checkpoint-ud-qm>Quality &amp; Fitness for use</checkpoint-ud-qm>
+  <checkpoint-ud-qm>Appropriateness</checkpoint-ud-qm>
   <checkpoint-linkToSpecification>Link to a specification</checkpoint-linkToSpecification>
   <checkpoint-linkToSpecification-help>
     <div class="row">
@@ -135,7 +135,7 @@
   <checkpoint-purpose>Purpose*</checkpoint-purpose>
   <checkpoint-date>Date*</checkpoint-date>
   <checkpoint-qe>Quality errors (%)</checkpoint-qe>
-  <checkpoint-fu>Fitness for use</checkpoint-fu>
+  <checkpoint-fu>Fitness for use (%)</checkpoint-fu>
   <medsea-metadata>Metadata information</medsea-metadata>
   <medsea-metadata-tp>Identification</medsea-metadata-tp>
   <medsea-dq>Quality</medsea-dq>

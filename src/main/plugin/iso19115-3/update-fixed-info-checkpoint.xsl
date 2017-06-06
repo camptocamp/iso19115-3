@@ -11,6 +11,7 @@
   xmlns:lan="http://standards.iso.org/iso/19115/-3/lan/1.0"
   xmlns:cit="http://standards.iso.org/iso/19115/-3/cit/1.0"
   xmlns:mri="http://standards.iso.org/iso/19115/-3/mri/1.0"
+  xmlns:gex="http://standards.iso.org/iso/19115/-3/gex/1.0"
   xmlns:dqm="http://standards.iso.org/iso/19157/-2/dqm/1.0"
   xmlns:gfc="http://standards.iso.org/iso/19110/gfc/1.1"
   xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -140,6 +141,8 @@
     <entry key='MEDSEA_CH7_Specification_7 / Annual time series of Total Phosphorous/Phosphates [mg/l]' value='MEDSEA D8.3.5'/>
     <entry key='MEDSEA_CH7_Specification_8 / Monthly time series of Total Phosphorous from model data [mg/l]' value='MEDSEA D8.3.5'/>
     <entry key='MEDSEA_CH7_Specification_9 / Annual time series of Eels Specificationion[tons]' value='MEDSEA D8.3.5'/>
+
+    <entry key='ATLANTIC_CH' value='Not Applicable'/>
   </xsl:variable>
 
   <!-- In TDP set deliverable info if not set based on product name -->
@@ -151,7 +154,7 @@
                   select="ancestor::cit:CI_Citation/cit:title/gco:CharacterString/text()"/>
 
     <xsl:variable name="deliverable"
-                  select="$product2deliverables/entry[@key = $product]/@value"/>
+                  select="$product2deliverables/entry[contains($product, @key)]/@value"/>
     <xsl:copy>
       <xsl:copy-of select="./@*"/>
       <gco:CharacterString><xsl:value-of select="if ($deliverable != '') then $deliverable else ''"/></gco:CharacterString>
@@ -243,8 +246,41 @@
       <xsl:copy-of select="@*"/>
       <xsl:apply-templates select="mcc:level"/>
       <xsl:apply-templates select="mcc:levelDescription"/>
+
+      <xsl:variable name="extent"
+                    select="ancestor::mdb:MD_Metadata/mdb:identificationInfo/*/
+                                mri:extent[1]/*"/>
       <mcc:extent>
-        <xsl:copy-of select="ancestor::mdb:MD_Metadata/mdb:identificationInfo/*/mri:extent[1]/*"/>
+        <gex:EX_Extent>
+          <xsl:copy-of select="$extent/gex:geographicElement"/>
+          <gex:temporalElement>
+            <gex:EX_TemporalExtent>
+              <gex:extent>
+                <gml:TimePeriod>
+                  <xsl:copy-of select="$extent/gex:temporalElement//gml:TimePeriod/@id"
+/>
+                  <xsl:choose>
+                    <xsl:when test="$extent/gex:temporalElement//gml:TimePeriod/gml:beginPosition">
+                      <xsl:copy-of select="$extent/gex:temporalElement//gml:TimePeriod/gml:beginPosition"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                      <gml:beginPosition></gml:beginPosition>
+                    </xsl:otherwise>
+                  </xsl:choose>
+                  <xsl:choose>
+                    <xsl:when test="$extent/gex:temporalElement//gml:TimePeriod/gml:endPosition">
+                      <xsl:copy-of select="$extent/gex:temporalElement//gml:TimePeriod/gml:endPosition"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                      <gml:endPosition></gml:endPosition>
+                    </xsl:otherwise>
+                  </xsl:choose>
+                </gml:TimePeriod>
+              </gex:extent>
+            </gex:EX_TemporalExtent>
+          </gex:temporalElement>
+          <xsl:copy-of select="$extent/gex:verticalElement"/>
+        </gex:EX_Extent>
       </mcc:extent>
     </xsl:copy>
   </xsl:template>

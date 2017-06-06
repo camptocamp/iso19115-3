@@ -253,26 +253,25 @@
           <!-- Derivated measure config -->
           <xsl:variable name="dm"
                         select="$q/udFu"/>
-          <xsl:variable name="expression"
-                        select="replace($dm/@expression, '\.', '_')"/>
-
+         <!-- <xsl:variable name="expression"
+                        select="replace($dm/@expression, '\.', '_')"/>-->
           <xsl:choose>
-            <xsl:when test="$expression != ''">
+            <xsl:when test="$dm/text() != 'Not applicable'">
               <!-- eg. abs(UD.APE.1.1)*P.APE.1.1/sqrt(UD.APE.1.1^2+P.APE.1.1^2) -->
               <xsl:variable name="tdpValue"
-                            select="$tdp//mdq:DQ_DataQuality[@uuid = concat(
+                            select="number($tdp//mdq:DQ_DataQuality[@uuid = concat(
                                           string-join($dpsCptId[position() &lt; 4], '/')
                                           , '#QE')]/
                                       mdq:report/*[
                                         mdq:measure/*/mdq:measureIdentification/*/mcc:code/*/text() =
                                         concat('P.', replace($qmId, 'AP', 'APE'))
-                                      ]/mdq:result/*/mdq:value/*/text()"/>
+                                      ]/mdq:result/*/mdq:value/*/text())"/>
 
-              <xsl:variable name="params">
-                <!-- Rework variable ids to match how they are written in expressions -->
+              <!--<xsl:variable name="params">
                 <xsl:value-of select="concat('UD_', replace(replace($qmId, 'AP', 'APE'), '\.', '_'), '=', $qeValue)"/>|
                 <xsl:value-of select="concat('P_', replace(replace($qmId, 'AP', 'APE'), '\.', '_'), '=', $tdpValue)"/>
-              </xsl:variable>
+              </xsl:variable>-->
+
 
               <xsl:message>Compute fu for <xsl:value-of select="$qmId"/> using expression <xsl:value-of select="$expression"/> and with parameters <xsl:value-of select="normalize-space($params)"/></xsl:message>
 
@@ -297,7 +296,7 @@
                       <mdq:measureDescription>
                         <gco:CharacterString>
                           <xsl:value-of select="$dm/text()"/>
-                          <xsl:value-of select="$expression"/>
+                          <!--<xsl:value-of select="$expression"/>-->
                         </gco:CharacterString>
                       </mdq:measureDescription>
                     </mdq:DQ_MeasureReference>
@@ -311,19 +310,25 @@
                         <gco:Record>
                           <!-- Variable names must start with a letter or the underscore _
                           and can only include letters, digits or underscores. So replace
-                          . by _.-->
+                          . by _.
                           <xsl:variable name="fuValue" select="java:evaluate(
                               $expression,
-                              $params)"/>
-
-                          <xsl:choose>
-                            <xsl:when test="string(number($fuValue)) = 'NaN'">
-
-                            </xsl:when>
-                            <xsl:otherwise>
-                              <xsl:value-of select="$fuValue"/>
-                            </xsl:otherwise>
-                          </xsl:choose>
+                              $params)"/>-->
+                          <xsl:variable name="fuValue">
+                            <!--
+                            * une valeur en pourcent entre -100% et +100%
+                            * = QE en ramenant les valeurs < -100 à -100 et les valeurs > 100 à 100
+                            -->
+                            <xsl:choose>
+                              <xsl:when test="string($qeValue) = 'NaN' or string($qeValue) = ''"></xsl:when>
+                              <xsl:when test="-100 le $qeValue and $qeValue le 100">
+                                <xsl:value-of select="$qeValue"/>
+                              </xsl:when>
+                              <xsl:when test="$qeValue lt -100">-100</xsl:when>
+                              <xsl:when test="$qeValue gt 100">100</xsl:when>
+                            </xsl:choose>
+                          </xsl:variable>
+                          <xsl:value-of select="$fuValue"/>
                         </gco:Record>
                       </mdq:value>
                       <!--<mdq:valueUnit>
