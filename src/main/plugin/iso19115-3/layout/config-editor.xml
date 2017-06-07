@@ -2815,14 +2815,14 @@
                 if="count(//mri:associatedResource/*/mri:initiativeType/*[@codeListValue = 'upstreamData']) = 0"
           />
 
-          <!-- Allows to attach as many upstream data as required once a spec is associated. -->
+          <!-- Allows to attach as many upstream data as required once a spec is associated.
           <action type="associatedResource"
                   name="checkpoint-linkToUpstreamData"
                   if="count(//mri:associatedResource/*/mri:initiativeType/*[@codeListValue = 'specification']) = 1"
                   process="sibling">
             <directiveAttributes>{"associationType": "crossReference", "initiativeType": "upstreamData"}</directiveAttributes>
           </action>
-
+          -->
         </section>
       </tab>
     </view>
