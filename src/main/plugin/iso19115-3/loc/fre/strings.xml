@@ -221,6 +221,10 @@
       </div>
     </div>
   </dataFormats-help>
+  <addCrs>Add coordinate system</addCrs>
+  <addCrs4326>WGS 84</addCrs4326>
+  <addCrs4258>ETRS89</addCrs4258>
+  <addCrs3035>ETRS89 / LAEA Europe</addCrs3035>
   <temporalExtent>Temporal extent*</temporalExtent>
   <responsiveness>Responsiveness*</responsiveness>
   <reliability>Reliability</reliability>

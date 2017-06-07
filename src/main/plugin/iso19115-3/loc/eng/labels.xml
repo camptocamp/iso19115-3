@@ -4519,7 +4519,6 @@
             displayIf="ancestor::node()[
                 name()='mdb:MD_Metadata' and
                 contains(mdb:metadataStandard/*/cit:title/*:CharacterString, 'Emodnet Checkpoint - Data Product Specification')]">
-
       <option value='ATLANTIC_CH01_Specification_1 / Suitability map for offshore windfarm siting in North Atlantic, where waters of France, Ireland and UK meet' title=''>ATLANTIC_CH01_Specification_1 / Suitability map for offshore windfarm siting in North Atlantic, where waters of France, Ireland and UK meet</option>
       <option value='ATLANTIC_CH01_Specification_2 / Suitability map for offshore windfarm siting in North Atlantic, where waters of France and Spain meet in Bay of Biscay on 500 m contour' title=''>ATLANTIC_CH01_Specification_2 / Suitability map for offshore windfarm siting in North Atlantic, where waters of France and Spain meet in Bay of Biscay on 500 m contour</option>
       <option value='ATLANTIC_CH01_Specification_3 / Suitability map for offshore windfarm siting in North Atlantic, in the area of Southern border of Portugal and Spain at 20 m depth' title=''>ATLANTIC_CH01_Specification_3 / Suitability map for offshore windfarm siting in North Atlantic, in the area of Southern border of Portugal and Spain at 20 m depth</option>
