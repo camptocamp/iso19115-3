@@ -120,9 +120,9 @@
              data-title="Links"></div>
       </xsl:when>
       <xsl:when test="$isUd">
-        <div data-gn-related="md"
+        <!--<div data-gn-related="md"
              data-types="siblings|associated"
-             data-title="Links"></div>
+             data-title="Links"></div>-->
       </xsl:when>
     </xsl:choose>
 
@@ -139,6 +139,10 @@
          href="{$baseUrl}xml.metadata.get?id={$metadataId}">&#160;</a>
     </div>
   </xsl:template>
+
+
+
+
 
   <!-- Display links after INSPIRE theme. If there is no INSPIRE
   themes in the record, the link section will not be displayed. -->
@@ -241,6 +245,16 @@
         <xsl:apply-templates mode="render-value" select="@*"/>
       </dd>
     </dl>
+
+
+
+    <!-- Put the list of the links towards the products making use
+    of the input data after the field "intended use" -->
+    <xsl:if test="name() = 'mri:environmentDescription' and $isUd">
+        <div data-gn-related="md"
+             data-types="siblings|associated"
+             data-title="Links"></div>
+    </xsl:if>
   </xsl:template>
 
 
@@ -480,32 +494,39 @@
                 priority="100">
     <xsl:param name="fieldName"/>
 
-    <dl class="gn-keyword">
-      <dt>
-        <xsl:choose>
-          <xsl:when test="$fieldName != ''"><xsl:value-of select="replace($fieldName, '\*', '')"/></xsl:when>
-          <xsl:otherwise>
-            <xsl:apply-templates mode="render-value"
-                                 select="mri:thesaurusName/cit:CI_Citation/cit:title/*"/>
-          </xsl:otherwise>
-        </xsl:choose>
+    <xsl:choose>
+      <xsl:when test="$isUd and
+                    mri:thesaurusName/cit:CI_Citation/cit:title/gco:CharacterString = 'Used by challenges'">
+      </xsl:when>
+      <xsl:otherwise>
+        <dl class="gn-keyword">
+          <dt>
+            <xsl:choose>
+              <xsl:when test="$fieldName != ''"><xsl:value-of select="replace($fieldName, '\*', '')"/></xsl:when>
+              <xsl:otherwise>
+                <xsl:apply-templates mode="render-value"
+                                     select="mri:thesaurusName/cit:CI_Citation/cit:title/*"/>
+              </xsl:otherwise>
+            </xsl:choose>
 
-        <!--<xsl:if test="*/mri:type/*[@codeListValue != '']">
-          (<xsl:apply-templates mode="render-value"
-                                select="*/mri:type/*/@codeListValue"/>)
-        </xsl:if>-->
-      </dt>
-      <dd>
-        <div>
-          <ul>
-            <li>
-              <xsl:apply-templates mode="render-value"
-                                   select="mri:keyword/*"/>
-            </li>
-          </ul>
-        </div>
-      </dd>
-    </dl>
+            <!--<xsl:if test="*/mri:type/*[@codeListValue != '']">
+              (<xsl:apply-templates mode="render-value"
+                                    select="*/mri:type/*/@codeListValue"/>)
+            </xsl:if>-->
+          </dt>
+          <dd>
+            <div>
+              <ul>
+                <li>
+                  <xsl:apply-templates mode="render-value"
+                                       select="mri:keyword/*"/>
+                </li>
+              </ul>
+            </div>
+          </dd>
+        </dl>
+      </xsl:otherwise>
+    </xsl:choose>
   </xsl:template>
 
 

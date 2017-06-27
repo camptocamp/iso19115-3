@@ -337,8 +337,10 @@
       For Upstream data, this is not applicable.
   -->
   <xsl:template match="mdb:dataQualityInfo/*/mdq:report/*[
-                          mdq:measure/*/mdq:nameOfMeasure/*/text() = 'Number of Characteristics'
-                        ]/mdq:result/*/mdq:value" priority="2000">
+                          mdq:measure/*/mdq:nameOfMeasure/*/text() =
+                          'Number of Characteristics'
+                        ]/mdq:result/*/mdq:value"
+                priority="2000">
     <xsl:copy>
       <xsl:choose>
         <xsl:when test="$isUd">
@@ -358,7 +360,7 @@
   <!-- Set nilReason to inapplicable to all
   QM without any value. -->
   <xsl:template match="mdb:dataQualityInfo/*/mdq:report/*/mdq:result/*/mdq:value"
-                priority="2000">
+                priority="1000">
     <xsl:copy>
       <xsl:if test="gco:Record = ''">
         <xsl:attribute name="gco:nilReason" select="'inapplicable'"/>

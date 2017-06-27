@@ -1985,6 +1985,54 @@
                           </mdq:DQ_DescriptiveResult>
                         </mdq:result>
                       </mdq:DQ_CompletenessOmission>
+                    </mdq:report><mdq:report>
+                      <mdq:DQ_CompletenessOmission>
+                        <mdq:measure>
+                          <mdq:DQ_MeasureReference>
+                            <mdq:measureIdentification>
+                              <mcc:MD_Identifier>
+                                <mcc:code>
+                                  <gco:CharacterString>AP.1.4</gco:CharacterString>
+                                </mcc:code>
+                              </mcc:MD_Identifier>
+                            </mdq:measureIdentification>
+                            <mdq:nameOfMeasure>
+                              <gco:CharacterString>Error count</gco:CharacterString>
+                            </mdq:nameOfMeasure>
+                            <mdq:measureDescription>
+                              <gco:CharacterString>Describe the items which are counted. If the number is determined by sampling unit (density), define the sampling unit (eg size of mesh).</gco:CharacterString>
+                            </mdq:measureDescription>
+                          </mdq:DQ_MeasureReference>
+                        </mdq:measure>
+                        <mdq:result>
+                          <mdq:DQ_QuantitativeResult>
+                            <mdq:dateTime>
+                              <gco:Date/>
+                            </mdq:dateTime>
+                            <mdq:value>
+                              <gco:Record/>
+                            </mdq:value>
+                            <mdq:valueUnit>
+                              <gml:UnitDefinition gml:id="">
+                                <gml:identifier codeSpace=""></gml:identifier>
+                              </gml:UnitDefinition>
+                            </mdq:valueUnit>
+                            <mdq:valueRecordType>
+                              <gco:RecordType>Integer</gco:RecordType>
+                            </mdq:valueRecordType>
+                          </mdq:DQ_QuantitativeResult>
+                        </mdq:result>
+                        <mdq:result>
+                          <mdq:DQ_DescriptiveResult>
+                            <mdq:dateTime>
+                              <gco:Date/>
+                            </mdq:dateTime>
+                            <mdq:statement gco:nilReason="missing">
+                              <gco:CharacterString/>
+                            </mdq:statement>
+                          </mdq:DQ_DescriptiveResult>
+                        </mdq:result>
+                      </mdq:DQ_CompletenessOmission>
                     </mdq:report>
                     <mdq:report>
                       <mdq:DQ_ConceptualConsistency>

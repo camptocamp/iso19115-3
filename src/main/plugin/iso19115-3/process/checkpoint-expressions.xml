@@ -54,6 +54,17 @@
       component Cn with the error of the selected input data set Ud Cn used for this component
     </udFu>
   </qm>
+  <qm id='AP.1.4'>
+    <tdpQe id='P.APE.1.4' name='Error count error' expression='(TDP.AP.1.4 - DPS.AP.1.4)*100/DPS.AP.1.4'>
+      Percentage to which the extent of the error count of TPD is not compliant with the DPS error count in
+      days.</tdpQe>
+    <udQe id='UD.APE.1.4' name='Error count compliance' expression='(UD.AP.1.4 -  DPS.AP.1.4)*100/DPS.AP.1.4'>
+      Percentage to which the error count of the selected input data is compliant with the DPS error count in days
+    </udQe>
+    <udFu id='UD.FU.1.4' name='Error count fitness for use error'>Combination of the errors of the product
+      component Cn with the error of the selected input data set Ud Cn used for this component
+    </udFu>
+  </qm>
   <qm id='AP.2.1'>
     <tdpQe id='P.APE.2.1' name='Thematic content error' expression='(TDP.AP.2.1 - DPS.AP.2.1)*100/DPS.AP.2.1'>Percentage
       of completeness/Incompleteness of the number of characteristcs with respect to the list in DPS</tdpQe>

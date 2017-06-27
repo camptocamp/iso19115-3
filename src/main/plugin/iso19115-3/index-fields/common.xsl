@@ -806,7 +806,7 @@
 
         <xsl:for-each select="mdq:result/mdq:DQ_QuantitativeResult">
           <xsl:variable name="qmDate" select="mdq:dateTime/gco:Date/text()"/>
-          <xsl:variable name="qmValue" select="mdq:value/gco:Record/text()"/>
+          <xsl:variable name="qmValue" select="normalize-space(mdq:value/gco:Record/text())"/>
           <xsl:variable name="qmStatement" select="normalize-space(../../mdq:result/mdq:DQ_DescriptiveResult/mdq:statement/gco:CharacterString/text())"/>
           <xsl:variable name="qmUnit" select="mdq:valueUnit/*/gml:identifier/text()"/>
           <Field name="dqValues" index="true" store="true"
