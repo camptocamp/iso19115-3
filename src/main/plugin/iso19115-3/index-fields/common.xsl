@@ -958,7 +958,7 @@
                       [contains(mri:thesaurusName/cit:CI_Citation/cit:title/gco:CharacterString,
                       'Parameter Usage Vocabulary (other)')]/mri:keyword/*, ' | ')"/>
       <xsl:variable name="tokenP01"
-                    select="if (p01 = '') then $otherP01 else p01"/>
+                    select="if (normalize-space($p01) = '') then $otherP01 else $p01"/>
 
 
       <xsl:variable name="pla"
