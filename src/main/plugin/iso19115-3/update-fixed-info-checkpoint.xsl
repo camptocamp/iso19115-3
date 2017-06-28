@@ -143,6 +143,7 @@
     <entry key='MEDSEA_CH7_Specification_9 / Annual time series of Eels Specificationion[tons]' value='MEDSEA D8.3.5'/>
 
     <entry key='ATLANTIC_CH' value='Not Applicable'/>
+    <entry key='BLACKSEA_CH' value='Not Applicable'/>
   </xsl:variable>
 
   <!-- In TDP set deliverable info if not set based on product name -->
