@@ -317,7 +317,7 @@
                             <col readonly=""
                                  class="{if (string($v) = 'NaN' or $v = '') then ''
                                         else if ($v &lt; -10) then 'gn-class-red'
-                                        else if ($v &gt;= -10 and $v &lt;= 10) then 'gn-class-yellow'
+                                        else if ($v &gt;= -10 and $v &lt;= 10) then 'gn-class-green'
                                         else if ($v &gt; 10) then 'gn-class-green' else ''}"
                                  title="{$udFu/mdq:measure/*/mdq:measureDescription/*/text()}">
                               <xsl:value-of select="format-number($v, $format)"/>

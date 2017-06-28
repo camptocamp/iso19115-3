@@ -135,7 +135,7 @@
   <checkpoint-purpose>Purpose*</checkpoint-purpose>
   <checkpoint-date>Date*</checkpoint-date>
   <checkpoint-qe>Quality errors (%)</checkpoint-qe>
-  <checkpoint-fu>Fitness for use (%)</checkpoint-fu>
+  <checkpoint-fu>Indicator</checkpoint-fu>
   <medsea-metadata>Metadata information</medsea-metadata>
   <medsea-metadata-tp>Identification</medsea-metadata-tp>
   <medsea-dq>Quality</medsea-dq>
@@ -229,6 +229,10 @@
       </div>
     </div>
   </dataFormats-help>
+  <addCrs>Add coordinate system</addCrs>
+  <addCrs4326>WGS 84</addCrs4326>
+  <addCrs4258>ETRS89</addCrs4258>
+  <addCrs3035>ETRS89 / LAEA Europe</addCrs3035>
   <temporalExtent>Temporal extent*</temporalExtent>
   <responsiveness>Responsiveness*</responsiveness>
   <reliability>Reliability</reliability>

@@ -143,6 +143,7 @@
     <entry key='MEDSEA_CH7_Specification_9 / Annual time series of Eels Specificationion[tons]' value='MEDSEA D8.3.5'/>
 
     <entry key='ATLANTIC_CH' value='Not Applicable'/>
+    <entry key='BLACKSEA_CH' value='Not Applicable'/>
   </xsl:variable>
 
   <!-- In TDP set deliverable info if not set based on product name -->
@@ -337,8 +338,10 @@
       For Upstream data, this is not applicable.
   -->
   <xsl:template match="mdb:dataQualityInfo/*/mdq:report/*[
-                          mdq:measure/*/mdq:nameOfMeasure/*/text() = 'Number of Characteristics'
-                        ]/mdq:result/*/mdq:value" priority="2000">
+                          mdq:measure/*/mdq:nameOfMeasure/*/text() =
+                          'Number of Characteristics'
+                        ]/mdq:result/*/mdq:value"
+                priority="2000">
     <xsl:copy>
       <xsl:choose>
         <xsl:when test="$isUd">
@@ -358,7 +361,7 @@
   <!-- Set nilReason to inapplicable to all
   QM without any value. -->
   <xsl:template match="mdb:dataQualityInfo/*/mdq:report/*/mdq:result/*/mdq:value"
-                priority="2000">
+                priority="1000">
     <xsl:copy>
       <xsl:if test="gco:Record = ''">
         <xsl:attribute name="gco:nilReason" select="'inapplicable'"/>

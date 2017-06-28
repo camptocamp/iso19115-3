@@ -806,7 +806,7 @@
 
         <xsl:for-each select="mdq:result/mdq:DQ_QuantitativeResult">
           <xsl:variable name="qmDate" select="mdq:dateTime/gco:Date/text()"/>
-          <xsl:variable name="qmValue" select="mdq:value/gco:Record/text()"/>
+          <xsl:variable name="qmValue" select="normalize-space(mdq:value/gco:Record/text())"/>
           <xsl:variable name="qmStatement" select="normalize-space(../../mdq:result/mdq:DQ_DescriptiveResult/mdq:statement/gco:CharacterString/text())"/>
           <xsl:variable name="qmUnit" select="mdq:valueUnit/*/gml:identifier/text()"/>
           <Field name="dqValues" index="true" store="true"
@@ -952,6 +952,14 @@
                     mri:descriptiveKeywords
                     [contains(*/mri:thesaurusName/cit:CI_Citation/cit:identifier/*/mcc:code/*/text(),
                       'parameter.NVS.P01')]/*/mri:keyword/gco:CharacterString"/>
+      <xsl:variable name="otherP01"
+                    select="string-join($metadata//mdb:identificationInfo/*/
+                      mri:descriptiveKeywords/*
+                      [contains(mri:thesaurusName/cit:CI_Citation/cit:title/gco:CharacterString,
+                      'Parameter Usage Vocabulary (other)')]/mri:keyword/*, ' | ')"/>
+      <xsl:variable name="tokenP01"
+                    select="if (normalize-space($p01) = '') then $otherP01 else $p01"/>
+
 
       <xsl:variable name="pla"
                     select="$metadata//mdb:identificationInfo/*/
@@ -967,7 +975,7 @@
 
       <xsl:for-each select="$c">
         <Field name="checkpointUdLineageDesc"
-               string="{concat(., '|', $em, '|', $p02, '|', $p01, '|', $pla, '|', $pm)}"
+               string="{concat(., '|', $em, '|', $p02, '|', $tokenP01, '|', $pla, '|', $pm)}"
                store="true" index="true"/>
       </xsl:for-each>
     </xsl:if>
