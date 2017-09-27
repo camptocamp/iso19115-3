@@ -184,12 +184,22 @@
         </h3>
 
         <xsl:for-each select="*/mdq:scope/*/mcc:extent/*">
-          <xsl:copy-of select="gn-fn-render:bbox(
-                                xs:double(gex:geographicElement/*/gex:westBoundLongitude/gco:Decimal),
-                                xs:double(gex:geographicElement/*/gex:southBoundLatitude/gco:Decimal),
-                                xs:double(gex:geographicElement/*/gex:eastBoundLongitude/gco:Decimal),
-                                xs:double(gex:geographicElement/*/gex:northBoundLatitude/gco:Decimal))"/>
+            <xsl:for-each select="gex:geographicElement/*[
+                number(gex:westBoundLongitude/gco:Decimal)
+                and number(gex:southBoundLatitude/gco:Decimal)
+                and number(gex:eastBoundLongitude/gco:Decimal)
+                and number(gex:northBoundLatitude/gco:Decimal)
+                and normalize-space(gex:westBoundLongitude/gco:Decimal) != ''
+                and normalize-space(gex:southBoundLatitude/gco:Decimal) != ''
+                and normalize-space(gex:eastBoundLongitude/gco:Decimal) != ''
+                and normalize-space(gex:northBoundLatitude/gco:Decimal) != '']">
+              <xsl:copy-of select="gn-fn-render:bbox(
+                                    xs:double(gex:westBoundLongitude/gco:Decimal),
+                                    xs:double(gex:southBoundLatitude/gco:Decimal),
+                                    xs:double(gex:eastBoundLongitude/gco:Decimal),
+                                    xs:double(gex:northBoundLatitude/gco:Decimal))"/>
 
+          </xsl:for-each>
 
           <xsl:apply-templates select="gex:temporalElement/*/gex:extent/gml:*/gml:beginPosition"
                                mode="render-field"/>
