@@ -196,14 +196,6 @@
       </xsl:when>
       <xsl:otherwise>
 
-        <div class="alert alert-info">
-          <!-- Title -->
-          <xsl:for-each select="mri:identificationInfo/*/cit:abstract">
-            <xsl:call-template name="get-iso19115-3-localised">
-              <xsl:with-param name="langId" select="$langId"/>
-            </xsl:call-template>
-          </xsl:for-each>
-        </div>
 
 
         <!-- Citation -->
