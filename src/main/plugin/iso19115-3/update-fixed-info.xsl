@@ -46,7 +46,10 @@
 
   <!-- If no metadata linkage exist, build one based on
   the metadata UUID. -->
-  <xsl:variable name="createMetadataLinkage" select="true()"/>
+  <xsl:variable name="createMetadataLinkage"
+                select="count(/root/*/mdb:metadataLinkage/cit:CI_OnlineResource/cit:linkage/*[normalize-space(.) != '']) = 0"/>
+
+
   <xsl:variable name="url" select="/root/env/siteURL"/>
   <xsl:variable name="uuid" select="/root/env/uuid"/>
 
@@ -171,7 +174,8 @@
 
       <xsl:variable name="pointOfTruthUrl" select="concat($url, '/metadata/', $uuid)"/>
 
-      <xsl:if test="$createMetadataLinkage and count(mdb:metadataLinkage/cit:CI_OnlineResource/cit:linkage/*[. = $pointOfTruthUrl]) = 0">
+      <!-- Create metadata linkage only if it does not exist already. -->
+      <xsl:if test="$createMetadataLinkage">
         <!-- TODO: This should only be updated for not harvested records ? -->
         <mdb:metadataLinkage>
           <cit:CI_OnlineResource>

@@ -32,7 +32,6 @@
 
   <xsl:include href="common/functions-core.xsl"/>
   <xsl:include href="../layout/utility-tpl-multilingual.xsl"/>
-  <xsl:include href="index-subtemplate-fields.xsl"/>
 
 
   <!-- Thesaurus folder -->
@@ -1103,11 +1102,6 @@
         <xsl:with-param name="langId" select="concat('#', $langId)"/>
       </xsl:apply-templates>
     </xsl:variable>
-
-    <Field name="{$type}_{$fieldPrefix}_{$role}"
-           string="{$orgName}"
-           store="false"
-           index="true"/>
 
     <Field name="{$type}_{$fieldPrefix}_{$role}"
            string="{$orgName}"
