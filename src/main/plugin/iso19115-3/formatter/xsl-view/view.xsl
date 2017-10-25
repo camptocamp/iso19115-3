@@ -96,7 +96,7 @@
   <!-- Specific schema rendering -->
   <xsl:template mode="getMetadataTitle" match="mdb:MD_Metadata">
     <xsl:for-each select="mdb:identificationInfo/*/mri:citation/*/cit:title">
-      <xsl:call-template name="localised">
+      <xsl:call-template name="get-iso19115-3-localised">
         <xsl:with-param name="langId" select="$langId"/>
       </xsl:call-template>
     </xsl:for-each>
@@ -104,7 +104,7 @@
 
   <xsl:template mode="getMetadataAbstract" match="mdb:MD_Metadata">
     <xsl:for-each select="mdb:identificationInfo/*/mri:abstract">
-      <xsl:call-template name="localised">
+      <xsl:call-template name="get-iso19115-3-localised">
         <xsl:with-param name="langId" select="$langId"/>
       </xsl:call-template>
     </xsl:for-each>
@@ -128,7 +128,7 @@
 
       <xsl:for-each select="mcc:fileDescription">
         <div class="gn-img-thumbnail-caption">
-          <xsl:call-template name="localised">
+          <xsl:call-template name="get-iso19115-3-localised">
             <xsl:with-param name="langId" select="$langId"/>
           </xsl:call-template>
         </div>
@@ -140,6 +140,13 @@
 
 
   <xsl:template mode="getMetadataHeader" match="mdb:MD_Metadata">
+    <div class="alert alert-info">
+      <xsl:for-each select="mdb:identificationInfo/*/mri:abstract">
+        <xsl:call-template name="get-iso19115-3-localised">
+          <xsl:with-param name="langId" select="$langId"/>
+        </xsl:call-template>
+      </xsl:for-each>
+    </div>
 
     <xsl:choose>
       <xsl:when test="$css = 'checkpoint'">
@@ -159,12 +166,12 @@
             <div data-gn-related="md"
                  data-types="siblings|associated"
                  data-filter="associationType:specification"
-                 data-title="Links"></div>
+                 data-title="Links">&#160;</div>
           </xsl:when>
           <xsl:when test="$isDps">
             <div data-gn-related="md"
                  data-types="siblings|associated"
-                 data-title="Links"></div>
+                 data-title="Links">&#160;</div>
           </xsl:when>
           <xsl:when test="$isUd">
             <!--<div data-gn-related="md"
@@ -190,8 +197,9 @@
       <xsl:otherwise>
 
         <div class="alert alert-info">
-          <xsl:for-each select="mdb:identificationInfo/*/mri:abstract">
-            <xsl:call-template name="localised">
+          <!-- Title -->
+          <xsl:for-each select="mri:identificationInfo/*/cit:abstract">
+            <xsl:call-template name="get-iso19115-3-localised">
               <xsl:with-param name="langId" select="$langId"/>
             </xsl:call-template>
           </xsl:for-each>
@@ -238,7 +246,7 @@
 
               <!-- Title -->
               <xsl:for-each select="mri:identificationInfo/*/cit:citation/*/cit:title">
-                <xsl:call-template name="localised">
+                <xsl:call-template name="get-iso19115-3-localised">
                   <xsl:with-param name="langId" select="$langId"/>
                 </xsl:call-template>
               </xsl:for-each>
@@ -256,7 +264,7 @@
               <xsl:variable name="url"
                             select="concat($nodeUrl, 'api/records/', $metadataUuid)"/>
               <a href="{url}">
-                <xsl:value-of select="$url"/>
+                <xsl:value-of select="$url"/>&#160;
               </a>
             </td>
           </tr>
@@ -288,7 +296,7 @@
       <div data-gn-related="md"
            data-types="siblings|associated"
            data-filter="associationType:upstreamData"
-           data-title="Upstream data"></div>
+           data-title="Upstream data">&#160;</div>
     </xsl:if>
   </xsl:template>
 
@@ -340,7 +348,7 @@
         </xsl:for-each>
 
         <div data-gn-data-quality-measure-renderer="{$metadataId}"
-             data-cpt-id="{$cptId}"/>
+             data-cpt-id="{$cptId}">&#160;</div>
       </div>
     </xsl:if>
   </xsl:template>
@@ -396,7 +404,7 @@
     <xsl:if test="name() = 'mri:environmentDescription' and $isUd">
         <div data-gn-related="md"
              data-types="siblings|associated"
-             data-title="Links"></div>
+             data-title="Links">&#160;</div>
     </xsl:if>
   </xsl:template>
 
@@ -539,7 +547,7 @@
                 </xsl:variable>
                 <i class="fa fa-phone">&#160;</i>
                 <a href="tel:{$phoneNumber}">
-                  <xsl:value-of select="$phoneNumber"/>
+                  <xsl:value-of select="$phoneNumber"/>&#160;
                 </a>
               </xsl:for-each>
               <xsl:for-each select="cit:phone/*/cit:facsimile[normalize-space(.) != '']">
@@ -548,7 +556,7 @@
                 </xsl:variable>
                 <i class="fa fa-fax">&#160;</i>
                 <a href="tel:{normalize-space($phoneNumber)}">
-                  <xsl:value-of select="normalize-space($phoneNumber)"/>
+                  <xsl:value-of select="normalize-space($phoneNumber)"/>&#160;
                 </a>
               </xsl:for-each>
               <xsl:for-each select="cit:onlineResource/*/cit:linkage[normalize-space(.) != '']">
@@ -559,7 +567,7 @@
                 <a href="{normalize-space($linkage)}" target="_blank">
                   <xsl:value-of select="if (../cit:name)
                                         then ../cit:name/* else
-                                        normalize-space(linkage)"/>
+                                        normalize-space(linkage)"/>&#160;
                 </a>
               </xsl:for-each>
               <xsl:apply-templates mode="render-field"
@@ -606,7 +614,7 @@
         </xsl:variable>
         <a href="{*/cit:linkage/*}" target="_blank">
           <xsl:apply-templates mode="render-value"
-                               select="*/cit:name"/>
+                               select="*/cit:name"/>&#160;
         </a>
         <p>
           <xsl:value-of select="normalize-space($linkDescription)"/>
