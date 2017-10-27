@@ -4848,6 +4848,21 @@
       resource
     </description>
   </element>
+  <element name="mco:useLimitation" id="99.0"
+           context="/mdb:MD_Metadata/mdb:identificationInfo/mri:MD_DataIdentification/mri:resourceConstraints/mco:MD_Constraints/mco:useLimitation">
+    <label>Challenge expert opinion</label>
+    <description>Assign an overall product quality score with respect to the objectives and explain why.</description>
+    <helper displayIf="ancestor::node()[
+              name()='mdb:MD_Metadata' and
+              contains(mdb:metadataStandard/*/cit:title/*:CharacterString, 'Emodnet Checkpoint - Targeted Data Product')]"
+            editorMode="radio">
+      <option value="Excellent: The product meets well the objectives specified by the challenge">Excellent: The product meets well the objectives specified by the challenge</option>
+      <option value="Very good: The product meets more than 70% of the objectives specified by the challenge">Very good: The product meets more than 70% of the objectives specified by the challenge</option>
+      <option value="Good: The product meets more than 50% of the objectives specified by the challenge">Good: The product meets more than 50% of the objectives specified by the challenge</option>
+      <option value="Limited: The product fails in most aspects to meet the objectives but meet some.">Limited: The product fails in most aspects to meet the objectives but meet some.</option>
+      <option value="Inadequate: Impossible to produce or fails to meet all the objectives (not usable)">Inadequate: Impossible to produce or fails to meet all the objectives (not usable)</option>
+    </helper>
+  </element>
   <element name="mco:useLimitation" id="99.0">
     <label>Use limitation</label>
     <description>Limitation affecting the fitness for use of the resource. Example, _not to be

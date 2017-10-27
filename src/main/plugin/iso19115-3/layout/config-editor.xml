@@ -2637,7 +2637,16 @@
                     'INSPIRE themes')]"/>
 
 
-          <field xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:resourceConstraints/*/mco:useLimitation"/>
+          <field xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:resourceConstraints/mco:MD_LegalConstraints/mco:useLimitation"/>
+
+          <!--
+          Champ Use Limitation de Constraints
+          Field name: Challenge expert opinion
+          Assign  an overall product quality score with respect to the objectives and explain why according to the following scale :
+          -->
+          <field xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:resourceConstraints/mco:MD_Constraints/mco:useLimitation"/>
+
+
           <field xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:resourceConstraints/*/mco:useConstraints"/>
 
         </section>
