@@ -787,8 +787,8 @@
         <Field name="hasDqCptNotCovered" index="true" store="true"
                string="{count(
                $metadata/mdb:dataQualityInfo/*[contains(@uuid, '/CP') and
-                                mdq:standaloneQualityReport/*/mdq:reportReference/*/
-                                  cit:title/*/text() = 'Component not covered']) > 0}"/>
+                                contains(mdq:standaloneQualityReport/*/mdq:reportReference/*/
+                                  cit:title/*/text(), 'Component is not covered')]) > 0}"/>
         <Field name="hasDqEmptyCptMeasures" index="true" store="true"
                string="{count(
               $metadata/mdb:dataQualityInfo/*[contains(@uuid, '/CP') and

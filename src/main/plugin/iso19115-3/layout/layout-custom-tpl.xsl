@@ -43,7 +43,6 @@
                             $metadata/mdb:metadataStandard/*/cit:title/*[text() =
                               'ISO 19115-3 - Emodnet Checkpoint - Upstream Data']
                           ) = 1"/>
-
     <xsl:variable name="challenge"
                   select="$metadata/mdb:identificationInfo/*/
                             mri:descriptiveKeywords[
@@ -66,6 +65,9 @@
 
           <!-- TODO: List all related DPS/TDP/UD with link in editor mode -->
 
+
+          <xsl:variable name="isMedsea"
+                        select="starts-with(*/mcc:levelDescription[1]//mcc:other, 'MEDSEA')"/>
 
 
           <!-- Component description -->
@@ -93,7 +95,49 @@
               </xsl:apply-templates>-->
 
               <xsl:for-each select="*/mcc:levelDescription[position() > 2]//mcc:other">
-                <xsl:call-template name="render-element">
+
+                <xsl:variable name="name"
+                              select="./*/gn:element/@ref"/>
+                <xsl:variable name="parent"
+                              select="ancestor::mcc:levelDescription/gn:element"/>
+
+                <div class="form-group gn-field gn-other"
+                     id="gn-el-{$name}"
+                     data-gn-field-highlight="">
+                  <label for="gn-field-{$name}"
+                         class="col-sm-2 control-label">
+                    <xsl:value-of select="$strings/checkpoint-dps-component-lineage"/>
+                  </label>
+                  <div class="col-sm-9 gn-value">
+                    <input class="" id="gn-field-{$name}" name="_{$name}"
+                           type="hidden"
+                           value="{./*}"/>
+
+                    <div data-gn-checkpoint-lineage=""
+                         data-ref="_{$name}">
+                    </div>
+
+                    <div data-ref="_{$name}"
+                         data-type="text"
+                         gn-field-suggestions=""
+                         data-field="checkpointUdLineageDesc"
+                         data-fq="{if ($challenge != '') then $challenge else ''}">
+                    </div>
+                  </div>
+                  <div class="col-sm-1 gn-control">
+                    <a class="btn pull-right"
+                       data-gn-click-and-spin="remove({$parent/@ref}, {$parent/@parent}, {$name})"
+                       data-gn-field-highlight-remove="{$name}"
+                       data-toggle="tooltip"
+                       data-placement="top"
+                       title="Delete this field">
+                      <i class="fa fa-times text-danger gn-control"></i>
+                    </a>
+                  </div>
+                </div>
+
+
+                <!--<xsl:call-template name="render-element">
                   <xsl:with-param name="label" select="$strings/checkpoint-dps-component-lineage"/>
                   <xsl:with-param name="value" select="./*"/>
                   <xsl:with-param name="cls" select="local-name(.)"/>
@@ -109,7 +153,7 @@
                                  data-fq="{if ($challenge != '') then $challenge else ''}"/>
                     </xsl:if>
                   </xsl:with-param>
-                </xsl:call-template>
+                </xsl:call-template>-->
 
 
                 <!-- Add link to upstream data -->
@@ -170,7 +214,12 @@
                         select="concat('gn-sqr-', generate-id($sqr/mdq:reportReference))"/>
           <xsl:variable name="isCovered"
                         select="normalize-space($sqr/mdq:reportReference/*/cit:title) = ''"/>
+          <xsl:variable name="isNotCovered"
+                        select="contains($sqr/mdq:reportReference/*/cit:title, 'Component is not covered')"/>
 
+          <!-- In TDP define if component is covered or not and explain why.
+           When declared not covered, the measure table below is hidden by
+           the directive. -->
           <xsl:if test="$isTdp">
             <div data-gn-checkpoint-cpt-covered="{$isCovered}"
                  data-id="{$sqrId}"
@@ -191,202 +240,283 @@
           </xsl:if>
 
 
-          <!-- If covered, display table -->
-          <div id="{$sqrId}-table">
 
-            <!-- Component QMs -->
-            <xsl:variable name="values">
-              <header>
-                <col>
-                  <xsl:value-of select="gn-fn-metadata:getLabel($schema, 'mdq:measureIdentification', $labels,'', '', '')/label"/>
-                </col>
-                <col>
-                  <xsl:value-of select="gn-fn-metadata:getLabel($schema, 'mdq:nameOfMeasure', $labels,'', '', '')/label"/>
-                </col>
-                <col>
-                  <xsl:value-of select="gn-fn-metadata:getLabel($schema, 'mdq:value', $labels,'', '', '')/label"/>
-                </col>
-                <col>
-                  <xsl:value-of select="gn-fn-metadata:getLabel($schema, 'mdq:valueUnit', $labels,'', '', '')/label"/>
-                </col>
-                <xsl:choose>
-                  <xsl:when test="$isTdp">
-                    <col>
-                      <xsl:value-of select="$strings/checkpoint-qe"/>
-                    </col>
-                    <col>
-                      <xsl:value-of select="$strings/checkpoint-dps-value"/>
-                    </col>
-                  </xsl:when>
-                  <xsl:when test="$isUd">
-                    <col>
-                      <xsl:value-of select="$strings/checkpoint-qe"/>
-                    </col>
-                    <col>
-                      <xsl:value-of select="$strings/checkpoint-fu"/>
-                    </col>
-                    <col>
-                      <xsl:value-of select="$strings/checkpoint-dps-value"/>
-                    </col>
-                    <col>
-                      <xsl:value-of select="$strings/checkpoint-tdp-value"/>
-                    </col>
-                  </xsl:when>
-                </xsl:choose>
-              </header>
-              <xsl:for-each select="*/mdq:report/mdq:*">
-                <xsl:variable name="measureId"
-                              select="mdq:measure/*/mdq:measureIdentification/*/mcc:code/*"/>
-                <xsl:variable name="measureName"
-                              select="mdq:measure/*/mdq:nameOfMeasure/*"/>
-                <xsl:variable name="measureDesc"
-                              select="mdq:measure/*/mdq:measureDescription/*"/>
 
-                <xsl:for-each select="mdq:result">
-                  <xsl:variable name="unit"
-                                select="*/mdq:valueUnit/*/gml:identifier"/>
+          <xsl:choose>
+            <xsl:when test="$isUd and $isNotCovered">
+              <!-- In an UD when component is not covered, display only the reason why.
+              No quality table. -->
+              <div>
+                <xsl:apply-templates mode="mode-iso19115-3"
+                                     select="$sqr/mdq:reportReference/*/cit:title"/>
+                <xsl:apply-templates mode="mode-iso19115-3"
+                                     select="$sqr/mdq:abstract"/>
+              </div>
+            </xsl:when>
+            <xsl:otherwise>
 
-                  <!-- TODO: Add group by date -->
-                  <row title="{$measureDesc}">
+
+              <!-- If covered, display table -->
+              <div id="{$sqrId}-table">
+
+                <!-- Component QMs -->
+                <xsl:variable name="values">
+                  <header>
+                    <col>
+                      <xsl:value-of select="gn-fn-metadata:getLabel($schema, 'mdq:measureIdentification', $labels,'', '', '')/label"/>
+                    </col>
+                    <col>
+                      <xsl:value-of select="gn-fn-metadata:getLabel($schema, 'mdq:nameOfMeasure', $labels,'', '', '')/label"/>
+                    </col>
+                    <col>
+                      <xsl:value-of select="gn-fn-metadata:getLabel($schema, 'mdq:value', $labels,'', '', '')/label"/>
+                    </col>
+                    <col>
+                      <xsl:value-of select="gn-fn-metadata:getLabel($schema, 'mdq:valueUnit', $labels,'', '', '')/label"/>
+                    </col>
                     <xsl:choose>
-                      <!-- Quantitative results with units -->
-                      <xsl:when test="mdq:DQ_QuantitativeResult">
-                        <col readonly="">
-                          <!-- Add DPS. or TDP. or UD prefix. -->
-                          <xsl:value-of select="if ($isUd) then 'UD.' else if ($isTdp) then 'TDP.' else if ($isDps) then 'DPS.' else ''"/>
-                          <xsl:value-of select="$measureId"/>
+                      <xsl:when test="$isTdp">
+                        <col>
+                          <xsl:value-of select="$strings/checkpoint-qe"/>
                         </col>
-                        <col readonly="">
-                          <xsl:value-of select="$measureName"/>
+                        <col>
+                          <xsl:value-of select="$strings/checkpoint-fu"/>
                         </col>
-                        <!--<col type="{*/mdq:valueRecordType/*/text()}"
-                             min="0">-->
-                        <col type="{*/mdq:valueRecordType/*/text()}">
-                          <xsl:if test="$isUd and $measureName = 'Number of Characteristics'">
-                            <xsl:attribute name="readonly"/>
-                          </xsl:if>
-                          <xsl:copy-of select="*/mdq:value/gco:*"/>
+                        <col>
+                          <xsl:value-of select="$strings/checkpoint-dps-value"/>
                         </col>
-                        <col readonly="">
-                          <xsl:value-of select="if ($unit/text() != '')
+                      </xsl:when>
+                      <xsl:when test="$isUd">
+                        <col>
+                          <xsl:value-of select="$strings/checkpoint-qe"/>
+                        </col>
+                        <col>
+                          <xsl:value-of select="$strings/checkpoint-fu"/>
+                        </col>
+                        <col>
+                          <xsl:value-of select="$strings/checkpoint-dps-value"/>
+                        </col>
+                        <col>
+                          <xsl:value-of select="$strings/checkpoint-tdp-value"/>
+                        </col>
+                      </xsl:when>
+                    </xsl:choose>
+                  </header>
+                  <xsl:for-each select="*/mdq:report/mdq:*">
+                    <xsl:variable name="measureId"
+                                  select="mdq:measure/*/mdq:measureIdentification/*/mcc:code/*"/>
+                    <xsl:variable name="measureName"
+                                  select="mdq:measure/*/mdq:nameOfMeasure/*"/>
+                    <xsl:variable name="measureDesc"
+                                  select="mdq:measure/*/mdq:measureDescription/*"/>
+
+                    <xsl:for-each select="mdq:result">
+                      <xsl:variable name="unit"
+                                    select="*/mdq:valueUnit/*/gml:identifier"/>
+
+                      <!-- TODO: Add group by date -->
+                      <row title="{$measureDesc}">
+                        <xsl:choose>
+                          <!-- Quantitative results with units -->
+                          <xsl:when test="mdq:DQ_QuantitativeResult">
+                            <col readonly="">
+                              <!-- Add DPS. or TDP. or UD prefix. -->
+                              <xsl:value-of select="if ($isUd) then 'UD.' else if ($isTdp) then 'TDP.' else if ($isDps) then 'DPS.' else ''"/>
+                              <xsl:value-of select="$measureId"/>
+                            </col>
+                            <col readonly="">
+                              <xsl:value-of select="$measureName"/>
+                            </col>
+                            <!--<col type="{*/mdq:valueRecordType/*/text()}"
+                                 min="0">-->
+                            <xsl:choose>
+                              <xsl:when test="$measureName = 'Usability'">
+                                <col type="select">
+                                  <xsl:copy-of select="*/mdq:value/gco:*[1]"/>
+                                  <options>
+                                    <option value="1">Excellent</option>
+                                    <option value="2">Very good</option>
+                                    <option value="3">Good</option>
+                                    <option value="4">Limited</option>
+                                    <option value="5">Inadequate</option>
+                                  </options>
+                                </col>
+                              </xsl:when>
+                              <xsl:otherwise>
+                                <col type="{*/mdq:valueRecordType/*/text()}">
+                                  <xsl:if test="$isUd and $measureName = 'Number of Characteristics'">
+                                    <xsl:attribute name="readonly"/>
+                                  </xsl:if>
+                                  <xsl:copy-of select="*/mdq:value/gco:*[1]"/>
+                                </col>
+                              </xsl:otherwise>
+                            </xsl:choose>
+
+
+                            <col readonly="">
+                              <xsl:value-of select="if ($unit/text() != '')
                                             then $unit/text()
                                             else */mdq:valueRecordType/*/normalize-space()"/>
-                        </col>
-                        <xsl:choose>
-                          <xsl:when test="$isTdp">
-                            <xsl:variable name="qeId"
-                                          select="concat('P.', replace($measureId/text(), 'AP', 'APE'))"/>
-                            <xsl:variable name="tdpQe"
-                                          select="$metadata/mdb:dataQualityInfo/*[starts-with(@uuid, $cptId)]
+                            </col>
+                            <xsl:choose>
+                              <xsl:when test="$isTdp">
+                                <xsl:variable name="qeId"
+                                              select="concat('P.', replace($measureId/text(), 'AP', 'APE'))"/>
+                                <xsl:variable name="tdpQe"
+                                              select="$metadata/mdb:dataQualityInfo/*[starts-with(@uuid, $cptId)]
                                                       /mdq:report/*[
                                                         mdq:measure/*/mdq:measureIdentification/*/mcc:code/*/text() = $qeId
                                                       ]"/>
-                            <col readonly="" title="{$tdpQe/mdq:measure/*/mdq:measureDescription/*/text()}">
-                              <xsl:value-of select="format-number($tdpQe/mdq:result/*/mdq:value/*/text(), $format)"/>
-                            </col>
-                            <col readonly="">
-                              <span data-gn-qm-value="{concat($cptId, '|', $measureId/text())}"/>
-                            </col>
-                          </xsl:when>
-                          <xsl:when test="$isUd">
-                            <xsl:variable name="qeId"
-                                          select="concat('UD.', replace($measureId/text(), 'AP', 'APE'))"/>
-                            <xsl:variable name="udQe"
-                                          select="$metadata/mdb:dataQualityInfo/*[starts-with(@uuid, $cptId)]
+
+                                <col readonly="" title="{$tdpQe/mdq:measure/*/mdq:measureDescription/*/text()}">
+                                  <xsl:value-of select="format-number($tdpQe/mdq:result/*/mdq:value/*/text(), $format)"/>
+                                </col>
+
+                                <xsl:call-template name="checkpoint-render-indicator">
+                                  <xsl:with-param name="metadata" select="$metadata"/>
+                                  <xsl:with-param name="measureId" select="$measureId"/>
+                                  <xsl:with-param name="cptId" select="$cptId"/>
+                                  <xsl:with-param name="isMedsea" select="$isMedsea"/>
+                                  <xsl:with-param name="format" select="$format"/>
+                                </xsl:call-template>
+
+                                <col readonly="">
+                                  <span data-gn-qm-value="{concat($cptId, '|', $measureId/text())}"/>
+                                </col>
+                              </xsl:when>
+                              <xsl:when test="$isUd">
+                                <xsl:variable name="qeId"
+                                              select="concat('UD.', replace($measureId/text(), 'AP', 'APE'))"/>
+                                <xsl:variable name="udQe"
+                                              select="$metadata/mdb:dataQualityInfo/*[starts-with(@uuid, $cptId)]
                                                       /mdq:report/*[
                                                         mdq:measure/*/mdq:measureIdentification/*/mcc:code/*/text() = $qeId
                                                       ]"/>
-                            <col readonly="" title="{$udQe/mdq:measure/*/mdq:measureDescription/*/text()}">
-                              <xsl:value-of select="format-number($udQe/mdq:result/*/mdq:value/*/text(), $format)"/>
-                            </col>
+                                <col readonly="" title="{$udQe/mdq:measure/*/mdq:measureDescription/*/text()}">
+                                  <xsl:value-of select="format-number($udQe/mdq:result/*/mdq:value/*/text(), $format)"/>
+                                </col>
 
-                            <xsl:variable name="fuId"
-                                          select="concat('UD.', replace($measureId/text(), 'AP', 'FU'))"/>
-                            <xsl:variable name="udFu"
-                                          select="$metadata/mdb:dataQualityInfo/*[starts-with(@uuid, $cptId)]
-                                                      /mdq:report/*[
-                                                        mdq:measure/*/mdq:measureIdentification/*/mcc:code/*/text() = $fuId
-                                                      ]"/>
+                                <xsl:call-template name="checkpoint-render-indicator">
+                                  <xsl:with-param name="metadata" select="$metadata"/>
+                                  <xsl:with-param name="measureId" select="$measureId"/>
+                                  <xsl:with-param name="cptId" select="$cptId"/>
+                                  <xsl:with-param name="isMedsea" select="$isMedsea"/>
+                                  <xsl:with-param name="format" select="$format"/>
+                                </xsl:call-template>
 
-                            <!--
-                                Red: [-100 et -10[
-                                Yellow: [-10 et + 10]
-                                Green: ]10 à 100%]
-                            -->
-                            <xsl:variable name="v" select="$udFu/mdq:result/*/mdq:value/*/text()"/>
-                            <col readonly=""
-                                 class="{if (string($v) = 'NaN' or $v = '') then ''
-                                        else if ($v &lt; -10) then 'gn-class-red'
-                                        else if ($v &gt;= -10 and $v &lt;= 10) then 'gn-class-green'
-                                        else if ($v &gt; 10) then 'gn-class-green' else ''}"
-                                 title="{$udFu/mdq:measure/*/mdq:measureDescription/*/text()}">
-                              <xsl:value-of select="format-number($v, $format)"/>
-                            </col>
+                                <col readonly="">
+                                  <span data-gn-qm-value="{concat($cptId, '|', $measureId/text())}"/>
+                                </col>
+                                <col readonly="">
+                                  <span data-gn-qm-value="{concat($cptId, '|', $measureId/text())}" data-tdp="true"/>
+                                </col>
+                              </xsl:when>
+                            </xsl:choose>
 
-                            <col readonly="">
-                              <span data-gn-qm-value="{concat($cptId, '|', $measureId/text())}"/>
-                            </col>
-                            <col readonly="">
-                              <span data-gn-qm-value="{concat($cptId, '|', $measureId/text())}" data-tdp="true"/>
-                            </col>
+
+
+                            <!-- Measures can only be removed in the DPS. ie. once defined
+                             in component in a spec, the related TDP and UDs MUST encode
+                             the same list of values. -->
+                            <xsl:if test="$isDps">
+                              <col remove="">
+                                <xsl:copy-of select="ancestor::mdq:report/gn:element"/>
+                              </col>
+                            </xsl:if>
                           </xsl:when>
+                          <!-- Descriptive results -->
+                          <xsl:when test="mdq:DQ_DescriptiveResult">
+                            <col/>
+                            <col readonly="">
+                              <xsl:value-of select="$measureName"/>
+                              (<xsl:value-of select="gn-fn-metadata:getLabel($schema, 'mdq:DQ_DescriptiveResult', $labels,'', '', '')/label"/>)
+                            </col>
+                            <col type="textarea" colspan="2">
+                              <xsl:copy-of select="*/mdq:statement/gco:*"/>
+                            </col>
+                            <col/>
+                          </xsl:when>
+                          <xsl:otherwise>
+                            <!-- Not supported -->
+                          </xsl:otherwise>
                         </xsl:choose>
-
-
-
-                        <!-- Measures can only be removed in the DPS. ie. once defined
-                         in component in a spec, the related TDP and UDs MUST encode
-                         the same list of values. -->
-                        <xsl:if test="$isDps">
-                          <col remove="">
-                            <xsl:copy-of select="ancestor::mdq:report/gn:element"/>
-                          </col>
-                        </xsl:if>
-                      </xsl:when>
-                      <!-- Descriptive results -->
-                      <xsl:when test="mdq:DQ_DescriptiveResult">
-                        <col/>
-                        <col readonly="">
-                          <xsl:value-of select="$measureName"/>
-                          (<xsl:value-of select="gn-fn-metadata:getLabel($schema, 'mdq:DQ_DescriptiveResult', $labels,'', '', '')/label"/>)
-                        </col>
-                        <col type="textarea" colspan="2">
-                          <xsl:copy-of select="*/mdq:statement/gco:*"/>
-                        </col>
-                        <col/>
-                      </xsl:when>
-                      <xsl:otherwise>
-                        <!-- Not supported -->
-                      </xsl:otherwise>
-                    </xsl:choose>
-                  </row>
-                  <!-- TODO: Add all unique date of measure-->
-                </xsl:for-each>
-              </xsl:for-each>
-              <row>
-                <col readonly="" colspan="4">
-                  <xsl:value-of select="$strings/checkpoint-measure-date"/>&#160;
-                  <xsl:value-of select="string-join(
+                      </row>
+                      <!-- TODO: Add all unique date of measure-->
+                    </xsl:for-each>
+                  </xsl:for-each>
+                  <row>
+                    <col readonly="" colspan="4">
+                      <xsl:value-of select="$strings/checkpoint-measure-date"/>&#160;
+                      <xsl:value-of select="string-join(
                                           distinct-values(*/mdq:report/mdq:*/
                                             mdq:result/*/mdq:dateTime/gco:Date), ', ')"/>
-                </col>
-              </row>
-            </xsl:variable>
+                    </col>
+                  </row>
+                </xsl:variable>
 
-            <xsl:call-template name="render-table">
-              <xsl:with-param name="values" select="$values"/>
-              <xsl:with-param name="addControl">
-                <xsl:if test="$config/@or">
-                  <xsl:apply-templates select="*/gn:child[@name = $config/@or]"
-                                       mode="mode-iso19115-3"/>
-                </xsl:if>
-              </xsl:with-param>
-            </xsl:call-template>
-          </div>
+                <xsl:call-template name="render-table">
+                  <xsl:with-param name="values" select="$values"/>
+                  <xsl:with-param name="addControl">
+                    <xsl:if test="$config/@or">
+                      <xsl:apply-templates select="*/gn:child[@name = $config/@or]"
+                                           mode="mode-iso19115-3"/>
+                    </xsl:if>
+                  </xsl:with-param>
+                </xsl:call-template>
+              </div>
+            </xsl:otherwise>
+          </xsl:choose>
+
 
         </xsl:with-param>
       </xsl:call-template>
     </xsl:if>
   </xsl:template>
 
+
+  <xsl:template name="checkpoint-render-indicator">
+    <xsl:param name="metadata"/>
+    <xsl:param name="measureId"/>
+    <xsl:param name="cptId"/>
+    <xsl:param name="isMedsea"/>
+    <xsl:param name="format"/>
+
+
+    <xsl:variable name="fuId"
+                  select="concat('UD.', replace($measureId/text(), 'AP', 'FU'))"/>
+    <xsl:variable name="udFu"
+                  select="$metadata/mdb:dataQualityInfo/*[starts-with(@uuid, $cptId)]
+                                                      /mdq:report/*[
+                                                        mdq:measure/*/mdq:measureIdentification/*/mcc:code/*/text() = $fuId
+                                                      ]"/>
+    <!--
+        Red: [-100 et -10[
+        Yellow: [-10 et + 10]
+        Green: ]10 à 100%]
+    -->
+    <xsl:variable name="v" select="$udFu/mdq:result/*/mdq:value/*/text()"/>
+
+    <xsl:choose>
+      <xsl:when test="$isMedsea">
+        <col readonly=""
+             class="{if (string($v) = 'NaN' or $v = '') then ''
+                                            else if ($v &lt; -10) then 'gn-class-red'
+                                            else if ($v &gt;= -10 and $v &lt;= 10) then 'gn-class-green'
+                                            else if ($v &gt; 10) then 'gn-class-green' else ''}"
+             title="{$udFu/mdq:measure/*/mdq:measureDescription/*/text()}">
+          <xsl:value-of select="format-number($v, $format)"/>
+        </col>
+      </xsl:when>
+      <xsl:otherwise>
+        <col readonly=""
+             class="{if (string($v) = 'NaN' or $v = '') then ''
+                                        else if ($v &lt; -10) then 'gn-class-red'
+                                        else if ($v &gt;= -10) then 'gn-class-green'
+                                        else ''}"
+             title="{$udFu/mdq:measure/*/mdq:measureDescription/*/text()}">
+          <xsl:value-of select="format-number($v, $format)"/>
+        </col>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:template>
 </xsl:stylesheet>

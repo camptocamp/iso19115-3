@@ -312,6 +312,22 @@
           </xsl:if>
         </h3>
 
+        <xsl:variable name="sqr"
+                      select=".//mdq:standaloneQualityReport/*"/>
+        <xsl:variable name="isCovered"
+                      select="not(contains($sqr/mdq:reportReference/*/cit:title, 'Component is not covered'))"/>
+
+        <xsl:if test="not($isCovered)">
+          <xsl:apply-templates select="$sqr/mdq:reportReference/*/cit:title"
+                               mode="render-field">
+            <xsl:with-param name="fieldName" select="'&#160;'"/>
+          </xsl:apply-templates>
+          <xsl:apply-templates select="$sqr/mdq:abstract"
+                               mode="render-field">
+            <xsl:with-param name="fieldName" select="'&#160;'"/>
+          </xsl:apply-templates>
+        </xsl:if>
+
         <xsl:for-each select="*/mdq:scope/*/mcc:extent/*">
             <xsl:for-each select="gex:geographicElement/*[
                 number(gex:westBoundLongitude/gco:Decimal)
@@ -339,8 +355,10 @@
                                mode="render-field"/>
         </xsl:for-each>
 
-        <div data-gn-data-quality-measure-renderer="{$metadataId}"
-             data-cpt-id="{$cptId}">&#160;</div>
+        <xsl:if test="$isCovered">
+          <div data-gn-data-quality-measure-renderer="{$metadataId}"
+               data-cpt-id="{$cptId}">&#160;</div>
+        </xsl:if>
       </div>
     </xsl:if>
   </xsl:template>

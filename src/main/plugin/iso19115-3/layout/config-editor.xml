@@ -1330,6 +1330,15 @@
       </thesaurusList>
       <tab id="checkpoint-dps-characteristics" default="true">
         <section name="checkpoint-dps-main">
+
+          <field
+            name="validation"
+            xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/
+                    mri:descriptiveKeywords
+                    [contains(*/mri:thesaurusName/cit:CI_Citation/cit:identifier/*/mcc:code/*/text(),
+                    'emodnet-checkpoint.status')]"/>
+
+
           <!-- DPS - Challenge number + name  -->
           <field name="challenge"
                  xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/
@@ -2308,7 +2317,44 @@
                           </mdq:DQ_DescriptiveResult>
                         </mdq:result>
                       </mdq:DQ_TemporalValidity>
-                    </mdq:report>
+                    </mdq:report><mdq:report>
+                    <mdq:DQ_UsabilityElement>
+                      <mdq:measure>
+                        <mdq:DQ_MeasureReference>
+                          <mdq:measureIdentification>
+                            <mcc:MD_Identifier>
+                              <mcc:code>
+                                <gco:CharacterString>AP.5.1</gco:CharacterString>
+                              </mcc:code>
+                            </mcc:MD_Identifier>
+                          </mdq:measureIdentification>
+                          <mdq:nameOfMeasure>
+                            <gco:CharacterString>Usability</gco:CharacterString>
+                          </mdq:nameOfMeasure>
+                          <mdq:measureDescription>
+                            <gco:CharacterString></gco:CharacterString>
+                          </mdq:measureDescription>
+                        </mdq:DQ_MeasureReference>
+                      </mdq:measure>
+                      <mdq:result>
+                        <mdq:DQ_QuantitativeResult>
+                          <mdq:value>
+                            <gco:Record/>
+                          </mdq:value>
+                        </mdq:DQ_QuantitativeResult>
+                      </mdq:result>
+                      <mdq:result>
+                        <mdq:DQ_DescriptiveResult>
+                          <mdq:dateTime>
+                            <gco:Date/>
+                          </mdq:dateTime>
+                          <mdq:statement gco:nilReason="missing">
+                            <gco:CharacterString/>
+                          </mdq:statement>
+                        </mdq:DQ_DescriptiveResult>
+                      </mdq:result>
+                    </mdq:DQ_UsabilityElement>
+                  </mdq:report>
                   </mdq:DQ_DataQuality>
                 </mdb:dataQualityInfo>
               </snippet>
@@ -2344,6 +2390,16 @@
       </thesaurusList>
       <tab id="checkpoint-tdp-characteristics" default="true">
         <section name="checkpoint-tdp-main">
+
+
+          <field
+            name="validation"
+            xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/
+                    mri:descriptiveKeywords
+                    [contains(*/mri:thesaurusName/cit:CI_Citation/cit:identifier/*/mcc:code/*/text(),
+                    'emodnet-checkpoint.status')]"/>
+
+
           <!-- If no DPS associated, warn user to choose one first. -->
           <text ref="checkpoint-linkToSpecification-help"
                 if="count(//mri:associatedResource/*/mri:initiativeType/*[@codeListValue = 'specification']) = 0"
@@ -2637,7 +2693,6 @@
                     'INSPIRE themes')]"/>
 
 
-          <field xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:resourceConstraints/mco:MD_LegalConstraints/mco:useLimitation"/>
 
           <!--
           Champ Use Limitation de Constraints
@@ -2646,6 +2701,7 @@
           -->
           <field xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:resourceConstraints/mco:MD_Constraints/mco:useLimitation"/>
 
+          <field xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:resourceConstraints/mco:MD_LegalConstraints/mco:useLimitation"/>
 
           <field xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:resourceConstraints/*/mco:useConstraints"/>
 

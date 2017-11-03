@@ -1,43 +1,43 @@
-<mdb:MD_Metadata xmlns:mdb="http://standards.iso.org/iso/19115/-3/mdb/1.0"
-                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                 xmlns:cat="http://standards.iso.org/iso/19115/-3/cat/1.0"
-                 xmlns:cit="http://standards.iso.org/iso/19115/-3/cit/1.0"
-                 xmlns:gcx="http://standards.iso.org/iso/19115/-3/gcx/1.0"
+<mdb:MD_Metadata xmlns:mas="http://standards.iso.org/iso/19115/-3/mas/1.0"
                  xmlns:gex="http://standards.iso.org/iso/19115/-3/gex/1.0"
                  xmlns:lan="http://standards.iso.org/iso/19115/-3/lan/1.0"
-                 xmlns:srv="http://standards.iso.org/iso/19115/-3/srv/2.0"
-                 xmlns:mas="http://standards.iso.org/iso/19115/-3/mas/1.0"
-                 xmlns:mcc="http://standards.iso.org/iso/19115/-3/mcc/1.0"
-                 xmlns:mco="http://standards.iso.org/iso/19115/-3/mco/1.0"
                  xmlns:mda="http://standards.iso.org/iso/19115/-3/mda/1.0"
+                 xmlns:mco="http://standards.iso.org/iso/19115/-3/mco/1.0"
                  xmlns:mds="http://standards.iso.org/iso/19115/-3/mds/1.0"
-                 xmlns:mdt="http://standards.iso.org/iso/19115/-3/mdt/1.0"
+                 xmlns:mdb="http://standards.iso.org/iso/19115/-3/mdb/1.0"
                  xmlns:mex="http://standards.iso.org/iso/19115/-3/mex/1.0"
+                 xmlns:mdt="http://standards.iso.org/iso/19115/-3/mdt/1.0"
                  xmlns:mmi="http://standards.iso.org/iso/19115/-3/mmi/1.0"
+                 xmlns:srv="http://standards.iso.org/iso/19115/-3/srv/2.0"
+                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                  xmlns:mpc="http://standards.iso.org/iso/19115/-3/mpc/1.0"
-                 xmlns:mrc="http://standards.iso.org/iso/19115/-3/mrc/1.0"
-                 xmlns:mrd="http://standards.iso.org/iso/19115/-3/mrd/1.0"
-                 xmlns:mri="http://standards.iso.org/iso/19115/-3/mri/1.0"
-                 xmlns:mrl="http://standards.iso.org/iso/19115/-3/mrl/1.0"
-                 xmlns:mrs="http://standards.iso.org/iso/19115/-3/mrs/1.0"
-                 xmlns:msr="http://standards.iso.org/iso/19115/-3/msr/1.0"
-                 xmlns:mdq="http://standards.iso.org/iso/19157/-2/mdq/1.0"
-                 xmlns:mac="http://standards.iso.org/iso/19115/-3/mac/1.0"
                  xmlns:gco="http://standards.iso.org/iso/19115/-3/gco/1.0"
-                 xmlns:gml="http://www.opengis.net/gml/3.2"
+                 xmlns:mac="http://standards.iso.org/iso/19115/-3/mac/1.0"
+                 xmlns:msr="http://standards.iso.org/iso/19115/-3/msr/1.0"
+                 xmlns:mrc="http://standards.iso.org/iso/19115/-3/mrc/1.0"
                  xmlns:xlink="http://www.w3.org/1999/xlink"
-                 xmlns:geonet="http://www.fao.org/geonetwork">
+                 xmlns:gcx="http://standards.iso.org/iso/19115/-3/gcx/1.0"
+                 xmlns:mrd="http://standards.iso.org/iso/19115/-3/mrd/1.0"
+                 xmlns:gfc="http://standards.iso.org/iso/19110/gfc/1.1"
+                 xmlns:mri="http://standards.iso.org/iso/19115/-3/mri/1.0"
+                 xmlns:cat="http://standards.iso.org/iso/19115/-3/cat/1.0"
+                 xmlns:gml="http://www.opengis.net/gml/3.2"
+                 xmlns:mdq="http://standards.iso.org/iso/19157/-2/mdq/1.0"
+                 xmlns:mrs="http://standards.iso.org/iso/19115/-3/mrs/1.0"
+                 xmlns:cit="http://standards.iso.org/iso/19115/-3/cit/1.0"
+                 xmlns:mrl="http://standards.iso.org/iso/19115/-3/mrl/1.0"
+                 xmlns:mcc="http://standards.iso.org/iso/19115/-3/mcc/1.0">
   <mdb:metadataIdentifier>
     <mcc:MD_Identifier>
       <mcc:code>
-        <gco:CharacterString>47dea01f-5b6a-48d7-990a-606a6001cbef</gco:CharacterString>
+        <gco:CharacterString>97b2ef8e-0088-4e72-875e-3c22c5bf5dd0</gco:CharacterString>
       </mcc:code>
       <mcc:codeSpace>
         <gco:CharacterString>urn:uuid</gco:CharacterString>
       </mcc:codeSpace>
     </mcc:MD_Identifier>
   </mdb:metadataIdentifier>
-  <mdb:defaultLocale xmlns:gfc="http://standards.iso.org/iso/19110/gfc/1.1">
+  <mdb:defaultLocale>
     <lan:PT_Locale id="EN">
       <lan:language>
         <lan:LanguageCode codeList="http://www.loc.gov/standards/iso639-2/" codeListValue="eng"/>
@@ -48,7 +48,7 @@
       </lan:characterEncoding>
     </lan:PT_Locale>
   </mdb:defaultLocale>
-  <mdb:metadataScope xmlns:gfc="http://standards.iso.org/iso/19110/gfc/1.1">
+  <mdb:metadataScope>
     <mdb:MD_MetadataScope>
       <mdb:resourceScope>
         <mcc:MD_ScopeCode codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#MD_ScopeCode"
@@ -62,7 +62,7 @@
   <mdb:dateInfo>
     <cit:CI_Date>
       <cit:date>
-        <gco:DateTime>2016-07-29T07:56:07</gco:DateTime>
+        <gco:DateTime>2017-11-03T10:39:07</gco:DateTime>
       </cit:date>
       <cit:dateType>
         <cit:CI_DateTypeCode codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#CI_DateTypeCode"
@@ -70,7 +70,7 @@
       </cit:dateType>
     </cit:CI_Date>
   </mdb:dateInfo>
-  <mdb:dateInfo xmlns:gfc="http://standards.iso.org/iso/19110/gfc/1.1">
+  <mdb:dateInfo>
     <cit:CI_Date>
       <cit:date>
         <gco:DateTime>2005-03-31T19:13:30</gco:DateTime>
@@ -109,7 +109,7 @@
       </cit:function>
     </cit:CI_OnlineResource>
   </mdb:metadataLinkage>
-  <mdb:identificationInfo xmlns:gfc="http://standards.iso.org/iso/19110/gfc/1.1">
+  <mdb:identificationInfo>
     <mri:MD_DataIdentification>
       <mri:citation>
         <cit:CI_Citation>
@@ -145,20 +145,19 @@
       <mri:pointOfContact>
         <cit:CI_Responsibility>
           <cit:role>
-            <cit:CI_RoleCode xmlns:gn="http://www.fao.org/geonetwork"
-                             codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#CI_RoleCode"
+            <cit:CI_RoleCode codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#CI_RoleCode"
                              codeListValue="pointOfContact"/>
           </cit:role>
           <cit:party>
             <cit:CI_Organisation>
-              <cit:name xmlns:gn="http://www.fao.org/geonetwork" gco:nilReason="missing">
+              <cit:name gco:nilReason="missing">
                 <gco:CharacterString/>
               </cit:name>
               <cit:contactInfo>
                 <cit:CI_Contact>
                   <cit:address>
                     <cit:CI_Address>
-                      <cit:electronicMailAddress xmlns:gn="http://www.fao.org/geonetwork" gco:nilReason="missing">
+                      <cit:electronicMailAddress gco:nilReason="missing">
                         <gco:CharacterString/>
                       </cit:electronicMailAddress>
                     </cit:CI_Address>
@@ -197,7 +196,7 @@
           <gex:temporalElement>
             <gex:EX_TemporalExtent>
               <gex:extent>
-                <gml:TimePeriod gml:id="d37904e309a1052958">
+                <gml:TimePeriod gml:id="d7803e181a1052958">
                   <gml:beginPosition/>
                 </gml:TimePeriod>
               </gex:extent>
@@ -229,7 +228,7 @@
               <cit:date>
                 <cit:CI_Date>
                   <cit:date>
-                    <gco:Date>2016-07-26</gco:Date>
+                    <gco:Date>2017-01-23</gco:Date>
                   </cit:date>
                   <cit:dateType>
                     <cit:CI_DateTypeCode codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#CI_DateTypeCode"
@@ -347,6 +346,39 @@
           </mri:thesaurusName>
         </mri:MD_Keywords>
       </mri:descriptiveKeywords>
+      <mri:descriptiveKeywords>
+        <mri:MD_Keywords>
+          <mri:type>
+            <mri:MD_KeywordTypeCode codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#MD_KeywordTypeCode"
+                                    codeListValue="theme"/>
+          </mri:type>
+          <mri:thesaurusName>
+            <cit:CI_Citation>
+              <cit:title>
+                <gco:CharacterString>Validation</gco:CharacterString>
+              </cit:title>
+              <cit:date>
+                <cit:CI_Date>
+                  <cit:date>
+                    <gco:Date>2015-01-29</gco:Date>
+                  </cit:date>
+                  <cit:dateType>
+                    <cit:CI_DateTypeCode codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#CI_DateTypeCode"
+                                         codeListValue="publication"/>
+                  </cit:dateType>
+                </cit:CI_Date>
+              </cit:date>
+              <cit:identifier>
+                <mcc:MD_Identifier>
+                  <mcc:code>
+                    <gcx:Anchor xlink:href="http://localhost:8080/geonetwork/srv/eng/thesaurus.download?ref=local.theme.emodnet-checkpoint.status">geonetwork.thesaurus.local.theme.emodnet-checkpoint.status</gcx:Anchor>
+                  </mcc:code>
+                </mcc:MD_Identifier>
+              </cit:identifier>
+            </cit:CI_Citation>
+          </mri:thesaurusName>
+        </mri:MD_Keywords>
+      </mri:descriptiveKeywords>
       <mri:resourceConstraints>
         <mco:MD_LegalConstraints>
           <mco:useLimitation gco:nilReason="missing">
@@ -357,6 +389,13 @@
                                     codeListValue=""/>
           </mco:useConstraints>
         </mco:MD_LegalConstraints>
+      </mri:resourceConstraints>
+      <mri:resourceConstraints>
+        <mco:MD_Constraints>
+          <mco:useLimitation>
+            <gco:CharacterString></gco:CharacterString>
+          </mco:useLimitation>
+        </mco:MD_Constraints>
       </mri:resourceConstraints>
       <mri:defaultLocale>
         <lan:PT_Locale>
@@ -371,14 +410,14 @@
       </mri:defaultLocale>
     </mri:MD_DataIdentification>
   </mdb:identificationInfo>
-  <mdb:distributionInfo xmlns:gfc="http://standards.iso.org/iso/19110/gfc/1.1">
+  <mdb:distributionInfo>
     <mrd:MD_Distribution>
       <mrd:distributionFormat>
         <mrd:MD_Format>
           <mrd:formatSpecificationCitation>
             <cit:CI_Citation>
-              <cit:title>
-                <gco:CharacterString></gco:CharacterString>
+              <cit:title gco:nilReason="missing">
+                <gco:CharacterString/>
               </cit:title>
             </cit:CI_Citation>
           </mrd:formatSpecificationCitation>
