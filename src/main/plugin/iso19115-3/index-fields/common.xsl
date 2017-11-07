@@ -801,6 +801,14 @@
 
 
    <!-- TODO: Multilingual support -->
+
+    <xsl:variable name="isDps"
+                  select="count(
+                            $metadata/mdb:metadataStandard/*/cit:title/*[text() =
+                              'ISO 19115-3 - Emodnet Checkpoint - Data Product Specification']
+                          ) = 1"/>
+
+
     <xsl:for-each select="$metadata/mdb:dataQualityInfo">
       <!-- Checpoint / Index component id.
         If not set, then index by dq section position. -->
@@ -840,8 +848,14 @@
           <xsl:variable name="qmValue" select="normalize-space(mdq:value/gco:Record/text())"/>
           <xsl:variable name="qmStatement" select="normalize-space(../../mdq:result/mdq:DQ_DescriptiveResult/mdq:statement/gco:CharacterString/text())"/>
           <xsl:variable name="qmUnit" select="mdq:valueUnit/*/gml:identifier/text()"/>
-          <Field name="dqValues" index="true" store="true"
-                 string="{concat($dqId, '|', $cptName, '|', $qmId, '|', $qmName, '|', $qmDate, '|', $qmValue, '|', $qmUnit, '|', $qmDefinition, '|', $qmStatement)}"/>
+
+          <xsl:choose>
+            <xsl:when test="$isDps and $qmId = 'AP.5.1'"></xsl:when>
+            <xsl:otherwise>
+              <Field name="dqValues" index="true" store="true"
+                     string="{concat($dqId, '|', $cptName, '|', $qmId, '|', $qmName, '|', $qmDate, '|', $qmValue, '|', $qmUnit, '|', $qmDefinition, '|', $qmStatement)}"/>
+            </xsl:otherwise>
+          </xsl:choose>
 
         </xsl:for-each>
       </xsl:for-each>
