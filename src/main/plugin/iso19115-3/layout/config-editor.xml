@@ -2317,7 +2317,8 @@
                           </mdq:DQ_DescriptiveResult>
                         </mdq:result>
                       </mdq:DQ_TemporalValidity>
-                    </mdq:report><mdq:report>
+                    </mdq:report>
+                    <mdq:report>
                     <mdq:DQ_UsabilityElement>
                       <mdq:measure>
                         <mdq:DQ_MeasureReference>
@@ -2699,11 +2700,13 @@
           Field name: Challenge expert opinion
           Assign  an overall product quality score with respect to the objectives and explain why according to the following scale :
           -->
-          <field xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:resourceConstraints/mco:MD_Constraints/mco:useLimitation"/>
+          <!-- 2 use limitation are defined. One for expert score,
+          one for expert opinion -->
+          <xsl xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:resourceConstraints/mco:MD_Constraints"
+               mode="checkpoint-expert-score"/>
 
-          <field xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:resourceConstraints/mco:MD_LegalConstraints/mco:useLimitation"/>
 
-          <field xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:resourceConstraints/*/mco:useConstraints"/>
+          <field xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:resourceConstraints/mco:MD_LegalConstraints/mco:otherConstraints"/>
 
         </section>
 

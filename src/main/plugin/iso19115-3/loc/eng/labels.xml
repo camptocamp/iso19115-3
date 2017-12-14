@@ -4843,7 +4843,7 @@
   </element>
   <element name="mco:useLimitation" id="99.0"
            context="/mdb:MD_Metadata/mdb:identificationInfo/mri:MD_DataIdentification/mri:resourceConstraints/mco:MD_Constraints/mco:useLimitation">
-    <label>Challenge expert opinion</label>
+    <label>Challenge expert score</label>
     <description>Assign an overall product quality score with respect to the objectives and explain why.</description>
     <helper displayIf="ancestor::node()[
               name()='mdb:MD_Metadata' and

@@ -6,6 +6,7 @@
                 xmlns:mri="http://standards.iso.org/iso/19115/-3/mri/1.0"
                 xmlns:lan="http://standards.iso.org/iso/19115/-3/lan/1.0"
                 xmlns:cit="http://standards.iso.org/iso/19115/-3/cit/1.0"
+                xmlns:mco="http://standards.iso.org/iso/19115/-3/mco/1.0"
                 xmlns:gex="http://standards.iso.org/iso/19115/-3/gex/1.0"
                 xmlns:gco="http://standards.iso.org/iso/19115/-3/gco/1.0"
                 xmlns:gmx="http://www.isotc211.org/2005/gmx"
@@ -39,5 +40,30 @@
                type="text"/>
       </div>
     </div>
+  </xsl:template>
+
+
+  <!-- Display challenge expert score with a helper first
+  and then the challenge expert opinion. -->
+  <xsl:template match="mri:resourceConstraints/mco:MD_Constraints"
+                name="checkpoint-expert-score">
+
+    <xsl:apply-templates select="mco:useLimitation[1]"
+                         mode="mode-iso19115-3"/>
+
+    <xsl:for-each select="mco:useLimitation[2]">
+      <div class="form-group gn-field"
+           id="gn-el-11">
+        <label for="gn-field-11" class="col-sm-2 control-label">
+          <xsl:value-of select="$strings/challengeExpertOpinion"/>
+        </label>
+        <div class="col-sm-9 gn-value">
+          <input class="form-control" value="{gco:CharacterString}"
+                 name="_{gco:CharacterString/gn:element/@ref}"
+                 type="text"/>
+        </div>
+      </div>
+    </xsl:for-each>
+
   </xsl:template>
 </xsl:stylesheet>

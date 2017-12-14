@@ -62,6 +62,7 @@
   <beginPosition>Begin</beginPosition>
   <endPosition>End</endPosition>
   <medsea>Emodnet Checkpoint</medsea>
+  <challengeExpertOpinion>Challenge expert opinion</challengeExpertOpinion>
   <orAddPointOfContact>or add point of contact</orAddPointOfContact>
   <checkpoint-dps>Emodnet Checkpoint data product specification</checkpoint-dps>
   <checkpoint-dps-characteristics>DPS  identification and overview</checkpoint-dps-characteristics>

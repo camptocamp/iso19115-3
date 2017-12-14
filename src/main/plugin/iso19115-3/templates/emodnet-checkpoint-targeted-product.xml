@@ -395,6 +395,9 @@
           <mco:useLimitation>
             <gco:CharacterString></gco:CharacterString>
           </mco:useLimitation>
+          <mco:useLimitation>
+            <gco:CharacterString></gco:CharacterString>
+          </mco:useLimitation>
         </mco:MD_Constraints>
       </mri:resourceConstraints>
       <mri:defaultLocale>

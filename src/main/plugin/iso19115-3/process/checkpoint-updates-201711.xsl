@@ -86,7 +86,7 @@
     <xsl:copy>
       <xsl:apply-templates select="@*|*"/>
     </xsl:copy>
-    
+
     <mdq:report>
       <mdq:DQ_UsabilityElement>
         <mdq:measure>
@@ -134,21 +134,39 @@
       <xsl:value-of select="concat(., ' (mandatory)')"/>
     </xsl:copy>
   </xsl:template>
-  
-  <xsl:template match="mri:resourceConstraints[position() = last()]">
-    <xsl:copy>
-      <xsl:apply-templates select="@*|*"/>
-    </xsl:copy>
-    
-    <mri:resourceConstraints>
-      <mco:MD_Constraints>
-        <mco:useLimitation>
-          <gco:CharacterString></gco:CharacterString>
-        </mco:useLimitation>
-      </mco:MD_Constraints>
-    </mri:resourceConstraints>
+
+
+
+  <xsl:template match="mri:resourceConstraints/mco:MD_Constraints">
+    <!-- Add 2 use limitation to store expert score and opinion -->
+    <mco:MD_Constraints>
+      <mco:useLimitation>
+        <gco:CharacterString></gco:CharacterString>
+      </mco:useLimitation>
+      <mco:useLimitation>
+        <gco:CharacterString></gco:CharacterString>
+      </mco:useLimitation>
+    </mco:MD_Constraints>
   </xsl:template>
-  
+
+
+  <!--
+  MD_LegalConstraints > useLimitation = removed from template and remove from editor
+  MD_LegalConstraints > useConstraints = otherRestrictions (replace existing value)
+  MD_LegalConstraints > otherConstraints (update editor)
+  -->
+  <xsl:template match="mco:MD_LegalConstraints">
+    <xsl:copy>
+      <mco:useConstraints>
+        <mco:MD_RestrictionCode codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#MD_RestrictionCode"
+                                codeListValue="otherRestrictions"/>
+      </mco:useConstraints>
+      <mco:otherConstraints gco:nilReason="missing">
+        <gco:CharacterString/>
+      </mco:otherConstraints>
+    </xsl:copy>
+  </xsl:template>
+
   <!-- Do a copy of every nodes and attributes -->
   <xsl:template match="@*|node()|comment()">
     <xsl:copy>

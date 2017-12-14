@@ -380,12 +380,12 @@
             <mri:resourceConstraints>
                 <mco:MD_LegalConstraints>
                     <mco:useLimitation gco:nilReason="missing">
-                        <gco:CharacterString/>
+                        <gco:CharacterString>THIS IS LOST</gco:CharacterString>
                     </mco:useLimitation>
                     <mco:useConstraints>
                         <mco:MD_RestrictionCode
                             codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#MD_RestrictionCode"
-                            codeListValue=""/>
+                            codeListValue="LOST TOO"/>
                     </mco:useConstraints>
                 </mco:MD_LegalConstraints>
             </mri:resourceConstraints>

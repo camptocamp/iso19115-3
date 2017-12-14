@@ -220,7 +220,7 @@
           <!-- In TDP define if component is covered or not and explain why.
            When declared not covered, the measure table below is hidden by
            the directive. -->
-          <xsl:if test="$isTdp">
+          <xsl:if test="$isTdp or $isUd">
             <div data-gn-checkpoint-cpt-covered="{$isCovered}"
                  data-id="{$sqrId}"
                  data-title-id="{$sqr/mdq:reportReference/*/cit:title/gco:CharacterString/gn:element/@ref}"
@@ -243,16 +243,17 @@
 
 
           <xsl:choose>
-            <xsl:when test="$isUd and $isNotCovered">
+            <xsl:when test="false()"></xsl:when>
+            <!--<xsl:when test="$isUd and $isNotCovered">-->
               <!-- In an UD when component is not covered, display only the reason why.
-              No quality table. -->
+              No quality table.
               <div>
                 <xsl:apply-templates mode="mode-iso19115-3"
                                      select="$sqr/mdq:reportReference/*/cit:title"/>
                 <xsl:apply-templates mode="mode-iso19115-3"
                                      select="$sqr/mdq:abstract"/>
               </div>
-            </xsl:when>
+            </xsl:when>-->
             <xsl:otherwise>
 
 
@@ -339,11 +340,11 @@
                                     <col type="select">
                                       <xsl:copy-of select="*/mdq:value/gco:*[1]"/>
                                       <options>
-                                        <option value="1">Excellent</option>
-                                        <option value="2">Very good</option>
-                                        <option value="3">Good</option>
-                                        <option value="4">Limited</option>
-                                        <option value="5">Inadequate</option>
+                                        <option value="Excellent">Excellent</option>
+                                        <option value="Very good">Very good</option>
+                                        <option value="Good">Good</option>
+                                        <option value="Limited">Limited</option>
+                                        <option value="Inadequate">Inadequate</option>
                                       </options>
                                     </col>
                                   </xsl:when>
@@ -440,6 +441,18 @@
                                   <xsl:copy-of select="*/mdq:statement/gco:*"/>
                                 </col>
                                 <col/>
+                                <xsl:if test="$isUd or $isTdp">
+                                  <col/>
+                                  <!-- DPS & TDP descriptive result for the measure -->
+                                  <col readonly="">
+                                    <span data-gn-qm-value="{concat($cptId, '|', $measureId/text())}" data-descriptive-result="true">test</span>
+                                  </col>
+                                  <xsl:if test="$isUd">
+                                    <col readonly="">
+                                      <span data-gn-qm-value="{concat($cptId, '|', $measureId/text())}" data-tdp="true" data-descriptive-result="true"/>
+                                    </col>
+                                  </xsl:if>
+                                </xsl:if>
                               </xsl:when>
                               <xsl:otherwise>
                                 <!-- Not supported -->

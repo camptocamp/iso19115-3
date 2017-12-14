@@ -349,9 +349,14 @@
           <gco:Record/>
         </xsl:when>
         <xsl:otherwise>
-          <xsl:variable name="numberOfLineage" select="count(ancestor::mdb:dataQualityInfo/*/mdq:scope/*/mcc:levelDescription) - 2"/>
+          <xsl:variable name="currentValue"
+                        select="normalize-space(gco:Record)"/>
+          <xsl:variable name="numberOfLineage"
+                        select="count(ancestor::mdb:dataQualityInfo/*/mdq:scope/*/mcc:levelDescription) - 2"/>
           <gco:Record>
-            <xsl:value-of select="$numberOfLineage"/>
+            <xsl:value-of select="if ($currentValue != '')
+                                  then $currentValue
+                                  else $numberOfLineage"/>
           </gco:Record>
         </xsl:otherwise>
       </xsl:choose>
