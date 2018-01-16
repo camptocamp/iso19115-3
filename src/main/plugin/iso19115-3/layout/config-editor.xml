@@ -1286,6 +1286,8 @@
                   addDirective="data-gn-record-fragment-selector">
             <directiveAttributes
                     data-search-query="{'agg_associated': '{uuid}', 'standardName':'ISO 19115-3 - Emodnet Checkpoint - Targeted Data Product'}"
+                    data-exclude="xpath::string-join(
+              //mcc:other/gco:CharacterString, '#')"
             />
           </action>
 
