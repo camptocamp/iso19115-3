@@ -340,7 +340,7 @@
   <!-- View configuration -->
   <views>
     <view name="default">
-      
+
       <sidePanel>
         <directive data-gn-onlinesrc-list=""/>
         <directive gn-geo-publisher=""
@@ -414,6 +414,14 @@
         <thesaurus key="external.parameter.NVS.P01" maxtags="1"/>
         <thesaurus key="external.parameter.NVS.P02" maxtags="1"/>
       </thesaurusList>
+
+      <sidePanel>
+        <directive data-gn-onlinesrc-list=""/>
+        <directive data-gn-validation-report=""/>
+        <directive data-gn-suggestion-list=""/>
+        <directive data-gn-need-help="user-guide/describing-information/creating-metadata.html"/>
+      </sidePanel>
+
       <tab id="characteristics" mode="flat" default="true" formatter-order="2">
         <section>
 
@@ -1342,6 +1350,14 @@
         <thesaurus key="local.theme.emodnet-checkpoint.readyness" maxtags="1"/>
         <thesaurus key="local.theme.emodnet-checkpoint.data.delivery.mechanism" maxtags="1"/>
       </thesaurusList>
+
+      <sidePanel>
+        <directive data-gn-onlinesrc-list=""/>
+        <directive data-gn-validation-report=""/>
+        <directive data-gn-suggestion-list=""/>
+        <directive data-gn-need-help="user-guide/describing-information/creating-metadata.html"/>
+      </sidePanel>
+
       <tab id="checkpoint-dps-characteristics" default="true">
         <section name="checkpoint-dps-main">
 
@@ -2403,6 +2419,14 @@
         <thesaurus key="local.theme.emodnet-checkpoint.readyness" maxtags="1"/>
         <thesaurus key="local.theme.emodnet-checkpoint.data.delivery.mechanism" maxtags="1"/>
       </thesaurusList>
+
+      <sidePanel>
+        <directive data-gn-onlinesrc-list=""/>
+        <directive data-gn-validation-report=""/>
+        <directive data-gn-suggestion-list=""/>
+        <directive data-gn-need-help="user-guide/describing-information/creating-metadata.html"/>
+      </sidePanel>
+
       <tab id="checkpoint-tdp-characteristics" default="true">
         <section name="checkpoint-tdp-main">
 
@@ -2958,13 +2982,9 @@
 
 
     <view name="advanced">
-      
+
       <sidePanel>
         <directive data-gn-onlinesrc-list=""/>
-        <directive gn-geo-publisher=""
-                   data-ng-if="gnCurrentEdit.geoPublisherConfig"
-                   data-config="{{gnCurrentEdit.geoPublisherConfig}}"
-                   data-lang="lang"/>
         <directive data-gn-validation-report=""/>
         <directive data-gn-suggestion-list=""/>
         <directive data-gn-need-help="user-guide/describing-information/creating-metadata.html"/>
@@ -3054,7 +3074,7 @@
       </tab>
     </view>
     <view name="xml">
-      
+
       <sidePanel>
         <directive data-gn-onlinesrc-list=""/>
         <directive gn-geo-publisher=""
