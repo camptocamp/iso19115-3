@@ -481,7 +481,7 @@
               <!-- Try to build a thesaurus key based on the name
               by removing space - to be improved. -->
               <xsl:when test="normalize-space($thesaurusName) != ''">
-                <!--<xsl:value-of select="replace($thesaurusName, ' ', '')"/>-->
+                <xsl:value-of select="replace($thesaurusName, '[^a-zA-Z0-9]', '')"/>
               </xsl:when>
             </xsl:choose>
           </xsl:variable>
