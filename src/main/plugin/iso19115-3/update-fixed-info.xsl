@@ -509,6 +509,8 @@
     </xsl:choose>
   </xsl:template>
 
+  <!-- Remove empty DQ elements. -->
+  <xsl:template match="mdb:dataQualityInfo[count(*) = 0]"/>
 
   <!-- copy everything else as is -->
 
