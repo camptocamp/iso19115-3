@@ -399,7 +399,12 @@
                                                         mdq:measure/*/mdq:measureIdentification/*/mcc:code/*/text() = $qeId
                                                       ]"/>
                                     <col readonly="" title="{$udQe/mdq:measure/*/mdq:measureDescription/*/text()}">
-                                      <xsl:value-of select="format-number($udQe/mdq:result/*/mdq:value/*/text(), $format)"/>
+                                      <xsl:variable name="v"
+                                                    select="$udQe/mdq:result/*/mdq:value/*/text()"/>
+
+                                      <xsl:value-of select="if (matches($v, '^-?\d+(,\d+)*(\.\d+(e\d+)?)?$'))
+                                      then format-number($v, $format)
+                                      else $v"/>
                                     </col>
 
                                     <xsl:call-template name="checkpoint-render-indicator">
