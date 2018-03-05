@@ -29,20 +29,22 @@
     <entry>AP.1.1</entry>
     <entry>AP.1.2</entry>
     <entry>AP.1.3</entry>
+    <entry>AP.1.4</entry>
     <entry>AP.2.1</entry>
     <entry>AP.3.1</entry>
     <entry>AP.3.2</entry>
     <entry>AP.3.3</entry>
     <entry>AP.3.4</entry>
     <entry>AP.4.1</entry>
+    <entry>AP.5.1</entry>
   </xsl:variable>
 
 
   <xsl:template match="/">
-    <xsl:text>type;hierarchyLevel;challenge;p01;otherp01;p02;p03;processingLevel;productionMode;inspireTheme;</xsl:text>
-    <xsl:text>envMatrix;visibility;serviceExtent;policyVisibility;dataDelivery;dataPolicy;costBasis;readyness;</xsl:text>
+    <xsl:text>type;hierarchyLevel;status;challenge;UDp01;UDotherp01;UDp02;UDp03;processingLevel;productionMode;inspireTheme;</xsl:text>
+    <xsl:text>UDenvMatrix;visibility;serviceExtent;policyVisibility;UDdataDelivery;UDdataPolicy;costBasis;readyness;</xsl:text>
     <xsl:text>responsiveness;spatialRepType;refSystem;useLimitation;useConstraints;dataFormats;</xsl:text>
-    <xsl:text>uuid;title;extentWSEN;minZ;maxZ;minT;maxT;component;description;dqDate;</xsl:text>
+    <xsl:text>uuid;productName;dates;extentWSEN;minZ;maxZ;minT;maxT;component;description;dqDate;covered;</xsl:text>
     <xsl:for-each select="$measures/entry">
       <xsl:variable name="mId" select="."/>
 
@@ -52,12 +54,12 @@
       <xsl:text> UOM;</xsl:text>
       <xsl:value-of select="concat(., ' ERROR')"/>
       <xsl:text>;</xsl:text>
-      <xsl:if test="$mId = 'AP.3.2' or $mId = 'AP.3.4'">
-        <xsl:text>DESC</xsl:text>
-        <xsl:text>;</xsl:text>
-      </xsl:if>
+      <xsl:value-of select="$mId"/>
+      <xsl:text> DESC</xsl:text>
+      <xsl:text>;</xsl:text>
+
     </xsl:for-each>
-    <xsl:text>lineage;spatialDims;CPTextentWSEN;CPTminZ;CPTmaxZ;CPTminT;CPTmaxT;program;provider;DPSuuid;TDPuuid;UDuuids;</xsl:text>
+    <xsl:text>lineage;spatialDims;CPTextentWSEN;CPTminZ;CPTmaxZ;CPTminT;CPTmaxT;program;provider;pointOfContact;DPSuuid;TDPuuid;UDuuids;</xsl:text>
     <xsl:text>link;catUrl;datasetUrl</xsl:text>
     <xsl:text>&#xA;</xsl:text>
 
@@ -181,6 +183,12 @@
                     [contains(*/mri:thesaurusName/cit:CI_Citation/cit:title/gco:CharacterString,
                     'Environmental matrix')]/*/mri:keyword/*, ' | ')"/>
 
+    <xsl:variable name="status"
+                  select="string-join(mdb:identificationInfo/*/
+                    mri:descriptiveKeywords
+                    [contains(*/mri:thesaurusName/cit:CI_Citation/cit:identifier/*/mcc:code/*/text(),
+                    'emodnet-checkpoint.status')]/*/mri:keyword/*, ' | ')"/>
+
     <xsl:variable name="program"
                   select="string-join(mdb:identificationInfo/*/
                               mri:pointOfContact[*/cit:role/*/@codeListValue='edmerp']/
@@ -189,6 +197,17 @@
     <xsl:variable name="provider"
                   select="string-join(mdb:identificationInfo/*/
                               mri:pointOfContact[*/cit:role/*/@codeListValue='edmo']/
+                              */cit:party/*/cit:name/gco:CharacterString, ' | ')"/>
+
+    <xsl:variable name="dates"
+                  select="string-join(mdb:identificationInfo/*/
+                          mri:citation/*/cit:date[
+                            */cit:dateType/*/@codeListValue = 'creation' or
+                            */cit:dateType/*/@codeListValue = 'revision'], ' | ')"/>
+
+    <xsl:variable name="pointOfContact"
+                  select="string-join(mdb:identificationInfo/*/
+                              mri:pointOfContact[*/cit:role/*/@codeListValue='pointOfContact']/
                               */cit:party/*/cit:name/gco:CharacterString, ' | ')"/>
 
     <xsl:variable name="responsiveness"
@@ -212,12 +231,12 @@
 
 
     <xsl:variable name="useLimitation"
-                  select="string-join(mdb:identificationInfo/*/
-                              mri:resourceConstraints/*/mco:useLimitation, ' | ')"/>
+                  select="replace(string-join(mdb:identificationInfo/*/
+                              mri:resourceConstraints/*/mco:useLimitation, ' | '), '&#xA;', '')"/>
 
     <xsl:variable name="useConstraints"
-                  select="string-join(mdb:identificationInfo/*/
-                              mri:resourceConstraints/*/mco:useConstraints/*/@codeListValue, ' | ')"/>
+                  select="replace(string-join(mdb:identificationInfo/*/
+                              mri:resourceConstraints/*/mco:useConstraints/*/@codeListValue, ' | '), '&#xA;', '')"/>
 
     <xsl:variable name="dataFormats"
                   select="string-join(mdb:distributionInfo/*/mrd:distributionFormat/
@@ -234,6 +253,8 @@
             <xsl:value-of select="if ($isDps) then 'DPS' else if ($isTdp) then 'TDP' else if ($isUd) then 'UD' else ''"/>
             <xsl:text>;</xsl:text>
             <xsl:value-of select="$hl"/>
+            <xsl:text>;</xsl:text>
+            <xsl:value-of select="$status"/>
             <xsl:text>;</xsl:text>
 
             <!-- challenge -->
@@ -294,6 +315,8 @@
             <xsl:text>;</xsl:text>
             <xsl:value-of select="normalize-space($metadata/mdb:identificationInfo/*/mri:citation/*/cit:title/*/text())"/>
             <xsl:text>;</xsl:text>
+            <xsl:value-of select="$dates"/>
+            <xsl:text>;</xsl:text>
 
 
             <xsl:value-of select="concat(
@@ -313,21 +336,17 @@
             <xsl:text>;</xsl:text>
 
 
-            <!-- Checpoint / Index component id.
+            <!-- Checkpoint / Index component id.
               If not set, then index by dq section position. -->
             <xsl:variable name="cptName" select="*/mdq:scope/*/mcc:levelDescription[1]/*/mcc:other/*/text()"/>
-            <xsl:variable name="cptDesc" select="*/mdq:scope/*/mcc:levelDescription[2]/*/mcc:other/*/text()"/>
+            <xsl:variable name="cptDesc" select="replace(*/mdq:scope/*/mcc:levelDescription[2]/*/mcc:other/*/text(), '&#xA;', '')"/>
             <xsl:variable name="dqId" select="if ($cptId != '') then $cptId else position()"/>
+            <xsl:variable name="cptCovered" select="*/mdq:standaloneQualityReport/*/mdq:reportReference/*/cit:title/*/text()"/>
 
-            <xsl:choose>
-              <xsl:when test="count(*/mdq:standaloneQualityReport[*/mdq:reportReference/*/
-                                  cit:title/*/text() = 'Component not covered']) > 0">
-                <xsl:value-of select="concat(normalize-space($cptName), ': Not covered')"/>
-              </xsl:when>
-              <xsl:otherwise>
-                <xsl:value-of select="normalize-space($cptName)"/>
-              </xsl:otherwise>
-            </xsl:choose>
+
+            <xsl:value-of select="$cptCovered"/>
+            <xsl:text>;</xsl:text>
+            <xsl:value-of select="normalize-space($cptName)"/>
             <xsl:text>;</xsl:text>
             <xsl:value-of select="$cptDesc"/>
             <xsl:text>;</xsl:text>
@@ -372,19 +391,17 @@
               <xsl:value-of select="$tdpQe"/>
               <xsl:text>;</xsl:text>
 
-              <xsl:if test="$mId = 'AP.3.2' or $mId = 'AP.3.4'">
-                <xsl:value-of select="$report/mdq:result/mdq:DQ_DescriptiveResult/
-                                        mdq:statement/gco:CharacterString/text()"/>
-                <xsl:text>;</xsl:text>
-              </xsl:if>
+              <xsl:value-of select="replace($report/mdq:result/mdq:DQ_DescriptiveResult/
+                                      mdq:statement/gco:CharacterString/text(), '&#xA;', '')"/>
+              <xsl:text>;</xsl:text>
             </xsl:for-each>
 
             <!-- lineage; -->
-            <xsl:value-of select="string-join(*/mdq:scope/*/mcc:levelDescription[
+            <xsl:value-of select="replace(string-join(*/mdq:scope/*/mcc:levelDescription[
                                                                     position() > 2
                                                                   ]//mcc:other[
                                                                     gco:CharacterString/text() != ''
-                                                                  ], ',')"/>
+                                                                  ], ','), '&#xA;', '')"/>
             <xsl:text>;</xsl:text>
 
             <!-- spatialDims;extent;minZ;maxZ;minT;maxT -->
@@ -431,6 +448,8 @@
             <xsl:text>;</xsl:text>
             <xsl:value-of select="$provider"/>
             <xsl:text>;</xsl:text>
+            <xsl:value-of select="$pointOfContact"/>
+            <xsl:text>;</xsl:text>
 
             <!-- DPSuuid;TDPuuid -->
             <xsl:value-of select="substring-before($cptId, '/')"/>
@@ -454,9 +473,9 @@
 
             <xsl:value-of select="concat(util:getSiteUrl(), '/', util:getNodeId(), '/metadata/', $uuid)"/>
             <xsl:text>;</xsl:text>
-            <xsl:value-of select="normalize-space($metadata/mdb:distributionInfo/*/mrd:transferOptions/*/mrd:onLine[1]/*/cit:linkage/*)"/>
+            <xsl:value-of select="string-join($metadata/mdb:distributionInfo/*/mrd:transferOptions/*/mrd:onLine[1]/*/cit:linkage/*, '#')"/>
             <xsl:text>;</xsl:text>
-            <xsl:value-of select="normalize-space($metadata/mdb:identificationInfo/*/mri:citation/*/cit:otherCitationDetails/*)"/>
+            <xsl:value-of select="replace(normalize-space($metadata/mdb:identificationInfo/*/mri:citation/*/cit:otherCitationDetails/*), '&#xA;', '')"/>
 
             <xsl:text>&#xA;</xsl:text>
           </xsl:if>
@@ -466,6 +485,8 @@
         <xsl:value-of select="if ($isDps) then 'DPS' else if ($isTdp) then 'TDP' else if ($isUd) then 'UD' else ''"/>
         <xsl:text>;</xsl:text>
         <xsl:value-of select="$hl"/>
+        <xsl:text>;</xsl:text>
+        <xsl:value-of select="$status"/>
         <xsl:text>;</xsl:text>
 
         <!-- challenge -->
@@ -527,6 +548,8 @@
         <xsl:text>;</xsl:text>
         <xsl:value-of select="normalize-space($metadata/mdb:identificationInfo/*/mri:citation/*/cit:title/*/text())"/>
         <xsl:text>;</xsl:text>
+        <xsl:value-of select="$dates"/>
+        <xsl:text>;</xsl:text>
 
         <xsl:value-of select="concat(
             $metadata/mdb:identificationInfo/*/mri:extent/*/gex:geographicElement/*/gex:westBoundLongitude/*/text(), ',',
@@ -558,13 +581,15 @@
         <xsl:value-of select="$program"/>
         <xsl:text>;</xsl:text>
         <xsl:value-of select="$provider"/>
+        <xsl:text>;</xsl:text>
+        <xsl:value-of select="$pointOfContact"/>
         <xsl:text>;;;;</xsl:text>
 
         <xsl:value-of select="concat(util:getSiteUrl(), '/', util:getNodeId(), '/metadata/', $uuid)"/>
         <xsl:text>;</xsl:text>
         <xsl:value-of select="normalize-space($metadata/mdb:distributionInfo/*/mrd:transferOptions/*/mrd:onLine[1]/*/cit:linkage/*)"/>
         <xsl:text>;</xsl:text>
-        <xsl:value-of select="normalize-space($metadata/mdb:identificationInfo/*/mri:citation/*/cit:otherCitationDetails/*)"/>
+        <xsl:value-of select="replace(normalize-space($metadata/mdb:identificationInfo/*/mri:citation/*/cit:otherCitationDetails/*), '&#xA;', '')"/>
 
         <xsl:text>&#xA;</xsl:text>
       </xsl:otherwise>
