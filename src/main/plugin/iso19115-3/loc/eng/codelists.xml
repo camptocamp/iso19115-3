@@ -1588,7 +1588,7 @@
       <label>Non geographic dataset</label>
       <description>Information applies to non-geographic data</description>
     </entry>
-    <entry>
+    <entry hideInEditMode="true">
       <code>datasetComponent</code>
       <label>Dataset component</label>
       <description>Information applies to a dataset component</description>
