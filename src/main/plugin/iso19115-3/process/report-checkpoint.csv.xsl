@@ -54,6 +54,8 @@
       <xsl:text> UOM;</xsl:text>
       <xsl:value-of select="concat(., ' ERROR')"/>
       <xsl:text>;</xsl:text>
+      <xsl:value-of select="concat(., ' FU')"/>
+      <xsl:text>;</xsl:text>
       <xsl:value-of select="$mId"/>
       <xsl:text> DESC</xsl:text>
       <xsl:text>;</xsl:text>
@@ -170,8 +172,8 @@
                           'Data delivery mechanism')]/*/mri:keyword/*, ' | ')"/>
 
     <xsl:variable name="dataPolicy"
-                  select="string-join(mdb:identificationInfo/*/
-                          mri:resourceConstraints/mco:MD_LegalConstraints/mco:otherConstraints/*, ' | ')"/>
+                  select="string-join(replace(mdb:identificationInfo/*/
+                          mri:resourceConstraints/mco:MD_LegalConstraints/mco:otherConstraints/*, '&#xA;', ''), ' | ')"/>
 
     <xsl:variable name="costBasis"
                   select="string-join(mdb:identificationInfo/*/
@@ -381,6 +383,10 @@
                             select="concat(
                               (if ($isUd) then 'UD.' else 'P.'),
                               replace($mId/text(), 'AP', 'APE'))"/>
+              <xsl:variable name="fuId"
+                            select="concat(
+                              (if ($isUd) then 'UD.' else 'P.'),
+                              replace($mId/text(), 'AP', 'FU'))"/>
               <xsl:variable name="cptIdForQe"
                             select="substring-before($cptId, concat('/', $uuid))"/>
               <xsl:variable name="tdpQe"
@@ -388,9 +394,15 @@
                                                       /mdq:report/*[
                                                         mdq:measure/*/mdq:measureIdentification/*/mcc:code/*/text() = $qeId
                                                       ]/mdq:result/*/mdq:value/*/text()"/>
+              <xsl:variable name="tdpFu"
+                            select="$metadata/mdb:dataQualityInfo/*[starts-with(@uuid, $cptId)]
+                                                      /mdq:report/*[
+                                                        mdq:measure/*/mdq:measureIdentification/*/mcc:code/*/text() = $fuId
+                                                      ]/mdq:result/*/mdq:value/*/text()"/>
               <xsl:value-of select="$tdpQe"/>
               <xsl:text>;</xsl:text>
-
+              <xsl:value-of select="$tdpFu"/>
+              <xsl:text>;</xsl:text>
               <xsl:value-of select="replace($report/mdq:result/mdq:DQ_DescriptiveResult/
                                       mdq:statement/gco:CharacterString/text(), '&#xA;', '')"/>
               <xsl:text>;</xsl:text>
@@ -569,7 +581,11 @@
 
 
         <xsl:text>None described;</xsl:text>
+        <!-- Empty measures, errors, fu and desc -->
         <xsl:text>;;;;;;;;;;;</xsl:text>
+        <xsl:text>;;;;;;;;;</xsl:text>
+        <xsl:text>;;;;;;;;;</xsl:text>
+        <xsl:text>;;;;;;;;;</xsl:text>
         <xsl:text>;;;;;;;;;</xsl:text>
         <xsl:text>;;;;;;;;;;;</xsl:text>
         <!--<xsl:for-each select="$measures/entry">
