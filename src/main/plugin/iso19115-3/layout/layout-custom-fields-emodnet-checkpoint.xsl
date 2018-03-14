@@ -58,9 +58,10 @@
           <xsl:value-of select="$strings/challengeExpertOpinion"/>
         </label>
         <div class="col-sm-9 gn-value">
-          <input class="form-control" value="{gco:CharacterString}"
-                 name="_{gco:CharacterString/gn:element/@ref}"
-                 type="text"/>
+          <textarea class="form-control"
+                 name="_{gco:CharacterString/gn:element/@ref}">
+            <xsl:value-of select="gco:CharacterString"/>
+          </textarea>
         </div>
       </div>
     </xsl:for-each>
