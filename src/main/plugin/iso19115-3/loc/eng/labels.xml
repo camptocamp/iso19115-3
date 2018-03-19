@@ -4358,6 +4358,9 @@
                 name()='mdb:MD_Metadata' and
                 contains(mdb:metadataStandard/*/cit:title/*:CharacterString, 'Emodnet Checkpoint - Targeted Data Product')]">
 
+      <option value='Atlantos8_UCi_Product_j /' title=''>Atlantos8_UCi_Product_j /</option>
+      <option value="">-----</option>
+
       <option value='ATLANTIC_CH01_Product_1 / Map of offshore windfarm siting suitability in the geographic area where waters of France, Ireland and UK meet' title=''>ATLANTIC_CH01_Product_1 / Map of offshore windfarm siting suitability in the geographic area where waters of France, Ireland and UK meet</option>
       <option value='ATLANTIC_CH01_Product_2 / Map of windfarm siting suitability in the area where waters of France and Spain meet in Bay of Biscay on 500 m contour' title=''>ATLANTIC_CH01_Product_2 / Map of windfarm siting suitability in the area where waters of France and Spain meet in Bay of Biscay on 500 m contour</option>
       <option value='ATLANTIC_CH01_Product_3 / Map of windfarm siting suitability in the area of Southern border of Portugal and Spain at 20 m depth' title=''>ATLANTIC_CH01_Product_3 / Map of windfarm siting suitability in the area of Southern border of Portugal and Spain at 20 m depth</option>
@@ -4528,6 +4531,9 @@
             displayIf="ancestor::node()[
                 name()='mdb:MD_Metadata' and
                 contains(mdb:metadataStandard/*/cit:title/*:CharacterString, 'Emodnet Checkpoint - Data Product Specification')]">
+      <option value='Atlantos8_UCi_Specification_j /' title=''>Atlantos8_UCi_Specification_j /</option>
+      <option value="">-----</option>
+
       <option value='ATLANTIC_CH01_Specification_1 / Map of offshore windfarm siting suitability in the geographic area where waters of France, Ireland and UK meet' title=''>ATLANTIC_CH01_Specification_1 / Map of offshore windfarm siting suitability in the geographic area where waters of France, Ireland and UK meet</option>
       <option value='ATLANTIC_CH01_Specification_2 / Map of windfarm siting suitability in the area where waters of France and Spain meet in Bay of Biscay on 500 m contour' title=''>ATLANTIC_CH01_Specification_2 / Map of windfarm siting suitability in the area where waters of France and Spain meet in Bay of Biscay on 500 m contour</option>
       <option value='ATLANTIC_CH01_Specification_3 / Map of windfarm siting suitability in the area of Southern border of Portugal and Spain at 20 m depth' title=''>ATLANTIC_CH01_Specification_3 / Map of windfarm siting suitability in the area of Southern border of Portugal and Spain at 20 m depth</option>
