@@ -269,7 +269,7 @@
                     <col>
                       <xsl:value-of select="gn-fn-metadata:getLabel($schema, 'mdq:nameOfMeasure', $labels,'', '', '')/label"/>
                     </col>
-                    <col>
+                    <col class="gn-table-min-width">
                       <xsl:value-of select="gn-fn-metadata:getLabel($schema, 'mdq:value', $labels,'', '', '')/label"/>
                     </col>
                     <col>
