@@ -115,15 +115,8 @@
   </xsl:template>
 
   <xsl:template mode="getOverviews" match="mdb:MD_Metadata">
-    <h4>
-      <i class="fa fa-fw fa-image">&#160;</i>&#160;
-      <span>
-        <xsl:value-of select="$schemaStrings/overviews"/>
-      </span>
-    </h4>
-
     <xsl:for-each select="mdb:identificationInfo/*/mri:graphicOverview/*">
-      <img class="gn-img-thumbnail center-block"
+      <img class="gn-img-thumbnail img-thumbnail center-block"
            src="{mcc:fileName/*}"/>
 
       <xsl:for-each select="mcc:fileDescription">
