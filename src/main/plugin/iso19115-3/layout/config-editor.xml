@@ -340,6 +340,13 @@
   <!-- View configuration -->
   <views>
     <view name="default">
+
+      <sidePanel>
+        <directive data-gn-onlinesrc-list=""/>
+        <directive data-gn-validation-report=""/>
+        <directive data-gn-suggestion-list=""/>
+      </sidePanel>
+
       <tab id="default" default="true" mode="flat">
         <section xpath="/mdb:MD_Metadata/mdb:identificationInfo"/>
         <section xpath="/mdb:MD_Metadata/mdb:contentInfo"/>
@@ -393,7 +400,7 @@
         <thesaurus key="local.theme.emodnet-checkpoint.status" maxtags="1"/>
         <thesaurus key="local.theme.emodnet-checkpoint.visibility" maxtags="1"/>
         <thesaurus key="local.theme.emodnet-checkpoint.policy.visibility" maxtags="1"/>
-        <thesaurus key="external.theme.inspire-theme" maxtags="1"/>
+        <thesaurus key="external.theme.httpinspireeceuropaeutheme-theme" maxtags="1"/>
         <thesaurus key="local.theme.emodnet-checkpoint.level.of.characteristics" maxtags="1"/>
         <thesaurus key="local.theme.emodnet-checkpoint.production.mode" maxtags="1"/>
         <thesaurus key="local.theme.emodnet-checkpoint.readyness" maxtags="1"/>
@@ -402,6 +409,13 @@
         <thesaurus key="external.parameter.NVS.P01" maxtags="1"/>
         <thesaurus key="external.parameter.NVS.P02" maxtags="1"/>
       </thesaurusList>
+
+      <sidePanel>
+        <directive data-gn-onlinesrc-list=""/>
+        <directive data-gn-validation-report=""/>
+        <directive data-gn-suggestion-list=""/>
+      </sidePanel>
+
       <tab id="characteristics" mode="flat" default="true" formatter-order="2">
         <section>
 
@@ -1324,12 +1338,19 @@
         <thesaurus key="local.theme.emodnet-checkpoint.challenges" maxtags="1"/>
         <thesaurus key="local.theme.emodnet-checkpoint.visibility" maxtags="1"/>
         <thesaurus key="local.theme.emodnet-checkpoint.policy.visibility" maxtags="1"/>
-        <thesaurus key="external.theme.inspire-theme" maxtags="1"/>
+        <thesaurus key="external.theme.httpinspireeceuropaeutheme-theme" maxtags="1"/>
         <thesaurus key="local.theme.emodnet-checkpoint.level.of.characteristics" maxtags="1"/>
         <thesaurus key="local.theme.emodnet-checkpoint.production.mode" maxtags="1"/>
         <thesaurus key="local.theme.emodnet-checkpoint.readyness" maxtags="1"/>
         <thesaurus key="local.theme.emodnet-checkpoint.data.delivery.mechanism" maxtags="1"/>
       </thesaurusList>
+
+      <sidePanel>
+        <directive data-gn-onlinesrc-list=""/>
+        <directive data-gn-validation-report=""/>
+        <directive data-gn-suggestion-list=""/>
+      </sidePanel>
+
       <tab id="checkpoint-dps-characteristics" default="true">
         <section name="checkpoint-dps-main">
 
@@ -2385,12 +2406,19 @@
         <thesaurus key="local.theme.emodnet-checkpoint.visibility" maxtags="1"/>
         <thesaurus key="local.theme.emodnet-checkpoint.challenges" maxtags="1"/>
         <thesaurus key="local.theme.emodnet-checkpoint.policy.visibility" maxtags="1"/>
-        <thesaurus key="external.theme.inspire-theme" maxtags="1"/>
+        <thesaurus key="external.theme.httpinspireeceuropaeutheme-theme" maxtags="1"/>
         <thesaurus key="local.theme.emodbnet-checkpoint.level.of.characteristics" maxtags="1"/>
         <thesaurus key="local.theme.emodnet-checkpoint.production.mode" maxtags="1"/>
         <thesaurus key="local.theme.emodnet-checkpoint.readyness" maxtags="1"/>
         <thesaurus key="local.theme.emodnet-checkpoint.data.delivery.mechanism" maxtags="1"/>
       </thesaurusList>
+
+      <sidePanel>
+        <directive data-gn-onlinesrc-list=""/>
+        <directive data-gn-validation-report=""/>
+        <directive data-gn-suggestion-list=""/>
+      </sidePanel>
+
       <tab id="checkpoint-tdp-characteristics" default="true">
         <section name="checkpoint-tdp-main">
 
@@ -2946,6 +2974,12 @@
 
 
     <view name="advanced">
+      <sidePanel>
+        <directive data-gn-onlinesrc-list=""/>
+        <directive data-gn-validation-report=""/>
+        <directive data-gn-suggestion-list=""/>
+      </sidePanel>
+
       <tab id="identificationInfo" default="true">
         <section xpath="/mdb:MD_Metadata/mdb:identificationInfo" or="identificationInfo"
                  in="/mdb:MD_Metadata"/>
@@ -3030,6 +3064,12 @@
       </tab>
     </view>
     <view name="xml">
+      <sidePanel>
+        <directive data-gn-onlinesrc-list=""/>
+        <directive data-gn-validation-report=""/>
+        <directive data-gn-suggestion-list=""/>
+      </sidePanel>
+
       <tab id="xml" default="true"/>
     </view>
   </views>
