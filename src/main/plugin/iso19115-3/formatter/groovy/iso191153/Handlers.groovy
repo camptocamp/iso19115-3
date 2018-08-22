@@ -31,7 +31,7 @@ public class Handlers {
     protected org.fao.geonet.api.records.formatters.groovy.Functions f
     protected Environment env
     Matchers matchers
-    iso19139.Functions isofunc
+    iso191153.Functions isofunc
     common.Handlers commonHandlers
     List<String> packageViews
     String rootEl = 'mdb:MD_Metadata'
@@ -41,7 +41,7 @@ public class Handlers {
         this.f = f
         this.env = env
         commonHandlers = new common.Handlers(handlers, f, env)
-        isofunc = new iso19139.Functions(handlers: handlers, f:f, env:env, commonHandlers: commonHandlers)
+        isofunc = new iso191153.Functions(handlers: handlers, f:f, env:env, commonHandlers: commonHandlers)
         matchers =  new Matchers(handlers: handlers, f:f, env:env)
         packageViews = [
                 'mdb:identificationInfo', 'gmd:metadataMaintenance', 'gmd:metadataConstraints', 'mdb:spatialRepresentationInfo',
@@ -403,8 +403,10 @@ public class Handlers {
             def mdId = env.getMetadataId();
             def xpath = f.getXPathFrom(el);
 
+            def gnUrl = env.getLocalizedUrl();
+
             if (xpath != null) {
-                def image = "<img src=\"region.getmap.png?mapsrs=$mapproj&amp;width=$width&amp;background=$background&amp;id=metadata:@id$mdId:@xpath$xpath\"\n" +
+                def image = "<img src=\"${gnUrl}region.getmap.png?mapsrs=$mapproj&amp;width=$width&amp;background=$background&amp;id=metadata:@id$mdId:@xpath$xpath\"\n" +
                         "         style=\"min-width:${width/4}px; min-height:${width/4}px;\" />"
 
                 def inclusion = el.'gmd:extentTypeCode'.text() == '0' ? 'exclusive' : 'inclusive';
@@ -427,6 +429,7 @@ public class Handlers {
                 def replacements = bbox(thumbnail, el)
                 replacements['label'] = label
                 replacements['pdfOutput'] = commonHandlers.func.isPDFOutput()
+                replacements['gnUrl'] = env.getLocalizedUrl();
 
                 handlers.fileResult("html/bbox.html", replacements)
             }
@@ -462,4 +465,206 @@ public class Handlers {
 
             return  rootPackageOutput.toString() + otherPackageData
     }
+
+    // Sextant Specific : Formatters
+    def keywordsElSxt = {keywords ->
+        def keywordProps = com.google.common.collect.ArrayListMultimap.create()
+        keywords.collectNested {it.'**'.findAll{it.name() == 'mri:keyword'}}.flatten().each { k ->
+            def thesaurusName = isofunc.isoText(k.parent().'mri:thesaurusName'.'cit:CI_Citation'.'cit:title')
+
+            if (thesaurusName.isEmpty()) {
+                def keywordTypeCode = k.parent().'mri:type'.'mri:MD_KeywordTypeCode'
+                if (!keywordTypeCode.isEmpty()) {
+                    thesaurusName = f.translate("uncategorizedKeywords")
+                }
+            }
+
+            if (thesaurusName.isEmpty()) {
+                thesaurusName = f.translate("noThesaurusName")
+            }
+            def keyValue = isofunc.isoText(k);
+            if(!keyValue) keyValue = k.'gmx:Anchor'.text()
+            if(keyValue) keywordProps.put(thesaurusName, keyValue)
+        }
+
+        if(keywordProps.asMap().size() > 0)
+            return handlers.fileResult('html/sxt-keyword.html', [
+                    label : f.nodeLabel("mri:descriptiveKeywords", null),
+                    keywords: keywordProps.asMap()])
+    }
+
+
+    def bboxElSxt(thumbnail) {
+        return { el ->
+            if (el.parent().'gmd:EX_BoundingPolygon'.text().isEmpty() &&
+                    el.parent().parent().'gex:geographicElement'.'gmd:EX_BoundingPolygon'.text().isEmpty()) {
+                def replacements = bbox(thumbnail, el)
+                replacements['label'] = f.nodeLabel(el)
+                replacements['gnUrl'] = env.getLocalizedUrl();
+                //replacements['pdfOutput'] = env.formatType == FormatType.pdf
+
+                handlers.fileResult("html/sxt-bbox.html", replacements)
+            }
+        }
+    }
+
+    def dataQualityInfoElSxt =  { el ->
+        return handlers.fileResult('html/sxt-statements.html', [
+                statements : el
+        ])
+    }
+
+    def datesElSxt =  { els ->
+        def dates = ''
+        els.each { el ->
+            def date = el.'cit:date'.'gco:Date'.text().isEmpty() ?
+                    el.'cit:date'.'gco:DateTime'.text() :
+                    el.'cit:date'.'gco:Date'.text()
+
+            if(date) {
+                def dateType = f.codelistValueLabel(el.'cit:dateType'.'cit:CI_DateTypeCode')
+                dates += '<p>' + date + ' - ' + dateType + '</p>'
+            }
+        }
+        return dates
+    }
+
+    def getContactMails = { parent ->
+        def mails = []
+        parent.'cit:contactInfo'.'cit:CI_Contact'
+                .'cit:address'.'cit:CI_Address'.'cit:electronicMailAddress'.each {
+            m ->
+                def mail = this.isofunc.isoText(m)
+                if(mail != "") mails.push()
+        }
+        return mails
+    }
+
+    def addContact = { contacts, contact ->
+        // Check that name already in list
+        def exist = false
+        contacts.each {c ->
+            if (c.name == contact.name && c.mail == contact.mail) {
+                exist = true
+            }
+        }
+//          TODO: Could be relevant to group contact with same name and
+//          different roles or orgs
+        if (!exist) {
+            if(contact.name != "" || contact.org != '') {
+                contacts.push(contact)
+            }
+        }
+    }
+
+    def contactsElSxt =  { responsibilities ->
+        def contacts = []
+        def idx = 0
+        responsibilities.each { responsability ->
+            responsability.'cit:party'.each { party ->
+                def orgs = party.'cit:CI_Organisation'
+                def individuals = party.'cit:CI_Individual' // TODO
+
+                if(orgs) { // TODO: should be array
+                    def orgIndividual = orgs.'cit:individual'
+                    def orgName = this.isofunc.isoText(orgs.'cit:name')
+                    def orgMails = getContactMails(orgs)
+
+                    orgIndividual.each { ind ->
+                        def name = this.isofunc.isoText(ind.'*'.'cit:name')
+                        def mails = getContactMails(ind.'cit:CI_Individual')
+                        if(mails.size() == 0) mails = orgMails
+
+                        def contact = [
+                            name : name,
+                            link: responsability['@uuid'],
+                            emptyName : name == '',
+                            mail : mails.join(','),
+                            org : orgName
+                        ]
+                        addContact(contacts, contact)
+                    }
+
+                    if(!orgIndividual || orgIndividual == "") {
+                        def contact = [
+                            name : '',
+                            link: responsability['@uuid'],
+                            emptyName : true,
+                            mail : orgMails.join(','),
+                            org : orgName
+                        ]
+                        addContact(contacts, contact)
+                    }
+                }
+            }
+        }
+        def replacements = [
+                contacts : contacts
+        ]
+
+        if(!contacts)  {
+            return ""
+        }
+        else {
+            return handlers.fileResult("html/sxt-contacts.html", replacements)
+        }
+    }
+
+    def constraintsElSxt = { els ->
+        def useLimitation
+        def accessConstraints
+        def useConstraints
+        def otherConstraints
+        def useLimitationLabel
+        def accessConstraintsLabel
+        def useConstraintsLabel
+        def otherConstraintsLabel
+
+        els.each { el ->
+            useLimitationLabel = f.nodeLabel(el."mco:useLimitation")
+            accessConstraintsLabel = f.nodeLabel(el."mco:accessConstraints")
+            useConstraintsLabel = f.nodeLabel(el."mco:useConstraints")
+            otherConstraintsLabel = f.nodeLabel(el."mco:otherConstraints")
+
+            useLimitation = this.isofunc.isoText(el."mco:useLimitation")
+            accessConstraints = f.codelistValueLabel(el."mco:accessConstraints"."mco:MD_RestrictionCode")
+            useConstraints = f.codelistValueLabel(el."mco:useConstraints"."mco:MD_RestrictionCode")
+            otherConstraints = []
+            el.collectNested {it.'**'.findAll{it.name() == 'mco:otherConstraints'}}.flatten().each { k ->
+                otherConstraints.add(this.isofunc.isoText(k))
+            }
+        }
+
+        def replacements = [
+                accessConstraints: '',
+                useLimitation: '',
+                useConstraints: '',
+                otherConstraints: '',
+                useLimitationLabel : useLimitationLabel,
+                accessConstraintsLabel : accessConstraintsLabel,
+                useConstraintsLabel : useConstraintsLabel,
+                otherConstraintsLabel : otherConstraintsLabel
+        ]
+        def hasContraints = false;
+
+        if (accessConstraints != '') {
+            replacements.accessConstraints = accessConstraints
+            hasContraints = true;
+        }
+        if (useLimitation != '') {
+            replacements.useLimitation = useLimitation
+            hasContraints = true;
+        }
+        if (useConstraints != '') {
+            replacements.useConstraints = useConstraints
+            hasContraints = true;
+        }
+        if (otherConstraints.size() > 0) {
+            replacements.otherConstraints = otherConstraints
+            hasContraints = true;
+        }
+
+        return hasContraints ? handlers.fileResult("html/sxt-constraints.html", replacements) : ''
+    }
+
 }
