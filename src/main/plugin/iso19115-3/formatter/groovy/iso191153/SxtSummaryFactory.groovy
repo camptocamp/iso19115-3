@@ -1,4 +1,4 @@
-package iso191153
+package iso19115_3
 
 import org.fao.geonet.api.records.formatters.FormatType
 import org.fao.geonet.api.records.formatters.groovy.Environment
@@ -220,19 +220,21 @@ class SxtSummaryFactory {
 
 
 
-    def dateElts = metadata.'gmd:identificationInfo'.'*'.'gmd:citation'."**".findAll{it.name() == 'gmd:CI_Date' &&
-      it.'gmd:dateType'.'gmd:CI_DateTypeCode'['@codeListValue'] == 'publication'}
+    def dateElts = metadata.'mdb:identificationInfo'.'*'.'cit:citation'."**".findAll{
+                    it.name() == 'cit:CI_Date' &&
+                    it.'cit:dateType'.'cit:CI_DateTypeCode'['@codeListValue'] == 'publication'}
 
     if(dateElts.size() <= 0) {
-      dateElts = metadata.'gmd:identificationInfo'.'*'.'gmd:citation'."**".findAll{it.name() == 'gmd:CI_Date' &&
-              it.'gmd:dateType'.'gmd:CI_DateTypeCode'['@codeListValue'] == 'creation'}
+      dateElts = metadata.'mdb:identificationInfo'.'*'.'cit:citation'."**".findAll{
+                    it.name() == 'cit:CI_Date' &&
+                    it.'cit:dateType'.'cit:CI_DateTypeCode'['@codeListValue'] == 'creation'}
     }
 
     def year = '';
     if(dateElts.size() > 0) {
-      def sDate = dateElts[0].'gmd:date'.'gco:Date'.text();
+      def sDate = dateElts[0].'cit:date'.'gco:Date'.text();
       if(sDate == null || sDate == "") {
-        sDate = dateElts[0].'gmd:date'.'gco:DateTime'.text();
+        sDate = dateElts[0].'cit:date'.'gco:DateTime'.text();
       }
       if(sDate != null && sDate != "") {
         def pattern = "yyyy-MM-dd"
@@ -250,7 +252,7 @@ class SxtSummaryFactory {
 
     def url = ''
     if(el) {
-      url = el.'gmd:linkage'.'gmd:URL'
+      url = el.'cit:linkage'.'gco:CharacterString'
     }
 
     def replacements

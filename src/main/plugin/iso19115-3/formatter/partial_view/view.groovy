@@ -21,7 +21,7 @@
  * Rome - Italy. email: geonetwork@osgeo.org
  */
 
-def isoHandlers = new iso19139.Handlers(handlers, f, env)
+def isoHandlers = new iso19115_3.Handlers(handlers, f, env)
 
 isoHandlers.addDefaultHandlers()
 handlers.start {}

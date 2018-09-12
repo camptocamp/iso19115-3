@@ -21,7 +21,7 @@
  * Rome - Italy. email: geonetwork@osgeo.org
  */
 
-package iso191153
+package iso19115_3
 
 import org.fao.geonet.api.records.formatters.groovy.Environment
 import org.fao.geonet.api.records.formatters.groovy.MapConfig
@@ -31,7 +31,7 @@ public class Handlers {
     protected org.fao.geonet.api.records.formatters.groovy.Functions f
     protected Environment env
     Matchers matchers
-    iso191153.Functions isofunc
+    iso19115_3.Functions isofunc
     common.Handlers commonHandlers
     List<String> packageViews
     String rootEl = 'mdb:MD_Metadata'
@@ -41,18 +41,18 @@ public class Handlers {
         this.f = f
         this.env = env
         commonHandlers = new common.Handlers(handlers, f, env)
-        isofunc = new iso191153.Functions(handlers: handlers, f:f, env:env, commonHandlers: commonHandlers)
+        isofunc = new iso19115_3.Functions(handlers: handlers, f:f, env:env, commonHandlers: commonHandlers)
         matchers =  new Matchers(handlers: handlers, f:f, env:env)
         packageViews = [
-                'mdb:identificationInfo', 'gmd:metadataMaintenance', 'gmd:metadataConstraints', 'mdb:spatialRepresentationInfo',
-                'mdb:distributionInfo', 'gmd:applicationSchemaInfo', 'mdb:dataQualityInfo', 'gmd:portrayalCatalogueInfo',
-                'mdb:contentInfo', 'gmd:metadataExtensionInfo', 'mdb:referenceSystemInfo', rootEl]
+                'mdb:identificationInfo', 'mdb:metadataMaintenance', 'mdb:metadataConstraints', 'mdb:spatialRepresentationInfo',
+                'mdb:distributionInfo', 'mdb:applicationSchemaInfo', 'mdb:dataQualityInfo', 'mdb:portrayalCatalogueInfo',
+                'mdb:contentInfo', 'mdb:metadataExtensionInfo', 'mdb:referenceSystemInfo', rootEl]
     }
 
     def addDefaultHandlers() {
         handlers.add name: 'Text Elements', select: matchers.isTextEl, isoTextEl
         handlers.add name: 'Simple Text Elements', select: matchers.isSimpleTextEl, isoSimpleTextEl
-        handlers.add name: 'URL Elements', select: matchers.isUrlEl, isoUrlEl
+        handlers.add name: 'URL Elements', select: matchers.isTextEl, isoTextEl
         handlers.add name: 'Anchor URL Elements', select: matchers.isAnchorUrlEl, isoAnchorUrlEl
         handlers.add name: 'Simple Elements', select: matchers.isBasicType, isoBasicType
         handlers.add name: 'Boolean Elements', select: matchers.isBooleanEl, isoBooleanEl
@@ -62,7 +62,6 @@ public class Handlers {
         handlers.add name: 'Keyword Elements', select: 'mri:descriptiveKeywords', group:true, keywordsEl
         handlers.add name: 'ResponsibleParty Elements', select: matchers.isRespParty, pointOfContactEl
         handlers.add name: 'Graphic Overview', select: 'mri:graphicOverview', group: true, graphicOverviewEl
-        handlers.add name: 'Dataset URI', select: 'gmd:dataSetURI', isoDatasetUriEl
         handlers.add select: 'lan:language', group: false, isoLanguageEl
         handlers.add select: matchers.isCiOnlineResourceParent, group: true, onlineResourceEls
         handlers.add select: 'srv:coupledResource', group: true, coupledResourceEls
@@ -76,7 +75,7 @@ public class Handlers {
         handlers.skip name: "skip codelist parent element", select: matchers.hasCodeListChild, {it.children()}
         handlers.skip name: "skip containers: " + matchers.skipContainers, select: matchers.isSkippedContainer, {it.children()}
 
-        handlers.add select: 'gmd:locale', group: true, localeEls
+        handlers.add select: 'mdb:otherLocale', group: true, localeEls
         handlers.add 'cit:CI_Date', ciDateEl
         handlers.add 'cit:CI_Citation', citationEl
         handlers.add name: 'Root Element', select: matchers.isRoot, rootPackageEl
@@ -106,7 +105,6 @@ public class Handlers {
     }
 
     def isoTextEl = { isofunc.isoTextEl(it, isofunc.isoText(it))}
-    def isoUrlEl = { isofunc.isoUrlEl(it, isofunc.isoUrlText(it), isofunc.isoUrlText(it))}
     def isoAnchorUrlEl = { isofunc.isoUrlEl(it, isofunc.isoAnchorUrlLink(it), isofunc.isoAnchorUrlText(it))}
     def isoDatasetUriEl = { isofunc.isoUrlEl(it, isofunc.isoText(it), isofunc.isoText(it))}
     def isoCodeListEl = {isofunc.isoTextEl(it, f.codelistValueLabel(it))}
@@ -140,10 +138,10 @@ public class Handlers {
     def localeEls = { els ->
         def locales = []
         els.each {
-            it.'gmd:PT_Locale'.each { loc ->
+            it.'lan:PT_Locale'.each { loc ->
                 locales << [
-                        language: f.codelistValueLabel(loc.'gmd:languageCode'.'gmd:LanguageCode'),
-                        charset: f.codelistValueLabel(loc.'gmd:characterEncoding'.'gmd:MD_CharacterSetCode')
+                        language: f.codelistValueLabel(loc.'lan:languageCode'.'lan:LanguageCode'),
+                        charset: f.codelistValueLabel(loc.'lan:characterEncoding'.'lan:MD_CharacterSetCode')
                 ]
             }
         }
@@ -175,7 +173,7 @@ public class Handlers {
         def links = []
         els.each {it.'cit:CI_OnlineResource'.each { link ->
             def model = [
-                    href : isofunc.isoUrlText(link.'cit:linkage'),
+                    href : isofunc.clean(isofunc.isoText(link.'cit:linkage')),
                     name : isofunc.clean(isofunc.isoText(link.'cit:name')),
                     desc : isofunc.clean(isofunc.isoText(link.'cit:description'))
             ]
@@ -252,7 +250,7 @@ public class Handlers {
             def format = resolveFormat(el)
             def valueMap = [:]
             format.children().list().each {child ->
-                if (child.name().equals("gmd:formatDistributor")) {
+                if (child.name().equals("mrd:formatDistributor")) {
                     return;
                 }
                 String[] parts = child.name().split(":");
@@ -265,7 +263,8 @@ public class Handlers {
 
                 valueMap.put(name, isofunc.isoText(child))
             }
-            def distributor = resolveFormat(el).'gmd:formatDistributor'.'gmd:MD_Distributor'.'gmd:distributorContact'.'*'
+            def distributor = resolveFormat(el).'mrd:formatDistributor'
+                .'mrd:MD_Distributor'.'mrd:distributorContact'.'*'
             if (!distributor.text().isEmpty()) {
                 valueMap.put('formatDistributor', handlers.processElements(distributor))
             }
@@ -303,25 +302,12 @@ public class Handlers {
                 label : f.nodeLabel("mri:descriptiveKeywords", null),
                 keywords: keywordProps.asMap()])
     }
-    def isSmallImage(img) {
-        return img.matches(".+_s\\.\\w+");
-    }
     def graphicOverviewEl = {graphics ->
         def links = []
-        def hasLargeGraphic = graphics.find {graphic ->
-            def url = graphic.'mcc:fileName'.text()
-            !(url.startsWith("http://") || url.startsWith("https://")) && !isSmallImage(url)
-        }
         graphics.each {it.'mcc:MD_BrowseGraphic'.each { graphic ->
             def img = graphic.'mcc:fileName'.text()
-            String thumbnailUrl;
-            if (img.startsWith("http://") || img.startsWith("https://")) {
-                thumbnailUrl = img.replace("&fname", "&amp;fname");
-            } else if (!isSmallImage(img) || !hasLargeGraphic) {
-                thumbnailUrl = env.getLocalizedUrl() + "resources.get?fname=" + img + "&amp;access=public&amp;id=" + env.getMetadataId();
-            }
-
-            if (thumbnailUrl != null) {
+            if (img != null) {
+                String thumbnailUrl = img.replace("&fname", "&amp;fname");
                 links << [
                         src : thumbnailUrl,
                         desc: isofunc.isoText(graphic.'mcc:fileDescription')
@@ -335,8 +321,9 @@ public class Handlers {
         ])
     }
     def citationEl = { el ->
-        Set processedChildren = ['cit:title', 'cit:alternateTitle', 'cit:identifier', 'gmd:ISBN', 'gmd:ISSN',
-                                 'cit:date', 'gmd:edition', 'gmd:editionDate', 'gmd:presentationForm']
+        Set processedChildren = ['cit:title', 'cit:alternateTitle', 'cit:identifier',
+                                 'cit:ISBN', 'cit:ISSN', 'cit:date',
+                                 'cit:edition', 'cit:editionDate', 'cit:presentationForm']
 
         def otherChildren = el.children().findAll { ch -> !processedChildren.contains(ch.name()) }
 
@@ -344,11 +331,14 @@ public class Handlers {
                 title :  handlers.processElements([el.'cit:title']),
                 altTitle : handlers.processElements([el.'cit:alternateTitle']),
                 date : handlers.processElements(el.'cit:date'.'cit:CI_Date'),
-                editionInfo: commonHandlers.func.textEl(el.'gmd:edition'.text(), el.'gmd:editionDate'.'gco:Date'.text()),
-                identifier : isofunc.isoWikiTextEl(el.'cit:identifier', el.'cit:identifier'.'*'.'mcc:code'.join('<br/>')),
-                presentationForm : isofunc.isoTextEl(el.'gmd:presentationForm', f.codelistValueLabel(el.'gmd:presentationForm'.'gmd:CI_PresentationFormCode')),
-                ISBN : handlers.processElements(el.'gmd:ISBN'),
-                ISSN : handlers.processElements(el.'gmd:ISSN'),
+                editionInfo: commonHandlers.func.textEl(el.'cit:edition'.text(),
+                  el.'cit:editionDate'.'gco:Date'.text()),
+                identifier : isofunc.isoWikiTextEl(el.'cit:identifier',
+                  el.'cit:identifier'.'*'.'mcc:code'.join('<br/>')),
+                presentationForm : isofunc.isoTextEl(el.'cit:presentationForm',
+                  f.codelistValueLabel(el.'cit:presentationForm'.'cit:CI_PresentationFormCode')),
+                ISBN : handlers.processElements(el.'cit:ISBN'),
+                ISSN : handlers.processElements(el.'cit:ISSN'),
                 otherData : handlers.processElements(otherChildren)
         ]
         return handlers.fileResult("html/citation.html", model)
@@ -360,11 +350,12 @@ public class Handlers {
     def pointOfContactEl = { el ->
 
         def responsability = el.children().find { ch ->
-            ch.name() == 'cit:CI_Responsibility' || ch['@gco:isoType'].text() == 'cit:CI_Responsibility'
+            ch.name() == 'cit:CI_Responsibility' ||
+              ch['@gco:isoType'].text() == 'cit:CI_Responsibility'
         }
 
         def general = pointOfContactGeneralData(responsability);
-        def groups = responsability.'gmd:contactInfo'.'*'.'*'
+        def groups = responsability.'cit:contactInfo'.'*'.'*'
 
         def half = (int) Math.round((groups.size()) / 2)
 
@@ -409,7 +400,7 @@ public class Handlers {
                 def image = "<img src=\"${gnUrl}region.getmap.png?mapsrs=$mapproj&amp;width=$width&amp;background=$background&amp;id=metadata:@id$mdId:@xpath$xpath\"\n" +
                         "         style=\"min-width:${width/4}px; min-height:${width/4}px;\" />"
 
-                def inclusion = el.'gmd:extentTypeCode'.text() == '0' ? 'exclusive' : 'inclusive';
+                def inclusion = el.'gex:extentTypeCode'.text() == '0' ? 'exclusive' : 'inclusive';
 
                 def label = f.nodeLabel(el) + " (" + f.translate(inclusion) + ")"
                 handlers.fileResult('html/2-level-entry.html', [label: label, childData: image])
@@ -419,10 +410,10 @@ public class Handlers {
 
     def bboxEl(thumbnail) {
         return { el ->
-            if (el.parent().'gmd:EX_BoundingPolygon'.text().isEmpty() &&
-                    el.parent().parent().'gex:geographicElement'.'gmd:EX_BoundingPolygon'.text().isEmpty()) {
+            if (el.parent().'gex:EX_BoundingPolygon'.text().isEmpty() &&
+                    el.parent().parent().'gex:geographicElement'.'gex:EX_BoundingPolygon'.text().isEmpty()) {
 
-                def inclusion = el.'gmd:extentTypeCode'.text() == '0' ? 'exclusive' : 'inclusive';
+                def inclusion = el.'gex:extentTypeCode'.text() == '0' ? 'exclusive' : 'inclusive';
 
                 def label = f.nodeLabel(el) + " (" + f.translate(inclusion) + ")"
 
@@ -483,7 +474,7 @@ public class Handlers {
                 thesaurusName = f.translate("noThesaurusName")
             }
             def keyValue = isofunc.isoText(k);
-            if(!keyValue) keyValue = k.'gmx:Anchor'.text()
+            if(!keyValue) keyValue = k.'gcx:Anchor'.text()
             if(keyValue) keywordProps.put(thesaurusName, keyValue)
         }
 
@@ -496,8 +487,8 @@ public class Handlers {
 
     def bboxElSxt(thumbnail) {
         return { el ->
-            if (el.parent().'gmd:EX_BoundingPolygon'.text().isEmpty() &&
-                    el.parent().parent().'gex:geographicElement'.'gmd:EX_BoundingPolygon'.text().isEmpty()) {
+            if (el.parent().'gex:EX_BoundingPolygon'.text().isEmpty() &&
+                    el.parent().parent().'gex:geographicElement'.'gex:EX_BoundingPolygon'.text().isEmpty()) {
                 def replacements = bbox(thumbnail, el)
                 replacements['label'] = f.nodeLabel(el)
                 replacements['gnUrl'] = env.getLocalizedUrl();

@@ -21,7 +21,7 @@
  * Rome - Italy. email: geonetwork@osgeo.org
  */
 
-package iso191153
+package iso19115_3
 import org.fao.geonet.api.records.formatters.FormatType
 import org.fao.geonet.api.records.formatters.groovy.Environment
 import org.fao.geonet.api.records.formatters.groovy.util.*

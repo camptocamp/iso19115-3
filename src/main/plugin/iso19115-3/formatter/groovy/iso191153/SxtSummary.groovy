@@ -1,4 +1,4 @@
-package iso191153
+package iso19115_3
 
 import com.google.common.collect.Maps
 import org.fao.geonet.api.records.formatters.FormatType

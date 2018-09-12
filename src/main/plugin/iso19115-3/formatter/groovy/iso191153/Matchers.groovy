@@ -21,7 +21,7 @@
  * Rome - Italy. email: geonetwork@osgeo.org
  */
 
-package iso191153
+package iso19115_3
 
 public class Matchers {
     def handlers;
@@ -30,14 +30,17 @@ public class Matchers {
 
     def isUrlEl = {!it.'gmd:URL'.text().isEmpty()}
     def isAnchorUrlEl = {!it.'gcx:Anchor'['@xlink:href'].text().isEmpty()}
-    def simpleElements = ['gco:Decimal', 'gco:Real', 'gco:Integer', 'gco:Scale', 'gco:Angle', 'gco:Measure', 'gco:Distance',
-                          'gmd:MD_PixelOrientationCode', 'gts:TM_PeriodDuration']
+    def simpleElements = ['gco:Decimal', 'gco:Real', 'gco:Integer', 'gco:Scale',
+                          'gco:Angle', 'gco:Measure', 'gco:Distance',
+                          'msr:MD_PixelOrientationCode', 'gco:TM_PeriodDuration']
 
     def skipContainers = [
-            'gmd:CI_Series', 'mrs:MD_ReferenceSystem', 'mdb:identificationInfo', 'mrd:transferOptions',
+            'cit:CI_Series', 'mrs:MD_ReferenceSystem', 'mdb:identificationInfo', 'mrd:transferOptions',
             'cit:contactInfo', 'cit:address', 'cit:phone', 'cit:onlineResource', 'mrs:referenceSystemIdentifier',
-            'gmd:distributorTransferOptions', 'gmd:resourceMaintenance', 'gmd:resourceConstraints', 'gmd:aggregationInfo', 'mdq:scope',
-            'mdq:DQ_DataQuality', 'gmd:lineage', 'gmd:processStep', 'mrd:MD_Distribution', 'gmd:MD_Distributor'
+            'mrd:distributorTransferOptions', 'mri:resourceMaintenance',
+            'mri:resourceConstraints', 'mri:associatedResource', 'mdq:scope',
+            'mdq:DQ_DataQuality', 'mrl:lineage', 'gmd:processStep', 'mrd:MD_Distribution',
+            'mrd:MD_Distributor'
     ]
 
     def isBasicType = {el ->
@@ -52,7 +55,7 @@ public class Matchers {
 
     def isTextEl = {el ->
         !el.'gco:CharacterString'.text().isEmpty() ||
-                !el.'gmd:PT_FreeText'.'gmd:textGroup'.'gmd:LocalisedCharacterString'.text().isEmpty()
+                !el.'lan:PT_FreeText'.'lan:textGroup'.'lan:LocalisedCharacterString'.text().isEmpty()
     }
 
     def isSimpleTextEl = {el ->

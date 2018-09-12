@@ -21,7 +21,7 @@
  * Rome - Italy. email: geonetwork@osgeo.org
  */
 
-package iso191153
+package iso19115_3
 
 import org.fao.geonet.domain.ISODate
 
@@ -46,10 +46,6 @@ public class Functions {
         return trimmed;
     }
 
-    def isoUrlText = { el ->
-        el.'gmd:URL'.text()
-    }
-
     def isoAnchorUrlLink = { el ->
         el.'gcx:Anchor'['@xlink:href'].text()
     }
@@ -62,7 +58,7 @@ public class Functions {
         def uiCode2 = '#'+env.lang2.toUpperCase()
         def uiCode3 = '#'+env.lang3.toUpperCase()
 
-        def locStrings = el.'**'.findAll{ it.name() == 'gmd:LocalisedCharacterString' && !it.text().isEmpty()}
+        def locStrings = el.'**'.findAll{ it.name() == 'lan:LocalisedCharacterString' && !it.text().isEmpty()}
         def ptEl = locStrings.find{(it.'@locale' == uiCode2 || it.'@locale' == uiCode3)}
         if (ptEl != null) return ptEl.text()
 

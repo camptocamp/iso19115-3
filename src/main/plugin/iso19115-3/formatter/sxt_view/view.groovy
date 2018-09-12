@@ -1,6 +1,6 @@
-import iso191153.SxtSummaryFactory
+import iso19115_3.SxtSummaryFactory
 
-def isoHandlers = new iso191153.Handlers(handlers, f, env)
+def isoHandlers = new iso19115_3.Handlers(handlers, f, env)
 
 SxtSummaryFactory.summaryHandler({it.parent() is it.parent()}, isoHandlers)
 

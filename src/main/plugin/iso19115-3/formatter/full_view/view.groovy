@@ -21,9 +21,9 @@
  * Rome - Italy. email: geonetwork@osgeo.org
  */
 
-import iso191153.SummaryFactory
+import iso19115_3.SummaryFactory
 
-def isoHandlers = new iso191153.Handlers(handlers, f, env)
+def isoHandlers = new iso19115_3.Handlers(handlers, f, env)
 
 SummaryFactory.summaryHandler({it.parent() is it.parent()}, isoHandlers)
 
