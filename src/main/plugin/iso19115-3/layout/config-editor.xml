@@ -411,7 +411,7 @@
       </thesaurusList>
 
       <sidePanel>
-        <directive data-gn-onlinesrc-list=""/>
+        <directive data-gn-onlinesrc-list="thumbnail|onlinesrc|associated"/>
         <directive data-gn-validation-report=""/>
         <directive data-gn-suggestion-list=""/>
       </sidePanel>
@@ -1346,7 +1346,7 @@
       </thesaurusList>
 
       <sidePanel>
-        <directive data-gn-onlinesrc-list=""/>
+        <directive data-gn-onlinesrc-list="thumbnail|onlinesrc|associated"/>
         <directive data-gn-validation-report=""/>
         <directive data-gn-suggestion-list=""/>
       </sidePanel>
@@ -2414,7 +2414,7 @@
       </thesaurusList>
 
       <sidePanel>
-        <directive data-gn-onlinesrc-list=""/>
+        <directive data-gn-onlinesrc-list="thumbnail|onlinesrc|associated"/>
         <directive data-gn-validation-report=""/>
         <directive data-gn-suggestion-list=""/>
       </sidePanel>

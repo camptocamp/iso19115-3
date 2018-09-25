@@ -338,7 +338,7 @@
               <cit:identifier>
                 <mcc:MD_Identifier>
                   <mcc:code>
-                    <gcx:Anchor xlink:href="http://localhost:8080/geonetwork/srv/eng/thesaurus.download?ref=external.theme.inspire-theme">geonetwork.thesaurus.external.theme.inspire-theme</gcx:Anchor>
+                    <gcx:Anchor xlink:href="http://localhost:8080/geonetwork/srv/eng/thesaurus.download?ref=external.theme.httpinspireeceuropaeutheme-theme">geonetwork.thesaurus.external.theme.httpinspireeceuropaeutheme-theme</gcx:Anchor>
                   </mcc:code>
                 </mcc:MD_Identifier>
               </cit:identifier>

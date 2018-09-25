@@ -146,7 +146,7 @@
         <!--
           Example: to restrict number of keyword to 1 for INSPIRE
           <xsl:variable name="maxTags"
-          select="if ($thesaurusKey = 'external.theme.inspire-theme') then '1' else ''"/>
+          select="if ($thesaurusKey = 'external.theme.httpinspireeceuropaeutheme-theme') then '1' else ''"/>
         -->
         <!-- Create a div with the directive configuration
             * widgetMod: the layout to use
