@@ -133,7 +133,10 @@
 
 
   <xsl:template mode="getMetadataHeader" match="mdb:MD_Metadata">
-    <div class="alert alert-info">
+    <div class="alert alert-info"
+        itemprop="description"
+        itemscope="itemscope"
+        itemtype="http://schema.org/description">
       <xsl:for-each select="mdb:identificationInfo/*/mri:abstract">
         <xsl:call-template name="get-iso19115-3-localised">
           <xsl:with-param name="langId" select="$langId"/>
@@ -534,9 +537,13 @@
               <xsl:for-each select="cit:address/*/(
                                           cit:deliveryPoint|cit:city|
                                           cit:administrativeArea|cit:postalCode|cit:country)">
-                <xsl:if test="normalize-space(.) != ''">
-                  <xsl:apply-templates mode="render-value" select="."/><br/>
-                </xsl:if>
+                <div itemprop="address"
+                      itemscope="itemscope"
+                      itemtype="http://schema.org/PostalAddress">
+                  <xsl:if test="normalize-space(.) != ''">
+                    <xsl:apply-templates mode="render-value" select="."/><br/>
+                  </xsl:if>
+                </div>
               </xsl:for-each>
             </xsl:for-each>
           </address>
@@ -545,13 +552,19 @@
           <xsl:for-each select="*//cit:contactInfo/*">
             <address>
               <xsl:for-each select="cit:phone/*/cit:voice[normalize-space(.) != '']">
-                <xsl:variable name="phoneNumber">
-                  <xsl:apply-templates mode="render-value" select="."/>
-                </xsl:variable>
-                <i class="fa fa-phone">&#160;</i>
-                <a href="tel:{$phoneNumber}">
-                  <xsl:value-of select="$phoneNumber"/>&#160;
-                </a>
+                <div itemprop="contactPoint"
+                      itemscope="itemscope"
+                      itemtype="http://schema.org/ContactPoint">
+                  <meta itemprop="contactType"
+                        content="{ancestor::cit:Responsibility/*/cit:role/*/@codeListValue}"/>
+                  <xsl:variable name="phoneNumber">
+                    <xsl:apply-templates mode="render-value" select="."/>
+                  </xsl:variable>
+                  <i class="fa fa-phone">&#160;</i>
+                  <a href="tel:{$phoneNumber}">
+                    <xsl:value-of select="$phoneNumber"/>
+                  </a>
+                </div>
               </xsl:for-each>
               <xsl:for-each select="cit:phone/*/cit:facsimile[normalize-space(.) != '']">
                 <xsl:variable name="phoneNumber">
@@ -573,8 +586,16 @@
                                         normalize-space(linkage)"/>&#160;
                 </a>
               </xsl:for-each>
+              <xsl:for-each select="cit:hoursOfService">
+                <span itemprop="hoursAvailable"
+                      itemscope="itemscope"
+                      itemtype="http://schema.org/OpeningHoursSpecification">
+                  <xsl:apply-templates mode="render-field"
+                                       select="."/>
+                </span>
+              </xsl:for-each>
               <xsl:apply-templates mode="render-field"
-                                   select="cit:hoursOfService|cit:contactInstructions"/>
+                                   select="cit:contactInstructions"/>
             </address>
           </xsl:for-each>
         </div>
@@ -586,7 +607,10 @@
   <xsl:template mode="render-field"
                 match="mdb:metadataIdentifier/mcc:MD_Identifier/mcc:code"
                 priority="100">
-    <dl>
+    <dl class="gn-link"
+        itemprop="distribution"
+        itemscope="itemscope"
+        itemtype="http://schema.org/DataDownload">
       <dt>
         <xsl:value-of select="tr:node-label(tr:create($schema), name(), null)"/>
       </dt>

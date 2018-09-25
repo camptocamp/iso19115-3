@@ -44,10 +44,12 @@
                 priority="2">
     <xsl:param name="schema" select="$schema" required="no"/>
     <xsl:param name="labels" select="$labels" required="no"/>
+    <xsl:param name="refToDelete" required="no"/>
 
     <xsl:apply-templates mode="mode-iso19115-3" select="*|@*">
       <xsl:with-param name="schema" select="$schema"/>
       <xsl:with-param name="labels" select="$labels"/>
+      <xsl:with-param name="refToDelete" select="$refToDelete"/>
     </xsl:apply-templates>
   </xsl:template>
 
@@ -450,12 +452,52 @@
       <geonet:text value="biota"/>
       <geonet:text value="boundaries"/
   -->
+
+  <xsl:template mode="mode-iso19115-3"
+                match="mri:topicCategory[1]"
+                priority="2100">
+
+    <xsl:variable name="xpath" select="gn-fn-metadata:getXPath(.)"/>
+    <xsl:variable name="isoType" select="if (../@gco:isoType) then ../@gco:isoType else ''"/>
+    <xsl:variable name="labelConfig" select="gn-fn-metadata:getLabel($schema, name(), $labels, name(..), $isoType, $xpath)"/>
+
+
+    <xsl:variable name="elementName" select="name()" />
+
+    <xsl:variable name="topicCategories">
+      <xsl:for-each select="../*[name() = $elementName]">
+        <xsl:value-of select="mri:MD_TopicCategoryCode/text()" />
+        <xsl:if test="position() != last()">,</xsl:if>
+      </xsl:for-each>
+    </xsl:variable>
+
+    <xsl:call-template name="render-element">
+      <xsl:with-param name="label"
+                      select="$labelConfig"/>
+      <xsl:with-param name="value" select="$topicCategories"/>
+      <xsl:with-param name="cls" select="local-name()"/>
+      <xsl:with-param name="xpath" select="$xpath"/>
+      <xsl:with-param name="directive" select="'gn-topiccategory-selector'"/>
+      <xsl:with-param name="editInfo" select="gn:element"/>
+      <xsl:with-param name="parentEditInfo" select="../gn:element"/>
+    </xsl:call-template>
+  </xsl:template>
+
+  <!-- Ignore the following topic categories-->
+  <xsl:template mode="mode-iso19115-3"
+                match="mri:topicCategory[
+                        preceding-sibling::*[1]/name() = name()]"
+                priority="2100"/>
+
+
   <xsl:template mode="mode-iso19115-3"
                 match="*[gn:element/gn:text]"
                 priority="2000">
     <xsl:param name="schema" select="$schema" required="no"/>
     <xsl:param name="labels" select="$labels" required="no"/>
     <xsl:param name="codelists" select="$codelists" required="no"/>
+    <xsl:param name="refToDelete" required="no"/>
+
     <xsl:call-template name="render-element">
       <xsl:with-param name="label"
                       select="gn-fn-metadata:getLabel($schema, name(), $labels, name(..), '', '')"/>
@@ -463,7 +505,7 @@
       <xsl:with-param name="cls" select="local-name()"/>
       <xsl:with-param name="type" select="gn-fn-iso19115-3:getCodeListType(name(), $editorConfig)"/>
       <xsl:with-param name="name" select="gn:element/@ref"/>
-      <xsl:with-param name="editInfo" select="*/gn:element"/>
+      <xsl:with-param name="editInfo" select="if ($refToDelete) then $refToDelete else */gn:element"/>
       <xsl:with-param name="listOfValues"
                       select="gn-fn-metadata:getCodeListValues($schema, name(), $codelists, .)"/>
     </xsl:call-template>
