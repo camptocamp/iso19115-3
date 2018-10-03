@@ -383,11 +383,13 @@ public class Handlers {
 
     def pointOfContactGeneralData(party) {
         def org = party.'cit:party'.'cit:CI_Organisation'
+        def contactInfo = party.'cit:party'.'cit:CI_Organisation'.'cit:contactInfo'.'cit:CI_Contact'
         def generalChildren = [
                 org.'cit:individual'.'*'.'cit:name',
                 org.'cit:name',
 //                party.'gmd:positionName',
-                party.'cit:role'
+                party.'cit:role',
+                contactInfo.'cit:address'.'cit:CI_Address'.'cit:electronicMailAddress'
         ]
         handlers.fileResult('html/2-level-entry.html', [label: f.translate('general'), childData: handlers.processElements(generalChildren)])
     }
