@@ -38,6 +38,7 @@
                 xmlns:mdq="http://standards.iso.org/iso/19157/-2/mdq/1.0"
                 xmlns:gco="http://standards.iso.org/iso/19115/-3/gco/1.0"
                 xmlns:index="java:org.fao.geonet.kernel.search.EsSearchManager"
+                xmlns:gn-fn-index="http://geonetwork-opensource.org/xsl/functions/index"
                 xmlns:xlink="http://www.w3.org/1999/xlink"
                 xmlns:daobs="http://daobs.org"
                 xmlns:saxon="http://saxon.sf.net/"
@@ -49,6 +50,7 @@
   <xsl:import href="../../iso19139/index-fields/fn.xsl"/>
   <xsl:import href="common/inspire-constant.xsl"/>
   <xsl:import href="common/index-utils.xsl"/>
+
 
   <xsl:output method="xml" indent="yes"/>
 
@@ -810,11 +812,10 @@
             <xsl:value-of select="cit:linkage/*/text()"/>
           </xsl:element>
           <link type="object">{
-            "protocol":"<xsl:value-of select="cit:protocol/*/text()"/>",
-            "url":"<xsl:value-of select="cit:linkage/*/text()"/>",
-            "name":"<xsl:value-of select="normalize-space(cit:name/*/text())"/>",
-            "description":"<xsl:value-of select="replace(cit:description/*/text(),
-                                              $doubleQuote, $escapedDoubleQuote)"/>"
+            "protocol":"<xsl:value-of select="gn-fn-index:json-escape(cit:protocol/*/text())"/>",
+            "url":"<xsl:value-of select="gn-fn-index:json-escape(cit:linkage/*/text())"/>",
+            "name":"<xsl:value-of select="gn-fn-index:json-escape(cit:name/*/text())"/>",
+            "description":"<xsl:value-of select="gn-fn-index:json-escape(cit:description/*/text())"/>"
             }
           </link>
 
