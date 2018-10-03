@@ -269,6 +269,13 @@ public class Handlers {
                 valueMap.put('formatDistributor', handlers.processElements(distributor))
             }
 
+            def specificationTitle = isofunc.isoText(resolveFormat(el).'mrd:formatSpecificationCitation'
+                .'cit:CI_Citation'.'cit:title')
+            def specificationIdentifier = isofunc.isoText(resolveFormat(el).'mrd:formatSpecificationCitation'
+                .'cit:CI_Citation'.'cit:identifier')
+            valueMap.put('title', specificationTitle)
+            valueMap.put('identifier', specificationIdentifier)
+
             formats.add(valueMap)
         }
 
