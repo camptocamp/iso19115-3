@@ -37,6 +37,7 @@
                 xmlns:mrs="http://standards.iso.org/iso/19115/-3/mrs/1.0"
                 xmlns:mdq="http://standards.iso.org/iso/19157/-2/mdq/1.0"
                 xmlns:gco="http://standards.iso.org/iso/19115/-3/gco/1.0"
+                xmlns:index="java:org.fao.geonet.kernel.search.EsSearchManager"
                 xmlns:xlink="http://www.w3.org/1999/xlink"
                 xmlns:daobs="http://daobs.org"
                 xmlns:saxon="http://saxon.sf.net/"
@@ -44,8 +45,10 @@
                 exclude-result-prefixes="#all"
                 version="2.0">
 
+  <!-- TODO remove dependency on 19139-->
   <xsl:import href="../../iso19139/index-fields/fn.xsl"/>
   <xsl:import href="common/inspire-constant.xsl"/>
+  <xsl:import href="common/index-utils.xsl"/>
 
   <xsl:output method="xml" indent="yes"/>
 
@@ -490,12 +493,20 @@
             <!-- Index keyword characterString including multilingual ones
              and element like gmx:Anchor including the href attribute
              which may contains keyword identifier. -->
+            <xsl:variable name="thesaurusField"
+                          select="concat('thesaurus_', replace($key, '[^a-zA-Z0-9]', ''))"/>
+
+
             <xsl:for-each select="*[normalize-space() != '']|
                                   */@xlink:href[normalize-space() != '']|
                                   lan:PT_FreeText/lan:textGroup/lan:LocalisedCharacterString[normalize-space() != '']">
-              <xsl:element name="thesaurus_{replace($key, '[^a-zA-Z0-9]', '')}">
+              <xsl:element name="{$thesaurusField}">
                 <xsl:value-of select="normalize-space(.)"/>
               </xsl:element>
+
+              <xsl:if test="$thesaurusField = 'thesaurus_geonetworkthesauruslocalthemesextanttheme'">
+                <sextantTheme><xsl:value-of select="index:analyzeField('synSextantThemes', normalize-space(.))"/></sextantTheme>
+              </xsl:if>
             </xsl:for-each>
           </xsl:if>
         </xsl:for-each>
