@@ -468,7 +468,7 @@ public class Handlers {
 
     // Sextant Specific : Formatters
     def keywordsElSxt = {keywords ->
-        def keywordProps = com.google.common.collect.ArrayListMultimap.create()
+        def keywordProps = com.google.common.collect.Maps.newHashMap()
         keywords.collectNested {it.'**'.findAll{it.name() == 'mri:keyword'}}.flatten().each { k ->
             def thesaurusName = isofunc.isoText(k.parent().'mri:thesaurusName'.'cit:CI_Citation'.'cit:title')
 
@@ -484,17 +484,26 @@ public class Handlers {
             }
             def keyValue = isofunc.isoText(k);
             if(!keyValue) keyValue = k.'gcx:Anchor'.text()
-            if(keyValue) keywordProps.put(thesaurusName, keyValue)
+
+            def thesaurusIdEl = k.parent().'mri:thesaurusName'.'cit:CI_Citation'.'cit:identifier'.'mcc:MD_Identifier'
+            def thesaurusId = isofunc.isoText(thesaurusIdEl.'mcc:code')
+            if(!thesaurusId) thesaurusId = thesaurusIdEl.'mcc:code'.'gcx:Anchor'.text()
+
+            if (!keywordProps.get(thesaurusName) && keyValue) {
+              keywordProps.put(thesaurusName, [ words: new ArrayList(), thesaurusId: thesaurusId ])
+            }
+
+            if(keyValue) keywordProps.get(thesaurusName).get('words').push(keyValue)
         }
 
-        if(keywordProps.asMap().size() > 0)
+        if(keywordProps.size() > 0)
             return handlers.fileResult('html/sxt-keyword.html', [
                     label : f.nodeLabel("mri:descriptiveKeywords", null),
-                    keywords: keywordProps.asMap()])
+                    keywords: keywordProps])
     }
 
 
-    def bboxElSxt(thumbnail) {
+  def bboxElSxt(thumbnail) {
         return { el ->
             if (el.parent().'gex:EX_BoundingPolygon'.text().isEmpty() &&
                     el.parent().parent().'gex:geographicElement'.'gex:EX_BoundingPolygon'.text().isEmpty()) {
