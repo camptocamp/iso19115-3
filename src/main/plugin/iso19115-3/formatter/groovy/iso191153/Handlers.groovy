@@ -544,7 +544,7 @@ public class Handlers {
                 .'cit:address'.'cit:CI_Address'.'cit:electronicMailAddress'.each {
             m ->
                 def mail = this.isofunc.isoText(m)
-                if(mail != "") mails.push()
+                if(mail != "") mails.push(mail)
         }
         return mails
     }
@@ -568,25 +568,24 @@ public class Handlers {
 
     def contactsElSxt =  { responsibilities ->
         def contacts = []
-        def idx = 0
-        responsibilities.each { responsability ->
-            responsability.'cit:party'.each { party ->
+        responsibilities.each { responsibility ->
+            responsibility.'cit:party'.each { party ->
                 def orgs = party.'cit:CI_Organisation'
-                def individuals = party.'cit:CI_Individual' // TODO
+                def individuals = party.'cit:CI_Individual'
 
-                if(orgs) { // TODO: should be array
-                    def orgIndividual = orgs.'cit:individual'
-                    def orgName = this.isofunc.isoText(orgs.'cit:name')
-                    def orgMails = getContactMails(orgs)
+                orgs.each { org ->
+                    def orgIndividual = org.'cit:individual'.'cit:CI_Individual'
+                    def orgName = this.isofunc.isoText(org.'cit:name')
+                    def orgMails = getContactMails(org)
 
                     orgIndividual.each { ind ->
-                        def name = this.isofunc.isoText(ind.'*'.'cit:name')
-                        def mails = getContactMails(ind.'cit:CI_Individual')
+                        def name = this.isofunc.isoText(ind.'cit:name')
+                        def mails = getContactMails(ind)
                         if(mails.size() == 0) mails = orgMails
 
                         def contact = [
                             name : name,
-                            link: responsability['@uuid'],
+                            link: responsibility['@uuid'],
                             emptyName : name == '',
                             mail : mails.join(','),
                             org : orgName
@@ -597,13 +596,26 @@ public class Handlers {
                     if(!orgIndividual || orgIndividual == "") {
                         def contact = [
                             name : '',
-                            link: responsability['@uuid'],
+                            link: responsibility['@uuid'],
                             emptyName : true,
                             mail : orgMails.join(','),
                             org : orgName
                         ]
                         addContact(contacts, contact)
                     }
+                }
+
+                individuals.each { ind ->
+                    def name = this.isofunc.isoText(ind.'cit:name')
+                    def mails = getContactMails(ind)
+
+                    def contact = [
+                      name : name,
+                      link: responsibility['@uuid'],
+                      emptyName : name == '',
+                      mail : mails.size() > 0 ? mails.join(',') : ''
+                    ]
+                    addContact(contacts, contact)
                 }
             }
         }
