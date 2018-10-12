@@ -83,6 +83,9 @@ public class Handlers {
         handlers.add name: 'identificationInfo elements', select: {it.parent().name() == 'mdb:identificationInfo'}, commonHandlers.entryEl(f.&nodeLabel, {el -> 'mdb_identificationInfo'})
         handlers.add name: 'Container Elements', select: matchers.isContainerEl, priority: -1, commonHandlers.entryEl(f.&nodeLabel, addPackageViewClass)
 
+        handlers.add name: 'Contact Organisation Elements', select: 'cit:CI_Organisation', organisationEl
+        handlers.add name: 'Contact Individual Elements', select: 'cit:CI_Individual', individualEl
+
         commonHandlers.addDefaultStartAndEndHandlers();
         addExtentHandlers()
 
@@ -356,42 +359,40 @@ public class Handlers {
      */
     def pointOfContactEl = { el ->
 
-        def responsability = el.children().find { ch ->
+        def responsibility = el.children().find { ch ->
             ch.name() == 'cit:CI_Responsibility' ||
               ch['@gco:isoType'].text() == 'cit:CI_Responsibility'
         }
 
-        def general = pointOfContactGeneralData(responsability);
-        def groups = responsability.'cit:contactInfo'.'*'.'*'
+        def orgs = responsibility.'cit:party'.'cit:CI_Organisation'
+        def individuals = responsibility.'cit:party'.'cit:CI_Individual'
 
-        def half = (int) Math.round((groups.size()) / 2)
-
-        def output = commonHandlers.func.isPDFOutput() ? '<table><tr>' : '<div class="row">'
-        if (commonHandlers.func.isPDFOutput()) {
-            output += '<td>' + general.toString() + handlers.processElements(groups.take(half - 1)) + '</td>'
-            output += '<td>' + handlers.processElements(groups.drop(half - 1)) + '</td>'
-        } else {
-            output = '<div class="row">'
-            output += commonHandlers.func.textColEl(general.toString() + handlers.processElements(groups.take(half - 1)), 6)
-            output += commonHandlers.func.textColEl(handlers.processElements(groups.drop(half - 1)), 6)
-        }
-
-        output += commonHandlers.func.isPDFOutput() ? '</tr></table>' : '</div>'
-
-        return handlers.fileResult('html/2-level-entry.html', [label: f.nodeLabel(el), childData: output])
+        def childData = [
+          orgs,
+          individuals,
+          responsibility.'cit:role',
+        ]
+        return handlers.fileResult('html/2-level-entry.html', [label: f.nodeLabel(el), childData: handlers.processElements(childData)])
     }
 
-    def pointOfContactGeneralData(party) {
-        def org = party.'cit:party'.'cit:CI_Organisation'
-        def contactInfo = party.'cit:party'.'cit:CI_Organisation'.'cit:contactInfo'.'cit:CI_Contact'
+    def organisationEl = { el ->
+        def contactInfo = el.'cit:contactInfo'.'cit:CI_Contact'
+        def individuals = el.'cit:individual'.'cit:CI_Individual'
         def generalChildren = [
-                org.'cit:individual'.'*'.'cit:name',
-                org.'cit:name',
-//                party.'gmd:positionName',
-                party.'cit:role',
-                contactInfo.'cit:address'.'cit:CI_Address'.'cit:electronicMailAddress'
+            el.'cit:name',
+            contactInfo.'cit:address'.'cit:CI_Address'.'*',
+            individuals
         ]
-        handlers.fileResult('html/2-level-entry.html', [label: f.translate('general'), childData: handlers.processElements(generalChildren)])
+        handlers.fileResult('html/2-level-entry.html', [label: f.nodeLabel(el), childData: handlers.processElements(generalChildren)])
+    }
+
+    def individualEl = { el ->
+        def contactInfo = el.'cit:contactInfo'.'cit:CI_Contact'
+        def generalChildren = [
+            el.'cit:name',
+            contactInfo.'cit:address'.'cit:CI_Address'.'*'
+        ]
+        handlers.fileResult('html/2-level-entry.html', [label: f.nodeLabel(el), childData: handlers.processElements(generalChildren)])
     }
 
     def polygonEl(thumbnail) {
