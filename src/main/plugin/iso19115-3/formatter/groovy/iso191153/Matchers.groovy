@@ -93,4 +93,7 @@ public class Matchers {
         skipContainers.contains(el.name())
     }
 
+    def isTimePeriodPositionEl = { el ->
+        el.name() == 'gml:beginPosition' || el.name() == 'gml:endPosition'
+    }
 }

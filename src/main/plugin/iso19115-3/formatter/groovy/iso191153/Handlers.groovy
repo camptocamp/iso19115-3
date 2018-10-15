@@ -85,6 +85,7 @@ public class Handlers {
 
         handlers.add name: 'Contact Organisation Elements', select: 'cit:CI_Organisation', organisationEl
         handlers.add name: 'Contact Individual Elements', select: 'cit:CI_Individual', individualEl
+        handlers.add name: 'Time Period Position Elements', select: matchers.isTimePeriodPositionEl, timePeriodPositionEl
 
         commonHandlers.addDefaultStartAndEndHandlers();
         addExtentHandlers()
@@ -465,6 +466,15 @@ public class Handlers {
                     [label: f.nodeLabel(el), childData: rootPackageData, name: rootEl.replace(":", "_")])
 
             return  rootPackageOutput.toString() + otherPackageData
+    }
+
+    def timePeriodPositionEl = { el ->
+        def date = el.text()
+        def indPosition = el.'@indeterminatePosition'.text()
+        handlers.fileResult('html/text-el.html', [
+            label: f.nodeLabel(el),
+            text: !indPosition.isEmpty() ? f.codelistValueLabel("indeterminatePosition", indPosition) : date
+        ])
     }
 
     // Sextant Specific : Formatters
