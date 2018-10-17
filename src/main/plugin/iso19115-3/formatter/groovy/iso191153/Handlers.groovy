@@ -83,6 +83,10 @@ public class Handlers {
         handlers.add name: 'identificationInfo elements', select: {it.parent().name() == 'mdb:identificationInfo'}, commonHandlers.entryEl(f.&nodeLabel, {el -> 'mdb_identificationInfo'})
         handlers.add name: 'Container Elements', select: matchers.isContainerEl, priority: -1, commonHandlers.entryEl(f.&nodeLabel, addPackageViewClass)
 
+        handlers.add name: 'Contact Organisation Elements', select: 'cit:CI_Organisation', organisationEl
+        handlers.add name: 'Contact Individual Elements', select: 'cit:CI_Individual', individualEl
+        handlers.add name: 'Time Period Position Elements', select: matchers.isTimePeriodPositionEl, timePeriodPositionEl
+
         commonHandlers.addDefaultStartAndEndHandlers();
         addExtentHandlers()
 
@@ -269,6 +273,13 @@ public class Handlers {
                 valueMap.put('formatDistributor', handlers.processElements(distributor))
             }
 
+            def specificationTitle = isofunc.isoText(resolveFormat(el).'mrd:formatSpecificationCitation'
+                .'cit:CI_Citation'.'cit:title')
+            def specificationIdentifier = isofunc.isoText(resolveFormat(el).'mrd:formatSpecificationCitation'
+                .'cit:CI_Citation'.'cit:identifier')
+            valueMap.put('title', specificationTitle)
+            valueMap.put('identifier', specificationIdentifier)
+
             formats.add(valueMap)
         }
 
@@ -349,40 +360,40 @@ public class Handlers {
      */
     def pointOfContactEl = { el ->
 
-        def responsability = el.children().find { ch ->
+        def responsibility = el.children().find { ch ->
             ch.name() == 'cit:CI_Responsibility' ||
               ch['@gco:isoType'].text() == 'cit:CI_Responsibility'
         }
 
-        def general = pointOfContactGeneralData(responsability);
-        def groups = responsability.'cit:contactInfo'.'*'.'*'
+        def orgs = responsibility.'cit:party'.'cit:CI_Organisation'
+        def individuals = responsibility.'cit:party'.'cit:CI_Individual'
 
-        def half = (int) Math.round((groups.size()) / 2)
-
-        def output = commonHandlers.func.isPDFOutput() ? '<table><tr>' : '<div class="row">'
-        if (commonHandlers.func.isPDFOutput()) {
-            output += '<td>' + general.toString() + handlers.processElements(groups.take(half - 1)) + '</td>'
-            output += '<td>' + handlers.processElements(groups.drop(half - 1)) + '</td>'
-        } else {
-            output = '<div class="row">'
-            output += commonHandlers.func.textColEl(general.toString() + handlers.processElements(groups.take(half - 1)), 6)
-            output += commonHandlers.func.textColEl(handlers.processElements(groups.drop(half - 1)), 6)
-        }
-
-        output += commonHandlers.func.isPDFOutput() ? '</tr></table>' : '</div>'
-
-        return handlers.fileResult('html/2-level-entry.html', [label: f.nodeLabel(el), childData: output])
+        def childData = [
+          orgs,
+          individuals,
+          responsibility.'cit:role',
+        ]
+        return handlers.fileResult('html/2-level-entry.html', [label: f.nodeLabel(el), childData: handlers.processElements(childData)])
     }
 
-    def pointOfContactGeneralData(party) {
-        def org = party.'cit:party'.'cit:CI_Organisation'
+    def organisationEl = { el ->
+        def contactInfo = el.'cit:contactInfo'.'cit:CI_Contact'
+        def individuals = el.'cit:individual'.'cit:CI_Individual'
         def generalChildren = [
-                org.'cit:individual'.'*'.'cit:name',
-                org.'cit:name',
-//                party.'gmd:positionName',
-                party.'cit:role'
+            el.'cit:name',
+            contactInfo.'cit:address'.'cit:CI_Address'.'*',
+            individuals
         ]
-        handlers.fileResult('html/2-level-entry.html', [label: f.translate('general'), childData: handlers.processElements(generalChildren)])
+        handlers.fileResult('html/2-level-entry.html', [label: f.nodeLabel(el), childData: handlers.processElements(generalChildren)])
+    }
+
+    def individualEl = { el ->
+        def contactInfo = el.'cit:contactInfo'.'cit:CI_Contact'
+        def generalChildren = [
+            el.'cit:name',
+            contactInfo.'cit:address'.'cit:CI_Address'.'*'
+        ]
+        handlers.fileResult('html/2-level-entry.html', [label: f.nodeLabel(el), childData: handlers.processElements(generalChildren)])
     }
 
     def polygonEl(thumbnail) {
@@ -457,9 +468,18 @@ public class Handlers {
             return  rootPackageOutput.toString() + otherPackageData
     }
 
+    def timePeriodPositionEl = { el ->
+        def date = el.text()
+        def indPosition = el.'@indeterminatePosition'.text()
+        handlers.fileResult('html/text-el.html', [
+            label: f.nodeLabel(el),
+            text: !indPosition.isEmpty() ? f.codelistValueLabel("indeterminatePosition", indPosition) : date
+        ])
+    }
+
     // Sextant Specific : Formatters
     def keywordsElSxt = {keywords ->
-        def keywordProps = com.google.common.collect.ArrayListMultimap.create()
+        def keywordProps = com.google.common.collect.Maps.newHashMap()
         keywords.collectNested {it.'**'.findAll{it.name() == 'mri:keyword'}}.flatten().each { k ->
             def thesaurusName = isofunc.isoText(k.parent().'mri:thesaurusName'.'cit:CI_Citation'.'cit:title')
 
@@ -475,17 +495,26 @@ public class Handlers {
             }
             def keyValue = isofunc.isoText(k);
             if(!keyValue) keyValue = k.'gcx:Anchor'.text()
-            if(keyValue) keywordProps.put(thesaurusName, keyValue)
+
+            def thesaurusIdEl = k.parent().'mri:thesaurusName'.'cit:CI_Citation'.'cit:identifier'.'mcc:MD_Identifier'
+            def thesaurusId = isofunc.isoText(thesaurusIdEl.'mcc:code')
+            if(!thesaurusId) thesaurusId = thesaurusIdEl.'mcc:code'.'gcx:Anchor'.text()
+
+            if (!keywordProps.get(thesaurusName) && keyValue) {
+              keywordProps.put(thesaurusName, [ words: new ArrayList(), thesaurusId: thesaurusId ])
+            }
+
+            if(keyValue) keywordProps.get(thesaurusName).get('words').push(keyValue)
         }
 
-        if(keywordProps.asMap().size() > 0)
+        if(keywordProps.size() > 0)
             return handlers.fileResult('html/sxt-keyword.html', [
                     label : f.nodeLabel("mri:descriptiveKeywords", null),
-                    keywords: keywordProps.asMap()])
+                    keywords: keywordProps])
     }
 
 
-    def bboxElSxt(thumbnail) {
+  def bboxElSxt(thumbnail) {
         return { el ->
             if (el.parent().'gex:EX_BoundingPolygon'.text().isEmpty() &&
                     el.parent().parent().'gex:geographicElement'.'gex:EX_BoundingPolygon'.text().isEmpty()) {
@@ -526,7 +555,7 @@ public class Handlers {
                 .'cit:address'.'cit:CI_Address'.'cit:electronicMailAddress'.each {
             m ->
                 def mail = this.isofunc.isoText(m)
-                if(mail != "") mails.push()
+                if(mail != "") mails.push(mail)
         }
         return mails
     }
@@ -550,25 +579,24 @@ public class Handlers {
 
     def contactsElSxt =  { responsibilities ->
         def contacts = []
-        def idx = 0
-        responsibilities.each { responsability ->
-            responsability.'cit:party'.each { party ->
+        responsibilities.each { responsibility ->
+            responsibility.'cit:party'.each { party ->
                 def orgs = party.'cit:CI_Organisation'
-                def individuals = party.'cit:CI_Individual' // TODO
+                def individuals = party.'cit:CI_Individual'
 
-                if(orgs) { // TODO: should be array
-                    def orgIndividual = orgs.'cit:individual'
-                    def orgName = this.isofunc.isoText(orgs.'cit:name')
-                    def orgMails = getContactMails(orgs)
+                orgs.each { org ->
+                    def orgIndividual = org.'cit:individual'.'cit:CI_Individual'
+                    def orgName = this.isofunc.isoText(org.'cit:name')
+                    def orgMails = getContactMails(org)
 
                     orgIndividual.each { ind ->
-                        def name = this.isofunc.isoText(ind.'*'.'cit:name')
-                        def mails = getContactMails(ind.'cit:CI_Individual')
+                        def name = this.isofunc.isoText(ind.'cit:name')
+                        def mails = getContactMails(ind)
                         if(mails.size() == 0) mails = orgMails
 
                         def contact = [
                             name : name,
-                            link: responsability['@uuid'],
+                            link: responsibility['@uuid'],
                             emptyName : name == '',
                             mail : mails.join(','),
                             org : orgName
@@ -579,13 +607,26 @@ public class Handlers {
                     if(!orgIndividual || orgIndividual == "") {
                         def contact = [
                             name : '',
-                            link: responsability['@uuid'],
+                            link: responsibility['@uuid'],
                             emptyName : true,
                             mail : orgMails.join(','),
                             org : orgName
                         ]
                         addContact(contacts, contact)
                     }
+                }
+
+                individuals.each { ind ->
+                    def name = this.isofunc.isoText(ind.'cit:name')
+                    def mails = getContactMails(ind)
+
+                    def contact = [
+                      name : name,
+                      link: responsibility['@uuid'],
+                      emptyName : name == '',
+                      mail : mails.size() > 0 ? mails.join(',') : ''
+                    ]
+                    addContact(contacts, contact)
                 }
             }
         }

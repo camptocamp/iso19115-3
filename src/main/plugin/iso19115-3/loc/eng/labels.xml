@@ -2580,7 +2580,7 @@
     <helper relAtt="uom" displayIf="ancestor::node()[
               name()='mdb:MD_Metadata' and
               contains(mdb:metadataStandard/*/cit:title/*:CharacterString, 'Emodnet Checkpoint')]">
-      <option value="1" title="Arc seconds (North)">Arc seconds (North)</option>
+      <option value="1" title="Arc second">Arc second</option>
       <option value="1" title="meter">meters</option>
     </helper>
     <helper relAtt="uom">
