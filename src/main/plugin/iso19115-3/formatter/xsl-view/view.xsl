@@ -158,7 +158,7 @@
           <xsl:when test="$isTdp">
             <div data-gn-related="md"
                  data-types="siblings|associated"
-                 data-filter="associationType:specification"
+                 data-filter="initiativeType:specification"
                  data-title="Links">&#160;</div>
           </xsl:when>
           <xsl:when test="$isDps">
