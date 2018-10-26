@@ -280,7 +280,7 @@
     <xsl:if test="$isTdp">
       <div data-gn-related="md"
            data-types="siblings|associated"
-           data-filter="associationType:upstreamData"
+           data-filter="initiativeType:upstreamData"
            data-title="Upstream data">&#160;</div>
     </xsl:if>
   </xsl:template>
